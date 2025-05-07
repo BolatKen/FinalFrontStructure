@@ -1,0 +1,62 @@
+.podpiska {
+  background-color: #F3F5F7;
+  padding: 0 16px; 
+}
+
+.podpiska__inner {
+  padding: 48px 0;
+  display: flex;
+  flex-direction: column;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.podpiska__title {
+  font-size: 28px;
+  font-weight: 500;
+  color: #131111;
+  line-height: 100%;
+  letter-spacing: -1.2px;
+  margin-bottom: 16px;
+}
+
+.podpiska__desc {
+  font-size: 18px;
+  color: rgba(19, 17, 17, 0.6);
+  line-height: 32px;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+}
+
+.podpiska__form {
+  display: flex;
+  gap: 16px;
+  height: 48px;
+  flex-wrap: wrap;
+}
+
+.podpiska__input {
+  height: 48px;
+  padding: 0 16px;
+  border-radius: 100px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  width: 100%;
+  max-width: 430px;
+  background-color: rgba(0,0,0,0.05);
+  box-shadow: 0 0 0 1px #ccc inset;
+  flex: 1;
+}
+
+.podpiska__btn {
+  height: 48px;
+  padding: 0 24px;
+  background-color: rgba(255, 114, 68, 1);
+  color: #fff;
+  border: none;
+  border-radius: 56px;
+  font-size: 16px;
+  cursor: pointer;
+  white-space: nowrap;
+}

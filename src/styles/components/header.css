@@ -1,0 +1,105 @@
+.header {
+  width: 100%;
+  font-family: "Suisse Int'l", sans-serif;
+}
+
+.header__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 11px 0px;
+  min-height: 70px;
+}
+
+.header__logo {
+  font-weight: 500;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.header__items {
+  display: flex;
+}
+
+.header__item {
+  margin-left: 48px;
+}
+
+.header__item:first-child {
+  margin-left: 0px;
+}
+
+.header__link {
+  line-height: 120%;
+}
+
+.cart__icon {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cart__rect {
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  border: 1px solid var(--general-color);
+  border-radius: 50%;
+  opacity: 40%;
+  z-index: -1;
+}
+
+
+
+@media (max-width: 1024px) {
+  .header__items {
+    display: none;
+    /* скрыть меню на планшетах и ниже */
+  }
+
+  .header__inner {
+    justify-content: space-between;
+  }
+
+  .header__cart {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .header__logo {
+    font-size: 20px;
+  }
+
+  .cart__icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .cart__rect {
+    width: 40px;
+    height: 40px;
+  }
+
+  .cart__svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header__inner {
+    padding: 0 16px;
+  }
+
+  .cart__notification {
+    top: -4px;
+    right: -4px;
+    font-size: 9px;
+    min-width: 14px;
+    height: 14px;
+  }
+}

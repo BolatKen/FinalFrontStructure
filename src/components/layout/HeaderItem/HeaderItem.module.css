@@ -1,0 +1,11 @@
+.header__item {
+    margin-left: 48px;
+}
+
+.header__item:first-child {
+    margin-left: 0px;
+}
+
+.header__link {
+    line-height: 120%;
+}

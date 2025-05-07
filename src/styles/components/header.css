@@ -52,6 +52,11 @@
   z-index: -1;
 }
 
+.cart__svg {
+  max-width: 24px;
+  max-height: 24px;
+}
+
 
 
 @media (max-width: 1024px) {

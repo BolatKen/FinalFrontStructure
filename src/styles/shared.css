@@ -33,7 +33,7 @@
     align-items: center;
 }
 
-.icon img {
+.icon__notification img {
     max-width: 7px;
     max-height: 4px;
 }

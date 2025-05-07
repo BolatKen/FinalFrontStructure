@@ -17,8 +17,8 @@ export default function Header() {
         <div className="header__logo">Leka Beauty</div>
 
         <ul className="header__items">
-          {headerItems.map((item) => (
-            <HeaderItem children={item} onClick={null} />
+          {headerItems.map((item, idx) => (
+            <HeaderItem key={idx} children={item} onClick={null} />
           ))}
         </ul>
 

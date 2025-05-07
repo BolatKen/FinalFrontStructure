@@ -28,7 +28,7 @@ export default function Configurator() {
                   Подлокотники
                 </button>
                 <div className="icon__notification">
-                  <img src="/assets/check.png" alt="check-icon" />
+                  <img src="/icons/check.png" alt="check-icon" />
                 </div>
               </div>
               <div className="group__button btn icon">

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import ColorSelector from "./ui/color-selector";
+=======
+import { ButtonPrimary } from './ButtonPrimary/ButtonPrimary';
+>>>>>>> a43f657 (added primary button component)
 
 export default function Configurator() {
   return (
@@ -71,9 +75,7 @@ export default function Configurator() {
                     />
                   </li>
                 </ul>
-                <div className="variant__button btn">
-                  <button className="btn__item">Под заказ</button>
-                </div>
+                <ButtonPrimary children={"Под заказ"} onClick={null} />
               </div>
             </div>
 
@@ -99,9 +101,7 @@ export default function Configurator() {
                     />
                   </li>
                 </ul>
-                <div className="variant__button btn">
-                  <button className="btn__item">Под заказ</button>
-                </div>
+                <ButtonPrimary children={"Под заказ"} onClick={null} />
               </div>
             </div>
 

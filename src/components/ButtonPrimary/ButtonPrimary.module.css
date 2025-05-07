@@ -1,0 +1,20 @@
+.button {
+    cursor: pointer;
+}
+
+.button__item {
+    background: transparent;
+    padding: 12px 23px;
+    color: white;
+    border-radius: 28px;
+    border: 1px solid rgba(72, 71, 71, 1);
+}
+
+.button__item_padding {
+    padding: 32.5px 23px;
+}
+
+.button__item_selected {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(255, 114, 68, 0.1);
+}

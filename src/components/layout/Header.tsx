@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Header() {
   return (
     <header className="header">
@@ -6,39 +8,43 @@ export default function Header() {
 
         <ul className="header__items">
           <li className="header__item">
-            <a href="#" className="header__link">
+            <Link
+              href="/catalog
+            "
+              className="header__link"
+            >
               Кресла
-            </a>
+            </Link>
           </li>
           <li className="header__item">
-            <a href="#" className="header__link">
+            <Link href="#" className="header__link">
               Столы
-            </a>
+            </Link>
           </li>
           <li className="header__item">
-            <a href="#" className="header__link">
+            <Link href="#" className="header__link">
               Диваны
-            </a>
+            </Link>
           </li>
           <li className="header__item">
-            <a href="#" className="header__link">
+            <Link href="#" className="header__link">
               Мойки
-            </a>
+            </Link>
           </li>
           <li className="header__item">
-            <a href="#" className="header__link">
+            <Link href="#" className="header__link">
               Стулья
-            </a>
+            </Link>
           </li>
           <li className="header__item">
-            <a href="#" className="header__link">
+            <Link href="#" className="header__link">
               Шкафы
-            </a>
+            </Link>
           </li>
           <li className="header__item">
-            <a href="#" className="header__link">
+            <Link href="#" className="header__link">
               Другая мебель
-            </a>
+            </Link>
           </li>
         </ul>
 

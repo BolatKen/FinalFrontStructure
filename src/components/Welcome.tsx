@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 import ColorSelector from "./ui/color-selector";
-=======
 import { ButtonPrimary } from './ButtonPrimary/ButtonPrimary';
->>>>>>> a43f657 (added primary button component)
 
 export default function Welcome() {
   return (

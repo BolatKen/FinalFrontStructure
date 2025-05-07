@@ -1,3 +1,5 @@
+import ColorSelector from "./ui/color-selector";
+
 export default function Welcome() {
   return (
     <main className="welcome">
@@ -52,21 +54,22 @@ export default function Welcome() {
                 <div className="configure__title">Цвет и материал</div>
                 <ul className="color__items color__margin">
                   <li className="color__item color__item_selected">
-                    <img
-                      src="/textures/material-yellow.png"
-                      alt="color-material-1"
+                    <ColorSelector
+                      imageUrl="/textures/material-yellow.png"
+                      alt="Желтый"
+                      selected
                     />
                   </li>
                   <li className="color__item">
-                    <img
-                      src="/textures/material-white.png"
-                      alt="color-material-2"
+                    <ColorSelector
+                      imageUrl="/textures/material-white.png"
+                      alt="Белый"
                     />
                   </li>
                   <li className="color__item">
-                    <img
-                      src="/textures/material-brown.png"
-                      alt="color-material-3"
+                    <ColorSelector
+                      imageUrl="/textures/material-brown.png"
+                      alt="Коричневый"
                     />
                   </li>
                 </ul>

@@ -5,27 +5,31 @@
 
 .configurator__main {
   display: flex;
-  justify-content: space-between;
+
+  
+  gap: 70px; /* вот здесь точное расстояние */
   align-items: flex-start;
   flex-wrap: wrap;
 
-  padding-top: 154px;
+  padding-top: 134px;
+
+
 }
 
 .configurator__image {
-  padding: calc(670 / 1123.2 * 100% / 2);
+  padding: calc(625 / 1123.2 * 100% / 2);
   transform: rotateY(180deg);
 }
 
 .configurator__title {
-  font-size: 40px;
+  font-size: 39px;
   font-weight: 500;
   line-height: 48px;
   letter-spacing: -1.2px;
 }
 
 .configurator__icon {
-  margin-top: 32px;
+  margin-top: 22px;
 }
 
 .configurator__text {
@@ -40,12 +44,14 @@
 
 .configurator__group {
   display: flex;
-  margin-top: 49px;
+  margin-top: 36px;
 }
 
 .configurator__group>*:not(:first-child) {
   margin-left: 16px;
 }
+
+
 
 .group {}
 
@@ -54,7 +60,7 @@
 .configurator__option {
   display: flex;
   flex-direction: column;
-  margin-top: 56px;
+  margin-top: 46px;
 }
 
 .variant {}
@@ -88,7 +94,7 @@
 }
 
 .configurator__btn {
-  margin-top: 72px;
+  margin-top: 54px;
 }
 
 .configurator__description {

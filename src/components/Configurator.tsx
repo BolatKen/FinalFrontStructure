@@ -1,3 +1,5 @@
+import ColorSelector from "./ui/color-selector";
+
 export default function Configurator() {
   return (
     <div className="configurator">
@@ -44,27 +46,28 @@ export default function Configurator() {
               <div className="variant__inner">
                 <ul className="color__items">
                   <li className="color__item color__item_selected">
-                    <img
-                      src="/textures/material-black.png"
-                      alt="Черный материал"
+                    <ColorSelector
+                      imageUrl="/textures/material-black.png"
+                      alt="Черный"
+                      selected
                     />
                   </li>
                   <li className="color__item">
-                    <img
-                      src="/textures/material-green.png"
-                      alt="Зеленый материал"
+                    <ColorSelector
+                      imageUrl="/textures/material-green.png"
+                      alt="Зеленый"
                     />
                   </li>
                   <li className="color__item">
-                    <img
-                      src="/textures/material-blue.png"
-                      alt="Синий материал"
+                    <ColorSelector
+                      imageUrl="/textures/material-blue.png"
+                      alt="Синий"
                     />
                   </li>
                   <li className="color__item">
-                    <img
-                      src="/textures/material-pink.png"
-                      alt="Розовый материал"
+                    <ColorSelector
+                      imageUrl="/textures/material-pink.png"
+                      alt="Розовый"
                     />
                   </li>
                 </ul>
@@ -83,10 +86,17 @@ export default function Configurator() {
               <div className="variant__inner">
                 <ul className="color__items">
                   <li className="color__item color__item_selected">
-                    <img src="/textures/wood-dark.png" alt="Темное дерево" />
+                    <ColorSelector
+                      imageUrl="/textures/wood-dark.png"
+                      alt="Темное дерево"
+                      selected
+                    />
                   </li>
                   <li className="color__item">
-                    <img src="/textures/wood-white.png" alt="Светлое дерево" />
+                    <ColorSelector
+                      imageUrl="/textures/wood-white.png"
+                      alt="Светлое дерево"
+                    />
                   </li>
                 </ul>
                 <div className="variant__button btn">

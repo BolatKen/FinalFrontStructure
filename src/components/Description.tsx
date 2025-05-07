@@ -17,34 +17,42 @@ export default function Description() {
             <div className="specs__list">
               <div className="specs__row">
                 <div className="specs__name">Наполнение</div>
+                <div className="specs__line"></div>
                 <div className="specs__value">пенополиуретан, холофайбер</div>
               </div>
               <div className="specs__row">
                 <div className="specs__name">Тип обивки</div>
+                <div className="specs__line"></div>
                 <div className="specs__value">Экокожа</div>
               </div>
               <div className="specs__row">
                 <div className="specs__name">Материал подлокотников</div>
+                <div className="specs__line"></div>
                 <div className="specs__value">Экокожа</div>
               </div>
               <div className="specs__row">
                 <div className="specs__name">Материал каркаса</div>
+                <div className="specs__line"></div>
                 <div className="specs__value">Фанера (ЛДСП)</div>
               </div>
               <div className="specs__row">
                 <div className="specs__name">Максимальная нагрузка</div>
+                <div className="specs__line"></div>
                 <div className="specs__value">180 кг</div>
               </div>
               <div className="specs__row">
                 <div className="specs__name">Механизм</div>
+                <div className="specs__line"></div>
                 <div className="specs__value">пиастра</div>
               </div>
               <div className="specs__row">
                 <div className="specs__name">Вариант доставки</div>
+                <div className="specs__line"></div>
                 <div className="specs__value">в разобранном виде</div>
               </div>
               <div className="specs__row">
                 <div className="specs__name">Цвет</div>
+                <div className="specs__line"></div>
                 <div className="specs__value">металл</div>
               </div>
             </div>

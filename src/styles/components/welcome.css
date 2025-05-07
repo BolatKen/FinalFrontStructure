@@ -153,10 +153,10 @@
     justify-content: center;
     align-items: center;
 
-    min-width: 48px;
-    min-height: 48px;
+    min-width: 42px;
+    min-height: 42px;
 
-    border: 1px solid #484747;
+    border: 1.1px solid #484747;
     border-radius: 50%;
 
 }
@@ -166,8 +166,8 @@
 }
 
 .color__item>*:first-child {
-    max-width: 42px;
-    max-height: 42px;
+    max-width: 38px;
+    max-height: 38px;
 }
 
 .color__item_selected {

@@ -1,15 +1,17 @@
 .footer {
   background-color: var(--general-color);
   color: white;
-  max-width: 1738px;
-  max-height: 577px;
+  /* max-width: 1738px;
+  max-height: 577px; */
   font-family: "Suisse Int'l", sans-serif;
+
+  
 }
 
-.footer__upper {
+/* .footer__upper {
   max-width: 1332px;
   max-height: 497px;
-}
+} */
 
 .footer__header {
   position: relative;
@@ -34,7 +36,7 @@
 
 .footer-list__item {
   font-family: 'Suisse Intl', sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 120%;
   letter-spacing: -0.03em;
@@ -60,7 +62,7 @@
 
 .footer__logo {
   font-family: 'Suisse Intl', sans-serif;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 400;
   margin-bottom: 16px;
   line-height: 120%;
@@ -69,7 +71,7 @@
 
 .footer__desc {
   font-family: 'Graphik', sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 18.9px;
   letter-spacing: -0.01em;
@@ -82,7 +84,7 @@
   display: flex;
   gap: 38px;
   font-family: 'Graphik', sans-serif;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 400;
   line-height: 100%;
   letter-spacing: -0.01em;
@@ -94,7 +96,7 @@
   display: flex;
   justify-content: space-between;
   font-family: 'Graphik', sans-serif;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 400;
   line-height: 18.9px;
   letter-spacing: -0.01em;
@@ -108,12 +110,12 @@
 }
 
 .footer__menu li {
-  margin-bottom: 12px;
+  margin-bottom: 24px;
 }
 
 .footer__menu a {
   font-family: 'Graphik', sans-serif;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 400;
   line-height: 18.9px;
   letter-spacing: -0.01em;
@@ -129,10 +131,13 @@
 .footer__bottom {
   display: flex;
   justify-content: space-between;
-  padding: 16px 64px 16px 64px;
+  padding: 32px 64px ;
   color: var(--general-gray);
   position: relative;
   max-height: 80px;
+
+  align-items: center;
+  /* width: 100%; */
 }
 
 .footer__bottom::before {
@@ -156,6 +161,8 @@
 
 .conf__item {
   opacity: 0.5;
+  font-size: 13px;
+  font-weight: 400;
 }
 
 .conf__item:not(:first-child) {
@@ -176,15 +183,15 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 16px 24px;
-  height: 74px;
+  padding: 4px 24px;
+  height: 54px;
   background-color: transparent;
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 24px;
   position: relative;
   width: fit-content;
   transition: all 0.3s ease;
-  margin-top: 32px;
+  margin-top: 78px;
 }
 
 .footer__whatsapp:hover {
@@ -193,8 +200,8 @@
 }
 
 .footer__whatsapp-icon img {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
 }
 
 .footer__whatsapp-text {
@@ -205,13 +212,13 @@
 }
 
 .footer__whatsapp-title {
-  font-size: 14px;
+  font-size: 13px;
   color: rgba(255, 255, 255, 0.6);
 }
 
 .footer__whatsapp-link {
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 400;
   color: white;
   text-decoration: none;
   margin-top: 4px;
@@ -219,4 +226,82 @@
 
 .footer__whatsapp-link:hover {
   text-decoration: underline;
+}
+
+
+@media (max-width: 768px) {
+  .footer__list {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-list__item:not(:first-child) {
+    margin-left: 0;
+  }
+
+  .footer__content {
+    flex-direction: column;
+    gap: 32px;
+    padding-top: 24px;
+  }
+
+  .footer__column {
+    max-width: 100%;
+  }
+
+  .footer__contacts {
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 32px;
+    margin-top: 32px;
+    font-size: 18px;
+  }
+
+  .footer__info {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .footer__whatsapp {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .footer__bottom {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .footer__logo {
+    font-size: 20px;
+  }
+
+  .footer__desc,
+  .footer__info-text,
+  .footer__info-title,
+  .footer__whatsapp-title {
+    font-size: 14px;
+  }
+
+  .footer__menu li {
+    margin-bottom: 12px;
+  }
+
+  .footer__header  {
+    display : none;
+  }
+  
+  .footer__content {
+    padding: 48px 16px;
+  }
+  .footer__conf{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
 }

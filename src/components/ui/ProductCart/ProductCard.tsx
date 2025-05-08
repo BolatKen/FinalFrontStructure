@@ -21,17 +21,19 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div className="product-card__image">
         <img src={imageSrc} alt={title} />
       </div>
-      <div className="product-card__info">
-        <h3 className="product-card__title">{title}</h3>
-        <div className="product-card__bottom">
+      <div className="product-card__inner">
+        <div className="product-card__info">
           <div className="product-card__more">
-            <div className="product-card__prices">
-              <span className="product-card__old-price">{oldPrice}</span>
-              <span className="product-card__new-price">{newPrice}</span>
-            </div>
-            <div className="product-card__bonus">
-              <span className="product-card__bonus-icon">б</span>
-              <span className="product-card__bonus-text">+ {bonus} бонусов</span>
+            <h3 className="product-card__title">{title}</h3>
+            <div className="product-card__bottom">
+              <div className="product-card__prices">
+                <span className="product-card__old-price">{oldPrice}</span>
+                <span className="product-card__new-price">{newPrice}</span>
+              </div>
+              <div className="product-card__bonus">
+                <span className="product-card__bonus-icon">б</span>
+                <span className="product-card__bonus-text">+ {bonus} бонусов</span>
+              </div>
             </div>
           </div>
           <div className="product-card__arrow">

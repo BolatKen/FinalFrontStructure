@@ -1,43 +1,29 @@
 "use client";
 
-import ProductCard from "@/components/ui/productcart";
+import ProductCard from "@/components/ui/ProductCart/ProductCard";
 import { useRef } from "react";
 
 const products = [
   {
     imageSrc: "/products/chair1.jpg",
     title: "Aurora",
-    oldPrice: "121000",
-    newPrice: "104000",
-    bonuses: "5200",
-    variants: [
-      { color: "#D57A42" },
-      { color: "#7E7672" },
-      { color: "#EDEDED" },
-    ],
+    oldPrice: "121 000 ТГ",
+    newPrice: "104 000 ТГ",
+    bonus: "5 200",
   },
   {
     imageSrc: "/products/chair1.jpg",
     title: "Aurora",
-    oldPrice: "149000",
-    newPrice: "136000",
-    bonuses: "6800",
-    variants: [
-      { color: "#D57A42" },
-      { color: "#7E7672" },
-      { color: "#EDEDED" },
-    ],
+    oldPrice: "149 000 ТГ",
+    newPrice: "136 000 ТГ",
+    bonus: "6 800",
   },
   {
     imageSrc: "/products/chair1.jpg",
     title: "Aurora",
-    newPrice: "149000",
-    bonuses: "7450",
-    variants: [
-      { color: "#D57A42" },
-      { color: "#7E7672" },
-      { color: "#EDEDED" },
-    ],
+    oldPrice: "",
+    newPrice: "149 000 ТГ",
+    bonus: "7 450",
   },
 ];
 
@@ -57,7 +43,6 @@ export default function BestOffers() {
     <section className="best-offers">
       <h2 className="best-offers__title">Лучшие предложения</h2>
 
-      {/* Scroll buttons */}
       <button
         onClick={() => scroll("left")}
         className="best-offers__scroll-btn best-offers__scroll-btn--left"
@@ -75,20 +60,15 @@ export default function BestOffers() {
         />
       </button>
 
-      {/* Scrollable row */}
       <div ref={containerRef} className="best-offers__list">
         {products.map((product, i) => (
           <ProductCard
             key={i}
-            name={product.title}
-            price={parseInt(product.newPrice)}
-            oldPrice={product.oldPrice ? parseInt(product.oldPrice) : undefined}
-            bonuses={parseInt(product.bonuses)}
-            imageUrl={product.imageSrc}
-            colorOptions={product.variants.map((v, vi) => ({
-              color: v.color,
-              active: vi === 0,
-            }))}
+            imageSrc={product.imageSrc}
+            title={product.title}
+            oldPrice={product.oldPrice}
+            newPrice={product.newPrice}
+            bonus={product.bonus}
           />
         ))}
       </div>

@@ -1,5 +1,3 @@
-"use client";
-
 export default function Subscribe() {
   return (
     <div className="podpiska">
@@ -13,7 +11,7 @@ export default function Subscribe() {
           данных
         </p>
 
-        <form className="podpiska__form" onSubmit={(e) => e.preventDefault()}>
+        <form className="podpiska__form">
           <input
             type="email"
             className="podpiska__input"

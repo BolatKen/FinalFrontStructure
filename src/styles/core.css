@@ -11,7 +11,7 @@
     --header-max-width: 1338px;
     --general-font-size: 16px;
     --general-color: #131111;
-    --general-max-width: 1248px;
+    --general-max-width: 1190px;
     --accent-color: #FF7244;
     --letter-space: -0.03em;
     --line-height: 120%;
@@ -92,7 +92,7 @@ a {
 }
 
 ._container-bigger {
-    max-width: calc(var(--header-max-width) * 0.9);
+    max-width: calc(var(--header-max-width) * 1.09);
     margin: 0 auto;
 }
 

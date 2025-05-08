@@ -2,14 +2,14 @@ import { HeaderItem } from "./HeaderItem/HeaderItem";
 
 export default function Header() {
   const headerItems = [
-    'Кресла',
-    'Столы',
-    'Диваны',
-    'Мойки',
-    'Стулья',
-    'Шкафы',
-    'Другая мебель'
-  ]
+    "Кресла",
+    "Столы",
+    "Диваны",
+    "Мойки",
+    "Стулья",
+    "Шкафы",
+    "Другая мебель",
+  ];
 
   return (
     <header className="header">
@@ -17,8 +17,8 @@ export default function Header() {
         <div className="header__logo">Leka Beauty</div>
 
         <ul className="header__items">
-          {headerItems.map((item) => (
-            <HeaderItem children={item} onClick={null} />
+          {headerItems.map((item, index) => (
+            <HeaderItem key={index} children={item} onClick={null} />
           ))}
         </ul>
 

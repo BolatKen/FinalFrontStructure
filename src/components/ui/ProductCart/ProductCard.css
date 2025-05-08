@@ -1,0 +1,125 @@
+.product-card {
+    max-width: 401.33px;
+    max-height: 508px;
+    background-color: rgb(234, 232, 230,1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 12px;
+    overflow: hidden;
+  }
+  
+  .product-card__image {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px 8px 0 0; 
+    position: relative;
+    z-index: 1;
+  }
+  
+  .product-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center -60px;
+    display: block;
+  }
+  
+  .product-card__info {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: -40px; 
+    z-index: 2;
+    position: relative;
+  }
+  
+
+  
+  .product-card__title {
+    font-weight: 500;
+    font-size: 18px;
+    margin: 0;
+    line-height: 100%;
+    font-family: 'Graphik', sans-serif;
+    color: rgba(19, 17, 17, 1);
+    letter-spacing: -1px;
+    vertical-align: middle;
+  }
+  
+  .product-card__prices {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-height: 20px;
+  }
+  
+  .product-card__old-price {
+    font-family: 'Graphik', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 100%;
+    letter-spacing: -1%;
+    text-decoration: line-through;
+    color: rgba(89, 89, 89, 1);
+  }
+  
+  .product-card__new-price {
+    font-family: 'Graphik', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: -1px;
+    color: rgba(29, 28, 27, 1);
+  }
+  
+  .product-card__bonus {
+    display: flex;
+    align-items: center;
+    font-family: 'Graphik', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: -1.2px;
+    gap: 6px; 
+    color: rgba(0, 0, 0, 0.6);
+    padding-top: 4px;
+  }
+  
+  .product-card__bonus-icon {
+    max-width: 20px;
+    max-height: 20px;
+    background: black;
+    color: white;
+    border-radius: 50%;
+    padding: 4px 8px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .product-card__more {
+    gap: 4px;
+    max-height: 44px
+  }
+
+
+  .product-card__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-height: 44px;
+  }
+  
+  .product-card__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 4px;
+  }

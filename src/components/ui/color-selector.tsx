@@ -15,12 +15,12 @@ const ColorSelector = ({
   onClick,
 }: ColorOptionProps) => {
   return (
-    <li
+    <div
       className={`color__item ${selected ? "color__item_selected" : ""}`}
       onClick={onClick}
     >
       <img src={imageUrl} alt={alt} />
-    </li>
+    </div>
   );
 };
 

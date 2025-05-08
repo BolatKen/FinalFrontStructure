@@ -4,11 +4,31 @@
 }
 
 .podpiska__inner {
-  padding: 48px 0;
+  padding: 48px 8rem;
   display: flex;
   flex-direction: column;
   max-width: 1300px;
   margin: 0 auto;
+}
+@media (max-width: 600px) {
+  .podpiska {
+    padding: 2rem 1rem; /* чуть меньше отступы на мобилке */
+  }
+  .podpiska__inner {
+    padding: 48px 0;
+    display: flex;
+    flex-direction: column;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .podpiska__title {
+    font-size: 22px;
+  }
+
+  .podpiska__desc {
+    font-size: 16px;
+  }
 }
 
 .podpiska__title {

@@ -2,14 +2,14 @@ import { HeaderItem } from "./HeaderItem/HeaderItem";
 
 export default function Header() {
   const headerItems = [
-    'Кресла',
-    'Столы',
-    'Диваны',
-    'Мойки',
-    'Стулья',
-    'Шкафы',
-    'Другая мебель'
-  ]
+    "Кресла",
+    "Столы",
+    "Диваны",
+    "Мойки",
+    "Стулья",
+    "Шкафы",
+    "Другая мебель",
+  ];
 
   return (
     <header className="header">

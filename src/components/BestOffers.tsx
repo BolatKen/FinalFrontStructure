@@ -5,21 +5,21 @@ import { useRef } from "react";
 
 const products = [
   {
-    imageSrc: "/products/chair1.jpg",
+    imageSrc: "/products/chair1.png",
     title: "Aurora",
     oldPrice: "121 000 ТГ",
     newPrice: "104 000 ТГ",
     bonus: "5 200",
   },
   {
-    imageSrc: "/products/chair1.jpg",
+    imageSrc: "/products/chair1.png",
     title: "Aurora",
     oldPrice: "149 000 ТГ",
     newPrice: "136 000 ТГ",
     bonus: "6 800",
   },
   {
-    imageSrc: "/products/chair1.jpg",
+    imageSrc: "/products/chair1.png",
     title: "Aurora",
     oldPrice: "",
     newPrice: "149 000 ТГ",
@@ -40,37 +40,39 @@ export default function BestOffers() {
   };
 
   return (
-    <section className="best-offers">
-      <h2 className="best-offers__title">Лучшие предложения</h2>
+    <section className="best-offers _container">
+      <div className="best-offers__inner">
+        <h2 className="best-offers__title">Лучшие предложения</h2>
 
-      <button
-        onClick={() => scroll("left")}
-        className="best-offers__scroll-btn best-offers__scroll-btn--left"
-      >
-        <img src="/core/arrow.svg" alt="arrow-left" />
-      </button>
-      <button
-        onClick={() => scroll("right")}
-        className="best-offers__scroll-btn best-offers__scroll-btn--right"
-      >
-        <img
-          src="/core/arrow.svg"
-          alt="arrow-right"
-          style={{ transform: "rotate(180deg)" }}
-        />
-      </button>
-
-      <div ref={containerRef} className="best-offers__list">
-        {products.map((product, i) => (
-          <ProductCard
-            key={i}
-            imageSrc={product.imageSrc}
-            title={product.title}
-            oldPrice={product.oldPrice}
-            newPrice={product.newPrice}
-            bonus={product.bonus}
+        <button
+          onClick={() => scroll("left")}
+          className="best-offers__scroll-btn best-offers__scroll-btn--left"
+        >
+          <img src="/core/arrow.svg" alt="arrow-left" />
+        </button>
+        <button
+          onClick={() => scroll("right")}
+          className="best-offers__scroll-btn best-offers__scroll-btn--right"
+        >
+          <img
+            src="/core/arrow.svg"
+            alt="arrow-right"
+            style={{ transform: "rotate(180deg)" }}
           />
-        ))}
+        </button>
+
+        <div ref={containerRef} className="best-offers__list">
+          {products.map((product, i) => (
+            <ProductCard
+              key={i}
+              imageSrc={product.imageSrc}
+              title={product.title}
+              oldPrice={product.oldPrice}
+              newPrice={product.newPrice}
+              bonus={product.bonus}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

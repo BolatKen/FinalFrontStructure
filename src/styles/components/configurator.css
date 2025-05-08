@@ -17,7 +17,7 @@
 }
 
 .configurator__image {
-  padding: calc(625 / 1123.2 * 100% / 2);
+  padding: calc(632 / 1123.2 * 100% / 2);
   transform: rotateY(180deg);
 }
 

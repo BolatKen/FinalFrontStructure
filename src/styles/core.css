@@ -87,13 +87,15 @@ a {
 }
 
 ._container {
-    max-width: calc(var(--general-max-width) * 0.9);
+    max-width: calc(var(--general-max-width));
     margin: 0 auto;
+    padding: 0 15px;
 }
 
 ._container-bigger {
-    max-width: calc(var(--header-max-width) * 1.09);
+    max-width: calc(var(--header-max-width));
     margin: 0 auto;
+    padding: 0 15px;
 }
 
 .btn {

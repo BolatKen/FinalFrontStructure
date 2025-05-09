@@ -12,9 +12,18 @@
     padding: 0 15px;
 }
 
+/* TITLE */
+.title {
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 48px;
+    letter-spacing: -1.2px;
+    vertical-align: middle;
+}
+
 /* BUTTON STYLES */
 
-.btn {
+.btn button {
     cursor: pointer;
 }
 
@@ -53,6 +62,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 5;
 }
 
 .icon__notification img {

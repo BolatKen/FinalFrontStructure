@@ -3,21 +3,12 @@
   color: white;
 }
 
-.configurator__inner {
-
-}
-
 .configurator__main {
   display: flex;
-
-  
-  gap: 70px; /* вот здесь точное расстояние */
+  justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap;
-
   padding-top: 134px;
-
-
 }
 
 .configurator__image {
@@ -25,24 +16,25 @@
   transform: rotateY(180deg);
 }
 
-.configurator__title {
-  font-size: 39px;
-  font-weight: 500;
-  line-height: 48px;
-  letter-spacing: -1.2px;
-}
-
 .configurator__icon {
   margin-top: 22px;
+  display: flex;
+  align-items: center;
+}
+
+.configurator__icon-element {
+  margin-left: 10px;
+  cursor: pointer;
+  padding: calc(24 / 389.45 * 100% / 2);
 }
 
 .configurator__text {
   font-size: 18px;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.6);
-  line-height: 100%;
+  line-height: 23px;
   letter-spacing: -1px;
-  max-width: calc(439px * 0.9);
+  max-width: 439px;
   word-wrap: break-word;
 }
 
@@ -55,28 +47,15 @@
   margin-left: 16px;
 }
 
-
-
-.group {}
-
-.group__button {}
-
+.configurator__button-last {
+  margin-top: 72px;
+}
 
 .configurator__description {
   margin-top: 107px;
 }
 
-.desc {
-}
-
-.desc__title {
-  font-weight: 500;
-  font-size: 40px;
-  line-height: 48px;
-  letter-spacing: -1.2px;
-}
-
-.desc__desc {
+.configurator-text__desc {
   font-size: 24px;
   line-height: 32px;
   letter-spacing: -1.2px;

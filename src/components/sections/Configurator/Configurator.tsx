@@ -76,16 +76,18 @@ export default function Configurator() {
           </div>
           {/* Панель выбора */}
           <div className={styles.configurator__panel}>
-            <h2 className={styles.configurator__title}>Конфигуратор</h2>
+            <h2 className={[styles.configurator__title, 'title'].join(" ")}>Конфигуратор</h2>
 
             <div className={styles.configurator__icon}>
               <p className={styles.configurator__text}>
-                Создайте уникальную мебель, отражающую ваш <br /> вкус и
+                Создайте уникальную мебель, отражающую ваш вкус и
                 интерьер
               </p>
+              <div className={[styles['configurator__icon-element'], '_img'].join(" ")}>
+                <img src="icons/Union.svg" alt="Знак подсказки" />
+              </div>
             </div>
 
-            {/* Радиокнопки */}
             <div className={[styles.configurator__group, styles.group].join(" ")}>
               {productItemBtns.map((item, idx) => (
                 <ButtonPrimary key={idx}
@@ -95,37 +97,21 @@ export default function Configurator() {
                   isNotification={item.isNotification}
                   isPadding={item.isPadding} />
               ))}
-              {/* <div className="group__button btn icon">
-              <button className="btn__item btn__item_padding btn__item_selected">
-                Подлокотники
-              </button>
-              <div className="icon__notification">
-                <img src="/icons/check.png" alt="check-icon" />
-              </div>
             </div>
-            <div className="group__button btn icon">
-              <button className="btn__item btn__item_padding">
-                Без подлокотника
-              </button>
-            </div> */}
-            </div>
-
-            {/* Обивка */}
 
             {colorConfigure.map((item, idx) => (
-              <ColorConfigureEdit configureTitle={item.configureTitle}
+              <ColorConfigureEdit key={idx} configureTitle={item.configureTitle}
                 configureVal={item.configureVal}
                 colorData={item.colorData} />
             ))}
 
-            {/* Кнопка под заказ */}
-            <ButtonOrange children={'Под заказ'} onClick={null} type={"button"} />
+            <ButtonOrange className={styles['configurator__button-last']} children={'Под заказ'} onClick={null} type={"button"} />
           </div>
         </div>
 
         {/* Описание */}
         <div className={[styles['configurator__description'], styles['configurator-text']].join(" ")}>
-          <h3 className={styles['configurator-text__title']}>Aurora</h3>
+          <h3 className={[styles['configurator-text__title'], 'title'].join(" ")}>Aurora</h3>
           <p className={styles['configurator-text__desc']}>
             «Бусиновский парк» расположен на севере Москвы — в районе Западное
             Дегунино, в 20 минутах пешком от метро «Ховрино» и 15 от МЦД

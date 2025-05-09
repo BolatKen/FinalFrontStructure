@@ -1,62 +1,44 @@
 .description {
     position: relative;
-    background: #131111;
 }
 
 .specs {
-    padding: 72px 0;
-    color: #fff;
+    padding: 96px 0 56.69px 0;
 }
 
 .specs__title {
-    font-size: 36px;
-    font-weight: 700;
-    margin-bottom: 32px;
-    font-family: 'Graphik', sans-serif;
-    font-weight: 500;
-    font-size: 40px;
-    line-height: 48px;
-    letter-spacing: -1.2px;
-    vertical-align: middle;
-    color: #FFFFFF;
+    margin-bottom: 40px;
 }
 
 .specs__tabs {
     display: flex;
-    width: 100%;
-    height: 56px;
-    padding: 4px;
-    gap: 10px;
-    background: rgba(19, 17, 17, 0.4);
-    border-radius: 100px;
     backdrop-filter: blur(64px);
-    display: flex;
-    gap: 10px;
-    top: 0;
-    z-index: 1;
+    padding: 4px;
 }
 
 .tabs__btn {
-    flex: 1;
-    height: 48px;
-    border: none;
-    background: none;
+    flex: 0 1 33.33%;
+
     border-radius: 28px;
-    font-family: 'Graphik', sans-serif;
-    font-weight: 500;
-    font-size: 16px;
     line-height: 16px;
     letter-spacing: 0;
-    color: #888;
+    color: white;
+
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    padding: 16px 0px;
+
+    border: none;
+    background: none;
+    font-size: 16px;
 }
 
 .tabs__btn_active {
-    background: #fff;
-    color: #000;
+    font-weight: 500;
+    background-color: white;
+    color: rgba(20, 20, 20, 1);
 }
 
 .specs__main {
@@ -65,64 +47,59 @@
     flex-direction: column;
 }
 
-.specs__list {
-    box-sizing: border-box;
-    margin: 0 18px;
-}
-
-.specs__row {
-    display: flex;
-    align-items: center;
-}
-
-.specs__row:not(:first-child) {
-    margin-top: 24px;
-}
-
-.specs__name {
-    font-size: 14px;
-    font-family: 'Graphik', sans-serif;
-    font-weight: 500;
-    line-height: 20px;
-    letter-spacing: -1px;
-    color: #FFFFFF;
-
-    /* max-width: 612px; */
-    /* width: 240px; */
-}
-
-.specs__line {
-    flex-grow: 1;
-    height: 1px;
-    background-color: rgba(255, 255, 255, 0.2); /* или любой другой цвет линии */
-    margin: 0 20px 0 15px;
-  }
-
-.specs__value {
-    font-size: 14px;
-    font-weight: 400;
-    font-family: 'Graphik', sans-serif;
-    line-height: 22px;
-    letter-spacing: -1px;
-    color: rgba(255, 255, 255, 0.6);
-
-    width: 512px;
-
-}
-
 .specs__media {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
+    margin-top: 94px;
 }
+
 
 .specs__images {
     display: flex;
-    width: 100%;
     justify-content: space-between;
     margin-top: 64px;
     flex-wrap: wrap;
 }
+
+.description__image {
+    /* padding: calc(393.28 / 393.28 * 100% / 2); */
+    width: 393.28px;
+    height: 393.28px;
+    position: absolute;
+    margin-left: 55px;
+}
+
+.specs__images>* :first-child img {
+    transform: rotateY(180deg);
+}
+
+.sizes {
+    position: relative;
+}
+
+.sizes__item {
+    display: inline-block;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -1px;
+    vertical-align: middle;
+}
+
+.sizes__elem {
+    position: absolute;
+}
+
+.sizes__line {
+    height: 2px;
+    background-color: rgba(255, 255, 255, 1);
+    opacity: 20%;
+    width: 335px;
+}
+
+.sizes>*:nth-child(2) .sizes__line {
+    transform: translate(0px, 160px) rotate(-90deg);
+}
+
+
+
 
 .specs__image-item {
     flex: 1;
@@ -139,69 +116,14 @@
 
 .specs__caption {
     margin-top: 8px;
-    font-family: 'Graphik', sans-serif;
     font-size: 14px;
     line-height: 16px;
-    color: rgba(255, 255, 255, 0.6);
+    color: white;
     text-align: center;
 }
 
 .specs__downloads {
     display: flex;
     width: 100%;
-    height: 90px;
-    gap: 24px;
-    box-sizing: border-box;
-}
-
-.downloads__item {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 90px;
-    padding: 20px;
-    gap: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    box-sizing: border-box;
-}
-
-.downloads__info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.downloads__name {
-    font-family: 'Graphik', sans-serif;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 23px;
-    letter-spacing: -1px;
-    color: #FFFFFF;
-}
-
-.downloads__meta {
-    font-family: 'Graphik', sans-serif;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 23px;
-    letter-spacing: -1px;
-    color: rgba(255, 255, 255, 0.6);
-}
-
-.downloads__btn {
-    height: 48px;
-    padding: 0 24px;
-    background: #FF7244;
-    border: none;
-    border-radius: 56px;
-    font-family: 'Graphik', sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: -0.32px;
-    color: #FFFFFF;
-    cursor: pointer;
+    margin-top: 64px;
 }

@@ -1,6 +1,7 @@
 import styles from './ButtonPrimary.module.css';
 
 export default function ButtonPrimary({
+    className = '',
     children,
     onClick,
     isSelected = false,
@@ -14,13 +15,13 @@ export default function ButtonPrimary({
         </div>
     }
     return (
-        <div className='btn icon' onClick={onClick}>
+        <div className={['btn', 'icon', className].join(" ")} onClick={onClick} >
             <button className={`${styles.btn__item} 
-            ${styles.btn__item_padding ? isPadding : ''}
-            ${styles.btn__item_selected ? isSelected : ''}
+            ${isPadding ? styles.btn__item_padding : ''}
+            ${isSelected ? styles.btn__item_selected : ''}
             `} >{children}</button>
             {notification}
-        </div>
+        </div >
     );
 }
 

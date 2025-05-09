@@ -4,7 +4,7 @@ import { ButtonPrimary } from '../../ui/ButtonPrimary/ButtonPrimary';
 
 export default function ColorConfigureEdit({ configureTitle, configureVal, colorData }) {
     return (
-        <div className={[styles.configure__option, styles.variant].join(" ")}>
+        <div className={[styles.configurator__option, styles.variant].join(" ")}>
             <div className={styles.variant__title}>
                 <div className={styles.variant__text}>{configureTitle}</div>
                 <div className={styles.variant__subtext}>{configureVal}</div>

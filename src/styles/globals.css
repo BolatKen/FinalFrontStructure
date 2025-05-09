@@ -7,7 +7,8 @@ body {
   font-family: "Graphik";
   font-size: var(--general-font-size);
   font-weight: 400;
-  color: var(--general-color);
+  color: white;
+  background-color: var(--general-color);
   letter-spacing: var(--letter-space);
   line-height: var(--line-height);
   box-sizing: border-box;
@@ -25,6 +26,10 @@ a {
   color: inherit;
   letter-spacing: var(--letter-space);
   line-height: var(--line-height);
+}
+
+button {
+  font-family: "Graphik";
 }
 
 .wrapper {

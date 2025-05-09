@@ -1,0 +1,47 @@
+.downloads__item {
+    flex: 0 1 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    gap: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+}
+
+.downloads__item:not(:first-child) {
+    margin-left: 24px;
+}
+
+.downloads__info {
+    display: flex;
+    flex-direction: column;
+}
+
+.downloads__name {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 23px;
+    letter-spacing: -1px;
+}
+
+.downloads__meta {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 23px;
+    letter-spacing: -1px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 4px;
+}
+
+.meta {
+    display: flex;
+}
+
+.meta__title {}
+
+.meta__dot {
+    margin: 0 8px;
+}
+
+.meta__weight {}

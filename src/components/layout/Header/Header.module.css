@@ -1,6 +1,8 @@
 .header {
     width: 100%;
     font-family: "Suisse Int'l", sans-serif;
+    background-color: white;
+    color: var(--general-color);
 }
 
 .header__inner {
@@ -27,6 +29,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 2;
 }
 
 .cart__rect {

@@ -3,6 +3,10 @@
   color: white;
 }
 
+.configurator__inner {
+
+}
+
 .configurator__main {
   display: flex;
 
@@ -57,45 +61,6 @@
 
 .group__button {}
 
-.configurator__option {
-  display: flex;
-  flex-direction: column;
-  margin-top: 46px;
-}
-
-.variant {}
-
-.variant__title {
-  display: flex;
-  font-size: 18px;
-  line-height: 100%;
-}
-
-.variant__text {
-  font-weight: 500;
-  letter-spacing: -1px;
-}
-
-.variant__subtext {
-  margin-left: 24px;
-  font-weight: 400;
-  letter-spacing: -1.2px;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.variant__inner {
-  display: flex;
-  margin-top: 16px;
-  align-items: center;
-}
-
-.variant__inner>*:not(:first-child) {
-  margin-left: 12px;
-}
-
-.configurator__btn {
-  margin-top: 54px;
-}
 
 .configurator__description {
   margin-top: 107px;

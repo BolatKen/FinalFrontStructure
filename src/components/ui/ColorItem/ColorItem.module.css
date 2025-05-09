@@ -1,0 +1,26 @@
+.color__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 42px;
+    min-height: 42px;
+
+    border: 1px solid #484747;
+    border-radius: 50%;
+
+}
+
+.color__item:not(:first-child) {
+    margin-left: 12px;
+}
+
+.color__item>*:first-child {
+    max-width: 38px;
+    max-height: 38px;
+}
+
+.color__item_selected {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(255, 114, 68, 0.1);
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import './ProductCard.css';
+import './ProductCard.module.css';
 
 interface ProductCardProps {
   imageSrc: string;

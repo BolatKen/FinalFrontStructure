@@ -1,0 +1,11 @@
+.btn__action {
+  color: white;
+  background-color: var(--accent-color);
+  padding: 12px 24px;
+  border-radius: 56px;
+  border: 0px;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.32px;
+  font-weight: 400;
+}

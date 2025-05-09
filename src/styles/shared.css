@@ -1,3 +1,25 @@
+/* CONTAINER STYLES */
+
+._container {
+    max-width: calc(var(--general-max-width));
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+._container-bigger {
+    max-width: calc(var(--header-max-width));
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* BUTTON STYLES */
+
+.btn {
+    cursor: pointer;
+}
+
+/* IMAGE BASE STYLES */
+
 ._img {
     position: relative;
     overflow: hidden;
@@ -12,7 +34,7 @@
     object-fit: cover;
 }
 
-
+/* ICON STYLES */
 .icon {
     position: relative;
 }

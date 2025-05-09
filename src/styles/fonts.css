@@ -1,0 +1,27 @@
+@font-face {
+    font-family: "Suisse Int'l";
+    src: url('/fonts/suisse_intl/SuisseIntl-Regular.otf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Suisse Int'l";
+    src: url('/fonts/suisse_intl/SuisseIntl-Medium.otf');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Graphik";
+    src: url('/fonts/graphik/GraphikLCG-Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Graphik";
+    src: url('/fonts/graphik/GraphikLCG-Medium.ttf');
+    font-weight: 500;
+    font-style: normal;
+}

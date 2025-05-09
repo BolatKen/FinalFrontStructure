@@ -1,6 +1,6 @@
 "use client";
 
-import ProductCard from "@/components/ui/ProductCart/ProductCard";
+import ProductCard from "@/components/shared/ProductCart/ProductCard";
 import { useRef } from "react";
 
 const products = [

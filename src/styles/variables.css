@@ -1,0 +1,21 @@
+:root {
+    --header-max-width: 1338px;
+    --general-font-size: 16px;
+    --general-color: #131111;
+    --general-max-width: 1190px;
+    --accent-color: #FF7244;
+    --letter-space: -0.03em;
+    --line-height: 120%;
+}
+
+:root {
+    --background: #ffffff;
+    --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+    }
+}

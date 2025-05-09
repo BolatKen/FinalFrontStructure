@@ -1,4 +1,5 @@
-import { HeaderItem } from "./HeaderItem/HeaderItem";
+import { HeaderItem } from "../../shared/HeaderItem/HeaderItem";
+import styles from "./Header.module.css";
 
 export default function Header() {
   const headerItems = [
@@ -12,21 +13,21 @@ export default function Header() {
   ];
 
   return (
-    <header className="header">
-      <div className="header__inner _container-bigger">
-        <div className="header__logo">Leka Beauty</div>
+    <header className={styles.header}>
+      <div className={`${styles.header__inner} _container-bigger`}>
+        <div className={styles.header__logo}>Leka Beauty</div>
 
-        <ul className="header__items">
+        <ul className={styles.header__items}>
           {headerItems.map((item, idx) => (
             <HeaderItem key={idx} children={item} onClick={null} />
           ))}
         </ul>
 
-        <div className="header__cart cart icon">
-          <div className="cart__icon">
-            <div className="cart__rect"></div>
+        <div className={`${styles.header__cart} ${styles.cart} icon`}>
+          <div className={styles.cart__icon}>
+            <div className={styles.cart__rect}></div>
             <img
-              className="cart__svg"
+              className={styles.cart__svg}
               src="/icons/cart-icon.png"
               alt="shopping-cart-line"
             />

@@ -1,18 +1,38 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+* {
+  margin: 0px;
+  padding: 0px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+body {
+  font-family: "Graphik";
+  font-size: var(--general-font-size);
+  font-weight: 400;
+  color: var(--general-color);
+  letter-spacing: var(--letter-space);
+  line-height: var(--line-height);
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+ul,
+li {
+  list-style: none;
+  letter-spacing: var(--letter-space);
+  line-height: var(--line-height);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  letter-spacing: var(--letter-space);
+  line-height: var(--line-height);
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.content {
+  flex: 1 0 auto;
 }

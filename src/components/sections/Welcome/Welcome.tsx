@@ -116,7 +116,7 @@ export default function Welcome({ product }: WelcomeProps) {
                 </div>
               </div>
               <div className={`${styles.price__btn} ${styles.btn}`}>
-                <ButtonOrange type="button">Купить</ButtonOrange>
+                <ButtonOrange children={"Купить"} onClick={null} type="button"/>
               </div>
             </div>
           </div>

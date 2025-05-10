@@ -24,14 +24,17 @@
 
 
 import { getAllProducts } from "@/services/product.service";
-import BestOffers from "@/components/sections/BestOffers/BestOffers";
+// import BestOffers from "@/components/sections/BestOffers/BestOffers";
+import Welcome from '../../../../components/sections/Welcome/Welcome';
+import Configurator from '../../../../components/sections/Configurator/Configurator';
+import Description from '../../../../components/sections/Description/Description';
 
 export default async function Page() {
   const products = await getAllProducts(); // Загружаем товары через твой сервис
 
   return (<>
-    <Welcome product={product} />
-    <Configurator product={product} />
-    <Description product={product} />
+    <Welcome product={products[0]} />
+    <Configurator product={products[0]} />
+    <Description product={products[0]} />
   </>)
 }

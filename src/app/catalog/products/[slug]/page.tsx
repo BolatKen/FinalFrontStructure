@@ -1,12 +1,12 @@
 // // app/product/[slug]/page.tsx
-// import { getProductBySlug } from '@/services/product.service'
-// import Welcome from '@/components/sections/Welcome/Welcome'
-// import Description from '@/components/sections/Description/Description'
-// import Configurator from '@/components/sections/Configurator/Configurator'
+import { getProductBySlug } from '@/services/product.service'
+import Welcome from '@/components/sections/Welcome/Welcome'
+import Description from '@/components/sections/Description/Description'
+import Configurator from '@/components/sections/Configurator/Configurator'
 
-// interface ProductPageProps {
-//   params: { slug: string }
-// }
+interface ProductPageProps {
+  params: { slug: string }
+}
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const product = await getProductBySlug(params.slug);
@@ -15,8 +15,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
   }
 
   return (<>
-    <Welcome product={products[0]} />
-    <Configurator product={products[0]} />
-    <Description product={products[0]} />
+    <Welcome product={product} />
+    <Configurator product={product} />
+    <Description product={product} />
   </>)
 }

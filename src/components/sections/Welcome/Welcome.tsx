@@ -1,4 +1,4 @@
-import ColorSelector from "../../ui/ColorItem/ColorItem";
+import { ColorConfigure } from "../../shared/ColorConfigure/ColorConfigure";
 import { ButtonPrimary } from '../../ui/ButtonPrimary/ButtonPrimary';
 import ButtonOrange from '../../ui/ButtonOrange/ButtonOrange';
 import styles from "./Welcome.module.css";
@@ -41,6 +41,53 @@ interface WelcomeProps {
 
 export default function Welcome({ product }: WelcomeProps) {
   const mainVariant = product.variants[0];
+  const colorsAndMaterials = [
+    {
+      'configureTitle': "Цвет и материал",
+      'colorData': [
+        {
+          'imageUrl': "/textures/material-yellow.png",
+          'altText': "Желтая кожа",
+          'isSelected': true
+        },
+        {
+          'imageUrl': "/textures/material-white.png",
+          'altText': "Белая кожа",
+          'isSelected': false
+        },
+        {
+          'imageUrl': "/textures/material-brown.png",
+          'altText': "Коричнивая кожа",
+          'isSelected': false
+        }
+      ]
+    },
+    {
+      'configureTitle': "Каркас",
+      'colorData': [
+        {
+          'imageUrl': "/textures/wood-white.png",
+          'altText': "Белое дерево",
+          'isSelected': true
+        }
+      ]
+    }
+  ]
+
+  let titleBlock = null
+  if (product.name.length > 13) {
+    let productName = product.name.split(',');
+    let text = productName[0];
+    titleBlock = <><div className={[
+      styles.welcome__title,
+      styles.welcome__title_long
+    ].join(" ")}>{text}</div></>
+  } else {
+    titleBlock = <><div className={[
+      styles.welcome__title,
+      styles.welcome__title_short
+    ].join(" ")}>{product.name}</div></>
+  }
 
   return (
     <main className={styles.welcome}>
@@ -51,7 +98,7 @@ export default function Welcome({ product }: WelcomeProps) {
           </div>
 
           <div className={`${styles.welcome__container} _container`}>
-            <div className={styles.welcome__title}>{product.name}</div>
+            {titleBlock}
             <div className={styles.welcome__img}>
               <img
                 className="welcome__item"
@@ -85,19 +132,12 @@ export default function Welcome({ product }: WelcomeProps) {
         <div className={`_container ${styles.configure}`}>
           <div className={styles.configure__inner}>
             <div className={styles.configure__material}>
-              <div className={styles.configure__color}>
-                <div className={styles.configure__title}>Цвет и материал</div>
-                {/* <ul className={`${styles.color__items} ${styles.color__margin}`}>
-                  {mainVariant.variant_options.map((option) => (
-                    // <li key={option.id} className={styles.color__item}>
-                    //   <ColorSelector
-                    //     imageUrl={`/textures/material-${option.option_display.value.toLowerCase()}.png`}
-                    //     // alt={option.option_display.value}
-                    //   />
-                    // </li>
-                  ))}
-                </ul> */}
-              </div>
+              {colorsAndMaterials.map((item, idx) => (
+                <ColorConfigure
+                  key={idx}
+                  configureTitle={item.configureTitle}
+                  colorData={item.colorData} />
+              ))}
 
               <ButtonPrimary onClick={null}>Конфигуратор</ButtonPrimary>
             </div>
@@ -116,7 +156,7 @@ export default function Welcome({ product }: WelcomeProps) {
                 </div>
               </div>
               <div className={`${styles.price__btn} ${styles.btn}`}>
-                <ButtonOrange children={"Купить"} onClick={null} type="button"/>
+                <ButtonOrange children={"Купить"} onClick={null} type="button" />
               </div>
             </div>
           </div>

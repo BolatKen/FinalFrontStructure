@@ -1,5 +1,6 @@
 .description {
     position: relative;
+    background-color: inherit;
 }
 
 .specs {

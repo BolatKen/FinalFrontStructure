@@ -29,11 +29,9 @@ import BestOffers from "@/components/sections/BestOffers/BestOffers";
 export default async function Page() {
   const products = await getAllProducts(); // Загружаем товары через твой сервис
 
-  return (
-    <main>
-      {/* Тут твой контент */}
-      
-      <BestOffers products={products} /> {/* Передаёшь товары сюда */}
-    </main>
-  );
+  return (<>
+    <Welcome product={product} />
+    <Configurator product={product} />
+    <Description product={product} />
+  </>)
 }

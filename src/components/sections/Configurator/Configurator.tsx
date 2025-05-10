@@ -2,8 +2,71 @@ import styles from "./Configurator.module.css";
 import { ButtonPrimary } from '../../ui/ButtonPrimary/ButtonPrimary';
 import { ButtonOrange } from '../../ui/ButtonOrange/ButtonOrange';
 import { ColorConfigureEdit } from '../../shared/ColorConfigureEdit/ColorConfigureEdit';
+import { info } from "console";
 
-export default function Configurator() {
+
+
+interface ProductOption {
+  id: number;
+  option_type_display: string;
+  value: string;
+  code: string;
+}
+
+interface ProductPartDimension {
+  id: number;
+  name: string;
+  value: string;
+  unit: string;
+}
+
+interface ProductPart {
+  id: number;
+  name: string;
+  dimensions: ProductPartDimension[];
+}
+
+interface VariantOption {
+  id: number;
+  option_display: {
+    id: number;
+    option_type_display: string;
+    value: string;
+    code: string;
+  };
+}
+
+interface Variant {
+  id: number;
+  sku: string;
+  price: string;
+  old_price?: string | null;
+  currency: string;
+  variant_options: VariantOption[];
+}
+
+interface Product {
+  id: number;
+  name: string;
+  description: string;
+  base_sku: string;
+  slug: string;
+  category: string;
+  model_url: string;
+  options: ProductOption[];
+  parts: ProductPart[];
+  variants: Variant[];
+}
+
+interface ConfiguratorProps {
+  product: Product;
+}
+
+export default function Configurator({ product }: ConfiguratorProps) {
+
+  if (!product?.options) {
+    return <div>Загрузка характеристик...</div>; // или просто null
+  }
   const productItemBtns = [
     {
       children: 'Подлокотники',
@@ -66,6 +129,10 @@ export default function Configurator() {
     }
   ]
 
+  const information = {
+    title: product.name,
+    description: product.description
+  }
   return (
     <div className={styles.configurator}>
       <section className={[styles.configurator__inner, '_container'].join(" ")}>
@@ -111,13 +178,11 @@ export default function Configurator() {
 
         {/* Описание */}
         <div className={[styles['configurator__description'], styles['configurator-text']].join(" ")}>
-          <h3 className={[styles['configurator-text__title'], 'title'].join(" ")}>Aurora</h3>
+          <h3 className={[styles['configurator-text__title'], 'title'].join(" ")}>{information.title}</h3>
           <p className={styles['configurator-text__desc']}>
-            «Бусиновский парк» расположен на севере Москвы — в районе Западное
-            Дегунино, в 20 минутах пешком от метро «Ховрино» и 15 от МЦД
-            «Грачёвская». Яркий и современный образ жилого квартала создают
-            башни- доминанты — у каждой из них свой уникальный фасад,
-            разработанный российскими архитектурными бюро.
+            {
+    information.description
+  }
           </p>
         </div>
       </section>

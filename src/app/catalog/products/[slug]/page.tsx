@@ -17,7 +17,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   return (<>
     <Welcome product={product} />
-    <Configurator />
+    <Configurator product={product} />
     <Description product={product} />
   </>)
 }

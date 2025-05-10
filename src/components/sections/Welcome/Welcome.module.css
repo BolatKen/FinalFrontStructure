@@ -1,7 +1,4 @@
 .welcome {
-    background-color: white;
-    position: relative;
-    z-index: -3;
 }
 
 .welcome__inner {
@@ -11,14 +8,13 @@
 }
 
 .welcome__container {
-    position: relative;
 }
 
 .welcome__title {
     font-weight: 500;
 
     position: relative;
-    z-index: -2;
+    z-index: -3;
     text-align: center;
     color: var(--general-color);
 }
@@ -34,9 +30,6 @@
     font-size: calc(120px * 0.9);
     line-height: 87px;
     margin-top: 64px;
-    /* padding-bottom: 50px; */
-    
-    /* letter-spacing: -2em; */
 }
 
 .welcome__img {
@@ -44,7 +37,7 @@
     padding: calc(1067 / 1190 * 85% / 2);
     top: 15%;
     left: 15%;
-    z-index: -1;
+    z-index: -2;
     overflow: hidden;
 }
 
@@ -59,6 +52,14 @@
 
 .welcome__info {
     margin-top: calc(401px * 0.8);
+}
+
+.welcome__info_margin {
+    margin-top: 0px;
+}
+
+.welcome__info > *:last-child {
+    margin-bottom: 32px;
 }
 
 .info__option {
@@ -83,6 +84,7 @@
     color: white;
     flex: 1 1 50%;
     text-align: center;
+    cursor: pointer;
 }
 
 .option__item_selected {
@@ -93,10 +95,11 @@
 }
 
 .info__items {
-    margin: 36px 0px 32px 0px;
+    margin-top: 36px;
     display: flex;
     justify-content: space-between;
 }
+
 
 .info__item {
     flex: 0 1 20%;
@@ -105,6 +108,10 @@
     backdrop-filter: blur(64px);
     margin: 15.5px 8px;
     border-radius: 2px;
+}
+
+.info__item_width {
+    flex: 0 1 100%;
 }
 
 .info__item_selected {

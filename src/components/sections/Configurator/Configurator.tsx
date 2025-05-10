@@ -151,7 +151,7 @@ export default function Configurator({ product }: ConfiguratorProps) {
                 интерьер
               </p>
               <div className={[styles['configurator__icon-element'], '_img'].join(" ")}>
-                <img src="icons/Union.svg" alt="Знак подсказки" />
+                <img src="/icons/info.svg" alt="Знак подсказки" />
               </div>
             </div>
 

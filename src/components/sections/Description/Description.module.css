@@ -1,6 +1,6 @@
 .description {
     position: relative;
-    background-color: inherit;
+    background-color: var(--general-color);
 }
 
 .specs {

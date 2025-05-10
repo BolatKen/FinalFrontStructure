@@ -3,6 +3,7 @@
     position: relative;
     z-index: -3;
 }
+
 .welcome__inner {
     display: flex;
     justify-content: space-between;
@@ -15,24 +16,36 @@
 
 .welcome__title {
     font-weight: 500;
-    font-size: calc(280px * 0.9);
-    line-height: 70%;
-    letter-spacing: -3.2px;
-
-    margin-top: 62px;
 
     position: relative;
     z-index: -2;
-
+    text-align: center;
     color: var(--general-color);
+}
+
+.welcome__title_short {
+    font-size: calc(280px * 0.9);
+    line-height: 70%;
+    letter-spacing: -3.2px;
+    margin-top: 64px;
+}
+
+.welcome__title_long {
+    font-size: calc(120px * 0.9);
+    line-height: 87px;
+    margin-top: 64px;
+    /* padding-bottom: 50px; */
+    
+    /* letter-spacing: -2em; */
 }
 
 .welcome__img {
     position: absolute;
-    width: calc(1067px * 0.85);
+    padding: calc(1067 / 1190 * 85% / 2);
     top: 15%;
     left: 15%;
     z-index: -1;
+    overflow: hidden;
 }
 
 .welcome__img img {
@@ -86,7 +99,7 @@
 }
 
 .info__item {
-    width: 100%;
+    flex: 0 1 20%;
     height: 4px;
     background-color: rgba(19, 17, 17, 0.4);
     backdrop-filter: blur(64px);
@@ -121,6 +134,7 @@
 
 .welcome__price {
     width: 100%;
+    z-index: 10;
 }
 
 .welcome__price {

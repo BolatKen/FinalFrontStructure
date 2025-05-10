@@ -2,6 +2,7 @@
 import { getProductBySlug } from '@/services/product.service'
 import Welcome from '@/components/sections/Welcome/Welcome'
 import Description from '@/components/sections/Description/Description'
+import Configurator from '@/components/sections/Configurator/Configurator'
 
 interface ProductPageProps {
   params: { slug: string }
@@ -15,7 +16,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
   }
 
   return (<>
-  <Welcome product={product} />
-  <Description product={product}/>
+    <Welcome product={product} />
+    <Configurator />
+    <Description product={product} />
   </>)
 }

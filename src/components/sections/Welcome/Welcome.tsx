@@ -1,9 +1,12 @@
+"use client"
+
 import { ColorConfigure } from "../../shared/ColorConfigure/ColorConfigure";
 import { ButtonPrimary } from '../../ui/ButtonPrimary/ButtonPrimary';
 import ButtonOrange from '../../ui/ButtonOrange/ButtonOrange';
 import styles from "./Welcome.module.css";
+import ProductScene from "@/components/explosion/product-scene";
 
-import React from 'react';
+import React, { useState } from 'react';
 
 interface VariantOption {
   id: number;
@@ -89,42 +92,74 @@ export default function Welcome({ product }: WelcomeProps) {
     ].join(" ")}>{product.name}</div></>
   }
 
+  const [selectedView, setSelectedView] = useState<'gallery' | '3d'>('gallery');
+
   return (
     <main className={styles.welcome}>
       <div className={styles.welcome__product}>
         <div className={`${styles.welcome__inner} _container-bigger`}>
-          <div className={`${styles.welcome__arrow} ${styles.arrow}`}>
-            <img className={styles.arrow__item} src="/core/arrow.svg" alt="arrow-left" />
-          </div>
+          {/* arrow left */}
+          {selectedView === 'gallery' && (
+            <div className={`${styles.welcome__arrow} ${styles.arrow}`}>
+              <img className={styles.arrow__item} src="/core/arrow.svg" alt="arrow-left" />
+            </div>
+          )}
 
           <div className={`${styles.welcome__container} _container`}>
-            {titleBlock}
-            <div className={styles.welcome__img}>
-              <img
-                className="welcome__item"
-                src={product.model_url || "/core/3.png"}
-                alt="main-welcome-image"
-              />
-            </div>
-
-            <div className={`${styles.welcome__info} ${styles.info}`}>
-              <div className={`${styles.info__option} ${styles.option}`}>
-                <div className={`${styles.option__item} ${styles.option__item_selected}`}>
-                  Галерея
+            {selectedView === 'gallery' && (
+              <>
+                {titleBlock}
+                <div className={styles.welcome__img}>
+                  <img
+                    className="welcome__item"
+                    src={product.model_url || "/core/3.png"}
+                    alt="main-welcome-image"
+                  />
                 </div>
-                <div className={styles.option__item}>Смотреть в 3D</div>
+              </>
+            )}
+            {selectedView === '3d' && (
+              <ProductScene />
+            )}
+
+            <div className={`${styles.welcome__info} ${styles.info} ${selectedView === '3d' ? styles.welcome__info_margin : ''}`}>
+              <div className={`${styles.info__option} ${styles.option}`}>
+                <div className={
+                  `${styles.option__item} ${selectedView === 'gallery' ? styles.option__item_selected : ''}`
+                }
+                  onClick={() => setSelectedView('gallery')}
+                > Галерея </div>
+                <div className={
+                  `${styles.option__item} ${selectedView === '3d' ? styles.option__item_selected : ''}`
+                }
+                  onClick={() => setSelectedView('3d')}>Смотреть в 3D</div>
               </div>
-              <div className={styles.info__items}>
-                {Array(5).fill(null).map((_, i) => (
-                  <div key={i} className={`${styles.info__item} ${i === 4 ? styles.info__item_selected : ''}`} />
-                ))}
-              </div>
+
+              {/* image scroll items */}
+              {selectedView === 'gallery' && (
+                <div className={styles.info__items}>
+                  {Array(5).fill(null).map((_, i) => (
+                    <div key={i} className={`${styles.info__item} ${i === 4 ? styles.info__item_selected : ''}`} />
+                  ))}
+                </div>
+              )}
+              {selectedView === '3d' && (
+                <div className={styles.info__items}>
+                  {Array(1).fill(null).map((_, i) => (
+                    <div key={i} className={`${styles.info__item} ${i === 0 ? styles.info__item_selected : ''} ${styles.info__item_width}`} />
+                  ))}
+                </div>
+              )}
+
             </div>
           </div>
 
-          <div className={`${styles.welcome__arrow} ${styles.arrow}`}>
-            <img className={`${styles.arrow__item} ${styles.arrow__item_left}`} src="/core/arrow.svg" alt="arrow-left" />
-          </div>
+          {/* arrow right */}
+          {selectedView === 'gallery' && (
+            <div className={`${styles.welcome__arrow} ${styles.arrow}`}>
+              <img className={`${styles.arrow__item} ${styles.arrow__item_left}`} src="/core/arrow.svg" alt="arrow-left" />
+            </div>
+          )}
         </div>
       </div>
 
@@ -162,6 +197,6 @@ export default function Welcome({ product }: WelcomeProps) {
           </div>
         </div>
       </div>
-    </main>
+    </main >
   );
 }

@@ -2,6 +2,7 @@
 
 ._container {
     max-width: calc(var(--general-max-width));
+    width: 100%;
     margin: 0 auto;
     padding: 0 15px;
 }

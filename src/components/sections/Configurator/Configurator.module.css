@@ -25,7 +25,7 @@
 .configurator__icon-element {
   margin-left: 10px;
   cursor: pointer;
-  padding: calc(24 / 389.45 * 100% / 2);
+  padding: calc(24 / 449 * 100% / 2);
 }
 
 .configurator__text {

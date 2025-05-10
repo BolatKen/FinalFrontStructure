@@ -1,0 +1,14 @@
+.product-model {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 558.8px;
+}
+
+.product-model > *:first-child {
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

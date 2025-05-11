@@ -1,5 +1,6 @@
 .color__items {
     display: flex;
+    align-items: center;
 }
 
 .color__margin {

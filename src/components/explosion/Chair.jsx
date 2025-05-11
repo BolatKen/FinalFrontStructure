@@ -12,8 +12,8 @@ export default function Model(props) {
     <group {...props} dispose={null}>
       <group scale={0.9}>
         <mesh geometry={nodes._lift1_me_1.geometry} material={materials.metal} />
-        <mesh geometry={nodes.seat_le_1.geometry} material={materials.lether} />
-        <mesh geometry={nodes.backrest_le_1.geometry} material={materials.lether} />
+        <mesh material-color={props['color']} geometry={nodes.seat_le_1.geometry} material={materials.lether} />
+        <mesh material-color={props['color']} geometry={nodes.backrest_le_1.geometry} material={materials.lether} />
         <mesh geometry={nodes.base_me_1.geometry} material={materials.metal} />
         <mesh geometry={nodes._column_me_1.geometry} material={materials.metal} />
         <mesh geometry={nodes.lift2_me_1.geometry} material={materials.metal} />

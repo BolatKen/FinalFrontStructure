@@ -1,17 +1,22 @@
 .footer {
     background-color: var(--general-color);
     color: white;
-    /* max-width: 1738px;
-    max-height: 577px; */
-    font-family: "Suisse Int'l", sans-serif;
-
-
+    font-family: "Suisse Int'l";
 }
 
-/* .footer__upper {
-    max-width: 1332px;
-    max-height: 497px;
-  } */
+.footer__inner {
+    position: relative;
+}
+
+.footer__inner>*:last-child {
+    position: absolute;
+    top: 55px;
+    right: 15px;
+}
+
+.footer__upper {
+    margin-bottom: 72px;
+}
 
 .footer__header {
     position: relative;
@@ -29,16 +34,16 @@
     opacity: 0.1;
 }
 
+/* FOOTER LIST - ready */
+
 .footer__list {
     display: flex;
     flex-wrap: wrap;
 }
 
 .footer-list__item {
-    font-family: 'Suisse Intl', sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 120%;
+    font-size: 16px;
+    line-height: 19px;
     letter-spacing: -0.03em;
     color: rgba(255, 255, 255, 1);
 }
@@ -47,97 +52,168 @@
     margin-left: 48px;
 }
 
+/* FOOTER CONTENT */
+
 .footer__content {
     display: flex;
     justify-content: space-between;
-    gap: 64px;
-    padding-top: 32px;
+    margin-top: 48px;
     flex-wrap: wrap;
-}
-
-.footer__column {
-    max-width: 50%;
-    color: white;
-}
-
-.footer__logo {
-    font-family: 'Suisse Intl', sans-serif;
-    font-size: 20px;
-    font-weight: 400;
-    margin-bottom: 16px;
-    line-height: 120%;
     letter-spacing: -0.03em;
 }
 
+.footer__column:first-child {
+    flex: 1 1 auto;
+}
+
+.footer__logo {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 29px;
+}
+
 .footer__desc {
-    font-family: 'Graphik', sans-serif;
-    font-size: 14px;
+    font-family: 'Graphik';
+    font-size: 16px;
     font-weight: 400;
-    line-height: 18.9px;
+    line-height: 19px;
     letter-spacing: -0.01em;
-    margin-bottom: 16px;
-    color: rgba(255, 252, 249, 1);
+    color: var(--general-gray);
     opacity: 0.5;
+    margin-top: 16px;
 }
 
 .footer__contacts {
     display: flex;
-    gap: 38px;
+}
+
+.contacts>*:not(:first-child) {
+    margin-left: 38px;
+}
+
+.contacts__item {
     font-family: 'Graphik', sans-serif;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 100%;
+    font-size: 24px;
+    line-height: 30px;
     letter-spacing: -0.01em;
-    margin-bottom: 118px;
     margin-top: 56px;
 }
 
+/* FOOTER INFO - ready */
+
 .footer__info {
     display: flex;
-    justify-content: space-between;
+    margin-top: 125px;
+}
+
+.footer__info>*:not(:first-child) {
+    margin-left: 64px;
+}
+
+.footer__info-block {
     font-family: 'Graphik', sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 18.9px;
+    font-size: 16px;
+    line-height: 19px;
     letter-spacing: -0.01em;
-    margin-bottom: 48px;
-    color: rgba(255, 255, 255, 1);
+}
+
+.footer__info-title {
+    color: var(--general-gray);
+    opacity: 50%;
 }
 
 .footer__info-text {
-    display: flex;
-    white-space: nowrap;
-}
-
-.footer__menu li {
-    margin-bottom: 24px;
-}
-
-.footer__menu a {
-    font-family: 'Graphik', sans-serif;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 18.9px;
-    letter-spacing: -0.01em;
     color: rgba(255, 255, 255, 1);
-    text-decoration: none;
-    opacity: 0.8;
+    margin-top: 12px;
 }
 
-.footer__menu a:hover {
-    opacity: 1;
+
+/* FOOTER MENU */
+
+.menu {}
+
+.menu>*:not(:last-child) {
+    margin-bottom: 32px;
 }
+
+.menu__item {
+    font-family: 'Graphik', sans-serif;
+    font-size: 24px;
+    line-height: 19px;
+    letter-spacing: -0.01em;
+
+}
+
+.menu__item a:hover {
+    color: var(--accent-color);
+}
+
+
+.footer__whatsapp {
+
+
+    margin-top: 79px;
+}
+
+.whatsapp {
+    font-family: 'Graphik', sans-serif;
+}
+
+
+.whatsapp__inner {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 24px;
+    position: relative;
+    width: fit-content;
+    transition: all 0.3s ease;
+    padding: 16px 59px 16px 24px;
+}
+
+.whatsapp__inner:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+}
+
+.whatsapp__icon {
+    padding: 12px;
+}
+
+.whatsapp__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 19px;
+    margin-left: 12px;
+}
+
+.whatsapp__title {
+    color: var(--general-gray);
+    opacity: 50%;
+}
+
+.whatsapp__link {
+    font-family: "Suisse Int'l";
+    color: white;
+    margin-top: 4px;
+    letter-spacing: -0.03em;
+}
+
+/* FOOTER BOTTOM */
 
 .footer__bottom {
     display: flex;
     justify-content: space-between;
-    padding: 32px 64px;
-    color: var(--general-gray);
+    padding: 32px 0px;
     position: relative;
-    max-height: 80px;
-
     align-items: center;
-    /* width: 100%; */
+
+    font-family: 'Graphik', sans-serif;
+    color: var(--general-gray);
+    line-height: 19px;
+    letter-spacing: -0.01em;
 }
 
 .footer__bottom::before {
@@ -161,74 +237,13 @@
 
 .conf__item {
     opacity: 0.5;
-    font-size: 13px;
-    font-weight: 400;
 }
 
 .conf__item:not(:first-child) {
     margin-left: 48px;
 }
 
-.footer__info-title {
-    margin-bottom: 12px;
-    color: rgba(255, 252, 249, 1);
-    opacity: 0.5;
-}
-
-.footer__info-block {
-    margin-right: 64px;
-}
-
-.footer__whatsapp {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 4px 24px;
-    height: 54px;
-    background-color: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 24px;
-    position: relative;
-    width: fit-content;
-    transition: all 0.3s ease;
-    margin-top: 78px;
-}
-
-.footer__whatsapp:hover {
-    border-color: rgba(255, 255, 255, 0.3);
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
-.footer__whatsapp-icon img {
-    width: 28px;
-    height: 28px;
-}
-
-.footer__whatsapp-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.2;
-    font-family: 'Graphik', sans-serif;
-}
-
-.footer__whatsapp-title {
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.6);
-}
-
-.footer__whatsapp-link {
-    font-size: 14px;
-    font-weight: 400;
-    color: white;
-    text-decoration: none;
-    margin-top: 4px;
-}
-
-.footer__whatsapp-link:hover {
-    text-decoration: underline;
-}
-
-
+/* MEDIA QUERIES */
 @media (max-width: 768px) {
     .footer__list {
         flex-direction: column;

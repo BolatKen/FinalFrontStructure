@@ -1,5 +1,5 @@
 import styles from './ColorConfigureEdit.module.css';
-import { ColorList } from '../../ui/ColorList/ColorList';
+import ColorList from '../../ui/ColorList/ColorList';
 import { ButtonPrimary } from '../../ui/ButtonPrimary/ButtonPrimary';
 
 export default function ColorConfigureEdit({ configureTitle, configureVal, colorData }) {
@@ -10,7 +10,7 @@ export default function ColorConfigureEdit({ configureTitle, configureVal, color
                 <div className={styles.variant__subtext}>{configureVal}</div>
             </div>
             <div className={styles.variant__inner}>
-                <ColorList colorData={colorData} />
+                <ColorList colorData={colorData} onColorSelect={undefined} />
                 <ButtonPrimary children={"Под заказ"} onClick={null} />
             </div>
         </div>

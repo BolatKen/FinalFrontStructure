@@ -1,0 +1,31 @@
+.arrow {
+    display: inline-block;
+}
+
+.arrow_dark {
+    background-color: rgba(19, 17, 17, 0.1);
+    opacity: 20%;
+    color: white;
+}
+
+.arrow_white {
+    background-color: rgba(255, 255, 255, 0.1);
+    opacity: 60%;
+}
+
+.arrow__item {
+    width: 12px;
+    height: 20px;
+    color: rgba(20, 20, 20, 1);
+    padding: 18px 22px;
+    border-radius: 50%;
+    backdrop-filter: blur(48px);
+}
+
+.arrow__item_right {
+    transform: rotate(180deg);
+}
+
+.arrow__item_up {
+    transform: rotate(90deg);
+}

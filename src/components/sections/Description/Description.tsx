@@ -2,6 +2,8 @@ import styles from "./Description.module.css";
 import { SpecsList } from '../../shared/SpecsList/SpecsList';
 import { DescriptionDownload } from '../../shared/DescriptionDownload/DescriptionDownload';
 
+import Image from "next/image";
+
 
 interface ProductOption {
   id: number;
@@ -42,6 +44,14 @@ interface Variant {
   variant_options: VariantOption[];
 }
 
+interface ProductImage {
+  id: number;
+  image: string;
+  alt: string;
+  type: string;
+  type_display: string;
+}
+
 interface Product {
   id: number;
   name: string;
@@ -53,6 +63,7 @@ interface Product {
   options: ProductOption[];
   parts: ProductPart[];
   variants: Variant[];
+  images: ProductImage[];
 }
 
 interface DescriptionProps {
@@ -152,7 +163,13 @@ export default function Description({ product }: DescriptionProps) {
               <div className={styles.specs__images}>
                 <div className={[styles.specs__image, styles.sizes].join(" ")}>
                   <div className={[styles.description__image, '_img'].join(" ")}>
-                    <img src="/core/3.png" alt="Вид спереди" />
+                    <Image
+                      src={(product.images.find(img => img.type === 'FRONT')?.image || '')}
+                    
+                      alt="Вид спереди"
+                      width={393}
+                      height={393}
+                    />
                   </div>
                   <div className={styles.sizes__elem}>
                     <div className={styles.sizes__item}>79 см</div>
@@ -183,11 +200,13 @@ export default function Description({ product }: DescriptionProps) {
                   </figcaption>
                 </figure> */}
                 <figure className={styles.specs__imageItem}>
-                  <img
-                    src="/core/4.png"
-                    alt="Вид сбоку"
-                    className={styles.specs__img}
-                  />
+                  <Image
+                      src={(product.images.find(img => img.type === 'SIDE')?.image || '')}
+                    
+                      alt="Вид сбоку"
+                      width={393}
+                      height={393}
+                    />
                   <figcaption className={styles.specs__caption}>
                     79 см × 52 см
                   </figcaption>

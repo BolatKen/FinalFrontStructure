@@ -4,6 +4,8 @@ import { ButtonOrange } from '../../ui/ButtonOrange/ButtonOrange';
 import { ColorConfigureEdit } from '../../shared/ColorConfigureEdit/ColorConfigureEdit';
 import { info } from "console";
 
+import Image from 'next/image';
+
 
 
 interface ProductOption {
@@ -45,6 +47,13 @@ interface Variant {
   variant_options: VariantOption[];
 }
 
+interface ProductImage {
+  id: number;
+  image: string;
+  alt: string;
+  is_main: boolean;
+}
+
 interface Product {
   id: number;
   name: string;
@@ -56,6 +65,7 @@ interface Product {
   options: ProductOption[];
   parts: ProductPart[];
   variants: Variant[];
+  images: ProductImage[];
 }
 
 interface ConfiguratorProps {
@@ -139,8 +149,13 @@ export default function Configurator({ product }: ConfiguratorProps) {
         <div className={styles.configurator__main}>
           {/* Фото товара */}
           <div className={[styles.configurator__image, '_img'].join(" ")}>
-            <img src="/core/2.png" alt="Кресло Aurora" />
-          </div>
+            <Image
+  src={(product.images.find(img => img.is_main)?.image || '')}
+  alt="Кресло Aurora"
+  width={500}
+  height={500}
+/>
+</div>
           {/* Панель выбора */}
           <div className={styles.configurator__panel}>
             <h2 className={[styles.configurator__title, 'title'].join(" ")}>Конфигуратор</h2>

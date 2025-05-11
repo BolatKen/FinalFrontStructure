@@ -1,18 +1,36 @@
+"use client"
+
 import styles from './ColorList.module.css';
-import { ColorItem } from '../ColorItem/ColorItem';
+import { useState } from 'react';
+import ColorItem from '../ColorItem/ColorItem';
 
-export default function ColorList({ colorData }) {
-    return (
-        <ul className={`${styles.color__items} ${styles.color__margin}`}>
-  {Array.isArray(colorData) && colorData.map((item, idx) => (
-    <ColorItem
-      key={idx}
-      imageUrl={item.imageUrl}
-      altText={item.altText}
-    />
-  ))}
-</ul>
-    );
+export default function ColorList({
+  colorData,
+  isSmall = false,
+  onColorSelect
+}) {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const handleSelect = (code, idx) => {
+    setSelectedIndex(idx);
+    onColorSelect?.(code);
+  };
+
+  return (
+    <ul className={`${styles.color__items} ${styles.color__margin}`}>
+      {Array.isArray(colorData) && colorData.map((item, idx) => (
+        <ColorItem
+          key={idx}
+          itemKey={idx}
+          color={item.color}
+          code={item.code}
+          imageUrl={item.imageUrl}
+          altText={item.altText}
+          isSelected={selectedIndex === idx}
+          isSmall={isSmall}
+          onSelect={() => handleSelect(item.code, idx)}
+        />
+      ))}
+    </ul>
+  );
 }
-
-export { default as ColorList } from './ColorList';

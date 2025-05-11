@@ -1,5 +1,8 @@
 import React from 'react';
 import './ProductCard.module.css';
+import styles from './ProductCard.module.css';
+import BonusValue from '@/components/ui/BonusValue/BonusValue';
+import ColorList from '@/components/ui/ColorList/ColorList';
 
 interface ProductCardProps {
   imageSrc: string;
@@ -16,24 +19,48 @@ const ProductCard: React.FC<ProductCardProps> = ({
   newPrice,
   bonus,
 }) => {
+  const colors = {
+    'colorData': [
+      {
+        'imageUrl': "/textures/material-yellow.png",
+        'altText': "Желтая кожа",
+        'isSelected': true
+      },
+      {
+        'imageUrl': "/textures/material-white.png",
+        'altText': "Белая кожа",
+        'isSelected': false
+      },
+      {
+        'imageUrl': "/textures/material-brown.png",
+        'altText': "Коричнивая кожа",
+        'isSelected': false
+      }
+    ]
+  }
+  function formatWithSpaces(n: number): string {
+    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  }
   return (
-    <div className="product-card">
-      <div className="product-card__image">
+    <div className={styles['product-card']}>
+      <div className={styles['product-card__image']}>
         <img src={imageSrc} alt={title} />
       </div>
-      <div className="product-card__inner">
-        <div className="product-card__info">
-          <div className="product-card__more">
-            <h3 className="product-card__title">{title}</h3>
-            <div className="product-card__bottom">
-              <div className="product-card__prices">
-                <span className="product-card__old-price">{oldPrice}</span>
-                <span className="product-card__new-price">{newPrice}</span>
+      <div className={styles['product-card__inner']}>
+        <div className={styles['product-cart__colors']}>
+          <ColorList
+            colorData={colors.colorData}
+            isSmall={true} />
+        </div>
+        <div className={styles['product-card__info']}>
+          <div className={styles['product-card__more']}>
+            <h3 className={styles['product-card__title']}>{title}</h3>
+            <div className={styles['product-card__bottom']}>
+              <div className={styles['product-card__prices']}>
+                <span className={styles['product-card__old-price']}>{formatWithSpaces(Number(oldPrice))} ТГ</span>
+                <span className={styles['product-card__new-price']}>{formatWithSpaces(Number(newPrice))} ТГ</span>
               </div>
-              <div className="product-card__bonus">
-                <span className="product-card__bonus-icon">б</span>
-                <span className="product-card__bonus-text">+ {bonus} бонусов</span>
-              </div>
+              <BonusValue bonusVal={bonus} isDark={true} />
             </div>
           </div>
           <div className="product-card__arrow">

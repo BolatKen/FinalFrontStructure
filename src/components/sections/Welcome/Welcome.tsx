@@ -1,12 +1,12 @@
 "use client"
-
-import { ColorConfigure } from "../../shared/ColorConfigure/ColorConfigure";
-import { ButtonPrimary } from '../../ui/ButtonPrimary/ButtonPrimary';
-import ButtonOrange from '../../ui/ButtonOrange/ButtonOrange';
-import styles from "./Welcome.module.css";
-import ProductScene from "@/components/explosion/product-scene";
-
 import React, { useState } from 'react';
+import styles from "./Welcome.module.css";
+import ColorConfigure from "../../shared/ColorConfigure/ColorConfigure";
+import ButtonPrimary from '../../ui/ButtonPrimary/ButtonPrimary';
+import Arrow from '../../ui/Arrow/Arrow';
+import ButtonOrange from '../../ui/ButtonOrange/ButtonOrange';
+import ProductScene from "@/components/explosion/product-scene";
+import BonusValue from '../../ui/BonusValue/BonusValue';
 
 interface VariantOption {
   id: number;
@@ -49,16 +49,22 @@ export default function Welcome({ product }: WelcomeProps) {
       'configureTitle': "Цвет и материал",
       'colorData': [
         {
+          'color': 'Желтый',
+          'code': '#bfb7ae',
           'imageUrl': "/textures/material-yellow.png",
           'altText': "Желтая кожа",
           'isSelected': true
         },
         {
+          'color': 'Белый',
+          'code': '#e2e2e2',
           'imageUrl': "/textures/material-white.png",
           'altText': "Белая кожа",
           'isSelected': false
         },
         {
+          'color': 'Коричневый',
+          'code': '#7b716d',
           'imageUrl': "/textures/material-brown.png",
           'altText': "Коричнивая кожа",
           'isSelected': false
@@ -69,6 +75,8 @@ export default function Welcome({ product }: WelcomeProps) {
       'configureTitle': "Каркас",
       'colorData': [
         {
+          'color': 'Белое',
+          'code': '#bfb7ae',
           'imageUrl': "/textures/wood-white.png",
           'altText': "Белое дерево",
           'isSelected': true
@@ -93,6 +101,7 @@ export default function Welcome({ product }: WelcomeProps) {
   }
 
   const [selectedView, setSelectedView] = useState<'gallery' | '3d'>('gallery');
+  const [selectedColor, setSelectedColor] = useState<string | null>(null);
 
   return (
     <main className={styles.welcome}>
@@ -100,9 +109,7 @@ export default function Welcome({ product }: WelcomeProps) {
         <div className={`${styles.welcome__inner} _container-bigger`}>
           {/* arrow left */}
           {selectedView === 'gallery' && (
-            <div className={`${styles.welcome__arrow} ${styles.arrow}`}>
-              <img className={styles.arrow__item} src="/core/arrow.svg" alt="arrow-left" />
-            </div>
+            <Arrow onClick={undefined} />
           )}
 
           <div className={`${styles.welcome__container} _container`}>
@@ -119,7 +126,7 @@ export default function Welcome({ product }: WelcomeProps) {
               </>
             )}
             {selectedView === '3d' && (
-              <ProductScene />
+              <ProductScene color={selectedColor} />
             )}
 
             <div className={`${styles.welcome__info} ${styles.info} ${selectedView === '3d' ? styles.welcome__info_margin : ''}`}>
@@ -156,9 +163,7 @@ export default function Welcome({ product }: WelcomeProps) {
 
           {/* arrow right */}
           {selectedView === 'gallery' && (
-            <div className={`${styles.welcome__arrow} ${styles.arrow}`}>
-              <img className={`${styles.arrow__item} ${styles.arrow__item_left}`} src="/core/arrow.svg" alt="arrow-left" />
-            </div>
+            <Arrow direction='right' onClick={undefined} />
           )}
         </div>
       </div>
@@ -171,7 +176,9 @@ export default function Welcome({ product }: WelcomeProps) {
                 <ColorConfigure
                   key={idx}
                   configureTitle={item.configureTitle}
-                  colorData={item.colorData} />
+                  colorData={item.colorData}
+                  onColorSelect={(color: string) => setSelectedColor(color)}
+                />
               ))}
 
               <ButtonPrimary onClick={null}>Конфигуратор</ButtonPrimary>
@@ -183,12 +190,7 @@ export default function Welcome({ product }: WelcomeProps) {
                 <div className={styles.price__text}>
                   {mainVariant.price} {mainVariant.currency}
                 </div>
-                <div className={`${styles.price__bonus} ${styles.bonus}`}>
-                  <div className={styles.bonus__icon}>
-                    <p className={styles.bonus__text}>б</p>
-                  </div>
-                  <div className={styles.bonus__value}>+ 12 000 бонусов</div>
-                </div>
+                <BonusValue bonusVal={'12 000'} />
               </div>
               <div className={`${styles.price__btn} ${styles.btn}`}>
                 <ButtonOrange children={"Купить"} onClick={null} type="button" />

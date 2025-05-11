@@ -1,0 +1,42 @@
+.bonus {
+    display: flex;
+    align-items: center;
+}
+
+.bonus__icon {
+    min-width: 20px;
+    min-height: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+}
+
+.bonus__icon_light {
+    background-color: white;
+    color: rgba(19, 17, 17, 1);
+}
+
+.bonus__icon_dark {
+    background-color: var(--general-color);
+    color: var(--general-gray);
+}
+
+.bonus__text {
+    font-size: 14px;
+    line-height: 10.11px;
+}
+
+.bonus__value {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: -1.2px;
+    line-height: 100%;
+    margin-left: 6px;
+}
+
+.bonus__value_dark {
+    color: rgba(0, 0, 0, 0.6);
+}

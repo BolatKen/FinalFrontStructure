@@ -1,11 +1,15 @@
 import styles from './ColorConfigure.module.css';
-import { ColorList } from '../../ui/ColorList/ColorList';
+import ColorList from '../../ui/ColorList/ColorList';
 
-export default function ColorConfigure({ configureTitle, colorData }) {
+export default function ColorConfigure({
+    configureTitle,
+    colorData,
+    onColorSelect
+}) {
     return (
         <div className={`${styles.configure__color} ${styles.color}`}>
             <div className={styles.configure__title}>{configureTitle}</div>
-            <ColorList colorData={colorData} />
+            <ColorList colorData={colorData} onColorSelect={onColorSelect} />
         </div>
     );
 };

@@ -2,16 +2,20 @@
   position: relative;
 }
 
+.best-offers__main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-top: 40px;
+}
+
 .best-offers__inner {
   margin: 96px 0px;
 }
 
 .best-offers__title {
-  font-size: 40px;
-  font-weight: 500;
-  line-height: 48px;
-  letter-spacing: -1.2px;
-  vertical-align: middle;
+  color: rgba(19, 17, 17, 1);
 }
 
 .best-offers__scroll-btn {
@@ -44,14 +48,12 @@
   }
 }
 
-
 .best-offers__list {
   display: flex;
   overflow-x: auto;
   scroll-behavior: smooth;
-  margin-top: 40px;
 }
 
-.best-offers__list > *:not(:first-child) {
+.best-offers__list>*:not(:first-child) {
   margin-left: 48px;
 }

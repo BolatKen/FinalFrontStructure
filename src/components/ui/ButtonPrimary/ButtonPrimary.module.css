@@ -4,6 +4,9 @@
     color: white;
     border-radius: 28px;
     border: 1px solid rgba(72, 71, 71, 1);
+
+    line-height: 24px;
+    font-size: 16px;
 }
 
 .btn__item_padding {

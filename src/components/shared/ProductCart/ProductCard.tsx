@@ -50,7 +50,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <div className={styles['product-cart__colors']}>
           <ColorList
             colorData={colors.colorData}
-            isSmall={true} />
+            isSmall={true} onColorSelect={undefined} />
         </div>
         <div className={styles['product-card__info']}>
           <div className={styles['product-card__more']}>

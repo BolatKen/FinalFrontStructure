@@ -51,16 +51,11 @@ export default function Header() {
 
   useEffect(() => {
     const handleStorageChange = () => {
-      const storedData = localStorage.getItem("cartData");
-      if (storedData) {
-        const parsedData = JSON.parse(storedData);
-        const now = new Date().getTime();
-        if (now - parsedData.timestamp < 24 * 60 * 60 * 1000) {
-          setCartCount(parsedData.count);
-        } else {
-          localStorage.removeItem("cartData");
-          setCartCount(0);
-        }
+      const storedCart = localStorage.getItem("cartItems");
+      if (storedCart) {
+        const cartItems = JSON.parse(storedCart);
+        const itemCount = cartItems.reduce((acc: number, item: any) => acc + item.quantity, 0);
+        setCartCount(itemCount);
       } else {
         setCartCount(0);
       }
@@ -68,7 +63,7 @@ export default function Header() {
 
     window.addEventListener("storage", handleStorageChange);
 
-    // Инициализация при старте
+    // Инициализация сразу при старте
     handleStorageChange();
 
     return () => {
@@ -96,7 +91,7 @@ export default function Header() {
               alt="shopping-cart-line"
             />
           </div>
-          {cartCount > 0 && (
+          {cartCount > 0 && ( // если товаров > 0, показываем
             <div className="icon__notification">{cartCount}</div>
           )}
         </div>
@@ -104,4 +99,3 @@ export default function Header() {
     </header>
   );
 }
-

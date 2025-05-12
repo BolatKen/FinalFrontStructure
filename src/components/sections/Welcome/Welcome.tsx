@@ -843,21 +843,37 @@ export default function Welcome({ product }: WelcomeProps) {
                 <BonusValue bonusVal={'12 000'} />
               </div>
               <div className={`${styles.configure__btn} ${styles.btn}`}>
-                <ButtonOrange
-                  onClick={() => {
-                    const storedData = localStorage.getItem("cartData");
-                    const parsedData = storedData ? JSON.parse(storedData) : { count: 0 };
-                    const newCount = parsedData.count + 1;
-                    localStorage.setItem("cartData", JSON.stringify({
-                      count: newCount,
-                      timestamp: new Date().getTime(),
-                    }));
-                    window.dispatchEvent(new Event('storage'));
-                  }}
-                  type="button"
-                  >         
-                  Купить
-                </ButtonOrange>
+<ButtonOrange
+  onClick={() => {
+    const storedCart = localStorage.getItem('cartItems');
+    const cartItems = storedCart ? JSON.parse(storedCart) : [];
+
+    const newItem = {
+      id: product.id,
+      name: product.name,
+      price: product.variants[0].price,
+      currency: product.variants[0].currency,
+      quantity: 1,
+    };
+
+    // Проверяем: если товар уже есть в корзине, просто увеличиваем его количество
+    const existingItemIndex = cartItems.findIndex((item: any) => item.id === newItem.id);
+
+    if (existingItemIndex !== -1) {
+      cartItems[existingItemIndex].quantity += 1;
+    } else {
+      cartItems.push(newItem);
+    }
+
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    window.dispatchEvent(new Event('storage'));
+  }}
+  type="button"
+>
+  Купить
+</ButtonOrange>
+
+
               </div>
             </div>
           </div>

@@ -9,7 +9,6 @@ interface ProductCardProps {
   title: string;
   oldPrice: string;
   newPrice: string;
-  bonus: string;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -17,7 +16,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
   title,
   oldPrice,
   newPrice,
-  bonus,
 }) => {
   const colors = {
     'colorData': [
@@ -41,6 +39,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
   function formatWithSpaces(n: number): string {
     return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   }
+
+  const calculateBonus = (price: string) => {
+    const numPrice = parseFloat(price);
+    return Math.round(numPrice * 0.05).toString();
+  };
   return (
     <div className={styles['product-card']}>
       <div className={styles['product-card__image']}>
@@ -60,7 +63,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 <span className={styles['product-card__old-price']}>{formatWithSpaces(Number(oldPrice))} ТГ</span>
                 <span className={styles['product-card__new-price']}>{formatWithSpaces(Number(newPrice))} ТГ</span>
               </div>
-              <BonusValue bonusVal={bonus} isDark={true} />
+              <BonusValue bonusVal={calculateBonus(newPrice)} isDark={true} />
             </div>
           </div>
           <div className="product-card__arrow">

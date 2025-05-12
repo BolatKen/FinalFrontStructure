@@ -1,0 +1,54 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__content {
+    margin-top: 105px;
+    color: #666666;
+    padding: 24px 16px;
+}
+
+.header__title {
+    font-family: "Suisse Int'l", sans-serif;
+    font-size: 280px;
+    font-weight: 500;
+    line-height: 203px;
+    letter-spacing: -0.02em;
+    color: #131111;
+}
+
+.header__filters {
+    display: flex;
+    margin-top: 38px;
+    align-items: center;
+}
+
+.header__filters > *:not(:first-child) {
+    margin-left: 14px;
+}
+
+.header__found {
+    line-height: 24px;
+}
+
+
+.header__searches {
+    margin-top: 23px;
+    display: flex;
+    align-items: center;
+}
+
+.header__searches > *:not(:first-child) {
+    margin-left: 24px;
+}
+
+.searches__title {
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.header__searches > * {
+    line-height: 24px;
+}

@@ -464,6 +464,23 @@ interface Variant {
   variant_options: VariantOption[];
 }
 
+interface ProductImage {
+  id: number;
+  image: string;
+  alt: string;
+  type: string;
+  type_display: string;
+}
+
+interface ProductMaterial {
+  id: number;
+  name: string;
+  color_code: string;
+  texture_image: string;
+  is_default: boolean;
+  product: number;
+}
+
 interface Product {
   id: number;
   name: string;
@@ -473,6 +490,8 @@ interface Product {
   category: string;
   model_url: string;
   variants: Variant[];
+  images: ProductImage[];
+  materials: ProductMaterial[];
 }
 
 interface WelcomeProps {
@@ -480,15 +499,25 @@ interface WelcomeProps {
 }
 
 export default function Welcome({ product }: WelcomeProps) {
+
+
   const mainVariant = product.variants[0];
+
 
   const colorsAndMaterials = [
     {
       configureTitle: "Цвет и материал",
-      colorData: [
-        { color: 'Желтый', code: '#bfb7ae', imageUrl: "/textures/material-yellow.png", altText: "Желтая кожа", isSelected: true },
-        { color: 'Белый', code: '#e2e2e2', imageUrl: "/textures/material-white.png", altText: "Белая кожа", isSelected: false },
-        { color: 'Коричневый', code: '#7b716d', imageUrl: "/textures/material-brown.png", altText: "Коричневая кожа", isSelected: false }
+       colorData: [
+        ...product.materials.map((material) => ({
+          color: material.color_code,
+          code: material.color_code,
+          imageUrl: material.texture_image,
+          altText: material.color_code,
+          isSelected: material.is_default
+        })),
+        // { color: 'Желтый', code: '#bfb7ae', imageUrl: "/textures/material-yellow.png", altText: "Желтая кожа", isSelected: true },
+        // { color: 'Белый', code: '#e2e2e2', imageUrl: "/textures/material-white.png", altText: "Белая кожа", isSelected: false },
+        // { color: 'Коричневый', code: '#7b716d', imageUrl: "/textures/material-brown.png", altText: "Коричневая кожа", isSelected: false }
       ]
     },
     {
@@ -499,6 +528,7 @@ export default function Welcome({ product }: WelcomeProps) {
     }
   ];
 
+  console.log(colorsAndMaterials);
   const titleBlock = product.name.length > 13
     ? (
       <div className={`${styles.welcome__title} ${styles.welcome__title_long}`}>
@@ -514,13 +544,8 @@ export default function Welcome({ product }: WelcomeProps) {
   const [selectedView, setSelectedView] = useState<'gallery' | '3d'>('gallery');
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
 
-  const galleryImages = [
-    product.model_url || "/core/1.png",
-    "/core/2.png",
-    "/core/3.png",
-    "/core/4.png",
-    // "/core/5.jpg",
-  ];
+  const galleryImages = product.images.map((image) => image.image);
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handlePrevImage = () => {

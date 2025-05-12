@@ -49,27 +49,27 @@ import styles from "./Header.module.css";
 export default function Header() {
   const [cartCount, setCartCount] = useState(0);
 
-  useEffect(() => {
-    const handleStorageChange = () => {
-      const storedCart = localStorage.getItem("cartItems");
-      if (storedCart) {
-        const cartItems = JSON.parse(storedCart);
-        const itemCount = cartItems.reduce((acc: number, item: any) => acc + item.quantity, 0);
-        setCartCount(itemCount);
-      } else {
-        setCartCount(0);
-      }
-    };
+useEffect(() => {
+  const handleStorageChange = () => {
+    const storedCart = localStorage.getItem("cartItems");
+    if (storedCart) {
+      const cartItems = JSON.parse(storedCart);
+      setCartCount(cartItems.length); // <== ВАЖНО: просто длина массива товаров
+    } else {
+      setCartCount(0);
+    }
+  };
 
-    window.addEventListener("storage", handleStorageChange);
+  window.addEventListener("storage", handleStorageChange);
 
-    // Инициализация сразу при старте
-    handleStorageChange();
+  // Подгружаем сразу при старте
+  handleStorageChange();
 
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, []);
+  return () => {
+    window.removeEventListener("storage", handleStorageChange);
+  };
+}, []);
+
 
   return (
     <header className={styles.header}>

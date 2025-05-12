@@ -1,0 +1,30 @@
+.filter-btn {}
+
+.filter-btn__item {
+    display: flex;
+    align-items: center;
+    padding: 8.5px 14px;
+
+    border: 1px solid #D0D0D0;
+    background-color: #FAFAFA;
+    border-radius: 56px;
+}
+
+.filter-btn__item_selected {
+    background-color: #FF7244;
+    border: 1px solid #FF7244;
+}
+
+.filter-btn__item_selected .filter-btn__text {
+    color: white;
+}
+
+.filter-btn__text {
+    line-height: 24px;
+    color: var(--general-color);
+    font-size: 16px;
+}
+
+.filter-btn__text_margin {
+    margin-left: 8px;
+}

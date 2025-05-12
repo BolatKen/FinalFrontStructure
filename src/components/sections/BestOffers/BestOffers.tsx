@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import ProductCard from "@/components/shared/ProductCart/ProductCard";
+import ProductCard from "@/components/shared/ProductCard/ProductCard";
 import styles from './BestOffers.module.css';
 import Arrow from "@/components/ui/Arrow/Arrow";
 
@@ -36,7 +36,7 @@ interface Product {
   base_sku?: string;
 }
 
-export default function BestOffers() {
+export default function BestOffers(props?: any) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const products = [
@@ -82,7 +82,7 @@ export default function BestOffers() {
   };
 
   return (
-    <section className={[styles['best-offers']].join(" ")} >
+    <section className={[styles['best-offers'], props.isListing ? styles['best-offers_gray'] : ''].join(" ")} >
 
       <div className={styles['best-offers__inner']}>
         <h2 className={[styles['best-offers__title'], 'title', '_container'].join(" ")}>Лучшие предложения</h2>
@@ -95,9 +95,7 @@ export default function BestOffers() {
                 imageSrc={product.model_url || "/products/chair1.png"} // если нет картинки
                 title={product.name}
                 oldPrice={product.variants[0]?.old_price || ""}
-                newPrice={product.variants[0]?.price}
-                bonus={calculateBonus(product.variants[0]?.price)}
-              />
+                newPrice={product.variants[0]?.price} />
             ))}
           </div>
           <Arrow direction="right" onClick={() => scroll("right")} />
@@ -107,7 +105,3 @@ export default function BestOffers() {
   );
 }
 
-const calculateBonus = (price: string) => {
-  const numPrice = parseFloat(price);
-  return Math.round(numPrice * 0.05).toString();
-};

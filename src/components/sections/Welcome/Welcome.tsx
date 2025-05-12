@@ -674,6 +674,14 @@ interface Variant {
   variant_options: VariantOption[];
 }
 
+interface Image {
+  id: number;
+  image: string;
+  alt: string;
+  type: string;
+  type_display: string;
+}
+
 interface Product {
   id: number;
   name: string;
@@ -682,6 +690,7 @@ interface Product {
   slug: string;
   category: string;
   model_url: string;
+  images?: Image[]; // << добавили это
   variants: Variant[];
 }
 
@@ -724,13 +733,8 @@ export default function Welcome({ product }: WelcomeProps) {
   const [selectedView, setSelectedView] = useState<'gallery' | '3d'>('gallery');
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
 
-  const galleryImages = [
-    product.model_url || "/core/1.png",
-    "/core/2.png",
-    "/core/3.png",
-    "/core/4.png",
-    // "/core/5.jpg",
-  ];
+  // Грузим фотки динамически с бэка
+  const galleryImages = product.images?.map(img => img.image) ?? [product.model_url || "/core/default.png"];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handlePrevImage = () => {
@@ -843,37 +847,34 @@ export default function Welcome({ product }: WelcomeProps) {
                 <BonusValue bonusVal={'12 000'} />
               </div>
               <div className={`${styles.configure__btn} ${styles.btn}`}>
-<ButtonOrange
-  onClick={() => {
-    const storedCart = localStorage.getItem('cartItems');
-    const cartItems = storedCart ? JSON.parse(storedCart) : [];
+                <ButtonOrange
+                  onClick={() => {
+                    const storedCart = localStorage.getItem('cartItems');
+                    const cartItems = storedCart ? JSON.parse(storedCart) : [];
 
-    const newItem = {
-      id: product.id,
-      name: product.name,
-      price: product.variants[0].price,
-      currency: product.variants[0].currency,
-      quantity: 1,
-    };
+                    const newItem = {
+                      id: product.id,
+                      name: product.name,
+                      price: product.variants[0].price,
+                      currency: product.variants[0].currency,
+                      quantity: 1,
+                    };
 
-    // Проверяем: если товар уже есть в корзине, просто увеличиваем его количество
-    const existingItemIndex = cartItems.findIndex((item: any) => item.id === newItem.id);
+                    const existingItemIndex = cartItems.findIndex((item: any) => item.id === newItem.id);
 
-    if (existingItemIndex !== -1) {
-      cartItems[existingItemIndex].quantity += 1;
-    } else {
-      cartItems.push(newItem);
-    }
+                    if (existingItemIndex !== -1) {
+                      cartItems[existingItemIndex].quantity += 1;
+                    } else {
+                      cartItems.push(newItem);
+                    }
 
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    window.dispatchEvent(new Event('storage'));
-  }}
-  type="button"
->
-  Купить
-</ButtonOrange>
-
-
+                    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                    window.dispatchEvent(new Event('storage'));
+                  }}
+                  type="button"
+                >
+                  Купить
+                </ButtonOrange>
               </div>
             </div>
           </div>

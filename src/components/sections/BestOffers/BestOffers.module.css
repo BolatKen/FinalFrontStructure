@@ -1,4 +1,4 @@
-.best-offers {
+/* .best-offers {
   position: relative;
 }
 
@@ -60,4 +60,70 @@
 
 .best-offers__list>*:not(:first-child) {
   margin-left: 48px;
+} */
+
+
+.best-offers {
+  position: relative;
+}
+
+.best-offers_gray {
+  background-color: #F3F5F7;
+}
+
+.best-offers__inner {
+  padding: 96px 0px;
+}
+
+.best-offers__title {
+  color: rgba(19, 17, 17, 1);
+}
+
+.best-offers__main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+  position: relative;
+}
+
+.best-offers__viewport {
+  overflow: hidden;
+  width: 1244px; /* (401.33 + 48) * 3 карточки */
+}
+
+.best-offers__list {
+  display: flex;
+  transition: transform 0.5s ease;
+  gap: 48px;
+}
+
+.best-offers__scroll-btn {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .best-offers__scroll-btn {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    cursor: pointer;
+  }
+
+  .best-offers__scroll-btn--left {
+    left: 0;
+  }
+
+  .best-offers__scroll-btn--right {
+    right: 0;
+  }
 }

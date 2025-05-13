@@ -699,7 +699,7 @@ interface Product {
   slug: string;
   category: string;
   model_url: string;
-  images?: Image[]; // << добавили это
+  // images?: Image[]; // << добавили это
   variants: Variant[];
   images: ProductImage[];
   materials: ProductMaterial[];
@@ -756,8 +756,10 @@ export default function Welcome({ product }: WelcomeProps) {
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
 
   // Грузим фотки динамически с бэка
-  const galleryImages = product.images?.map(img => img.image) ?? [product.model_url || "/core/default.png"];
-  const galleryImages = product.images.map((image) => image.image);
+const galleryImages = product.images && product.images.length > 0
+  ? product.images.map((image) => image.image)
+  : [product.model_url || "/core/default.png"];
+
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 

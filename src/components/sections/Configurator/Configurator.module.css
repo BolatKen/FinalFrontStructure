@@ -62,3 +62,12 @@
   letter-spacing: -1.2px;
   margin-top: 40px;
 }
+
+
+
+
+@media (max-width: 900px) {
+  .configurator__main {
+    padding-top: 32px;
+  }
+}

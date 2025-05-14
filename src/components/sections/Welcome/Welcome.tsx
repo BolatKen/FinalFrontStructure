@@ -108,7 +108,10 @@ export default function Welcome({ product }: WelcomeProps) {
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
 
   // Грузим фотки динамически с бэка
-  const galleryImages = product.images?.map(img => img.image) ?? [product.model_url || "/core/default.png"];
+const galleryImages = product.images && product.images.length > 0
+  ? product.images.map((image) => image.image)
+  : [product.model_url || "/core/default.png"];
+
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 

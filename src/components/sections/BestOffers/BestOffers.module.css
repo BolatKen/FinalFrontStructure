@@ -89,7 +89,7 @@
 
 .best-offers__viewport {
   overflow: hidden;
-  width: 1244px; /* (401.33 + 48) * 3 карточки */
+  width: 1244px;
 }
 
 .best-offers__list {
@@ -98,32 +98,25 @@
   gap: 48px;
 }
 
-.best-offers__scroll-btn {
-  display: none;
-}
+@media (max-width: 640px) {
+  .best-offers__viewport {
+    width: 405px;
+    overflow-x: auto;
+    margin: 0 auto;
+  }
 
-@media (min-width: 640px) {
-  .best-offers__scroll-btn {
-    display: flex;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  .best-offers__list {
+    flex-wrap: nowrap;
+    gap: 24px;
+    transition: none;
+  }
+
+  .best-offers__main {
+    margin-top: 24px;
     justify-content: center;
-    align-items: center;
-    z-index: 10;
-    cursor: pointer;
   }
 
-  .best-offers__scroll-btn--left {
-    left: 0;
-  }
-
-  .best-offers__scroll-btn--right {
-    right: 0;
+  .Arrow {
+    display: none !important; /* убираем стрелки полностью */
   }
 }

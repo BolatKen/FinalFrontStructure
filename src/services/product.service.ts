@@ -25,7 +25,9 @@
   }
 
   // (опционально) Получить только slug-ключи всех товаров (для generateStaticParams)
+  type Product = { slug: string };
+
   export const getAllProductSlugs = async (): Promise<{ slug: string }[]> => {
     const res = await API.get('/products/')
-    return res.data.map((p: any) => ({ slug: p.slug }))
+    return res.data.map((p: Product) => ({ slug: p.slug }))
   }

@@ -169,7 +169,7 @@ export default function Welcome({ product }: WelcomeProps) {
                 </div>
               </>
             )}
-            {selectedView === "3d" && <ProductScene color={selectedColor} />}
+            {selectedView === "3d" && <ProductScene color={selectedColor ?? ""} />}
 
             <div
               className={`${styles.welcome__info} ${styles.info} ${

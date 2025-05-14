@@ -259,7 +259,11 @@ import ProductCard from "@/components/shared/ProductCard/ProductCard";
 import styles from './BestOffers.module.css';
 import Arrow from "@/components/ui/Arrow/Arrow";
 
-export default function BestOffers(props?: any) {
+interface BestOffersProps {
+  isListing?: boolean;
+}
+
+export default function BestOffers(props?: BestOffersProps) {
   const products = [
     { model_url: '', name: 'Aurora', variants: [{ old_price: '121000', price: '104000' }] },
     { model_url: '', name: 'Egor', variants: [{ old_price: '121000', price: '104000' }] },

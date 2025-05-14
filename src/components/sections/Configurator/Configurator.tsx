@@ -2,7 +2,7 @@ import styles from "./Configurator.module.css";
 import { ButtonPrimary } from "../../ui/ButtonPrimary/ButtonPrimary";
 import { ButtonOrange } from "../../ui/ButtonOrange/ButtonOrange";
 import { ColorConfigureEdit } from "../../shared/ColorConfigureEdit/ColorConfigureEdit";
-import { info } from "console";
+// import { info } from "console";
 
 import Image from "next/image";
 
@@ -170,7 +170,7 @@ export default function Configurator({ product }: ConfiguratorProps) {
                   " "
                 )}
               >
-                <img src="/icons/info.svg" alt="Знак подсказки" />
+                <Image src="/icons/info.svg" alt="Знак подсказки" />
               </div>
             </div>
 

@@ -1,5 +1,6 @@
 import styles from './Footer.module.css';
 import Arrow from '@/components/ui/Arrow/Arrow';
+import Image from 'next/image';
 
 export default function Footer() {
   const footerHeaderList = [
@@ -82,8 +83,8 @@ export default function Footer() {
 
                 <div className={[styles.footer__whatsapp, styles.whatsapp].join(" ")}>
                   <div className={styles.whatsapp__inner}>
-                    <div className={[styles['whatsapp__icon'], '_img'].join(" ")}>
-                      <img src="/icons/whatsapp-line.png" alt="WhatsApp" />
+                      <Image src="/icons/whatsapp-line.png" alt="WhatsApp" width={24} height={24} />
+                      {/* <Image src="/icons/whatsapp-line.png" alt="WhatsApp" /> */}
                     </div>
                     <div className={styles['whatsapp__text']}>
                       <div className={styles['whatsapp__title']}>Офис продаж</div>
@@ -101,7 +102,7 @@ export default function Footer() {
           </div>
         </div>
         <Arrow direction='up' isWhite={true} onClick={undefined} />
-      </div>
+      {/* </div> */}
 
       {/* Нижняя часть футера */}
       <div className={['_container-bigger'].join(" ")}>

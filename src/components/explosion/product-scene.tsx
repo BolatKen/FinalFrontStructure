@@ -5,7 +5,11 @@ import { Environment, OrbitControls } from '@react-three/drei';
 import ChairGLB from './ChairGLB';
 import styles from './ProductScene.module.css';
 
-export default function ProductScene({ color }: any) {
+interface ProductSceneProps {
+    color: string;
+}
+
+export default function ProductScene({ color }: ProductSceneProps) {
     return (
         <>
             <div className={styles['product-model']}>

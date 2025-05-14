@@ -2,13 +2,11 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Welcome.module.css";
 import ColorConfigure from "../../shared/ColorConfigure/ColorConfigure";
-import ButtonPrimary from "../../ui/ButtonPrimary/ButtonPrimary";
-import Arrow from "../../ui/Arrow/Arrow";
-import ButtonOrange from "../../ui/ButtonOrange/ButtonOrange";
-import ProductScene from "@/components/explosion/product-scene";
-import BonusValue from "../../ui/BonusValue/BonusValue";
-
-
+import ButtonPrimary from '../../ui/ButtonPrimary/ButtonPrimary';
+import Arrow from '../../ui/Arrow/Arrow';
+import ButtonOrange from '../../ui/ButtonOrange/ButtonOrange';
+import ProductScene from "@/components/explosion/ProductScene";
+import BonusValue from '../../ui/BonusValue/BonusValue';
 
 interface VariantOption {
   id: number;

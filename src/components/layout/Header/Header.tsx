@@ -44,32 +44,32 @@
 
 import { useEffect, useState } from "react";
 import { HeaderItem } from "../../shared/HeaderItem/HeaderItem";
+import Modal from "@/components/ui/Modal/Modal";
+import CartContent from "@/components/cartComp/CartContent";
 import styles from "./Header.module.css";
 
 export default function Header() {
   const [cartCount, setCartCount] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-useEffect(() => {
-  const handleStorageChange = () => {
-    const storedCart = localStorage.getItem("cartItems");
-    if (storedCart) {
-      const cartItems = JSON.parse(storedCart);
-      setCartCount(cartItems.length); // <== ВАЖНО: просто длина массива товаров
-    } else {
-      setCartCount(0);
-    }
-  };
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const storedCart = localStorage.getItem("cartItems");
+      if (storedCart) {
+        const cartItems = JSON.parse(storedCart);
+        setCartCount(cartItems.length);
+      } else {
+        setCartCount(0);
+      }
+    };
 
-  window.addEventListener("storage", handleStorageChange);
+    window.addEventListener("storage", handleStorageChange);
+    handleStorageChange();
 
-  // Подгружаем сразу при старте
-  handleStorageChange();
-
-  return () => {
-    window.removeEventListener("storage", handleStorageChange);
-  };
-}, []);
-
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
 
   return (
     <header className={styles.header}>
@@ -82,7 +82,11 @@ useEffect(() => {
           ))}
         </ul>
 
-        <div className={`${styles.header__cart} ${styles.cart} icon`}>
+        <div
+          className={`${styles.header__cart} ${styles.cart} icon`}
+          onClick={() => setIsModalOpen(true)}
+          style={{ cursor: "pointer" }}
+        >
           <div className={styles.cart__icon}>
             <div className={styles.cart__rect}></div>
             <img
@@ -91,11 +95,17 @@ useEffect(() => {
               alt="shopping-cart-line"
             />
           </div>
-          {cartCount > 0 && ( // если товаров > 0, показываем
+          {cartCount > 0 && (
             <div className="icon__notification">{cartCount}</div>
           )}
         </div>
+
+        {/* Модалка */}
+        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+          <CartContent />
+        </Modal>
       </div>
     </header>
   );
 }
+

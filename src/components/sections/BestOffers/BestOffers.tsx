@@ -127,7 +127,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductCard from "@/components/shared/ProductCard/ProductCard";
 import styles from './BestOffers.module.css';
 import Arrow from "@/components/ui/Arrow/Arrow";
@@ -142,6 +142,7 @@ export default function BestOffers(props?: any) {
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   const visibleCards = 3;
   const maxIndex = products.length - visibleCards;
@@ -154,17 +155,33 @@ export default function BestOffers(props?: any) {
     }
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 640);
+    };
+
+    handleResize(); // Чтобы при первой загрузке тоже узнать
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <section className={[styles['best-offers'], props?.isListing ? styles['best-offers_gray'] : ''].join(" ")}>
       <div className={styles['best-offers__inner']}>
         <h2 className={[styles['best-offers__title'], 'title', '_container'].join(" ")}>Лучшие предложения</h2>
 
         <div className={[styles['best-offers__main'], '_container-bigger'].join(" ")}>
-          <Arrow onClick={() => scroll("left")} disabled={currentIndex === 0} />
+
+          {/* Стрелки только на десктопе */}
+          {!isMobile && (
+            <Arrow onClick={() => scroll("left")} disabled={currentIndex === 0} />
+          )}
 
           <div className={styles['best-offers__viewport']}>
             <div className={styles['best-offers__list']}>
-              {products.slice(currentIndex, currentIndex + visibleCards).map((product, i) => (
+
+              {/* На мобилке — все карточки сразу, на десктопе — slice */}
+              {(isMobile ? products : products.slice(currentIndex, currentIndex + visibleCards)).map((product, i) => (
                 <ProductCard
                   key={i}
                   imageSrc={product.model_url || "/products/chair1.png"}
@@ -173,10 +190,14 @@ export default function BestOffers(props?: any) {
                   newPrice={product.variants[0]?.price}
                 />
               ))}
+
             </div>
           </div>
 
-          <Arrow direction="right" onClick={() => scroll("right")} disabled={currentIndex === maxIndex} />
+          {!isMobile && (
+            <Arrow direction="right" onClick={() => scroll("right")} disabled={currentIndex === maxIndex} />
+          )}
+
         </div>
       </div>
     </section>

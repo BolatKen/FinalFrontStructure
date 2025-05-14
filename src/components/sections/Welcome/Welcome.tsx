@@ -8,8 +8,6 @@ import ButtonOrange from "../../ui/ButtonOrange/ButtonOrange";
 import ProductScene from "@/components/explosion/product-scene";
 import BonusValue from "../../ui/BonusValue/BonusValue";
 
-
-
 interface VariantOption {
   id: number;
   option_display: {
@@ -114,10 +112,10 @@ export default function Welcome({ product }: WelcomeProps) {
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
 
   // Грузим фотки динамически с бэка
-const galleryImages = product.images && product.images.length > 0
-  ? product.images.map((image) => image.image)
-  : [product.model_url || "/core/default.png"];
-
+  const galleryImages =
+    product.images && product.images.length > 0
+      ? product.images.map((image) => image.image)
+      : [product.model_url || "/core/default.png"];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -137,164 +135,166 @@ const galleryImages = product.images && product.images.length > 0
     setCurrentImageIndex(index);
   };
 
-const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-useEffect(() => {
-  const checkMobile = () => {
-    setIsMobile(window.innerWidth <= 768);
-  };
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
 
-  checkMobile();
-  window.addEventListener("resize", checkMobile);
-  return () => window.removeEventListener("resize", checkMobile);
-}, []);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
-return (
-  <main className={styles.welcome}>
-    <div className={styles.welcome__product}>
-      <div className={`${styles.welcome__inner} _container-bigger`}>
-        {/* Стрелка влево */}
-        {selectedView === "gallery" && !isMobile && (
-          <Arrow onClick={handlePrevImage} />
-        )}
-
-        <div className={`${styles.welcome__container} _container`}>
-          {selectedView === "gallery" && (
-            <>
-              {titleBlock}
-              <div className={styles.welcome__img}>
-                <img
-                  className="welcome__item"
-                  src={galleryImages[currentImageIndex]}
-                  alt={`gallery-image-${currentImageIndex}`}
-                />
-              </div>
-            </>
+  return (
+    <main className={styles.welcome}>
+      <div className={styles.welcome__product}>
+        <div className={`${styles.welcome__inner} _container-bigger`}>
+          {/* Стрелка влево */}
+          {selectedView === "gallery" && !isMobile && (
+            <Arrow onClick={handlePrevImage} />
           )}
-          {selectedView === "3d" && <ProductScene color={selectedColor} />}
 
-          <div
-            className={`${styles.welcome__info} ${styles.info} ${
-              selectedView === "3d" ? styles.welcome__info_margin : ""
-            }`}
-          >
-            <div className={`${styles.info__option} ${styles.option}`}>
-              <div
-                className={`${styles.option__item} ${
-                  selectedView === "gallery"
-                    ? styles.option__item_selected
-                    : ""
-                }`}
-                onClick={() => setSelectedView("gallery")}
-              >
-                Галерея
-              </div>
-              <div
-                className={`${styles.option__item} ${
-                  selectedView === "3d" ? styles.option__item_selected : ""
-                }`}
-                onClick={() => setSelectedView("3d")}
-              >
-                Смотреть в 3D
-              </div>
-            </div>
-
-            {/* Кружочки выбора */}
+          <div className={`${styles.welcome__container} _container`}>
             {selectedView === "gallery" && (
-              <div className={styles.info__items}>
-                {galleryImages.map((_, i) => (
-                  <div
-                    key={i}
-                    className={`${styles.info__item} ${
-                      i === currentImageIndex
-                        ? styles.info__item_selected
-                        : ""
-                    }`}
-                    onClick={() => handleSelectImage(i)}
+              <>
+                {titleBlock}
+                <div className={styles.welcome__img}>
+                  <img
+                    className="welcome__item"
+                    src={galleryImages[currentImageIndex]}
+                    alt={`gallery-image-${currentImageIndex}`}
                   />
-                ))}
-              </div>
+                </div>
+              </>
             )}
-            {selectedView === "3d" && (
-              <div className={styles.info__items}>
+            {selectedView === "3d" && <ProductScene color={selectedColor} />}
+
+            <div
+              className={`${styles.welcome__info} ${styles.info} ${
+                selectedView === "3d" ? styles.welcome__info_margin : ""
+              }`}
+            >
+              <div className={`${styles.info__option} ${styles.option}`}>
                 <div
-                  className={`${styles.info__item} ${styles.info__item_selected} ${styles.info__item_width}`}
+                  className={`${styles.option__item} ${
+                    selectedView === "gallery"
+                      ? styles.option__item_selected
+                      : ""
+                  }`}
+                  onClick={() => setSelectedView("gallery")}
+                >
+                  Галерея
+                </div>
+                <div
+                  className={`${styles.option__item} ${
+                    selectedView === "3d" ? styles.option__item_selected : ""
+                  }`}
+                  onClick={() => setSelectedView("3d")}
+                >
+                  Смотреть в 3D
+                </div>
+              </div>
+
+              {/* Кружочки выбора */}
+              {selectedView === "gallery" && (
+                <div className={styles.info__items}>
+                  {galleryImages.map((_, i) => (
+                    <div
+                      key={i}
+                      className={`${styles.info__item} ${
+                        i === currentImageIndex
+                          ? styles.info__item_selected
+                          : ""
+                      }`}
+                      onClick={() => handleSelectImage(i)}
+                    />
+                  ))}
+                </div>
+              )}
+              {selectedView === "3d" && (
+                <div className={styles.info__items}>
+                  <div
+                    className={`${styles.info__item} ${styles.info__item_selected} ${styles.info__item_width}`}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Стрелка вправо */}
+          {selectedView === "gallery" && !isMobile && (
+            <Arrow direction="right" onClick={handleNextImage} />
+          )}
+        </div>
+      </div>
+
+      {/* Блок цены и конфига */}
+      <div className={styles.welcome__price}>
+        <div className={`_container ${styles.configure}`}>
+          <div className={styles.configure__inner}>
+            <div className={styles.configure__material}>
+              {colorsAndMaterials.map((item, idx) => (
+                <ColorConfigure
+                  key={idx}
+                  configureTitle={item.configureTitle}
+                  colorData={item.colorData}
+                  onColorSelect={(color: string) => setSelectedColor(color)}
                 />
+              ))}
+              <div className={styles.configure__configBtn}>
+                <ButtonPrimary onClick={null}>Конфигуратор</ButtonPrimary>
               </div>
-            )}
-          </div>
-        </div>
-
-        {/* Стрелка вправо */}
-        {selectedView === "gallery" && !isMobile && (
-          <Arrow direction="right" onClick={handleNextImage} />
-        )}
-      </div>
-    </div>
-
-    {/* Блок цены и конфига */}
-    <div className={styles.welcome__price}>
-      <div className={`_container ${styles.configure}`}>
-        <div className={styles.configure__inner}>
-          <div className={styles.configure__material}>
-            {colorsAndMaterials.map((item, idx) => (
-              <ColorConfigure
-                key={idx}
-                configureTitle={item.configureTitle}
-                colorData={item.colorData}
-                onColorSelect={(color: string) => setSelectedColor(color)}
-              />
-            ))}
-            <ButtonPrimary onClick={null}>Конфигуратор</ButtonPrimary>
-          </div>
-
-          <div className={`${styles.configure__price} ${styles.price}`}>
-            <div className={styles.price__item}>
-              <div className={styles.configure__title}>Цена</div>
-              <div className={styles.price__text}>
-                {mainVariant.price} {mainVariant.currency}
-              </div>
-              <BonusValue bonusVal={"12 000"} />
             </div>
-            <div className={`${styles.configure__btn} ${styles.btn}`}>
-              <ButtonOrange
-                onClick={() => {
-                  const storedCart = localStorage.getItem("cartItems");
-                  const cartItems = storedCart ? JSON.parse(storedCart) : [];
 
-                  const newItem = {
-                    id: product.id,
-                    name: product.name,
-                    price: product.variants[0].price,
-                    currency: product.variants[0].currency,
-                    quantity: 1,
-                  };
+            <div className={styles.configure__price}>
+              <div className={styles.price__item}>
+                <div className={styles.configure__title}>Цена</div>
+                <div className={styles.price__text}>
+                  {mainVariant.price} {mainVariant.currency}
+                </div>
+                <BonusValue bonusVal={"12 000"} />
+              </div>
+              <div className={styles.configure__btn}>
+                <ButtonOrange
+                  onClick={() => {
+                    const storedCart = localStorage.getItem("cartItems");
+                    const cartItems = storedCart ? JSON.parse(storedCart) : [];
 
-                  const existingItemIndex = cartItems.findIndex(
-                    (item: any) => item.id === newItem.id
-                  );
+                    const newItem = {
+                      id: product.id,
+                      name: product.name,
+                      price: product.variants[0].price,
+                      currency: product.variants[0].currency,
+                      quantity: 1,
+                    };
 
-                  if (existingItemIndex !== -1) {
-                    cartItems[existingItemIndex].quantity += 1;
-                  } else {
-                    cartItems.push(newItem);
-                  }
+                    const existingItemIndex = cartItems.findIndex(
+                      (item: any) => item.id === newItem.id
+                    );
 
-                  localStorage.setItem(
-                    "cartItems",
-                    JSON.stringify(cartItems)
-                  );
-                  window.dispatchEvent(new Event("storage"));
-                }}
-                type="button"
-              >
-                Купить
-              </ButtonOrange>
+                    if (existingItemIndex !== -1) {
+                      cartItems[existingItemIndex].quantity += 1;
+                    } else {
+                      cartItems.push(newItem);
+                    }
+
+                    localStorage.setItem(
+                      "cartItems",
+                      JSON.stringify(cartItems)
+                    );
+                    window.dispatchEvent(new Event("storage"));
+                  }}
+                  type="button"
+                >
+                  Купить
+                </ButtonOrange>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </main>
-);
+    </main>
+  );
 }

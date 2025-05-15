@@ -1,6 +1,7 @@
 import styles from './Arrow.module.css';
 
 export default function Arrow({
+  className = '',
   direction = 'left',
   isWhite = false,
   onClick,
@@ -19,7 +20,7 @@ export default function Arrow({
 
   return (
     <div
-      className={styles.arrow}
+      className={[styles.arrow, className].join(' ')}
       onClick={!disabled ? onClick : undefined}
       style={{
         opacity: disabled ? 0.4 : 1,

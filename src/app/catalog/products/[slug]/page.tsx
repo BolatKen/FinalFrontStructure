@@ -5,11 +5,8 @@ import Description from '@/components/sections/Description/Description';
 import Configurator from '@/components/sections/Configurator/Configurator';
 import BestOffers from '@/components/sections/BestOffers/BestOffers';
 
-interface ProductPageProps {
-  params: { slug: string }
-}
 
-export default async function ProductPage({ params }: ProductPageProps) {
+export default async function ProductPage({ params }: { params: { slug: string } }) {
   const product = await getProductBySlug(params.slug);
   if (!product) {
     return <div>Товар не найден</div>

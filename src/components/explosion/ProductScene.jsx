@@ -7,17 +7,20 @@ import styles from './ProductScene.module.css';
 
 const Model = dynamic(() => import('./Model'), { ssr: false });
 
-export default function ProductScene(color) {
+export default function ProductScene({ modelUrl = '/models/6.glb', color }) {
+    if (modelUrl) {
+        modelUrl = '/models/4.glb';
+    }
     return (
         <div className={styles['product-model']}>
             <Canvas camera={{ position: [0, 0, 5], fov: 35 }}>
                 <ambientLight intensity={1.2} />
                 <OrbitControls />
                 <Suspense fallback={null}>
-                    <Model url='/models/6.glb'
+                    <Model url={modelUrl}
                         color={color}
                         position={[0, -1.15, 0]}
-                        scale={60}
+                        scale={90}
                         dispose={null} />
                 </Suspense>
                 <Environment files={"/lights/brown_photostudio.hdr"} />

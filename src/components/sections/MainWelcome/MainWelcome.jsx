@@ -8,12 +8,13 @@ import GeneralInfoRightDown from '../../shared/GeneralInfoRightDown/GeneralInfoR
 import GeneralInfoLeftDown from '../../shared/GeneralInfoLeftDown/GeneralInfoLeftDown.jsx';
 import InfoList from '../../shared/InfoList/InfoList';
 import ProductCatalog from '../../shared/ProductCatalog/ProductCatalog';
+import OtherCatalog from '../../shared/OtherCatalog/OtherCatalog';
 
 export default function MainWelcome() {
     const rightContent = (<GeneralInfoRightUpper />)
     const rightContentDown = (<GeneralInfoRightDown />)
     const leftContentDown = (<GeneralInfoLeftDown />)
-    
+
     const title1 = 'Кресла'
     const tags1 = [
         'Парикмахерские',
@@ -165,6 +166,8 @@ export default function MainWelcome() {
                 title={title2}
                 tags={tags2}
                 products={products2} />
+
+            <OtherCatalog />
             <GeneralInfo
                 contentLeft={leftContentDown}
                 contentRight={rightContentDown}

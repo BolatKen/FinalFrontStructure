@@ -1,14 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { HeaderItem } from "../../shared/HeaderItem/HeaderItem";
-import Modal from "@/components/ui/Modal/Modal";
-import CartContent from "@/components/cartComp/CartContent";
 import styles from "./Header.module.css";
 
 export default function Header({ isBlur = false }) {
   const [cartCount, setCartCount] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const handleStorageChange = () => {
@@ -29,6 +28,10 @@ export default function Header({ isBlur = false }) {
     };
   }, []);
 
+  const handleCartClick = () => {
+    router.push("/cart");
+  };
+
   return (
     <header className={[styles.header, isBlur ? styles.header_blur : ''].join(" ")}>
       <div className={`${styles.header__inner} _container-bigger`}>
@@ -42,7 +45,7 @@ export default function Header({ isBlur = false }) {
 
         <div
           className={`${styles.header__cart} ${styles.cart} icon`}
-          onClick={() => setIsModalOpen(true)}
+          onClick={handleCartClick}
           style={{ cursor: "pointer" }}
         >
           <div className={styles.cart__icon}>
@@ -65,13 +68,7 @@ export default function Header({ isBlur = false }) {
             <div className="icon__notification">{cartCount}</div>
           )}
         </div>
-
-        {/* Модалка */}
-        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-          <CartContent />
-        </Modal>
       </div>
     </header>
   );
 }
-

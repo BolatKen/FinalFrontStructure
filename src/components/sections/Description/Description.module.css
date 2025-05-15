@@ -147,6 +147,12 @@
   }
 }
 
+@media (max-width: 600px) {
+  .description__inner {
+    padding: 16px;
+  }
+}
+
 .specs {
   padding: 96px 0 56.69px 0;
 }
@@ -171,16 +177,20 @@
 .specs__tabs {
   display: flex;
   gap: 12px;
-  backdrop-filter: blur(64px);
-  padding: 4px;
   margin-bottom: 24px;
 }
 
 @media (max-width: 600px) {
   .specs__tabs {
-    flex-direction: column;
-    gap: 8px;
-    padding: 0;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0;
+    padding: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(64px);
+    border-radius: 100px;
+    width: 100%;
+    overflow-x: unset;
   }
 }
 
@@ -193,18 +203,20 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  padding: 16px 0px;
+  padding: 16px 0;
   border: none;
   background: none;
   font-size: 16px;
-  transition: background 0.2s, color 0.2s;
+  transition: background 0.3s, color 0.3s;
+  white-space: nowrap;
 }
 
 @media (max-width: 600px) {
   .tabs__btn {
-    width: 100%;
-    padding: 12px 0;
+    flex: 0 0 auto;
+    padding: 12px 24px;
     font-size: 15px;
+    border-radius: 100px;
   }
 }
 
@@ -216,13 +228,19 @@
 
 .specs__main {
   display: flex;
-  margin-top: 64px;
   flex-direction: column;
+  margin-top: 64px;
 }
 
 @media (max-width: 900px) {
   .specs__main {
     margin-top: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .specs__main {
+    margin-top: 24px;
   }
 }
 
@@ -233,6 +251,12 @@
 @media (max-width: 900px) {
   .specs__media {
     margin-top: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .specs__media {
+    margin-top: 24px;
   }
 }
 
@@ -249,6 +273,15 @@
     align-items: center;
     margin-top: 24px;
     gap: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .specs__images {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 24px;
+    gap: 16px;
   }
 }
 
@@ -272,7 +305,7 @@
   position: relative;
   width: 100%;
   height: 0;
-  padding-bottom: 100%; 
+  padding-bottom: 100%;
 }
 
 .description__image img {
@@ -302,8 +335,7 @@
   font-weight: 500;
   line-height: 20px;
   letter-spacing: -1px;
-  vertical-align: middle;
-  background: rgba(0,0,0,0.3);
+  background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(4px);
   border-radius: 8px;
   padding: 2px 8px;
@@ -342,9 +374,87 @@
   }
 }
 
+@media (max-width: 600px) {
+  .specs__downloads {
+    flex-direction: column;
+    margin-top: 24px;
+    gap: 12px;
+  }
+}
+
 .specs__image img,
 .specs__imageItem img {
   width: 100% !important;
   height: auto !important;
   position: relative !important;
-} */
+}
+
+/* ===== Список характеристик ===== */
+.specs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.specs-list__item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.specs-list__name {
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+  color: #ffffff;
+}
+
+.specs-list__dots {
+  flex-grow: 1;
+  border-bottom: 1px dotted rgba(255, 255, 255, 0.2);
+  margin: 0 8px;
+  height: 1px;
+}
+
+.specs-list__value {
+  color: rgba(255, 255, 255, 0.8);
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+/* ===== МОБИЛКИ С ПРАВИЛЬНОЙ СЕТКОЙ ===== */
+@media (max-width: 600px) {
+  .specs-list {
+    gap: 16px;
+    width: 100%;
+    max-width: 327px;
+  }
+
+  .specs-list__item {
+    display: grid;
+    grid-template-columns: minmax(30%, auto) 1fr minmax(30%, auto);
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    font-size: 14px;
+    line-height: 1.3;
+  }
+
+  .specs-list__name,
+  .specs-list__value {
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .specs-list__dots {
+    margin: 0;
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.2);
+  }
+}

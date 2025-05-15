@@ -1,0 +1,29 @@
+.general {
+    background-color: var(--general-color);
+    color: white;
+}
+
+.general_light {
+    background-color: white;
+    color: rgba(19, 17, 17, 1);
+}
+
+.general__inner {
+    padding: 48px 0px;
+}
+
+.general__content {
+    padding-bottom: 48px;
+}
+
+.content {
+    display: flex;
+}
+
+.content>*:first-child {
+    flex: 1 0 auto;
+}
+
+.content>*:last-child {
+    flex: 0 1 55%;
+}

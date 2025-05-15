@@ -4,6 +4,7 @@ export default function ButtonPrimary({
     className = '',
     children,
     onClick,
+    isWhite = false,
     isSelected = false,
     isPadding = false,
     isNotification = false
@@ -19,6 +20,7 @@ export default function ButtonPrimary({
             <button className={`${styles.btn__item} 
             ${isPadding ? styles.btn__item_padding : ''}
             ${isSelected ? styles.btn__item_selected : ''}
+            ${isWhite ? styles.btn__item_white : ''}
             `} >{children}</button>
             {notification}
         </div >

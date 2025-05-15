@@ -9,6 +9,10 @@
     font-size: 16px;
 }
 
+.btn__item_white {
+    border: 1px solid white;
+}
+
 .btn__item_padding {
     padding: 32.5px 23px;
 }

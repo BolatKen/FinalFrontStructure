@@ -4,6 +4,7 @@ import Welcome from '@/components/sections/Welcome/Welcome';
 import Description from '@/components/sections/Description/Description';
 import Configurator from '@/components/sections/Configurator/Configurator';
 import BestOffers from '@/components/sections/BestOffers/BestOffers';
+import Header from '@/components/layout/Header/Header';
 
 
 export default async function ProductPage({ params }: { params: { slug: string } }) {
@@ -13,6 +14,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
   }
 
   return (<>
+    <Header />
     <Welcome product={product} />
     <Configurator product={product} />
     <Description product={product} />

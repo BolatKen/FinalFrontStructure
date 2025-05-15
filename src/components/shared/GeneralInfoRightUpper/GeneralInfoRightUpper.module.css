@@ -1,0 +1,16 @@
+.right {}
+
+.right__title {
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 40px;
+}
+
+.right__text {
+    font-family: "Suisse Int'l", sans-serif;
+    font-size: 18px;
+    letter-spacing: 0%;
+    color: rgba(162, 162, 162, 1);
+    padding-top: 40px;
+    line-height: 21px;
+}

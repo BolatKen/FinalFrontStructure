@@ -1,0 +1,104 @@
+.welcome {
+    position: relative;
+}
+
+.welcome__inner {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.welcome__inner>* {
+    flex: 0 1 39.7%;
+}
+
+.welcome__img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.desc {
+    background-color: rgba(19, 17, 17, 0.6);
+    backdrop-filter: blur(64px);
+}
+
+.desc__inner {
+    display: flex;
+    flex-direction: column;
+    padding: 216px 0px 0px 72px;
+}
+
+.desc__content>*:not(:first-child) {
+    margin-top: 40px;
+}
+
+.desc__ticket {
+    width: 88px;
+}
+
+.desc__ticket-text {
+    background-color: var(--accent-color);
+    padding: 0px 12px;
+    border-radius: 56px;
+    line-height: 24px;
+    letter-spacing: -0.32px;
+}
+
+.desc__title {
+    font-family: "Suisse Int'l", sans-serif;
+    font-size: 64px;
+    letter-spacing: -.02em;
+    font-weight: 500;
+}
+
+.desc__text {
+    font-family: "Suisse Int'l", sans-serif;
+    font-size: 18px;
+    color: rgba(162, 162, 162, 1);
+}
+
+.desc__price {
+    display: flex;
+
+}
+
+.desc__price > *:not(:first-child) {
+    margin-left: 12px;
+}
+
+.price__value {
+    font-family: "Suisse Int'l", sans-serif;
+    font-size: 32px;
+    letter-spacing: -.02em;
+    font-weight: 500;
+}
+
+.welcome__items-wrapper {
+    margin-top: 134px;
+    margin-bottom: 48px;
+}
+
+.welcome__items {
+    padding: 8px 15.5px;
+}
+
+.items {
+    display: flex;
+}
+
+.items > *:not(:first-child) {
+    margin-left: 8px;
+}
+
+.items__elem {
+    flex: 1 1 20%;
+    background-color: rgba(19, 17, 17, 0.4);
+    backdrop-filter: blur(64px);
+    height: 4px;
+    border-radius: 100px;
+}
+
+.items__elem_selected {
+    background-color: var(--accent-color);
+}

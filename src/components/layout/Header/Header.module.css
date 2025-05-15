@@ -5,6 +5,13 @@
     color: var(--general-color);
 }
 
+.header_blur {
+    position: sticky;
+    color: white;
+    background-color: rgba(19, 17, 17, 0.6);
+    backdrop-filter: blur(64px);
+}
+
 .header__inner {
     display: flex;
     justify-content: space-between;
@@ -40,6 +47,10 @@
     border-radius: 50%;
     opacity: 40%;
     z-index: -1;
+}
+
+.cart__rect_white {
+    border-color: white;
 }
 
 .cart__svg {

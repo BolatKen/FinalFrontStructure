@@ -1,17 +1,11 @@
 "use client";
-
-import BestOffers from "@/components/sections/BestOffers/BestOffers";
-import Configurator from "@/components/sections/Configurator/Configurator";
-import Description from "@/components/sections/Description/Description";
-import Welcome from "@/components/sections/Welcome/Welcome";
+import styles from './page.module.css';
+import MainWelcome from "@/components/sections/MainWelcome/MainWelcome";
 
 export default function Home() {
   return (
     <>
-      {/* <Welcome /> */}
-      {/* <Configurator /> */}
-      {/* <Description /> */}
-      {/* <BestOffers /> */}
+      <MainWelcome />
     </>
   );
 }

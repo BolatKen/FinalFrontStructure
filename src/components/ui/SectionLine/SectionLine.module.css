@@ -1,0 +1,11 @@
+.line {
+    padding: 16px 0;
+    font-weight: 500;
+    margin-top: 48px;
+    margin-bottom: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.line_dark {
+    border-color: rgba(19, 17, 17, 0.2);
+}

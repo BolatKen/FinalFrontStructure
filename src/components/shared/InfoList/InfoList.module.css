@@ -1,0 +1,17 @@
+.list {
+    background-color: var(--general-color);
+}
+
+.list__inner {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 0;
+}
+
+.list__inner>* {
+    flex: 0 1 33.33%;
+}
+
+.list__inner>*:not(:first-child) {
+    margin-left: 40px;
+}

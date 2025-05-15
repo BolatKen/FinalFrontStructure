@@ -5,6 +5,7 @@ import BestOffers from '@/components/sections/BestOffers/BestOffers';
 import ListingCategories from '@/components/sections/ListingCategories/ListingCategories';
 import Arrow from '@/components/ui/Arrow/Arrow';
 import ButtonFilter from '@/components/ui/ButtonFilter/ButtonFilter';
+import Header from '@/components/layout/Header/Header';
 
 export default async function CategoriesPage() {
   const categories = await getCategories()
@@ -53,6 +54,7 @@ export default async function CategoriesPage() {
 
   return (
     <>
+      <Header />
       <div className={[styles.header, '_container-bigger'].join(" ")}>
         <Arrow onClick={undefined} />
         <div className={[styles.header__content, '_container'].join(" ")}>

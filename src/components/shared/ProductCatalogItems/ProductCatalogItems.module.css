@@ -1,0 +1,31 @@
+.items {
+    background-color: var(--general);
+}
+
+.items__inner {
+    display: flex;
+}
+
+.items__count {
+    margin-right: calc(340 / 1584 * 100%);
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 30px;
+    color: rgba(162, 162, 162, 1);
+}
+
+.items__current {
+    color: white;
+}
+
+.items__list {
+    display: flex;
+}
+
+.items__list>*:not(:first-child) {
+    margin-left: 40px;
+}
+
+.items__list>* {
+    width: 347px;
+}

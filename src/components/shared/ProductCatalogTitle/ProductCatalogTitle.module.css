@@ -1,0 +1,27 @@
+.text {
+    background-color: var(--general-color);
+}
+
+.text__inner {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.text__content {
+    flex: 1 0 auto;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: -1.2px;
+}
+
+.text__arrows {
+    display: flex;
+
+}
+
+.text__arrows>*:not(:first-child) {
+    margin-left: 16px;
+}

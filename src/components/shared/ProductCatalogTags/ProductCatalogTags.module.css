@@ -1,0 +1,12 @@
+.tags {
+    background-color: var(--general-color);
+}
+
+.tags__inner {
+    padding: 40px 0;
+    display: flex;
+}
+
+.tags__inner > *:not(:first-child) {
+    margin-left: 16px;
+}

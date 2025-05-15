@@ -19,7 +19,8 @@ export default function ButtonPrimary({
         <div className={['btn', 'icon', className].join(" ")} onClick={onClick} >
             <button className={`${styles.btn__item} 
             ${isPadding ? styles.btn__item_padding : ''}
-            ${isSelected ? styles.btn__item_selected : ''}
+            ${isSelected ? styles.btn__item_selected_light : ''}
+            ${(isSelected & isPadding) ? styles.btn__item_selected : ''}
             ${isWhite ? styles.btn__item_white : ''}
             `} >{children}</button>
             {notification}

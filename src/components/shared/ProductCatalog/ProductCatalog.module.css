@@ -1,0 +1,7 @@
+.catalog {
+    background-color: var(--general-color);
+}
+
+.catalog__inner {
+    padding: 48px 0;
+}

@@ -1,5 +1,6 @@
 .arrow {
     display: inline-block;
+    cursor: pointer;
 }
 
 .arrow_dark {

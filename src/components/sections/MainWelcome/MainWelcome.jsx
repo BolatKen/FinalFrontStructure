@@ -7,11 +7,117 @@ import GeneralInfoRightUpper from '../../shared/GeneralInfoRightUpper/GeneralInf
 import GeneralInfoRightDown from '../../shared/GeneralInfoRightDown/GeneralInfoRightDown.jsx';
 import GeneralInfoLeftDown from '../../shared/GeneralInfoLeftDown/GeneralInfoLeftDown.jsx';
 import InfoList from '../../shared/InfoList/InfoList';
+import ProductCatalog from '../../shared/ProductCatalog/ProductCatalog';
 
 export default function MainWelcome() {
     const rightContent = (<GeneralInfoRightUpper />)
     const rightContentDown = (<GeneralInfoRightDown />)
     const leftContentDown = (<GeneralInfoLeftDown />)
+    
+    const title1 = 'Кресла'
+    const tags1 = [
+        'Парикмахерские',
+        'Барбеские',
+        'Визажные',
+        'Педикюрные',
+        'Детские',
+        'Для мастеров'
+    ]
+    const products1 = [
+        {
+            'model_url': '/products/1.png',
+            'name': 'Aurora',
+            'variants': [
+                {
+                    'old_price': '121000',
+                    'price': '104000'
+                }
+            ]
+        },
+        {
+            'model_url': '/products/2.jpg',
+            'name': 'Aurora',
+            'variants': [
+                {
+                    'old_price': '121000',
+                    'price': '104000'
+                }
+            ]
+        },
+        {
+            'model_url': '/products/3.jpg',
+            'name': 'Aurora',
+            'variants': [
+                {
+                    'old_price': '121000',
+                    'price': '104000'
+                }
+            ]
+        },
+        {
+            'model_url': '/products/chair1.png',
+            'name': 'Aurora',
+            'variants': [
+                {
+                    'old_price': '121000',
+                    'price': '104000'
+                }
+            ]
+        },
+        {
+            'model_url': '/products/chair1.png',
+            'name': 'Aurora',
+            'variants': [
+                {
+                    'old_price': '121000',
+                    'price': '104000'
+                }
+            ]
+        }
+    ]
+
+    const title2 = 'Мойки'
+    const tags2 = [
+        'Парикмахерские',
+        'Барбеские',
+        'Визажные',
+        'Педикюрные',
+        'Детские',
+        'Для мастеров'
+    ]
+    const products2 = [
+        {
+            'model_url': '/products/4.jpg',
+            'name': 'Aurora',
+            'variants': [
+                {
+                    'old_price': '121000',
+                    'price': '104000'
+                }
+            ]
+        },
+        {
+            'model_url': '/products/5.jpg',
+            'name': 'Aurora',
+            'variants': [
+                {
+                    'old_price': '121000',
+                    'price': '104000'
+                }
+            ]
+        },
+        {
+            'model_url': '/products/6.jpg',
+            'name': 'Aurora',
+            'variants': [
+                {
+                    'old_price': '121000',
+                    'price': '104000'
+                }
+            ]
+        },
+    ]
+
     return (
         <>
             <section className={[styles.welcome].join(' ')}>
@@ -51,10 +157,19 @@ export default function MainWelcome() {
             </section>
             <GeneralInfo contentRight={rightContent} />
             <InfoList />
+            <ProductCatalog
+                title={title1}
+                tags={tags1}
+                products={products1} />
+            <ProductCatalog
+                title={title2}
+                tags={tags2}
+                products={products2} />
             <GeneralInfo
                 contentLeft={leftContentDown}
                 contentRight={rightContentDown}
                 isLight={true} />
+
         </>
     );
 }

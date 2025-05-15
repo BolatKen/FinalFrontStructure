@@ -2,78 +2,16 @@ import styles from "./Configurator.module.css";
 import { ButtonPrimary } from "../../ui/ButtonPrimary/ButtonPrimary";
 import { ButtonOrange } from "../../ui/ButtonOrange/ButtonOrange";
 import { ColorConfigureEdit } from "../../shared/ColorConfigureEdit/ColorConfigureEdit";
-import { info } from "console";
-
 import Image from "next/image";
-
-interface ProductOption {
-  id: number;
-  option_type_display: string;
-  value: string;
-  code: string;
-}
-
-interface ProductPartDimension {
-  id: number;
-  name: string;
-  value: string;
-  unit: string;
-}
-
-interface ProductPart {
-  id: number;
-  name: string;
-  dimensions: ProductPartDimension[];
-}
-
-interface VariantOption {
-  id: number;
-  option_display: {
-    id: number;
-    option_type_display: string;
-    value: string;
-    code: string;
-  };
-}
-
-interface Variant {
-  id: number;
-  sku: string;
-  price: string;
-  old_price?: string | null;
-  currency: string;
-  variant_options: VariantOption[];
-}
-
-interface ProductImage {
-  id: number;
-  image: string;
-  alt: string;
-  type: string;
-  type_display: string;
-}
-
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  base_sku: string;
-  slug: string;
-  category: string;
-  model_url: string;
-  options: ProductOption[];
-  parts: ProductPart[];
-  variants: Variant[];
-  images: ProductImage[];
-}
+import { Product } from "@/types/product";
 
 interface ConfiguratorProps {
   product: Product;
 }
 
 export default function Configurator({ product }: ConfiguratorProps) {
-  if (!product?.options) {
-    return <div>Загрузка характеристик...</div>; // или просто null
+  if (!product) {
+    return <div>Загрузка товара...</div>; // или просто null
   }
   const productItemBtns = [
     {
@@ -141,6 +79,7 @@ export default function Configurator({ product }: ConfiguratorProps) {
     title: product.name,
     description: product.description,
   };
+
   return (
     <div className={styles.configurator}>
       <section className={[styles.configurator__inner, "_container"].join(" ")}>
@@ -149,7 +88,7 @@ export default function Configurator({ product }: ConfiguratorProps) {
           <div className={[styles.configurator__image, "_img"].join(" ")}>
             <Image
               src={
-                product.images.find((img) => img.type === "MAIN")?.image || ""
+                (product.images?.find((img) => img.type === "MAIN")?.image ?? "")
               }
               alt="Кресло Aurora"
               fill

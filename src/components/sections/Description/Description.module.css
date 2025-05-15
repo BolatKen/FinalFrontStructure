@@ -1,4 +1,4 @@
-/* .description {
+.description {
     position: relative;
     background-color: var(--general-color);
 }
@@ -127,10 +127,10 @@
     width: 100%;
     margin-top: 64px;
 }
- */
 
 
-.description {
+
+/* .description {
   position: relative;
   background-color: var(--general-color);
 }
@@ -272,7 +272,7 @@
   position: relative;
   width: 100%;
   height: 0;
-  padding-bottom: 100%; /* Для сохранения пропорций 1:1 */
+  padding-bottom: 100%; 
 }
 
 .description__image img {
@@ -342,10 +342,9 @@
   }
 }
 
-/* Добавляем стили для Next.js Image компонента */
 .specs__image img,
 .specs__imageItem img {
   width: 100% !important;
   height: auto !important;
   position: relative !important;
-}
+} */

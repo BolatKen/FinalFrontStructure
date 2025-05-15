@@ -1,9 +1,8 @@
 "use client"
-
 import styles from './ColorItem.module.css';
 
 export default function ColorItem({
-  itemKey = 0,
+  itemKey,
   color,
   code,
   imageUrl,
@@ -12,6 +11,21 @@ export default function ColorItem({
   isSmall = false,
   onSelect
 }) {
+  const colorInnerContent = () => {
+    if (imageUrl) {
+      return (<img
+        src={imageUrl}
+        alt={altText}
+      />)
+    } else {
+      return (
+        <div className={styles.item__inner}>
+          <div className={styles.item__circle}
+            style={{ backgroundColor: code }}></div>
+        </div >
+      )
+    }
+  }
   return (
     <li
       className={[
@@ -19,14 +33,12 @@ export default function ColorItem({
         isSmall && styles.color__item_small,
         isSmall
           ? isSelected && styles.color__item_small_selected
-          : isSelected && styles.color__item_selected
+          : isSelected && styles.color__item_selected,
+        styles.item,
       ].filter(Boolean).join(" ")}
       onClick={onSelect}
     >
-      <img
-        src={imageUrl}
-        alt={altText}
-      />
+      {colorInnerContent()}
     </li>
   );
 }

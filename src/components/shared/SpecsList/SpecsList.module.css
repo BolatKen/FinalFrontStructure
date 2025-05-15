@@ -12,6 +12,16 @@
     margin-top: 24px;
 }
 
+.list__row > *:first-child {
+    flex: 1 1 auto;
+}
+
+.list__inner {
+    display: flex;
+    align-items: center;
+}
+
+
 .list__name {
     font-size: 18px;
     font-weight: 500;

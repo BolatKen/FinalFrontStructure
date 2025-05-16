@@ -1,14 +1,15 @@
 // src/services/category.service.ts
 import axios from 'axios'
-import { JSX } from 'react'
+// import { JSX } from 'react'
+import { Category } from '@/types/category';
 
-export interface Category {
-  map(arg0: (product: any) => JSX.Element): import("react").ReactNode
-  length: number
-  id: number
-  name: string
-  slug: string
-}
+// export interface Category {
+//   map(arg0: (product: any) => JSX.Element): import("react").ReactNode
+//   length: number
+//   id: number
+//   name: string
+//   slug: string
+// }
 
 export async function getCategories(): Promise<Category[]> {
 

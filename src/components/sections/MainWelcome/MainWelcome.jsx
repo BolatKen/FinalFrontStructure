@@ -113,9 +113,9 @@ export default function MainWelcome() {
         <>
             <section className={[styles.welcome].join(' ')}>
                 <div className={[styles.welcome__img, '_img'].join(' ')}>
-                    {currentProduct?.images[0]?.image && (
-                        <img src={currentProduct.images[0].image} alt={currentProduct.images[0].alt || "Фото"} />
-                    )}
+                    {currentProduct?.image && (
+    <img src={currentProduct.image} alt="Фото" />
+)}
                 </div>
                 <Header isBlur={true} />
                 <div className={styles.welcome__inner}>
@@ -161,7 +161,7 @@ export default function MainWelcome() {
       storedCart.push({
         id: currentProduct.id,
         name: currentProduct.name,
-        image: currentProduct.images[0]?.image || '',
+        image: currentProduct.image || '',
         price: currentProduct.variants?.[0]?.final_price || '0',
         currency: currentProduct.variants?.[0]?.currency || 'KZT',
         quantity: 1

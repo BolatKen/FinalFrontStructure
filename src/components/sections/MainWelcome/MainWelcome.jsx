@@ -75,142 +75,156 @@ import GeneralInfoLeftDown from '../../shared/GeneralInfoLeftDown/GeneralInfoLef
 import InfoList from '../../shared/InfoList/InfoList';
 import ProductCatalog from '../../shared/ProductCatalog/ProductCatalog';
 import OtherCatalog from '../../shared/OtherCatalog/OtherCatalog';
-
-
+import { useRouter } from 'next/navigation';
 
 export default function MainWelcome() {
-    const [products, setProducts] = useState([]);
-    const [currentIndex, setCurrentIndex] = useState(0);
+  const [products, setProducts] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const router = useRouter();
 
-    useEffect(() => {
-        fetch("http://localhost:8000/api/home/")
-            .then(res => res.json())
-            .then(data => {
-                if (Array.isArray(data) && data.length > 0) {
-                    setProducts(data);
-                }
-            })
-            .catch(err => console.error("Ошибка загрузки продуктов:", err));
-    }, []);
-
-    // Слайдшоу
-    useEffect(() => {
-        if (products.length > 1) {
-            const interval = setInterval(() => {
-                setCurrentIndex(prev => (prev + 1) % products.length);
-            }, 4000); // каждые 4 секунды
-
-            return () => clearInterval(interval);
+  useEffect(() => {
+    fetch("http://localhost:8000/catalog/home/")
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          setProducts(data);
         }
-    }, [products]);
+      })
+      .catch(err => console.error("Ошибка загрузки продуктов:", err));
+  }, []);
 
-    const currentProduct = products[currentIndex];
-    const rightContent = (<GeneralInfoRightUpper />);
-    const rightContentDown = (<GeneralInfoRightDown />);
-    const leftContentDown = (<GeneralInfoLeftDown />);
-
-    return (
-        <>
-            <section className={[styles.welcome].join(' ')}>
-                <div className={[styles.welcome__img, '_img'].join(' ')}>
-                    {currentProduct?.image && (
-    <img src={currentProduct.image} alt="Фото" />
-)}
-                </div>
-                <Header isBlur={true} />
-                <div className={styles.welcome__inner}>
-                    <div className={[styles.welcome__description, styles.desc].join(' ')}>
-                        <div className={["_container-bigger", styles.desc__inner].join(' ')}>
-                            <div className={styles.desc__content}>
-                                <div className={styles.desc__ticket}>
-    <div className={styles['desc__ticket-text']}>
-        {currentProduct?.is_popular
-  ? 'Популярно'
-  : currentProduct?.is_new
-    ? 'Новинка'
-    : ''}
-    </div>
-</div>
-                                <h1 className={styles.desc__title}>{currentProduct?.name || '...'}</h1>
-                                <p className={styles.desc__text}>{currentProduct?.description || '...'}</p>
-                                <div className={[styles.desc__price].join(' ')}>
-                                    <div className={styles.price__value}>
-                                        {
-                                            currentProduct?.variants?.[0]?.final_price
-                                                ? `${currentProduct.variants[0].final_price} ${currentProduct.variants[0].currency}`
-                                                : "Нет в наличии"
-                                        }
-                                    </div>
-                                    <BonusValue bonusVal={"12 000"} />
-                                </div>
-                                <ButtonPrimary
-  isWhite={true}
-  children={'Купить'}
-  onClick={() => {
-    if (!currentProduct) return;
-
-    const storedCart = JSON.parse(localStorage.getItem("cartItems") || "[]");
-
-    const existingItemIndex = storedCart.findIndex((item) => item.id === currentProduct.id);
-
-    if (existingItemIndex !== -1) {
-      // Уже в корзине — увеличим количество
-      storedCart[existingItemIndex].quantity += 1;
-    } else {
-      // Новый товар — добавляем
-      storedCart.push({
-        id: currentProduct.id,
-        name: currentProduct.name,
-        image: currentProduct.image || '',
-        price: currentProduct.variants?.[0]?.final_price || '0',
-        currency: currentProduct.variants?.[0]?.currency || 'KZT',
-        quantity: 1
-      });
+  useEffect(() => {
+    if (products.length > 1) {
+      const interval = setInterval(() => {
+        setCurrentIndex(prev => (prev + 1) % products.length);
+      }, 4000);
+      return () => clearInterval(interval);
     }
+  }, [products]);
 
-    localStorage.setItem("cartItems", JSON.stringify(storedCart));
+  const currentProduct = products[currentIndex];
+  const rightContent = <GeneralInfoRightUpper />;
+  const rightContentDown = <GeneralInfoRightDown />;
+  const leftContentDown = <GeneralInfoLeftDown />;
 
-    // Обновим ивент для хедера, если он слушает изменения
-    window.dispatchEvent(new Event("storage"));
-  }}
-/>
-                            </div>
-                            <div className={styles['welcome__items-wrapper']}>
-                                <ul className={[styles.welcome__items, styles.items].join(' ')}>
-                                    {products.map((_, i) => (
-                                        <li
-                                            key={i}
-                                            className={[
-                                                styles.items__elem,
-                                                i === currentIndex ? styles.items__elem_selected : ''
-                                            ].join(' ')}
-                                        ></li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+  return (
+    <>
+      <section className={styles.welcome}>
+        <div
+          className={[styles.welcome__img, '_img'].join(' ')}
+          onClick={() => {
+            if (currentProduct?.slug) {
+              router.push(`/catalog/products/${currentProduct.slug}`);
+            }
+          }}
+          style={{ cursor: 'pointer' }}
+        >
+          {currentProduct?.image && (
+            <img src={currentProduct.image} alt="Фото" />
+          )}
+        </div>
+
+        <Header isBlur={true} />
+
+        <div className={styles.welcome__inner}>
+          <div className={[styles.welcome__description, styles.desc].join(' ')}>
+            <div className={["_container-bigger", styles.desc__inner].join(' ')}>
+              <div
+                className={styles.desc__content}
+                onClick={() => {
+                  if (currentProduct?.slug) {
+                    router.push(`/catalog/products/${currentProduct.slug}`);
+                  }
+                }}
+                style={{ cursor: 'pointer' }}
+              >
+                <div className={styles.desc__ticket}>
+                  <div className={styles['desc__ticket-text']}>
+                    {currentProduct?.is_popular
+                      ? 'Популярно'
+                      : currentProduct?.is_new
+                        ? 'Новинка'
+                        : ''}
+                  </div>
                 </div>
-            </section>
-            <GeneralInfo contentRight={rightContent} />
-            <InfoList />
-            <ProductCatalog
-                title={title1}
-                tags={tags1}
-                products={products1} />
-            <ProductCatalog
-                title={title2}
-                tags={tags2}
-                products={products2} />
 
-            <OtherCatalog />
-            <GeneralInfo
-                contentLeft={leftContentDown}
-                contentRight={rightContentDown}
-                isLight={true} />
+                <h1 className={styles.desc__title}>{currentProduct?.name || '...'}</h1>
+                <p className={styles.desc__text}>{currentProduct?.description || '...'}</p>
 
-        </>
-    );
+                <div className={styles.desc__price}>
+                  <div className={styles.price__value}>
+                    {
+                      currentProduct?.variants?.[0]?.final_price ??
+                      currentProduct?.variants?.[0]?.base_price
+                        ? `${currentProduct.variants[0].final_price ?? currentProduct.variants[0].base_price} ${currentProduct.variants[0].currency}`
+                        : "Нет в наличии"
+                    }
+                  </div>
+                  <BonusValue bonusVal={"12 000"} />
+                </div>
+
+                <ButtonPrimary
+                  isWhite={true}
+                  children={'Купить'}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (!currentProduct) return;
+
+                    const existing = localStorage.getItem("cartItems");
+                    let updatedCart = [];
+
+                    if (existing) {
+                      try {
+                        updatedCart = JSON.parse(existing) || [];
+                      } catch (e) {}
+                    }
+
+                    const itemIndex = updatedCart.findIndex(item => item.id === currentProduct.id);
+                    if (itemIndex !== -1) {
+                      updatedCart[itemIndex].quantity += 1;
+                    } else {
+                      updatedCart.push({
+                        id: currentProduct.id,
+                        name: currentProduct.name,
+                        image: currentProduct.image || '',
+                        price: Number(currentProduct.variants?.[0]?.final_price ?? currentProduct.variants?.[0]?.base_price ?? '0'),
+                        currency: currentProduct.variants?.[0]?.currency || 'KZT',
+                        quantity: 1
+                      });
+                    }
+
+                    localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+                    window.dispatchEvent(new Event("storage"));
+                  }}
+                />
+              </div>
+
+              <div className={styles['welcome__items-wrapper']}>
+                <ul className={[styles.welcome__items, styles.items].join(' ')}>
+                  {products.map((_, i) => (
+                    <li
+                      key={i}
+                      className={[
+                        styles.items__elem,
+                        i === currentIndex ? styles.items__elem_selected : ''
+                      ].join(' ')}
+                    />
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <GeneralInfo contentRight={rightContent} />
+      <InfoList />
+      <ProductCatalog title="Кресла" tags={["Парикмахерские", "Барбеские", "Визажные", "Педикюрные", "Детские", "Для мастеров"]} products={[]} />
+      <ProductCatalog title="Мойки" tags={["Парикмахерские", "Барбеские", "Визажные", "Педикюрные", "Детские", "Для мастеров"]} products={[]} />
+      <OtherCatalog />
+      <GeneralInfo contentLeft={leftContentDown} contentRight={rightContentDown} isLight={true} />
+    </>
+  );
 }
 
 export { default as MainWelcome } from './MainWelcome.jsx';

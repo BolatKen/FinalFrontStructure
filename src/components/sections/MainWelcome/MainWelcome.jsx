@@ -142,7 +142,12 @@ export default function MainWelcome() {
                                                 : ''}
                                     </div>
                                 </div>
-                                <h1 className={styles.desc__title}>{currentProduct?.name || '...'}</h1>
+                                <h1 className={[
+                                    styles.desc__title,
+                                    ((currentProduct?.name.length > 20 && currentProduct?.name.length <= 40)
+                                        ? styles.desc__title_normal
+                                        : styles.desc__title_small)
+                                ].join(' ')}>{currentProduct?.name || '...'}</h1>
                                 <p className={styles.desc__text}>{currentProduct?.description || '...'}</p>
                                 <div className={[styles.desc__price].join(' ')}>
                                     <div className={styles.price__value}>

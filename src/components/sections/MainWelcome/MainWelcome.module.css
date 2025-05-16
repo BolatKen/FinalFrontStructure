@@ -26,16 +26,19 @@
 .desc__inner {
     display: flex;
     flex-direction: column;
-    padding: 216px 0px 0px 72px;
+    padding: 206px 15px 0px 72px;
+    /* Было 216px */
 }
 
 .desc__content>*:not(:first-child) {
-    margin-top: 40px;
+    margin-top: 32px; 
+    /* было 40px */
 }
 
 .desc__ticket {
     display: inline-block;
-    max-width: 100%; /* чтоб не вылезало за блок */
+    max-width: 100%;
+    /* чтоб не вылезало за блок */
 }
 
 .desc__ticket-text {
@@ -51,12 +54,26 @@
     font-size: 64px;
     letter-spacing: -.02em;
     font-weight: 500;
+    line-height: 100%;
+}
+
+.desc__title_normal {
+    font-size: 48px;
+}
+
+.desc__title_small {
+    font-size: 35px;
 }
 
 .desc__text {
     font-family: "Suisse Int'l", sans-serif;
     font-size: 18px;
     color: rgba(162, 162, 162, 1);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .desc__price {
@@ -64,7 +81,7 @@
 
 }
 
-.desc__price > *:not(:first-child) {
+.desc__price>*:not(:first-child) {
     margin-left: 12px;
 }
 
@@ -76,7 +93,8 @@
 }
 
 .welcome__items-wrapper {
-    margin-top: 134px;
+    margin-top: 124px;
+    /* было 134px */
     margin-bottom: 48px;
 }
 
@@ -88,7 +106,7 @@
     display: flex;
 }
 
-.items > *:not(:first-child) {
+.items>*:not(:first-child) {
     margin-left: 8px;
 }
 

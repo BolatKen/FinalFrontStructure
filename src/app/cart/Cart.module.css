@@ -77,10 +77,11 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  color: #000;
 }
 
 .quantityControl button {
-  background: #eee;
+  background: #ffffff;
   border: none;
   width: 32px;
   height: 32px;

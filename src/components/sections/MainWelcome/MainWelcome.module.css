@@ -34,7 +34,8 @@
 }
 
 .desc__ticket {
-    width: 88px;
+    display: inline-block;
+    max-width: 100%; /* чтоб не вылезало за блок */
 }
 
 .desc__ticket-text {

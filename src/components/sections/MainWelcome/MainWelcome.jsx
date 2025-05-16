@@ -104,6 +104,17 @@ export default function MainWelcome() {
         }
     }, [products]);
 
+
+    const [categories, setCategories] = useState([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await getWelcomeCategories()
+            setCategories(data)
+        }
+        fetchData()
+    }, [])
+
     const currentProduct = products[currentIndex];
     const rightContent = (<GeneralInfoRightUpper />);
     const rightContentDown = (<GeneralInfoRightDown />);

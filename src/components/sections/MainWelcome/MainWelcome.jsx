@@ -114,8 +114,8 @@ export default function MainWelcome() {
             <section className={[styles.welcome].join(' ')}>
                 <div className={[styles.welcome__img, '_img'].join(' ')}>
                     {currentProduct?.image && (
-    <img src={currentProduct.image} alt="Фото" />
-)}
+                        <img src={currentProduct.image} alt="Фото" />
+                    )}
                 </div>
                 <Header isBlur={true} />
                 <div className={styles.welcome__inner}>
@@ -123,14 +123,14 @@ export default function MainWelcome() {
                         <div className={["_container-bigger", styles.desc__inner].join(' ')}>
                             <div className={styles.desc__content}>
                                 <div className={styles.desc__ticket}>
-    <div className={styles['desc__ticket-text']}>
-        {currentProduct?.is_popular
-  ? 'Популярно'
-  : currentProduct?.is_new
-    ? 'Новинка'
-    : ''}
-    </div>
-</div>
+                                    <div className={styles['desc__ticket-text']}>
+                                        {currentProduct?.is_popular
+                                            ? 'Популярно'
+                                            : currentProduct?.is_new
+                                                ? 'Новинка'
+                                                : ''}
+                                    </div>
+                                </div>
                                 <h1 className={styles.desc__title}>{currentProduct?.name || '...'}</h1>
                                 <p className={styles.desc__text}>{currentProduct?.description || '...'}</p>
                                 <div className={[styles.desc__price].join(' ')}>
@@ -144,36 +144,36 @@ export default function MainWelcome() {
                                     <BonusValue bonusVal={"12 000"} />
                                 </div>
                                 <ButtonPrimary
-  isWhite={true}
-  children={'Купить'}
-  onClick={() => {
-    if (!currentProduct) return;
+                                    isWhite={true}
+                                    children={'Купить'}
+                                    onClick={() => {
+                                        if (!currentProduct) return;
 
-    const storedCart = JSON.parse(localStorage.getItem("cartItems") || "[]");
+                                        const storedCart = JSON.parse(localStorage.getItem("cartItems") || "[]");
 
-    const existingItemIndex = storedCart.findIndex((item) => item.id === currentProduct.id);
+                                        const existingItemIndex = storedCart.findIndex((item) => item.id === currentProduct.id);
 
-    if (existingItemIndex !== -1) {
-      // Уже в корзине — увеличим количество
-      storedCart[existingItemIndex].quantity += 1;
-    } else {
-      // Новый товар — добавляем
-      storedCart.push({
-        id: currentProduct.id,
-        name: currentProduct.name,
-        image: currentProduct.image || '',
-        price: currentProduct.variants?.[0]?.final_price || '0',
-        currency: currentProduct.variants?.[0]?.currency || 'KZT',
-        quantity: 1
-      });
-    }
+                                        if (existingItemIndex !== -1) {
+                                            // Уже в корзине — увеличим количество
+                                            storedCart[existingItemIndex].quantity += 1;
+                                        } else {
+                                            // Новый товар — добавляем
+                                            storedCart.push({
+                                                id: currentProduct.id,
+                                                name: currentProduct.name,
+                                                image: currentProduct.image || '',
+                                                price: currentProduct.variants?.[0]?.final_price || '0',
+                                                currency: currentProduct.variants?.[0]?.currency || 'KZT',
+                                                quantity: 1
+                                            });
+                                        }
 
-    localStorage.setItem("cartItems", JSON.stringify(storedCart));
+                                        localStorage.setItem("cartItems", JSON.stringify(storedCart));
 
-    // Обновим ивент для хедера, если он слушает изменения
-    window.dispatchEvent(new Event("storage"));
-  }}
-/>
+                                        // Обновим ивент для хедера, если он слушает изменения
+                                        window.dispatchEvent(new Event("storage"));
+                                    }}
+                                />
                             </div>
                             <div className={styles['welcome__items-wrapper']}>
                                 <ul className={[styles.welcome__items, styles.items].join(' ')}>
@@ -194,16 +194,16 @@ export default function MainWelcome() {
             </section>
             <GeneralInfo contentRight={rightContent} />
             <InfoList />
-            <ProductCatalog
-                title={title1}
-                tags={tags1}
-                products={products1} />
-            <ProductCatalog
-                title={title2}
-                tags={tags2}
-                products={products2} />
-
-            <OtherCatalog />
+            {categories.map((item, key) => (
+                (item.is_full_format ? (<ProductCatalog
+                    key={key}
+                    title={item.name}
+                    tags={item.subcategories}
+                    products={item.products}
+                    material_colors={item.material_colors} />) : (
+                    <OtherCatalog />
+                ))
+            ))}
             <GeneralInfo
                 contentLeft={leftContentDown}
                 contentRight={rightContentDown}

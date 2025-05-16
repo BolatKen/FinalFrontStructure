@@ -8,9 +8,6 @@ import styles from './ProductScene.module.css';
 const Model = dynamic(() => import('./Model'), { ssr: false });
 
 export default function ProductScene({ modelUrl = '/models/6.glb', color }) {
-    if (modelUrl) {
-        modelUrl = '/models/4.glb';
-    }
     return (
         <div className={styles['product-model']}>
             <Canvas camera={{ position: [0, 0, 5], fov: 35 }}>

@@ -10,10 +10,13 @@ import InfoList from '../../shared/InfoList/InfoList';
 import ProductCatalog from '../../shared/ProductCatalog/ProductCatalog';
 import OtherCatalog from '../../shared/OtherCatalog/OtherCatalog';
 
+
+
 export default function MainWelcome() {
     const rightContent = (<GeneralInfoRightUpper />)
     const rightContentDown = (<GeneralInfoRightDown />)
     const leftContentDown = (<GeneralInfoLeftDown />)
+
 
     const title1 = 'Кресла'
     const tags1 = [

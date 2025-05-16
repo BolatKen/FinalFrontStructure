@@ -1,11 +1,47 @@
 .header__item {
-    margin-left: 48px;
+  margin-left: 48px;
 }
 
 .header__item:first-child {
-    margin-left: 0px;
+  margin-left: 0;
 }
 
 .header__link {
-    line-height: 120%;
+  line-height: 120%;
+}
+
+.headerItem {
+  position: relative;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 160px;
+  background-color: rgba(19, 17, 17, 0.6); /* полупрозрачный фон */
+     /* для Safari */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 1001;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-radius: 8px;
+}
+
+.dropdownItem {
+  padding: 8px 16px;
+  cursor: pointer;
+  white-space: nowrap;
+  background: transparent; /* убираем лишний фон */
+  transition: background 0.2s;
+  border-radius: 0; /* убираем радиус, чтобы не было артефактов */
+
+}
+
+.dropdownItem:hover {
+  background: #727272;
+  border-radius: 6px;
 }

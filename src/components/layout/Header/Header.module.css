@@ -3,10 +3,15 @@
     font-family: "Suisse Int'l", sans-serif;
     background-color: white;
     color: var(--general-color);
+
+    position: fixed;      /* добавьте это */
+    top: 0;               /* добавьте это */
+    left: 0;              /* добавьте это */
+    z-index: 1000;        /* чтобы header был поверх всего */
 }
 
 .header_blur {
-    position: sticky;
+    /* position: sticky; */
     color: white;
     background-color: rgba(19, 17, 17, 0.6);
     backdrop-filter: blur(64px);

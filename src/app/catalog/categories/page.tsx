@@ -8,7 +8,7 @@ import ButtonFilter from '@/components/ui/ButtonFilter/ButtonFilter';
 import Header from '@/components/layout/Header/Header';
 
 export default async function CategoriesPage() {
-  const categories = await getCategories()
+  // const categories = await getCategories()
 
   const filtersItems = [
     {

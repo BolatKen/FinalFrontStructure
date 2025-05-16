@@ -75,7 +75,7 @@ import GeneralInfoLeftDown from '../../shared/GeneralInfoLeftDown/GeneralInfoLef
 import InfoList from '../../shared/InfoList/InfoList';
 import ProductCatalog from '../../shared/ProductCatalog/ProductCatalog';
 import OtherCatalog from '../../shared/OtherCatalog/OtherCatalog';
-
+import { getWelcomeCategories } from "@/services/category.service";
 
 
 export default function MainWelcome() {
@@ -83,7 +83,7 @@ export default function MainWelcome() {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
-        fetch("http://localhost:8000/api/home/")
+        fetch("http://localhost:8000/catalog/home/")
             .then(res => res.json())
             .then(data => {
                 if (Array.isArray(data) && data.length > 0) {

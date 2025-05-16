@@ -10,6 +10,7 @@ export interface Category {
     slug: string;
     parent: number;
     is_full_format: boolean;
+    is_in_welcome: boolean;
 }
 
 export interface CategoryWelcome {

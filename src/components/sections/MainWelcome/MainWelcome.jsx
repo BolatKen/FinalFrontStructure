@@ -124,7 +124,11 @@ export default function MainWelcome() {
                             <div className={styles.desc__content}>
                                 <div className={styles.desc__ticket}>
     <div className={styles['desc__ticket-text']}>
-        {currentProduct?.sold_count > 10 ? 'Популярно' : 'Новинка'}
+        {currentProduct?.is_popular
+  ? 'Популярно'
+  : currentProduct?.is_new
+    ? 'Новинка'
+    : ''}
     </div>
 </div>
                                 <h1 className={styles.desc__title}>{currentProduct?.name || '...'}</h1>

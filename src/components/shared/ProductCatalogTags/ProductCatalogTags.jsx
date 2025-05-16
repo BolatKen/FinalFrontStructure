@@ -8,11 +8,11 @@ export default function ProductCatalogTags({ tags }) {
                 {tags.map((item, idx) => (
                     (idx === 0 ? (<ButtonPrimary
                         key={idx}
-                        children={item}
+                        children={item.name}
                         onClick={null} 
                         isSelected={true}/>) : (<ButtonPrimary
                             key={idx}
-                            children={item}
+                            children={item.name}
                             onClick={null} />))
                 ))}
             </ul>

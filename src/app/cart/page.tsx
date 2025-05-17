@@ -89,6 +89,7 @@ import { ButtonOrange } from "@/components/ui/ButtonOrange/ButtonOrange";
 import ModalPaymentFreedomPay from "@/components/ui/Modal/ModalPaymentFreedomPay";
 import ModalInvoicePayment from "@/components/ui/Modal/ModalInvoicePayment";
 import ModalUnifiedResult from "@/components/ui/Modal/ModalUnifiedResult";
+import { sendTelegramMessage } from "@/lib/sendTelegramMessage";
 
 interface CartItem {
   id: number;
@@ -124,6 +125,14 @@ export default function CartPage() {
   const [paymentStatus, setPaymentStatus] = useState<
     null | "freedom_success" | "freedom_error" | "invoice_success" | "invoice_error"
   >(null);
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [city, setCity] = useState("");
+  const [street, setStreet] = useState("");
+  const [house, setHouse] = useState("256");
+  const [needAssembly, setNeedAssembly] = useState(false);
 
   useEffect(() => {
     const updateCart = () => {
@@ -175,6 +184,21 @@ export default function CartPage() {
     );
   };
 
+  const generateOrderMessage = (
+    method: string,
+    items: CartItem[],
+    total: number
+  ) => {
+    const itemLines = items
+      .map(
+        (item) =>
+          `🪑 <b>${item.name}</b>\n💵 ${item.price.toLocaleString()} ${item.currency} × ${item.quantity}`
+      )
+      .join("\n\n");
+
+    return `📦 <b>Новый заказ через ${method}</b>\n\n${itemLines}\n\n💰 <b>Итого: ${total.toLocaleString()} ${items[0]?.currency}</b>\n\n👤 <b>Получатель:</b>\n${firstName} ${lastName}\n📞 ${phone}\n🏙️ ${city}, ул. ${street}, д. ${house}\n🔧 Сборка: ${needAssembly ? "Да" : "Нет"}`;
+  };
+
   if (isLoading) return null;
 
   if (cartItems.length === 0) {
@@ -224,21 +248,21 @@ export default function CartPage() {
           <div className={styles.customerInfo}>
             <h2 className={styles.sectionTitle}>Информация о получателе</h2>
             <div className={styles.inputGroup}>
-              <input type="text" placeholder="Имя" className={styles.input} />
-              <input type="text" placeholder="Фамилия" className={styles.input} />
+              <input type="text" placeholder="Имя" className={styles.input} value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+              <input type="text" placeholder="Фамилия" className={styles.input} value={lastName} onChange={(e) => setLastName(e.target.value)} />
             </div>
-            <input type="text" placeholder="Номер телефона" className={styles.input} />
+            <input type="text" placeholder="Номер телефона" className={styles.input} value={phone} onChange={(e) => setPhone(e.target.value)} />
           </div>
 
           <div className={styles.deliverySection}>
             <h2 className={styles.sectionTitle}>Доставка курьером</h2>
             <div className={styles.inputGroup}>
-              <input type="text" placeholder="Город" className={styles.input} />
-              <input type="text" placeholder="Улица" className={styles.input} />
-              <input type="text" placeholder="Дом" defaultValue="256" className={styles.input} />
+              <input type="text" placeholder="Город" className={styles.input} value={city} onChange={(e) => setCity(e.target.value)} />
+              <input type="text" placeholder="Улица" className={styles.input} value={street} onChange={(e) => setStreet(e.target.value)} />
+              <input type="text" placeholder="Дом" className={styles.input} value={house} onChange={(e) => setHouse(e.target.value)} />
             </div>
             <label className={styles.assemblyCheckbox}>
-              <input type="checkbox" /> Необходима сборка мебели
+              <input type="checkbox" checked={needAssembly} onChange={(e) => setNeedAssembly(e.target.checked)} /> Необходима сборка мебели
             </label>
           </div>
 
@@ -246,30 +270,15 @@ export default function CartPage() {
             <h2 className={styles.sectionTitle}>Выберите способ оплаты</h2>
             <div className={styles.paymentMethods}>
               <label>
-                <input
-                  type="radio"
-                  name="payment"
-                  value="invoice"
-                  onChange={(e) => setPaymentMethod(e.target.value)}
-                />
+                <input type="radio" name="payment" value="invoice" onChange={(e) => setPaymentMethod(e.target.value)} />
                 Счёт на оплату
               </label>
               <label>
-                <input
-                  type="radio"
-                  name="payment"
-                  value="freedompay"
-                  onChange={(e) => setPaymentMethod(e.target.value)}
-                />
+                <input type="radio" name="payment" value="freedompay" onChange={(e) => setPaymentMethod(e.target.value)} />
                 Freedom Pay
               </label>
               <label>
-                <input
-                  type="radio"
-                  name="payment"
-                  value="kaspi"
-                  onChange={(e) => setPaymentMethod(e.target.value)}
-                />
+                <input type="radio" name="payment" value="kaspi" onChange={(e) => setPaymentMethod(e.target.value)} />
                 Kaspi
               </label>
             </div>
@@ -318,14 +327,17 @@ export default function CartPage() {
         </div>
       </div>
 
-      {/* Модалки */}
       {showModal && (
         <ModalPaymentFreedomPay
           amount={totalPrice}
           onClose={() => setShowModal(false)}
-          onResult={(status) => {
+          onResult={async (status) => {
             setShowModal(false);
-            setPaymentStatus(status); // freedom_success / freedom_error
+            setPaymentStatus(status);
+            if (status === "freedom_success") {
+              const msg = generateOrderMessage("FreedomPay", cartItems, totalPrice);
+              await sendTelegramMessage(msg);
+            }
           }}
         />
       )}
@@ -333,9 +345,13 @@ export default function CartPage() {
       {showInvoiceModal && (
         <ModalInvoicePayment
           onClose={() => setShowInvoiceModal(false)}
-          onResult={(status) => {
+          onResult={async (status) => {
             setShowInvoiceModal(false);
-            setPaymentStatus(status); // invoice_success / invoice_error
+            setPaymentStatus(status);
+            if (status === "invoice_success") {
+              const msg = generateOrderMessage("Счёт на оплату", cartItems, totalPrice);
+              await sendTelegramMessage(msg);
+            }
           }}
         />
       )}
@@ -349,4 +365,3 @@ export default function CartPage() {
     </div>
   );
 }
-

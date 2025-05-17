@@ -47,7 +47,7 @@ export default function ModalUnifiedResult({ type, onClose }: ModalUnifiedResult
 
   return (
     <div className={styles.modal}>
-      <Image src={config.icon} alt="icon" width={64} height={64} />
+      <Image src={config.icon} alt="icon" width={100} height={100} />
       <h2 className={styles.title}>{config.title}</h2>
       <p className={styles.description}>{config.text}</p>
       <ButtonOrange onClick={() => {

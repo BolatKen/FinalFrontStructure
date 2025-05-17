@@ -2,7 +2,8 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 736px;
+  max-width: 736px;
+  max-height: 343px;
   transform: translate(-50%, -50%);
   background: white;
   padding: 24px 28px;
@@ -10,16 +11,28 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   text-align: center;
   z-index: 1000;
+  /* gap: 24px; */
 }
 
 .title {
-  font-size: 24px;
-  font-weight: bold;
-  margin: 24px 0 8px;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -2%;
+  width: 680px;
+  height: 23px;
+  margin: 24px 28px 24px 28px;
+  color: rgba(0, 0, 0, 1);
 }
 
 .description {
-  font-size: 16px;
-  color: #555;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0%;
+  color: rgba(0, 0, 0, 1);
   margin-bottom: 32px;
+  margin-left: 104px;
+  width: 526.58px;
+  height: 56px;
 }

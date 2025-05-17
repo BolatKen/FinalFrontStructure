@@ -184,6 +184,10 @@ export default function CartPage() {
     );
   };
 
+  const removeItem = (id: number) => {
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
+  };
+
   const generateOrderMessage = (
     method: string,
     items: CartItem[],
@@ -241,6 +245,9 @@ export default function CartPage() {
                 <button onClick={() => decreaseQuantity(item.id)}>-</button>
                 <span>{item.quantity}</span>
                 <button onClick={() => increaseQuantity(item.id)}>+</button>
+                <button className={styles.removeBtn} onClick={() => removeItem(item.id)}>
+                  <img src="/icons/trash.svg" alt="Удалить" />
+                </button>
               </div>
             </div>
           ))}
@@ -255,41 +262,92 @@ export default function CartPage() {
           </div>
 
           <div className={styles.deliverySection}>
-            <h2 className={styles.sectionTitle}>Доставка курьером</h2>
-            <div className={styles.inputGroup}>
-              <input type="text" placeholder="Город" className={styles.input} value={city} onChange={(e) => setCity(e.target.value)} />
-              <input type="text" placeholder="Улица" className={styles.input} value={street} onChange={(e) => setStreet(e.target.value)} />
-              <input type="text" placeholder="Дом" className={styles.input} value={house} onChange={(e) => setHouse(e.target.value)} />
-            </div>
-            <label className={styles.assemblyCheckbox}>
-              <input type="checkbox" checked={needAssembly} onChange={(e) => setNeedAssembly(e.target.checked)} /> Необходима сборка мебели
-            </label>
-          </div>
+  <h2 className={styles.sectionTitle}>Доставка курьером</h2>
+  <p className={styles.assemblyNote}>
+    Курьеры не занимаются подъёмом мебели на этаж, при доставке производится только отгрузка<br />
+    По стоимости доставки мебели с вами свяжется оператор
+  </p>
+  <div className={styles.inputGroup}>
+    <input type="text" placeholder="Город" className={styles.input} value={city} onChange={(e) => setCity(e.target.value)} />
+    <input type="text" placeholder="Улица" className={styles.input} value={street} onChange={(e) => setStreet(e.target.value)} />
+    <input type="text" placeholder="Дом" className={styles.input} value={house} onChange={(e) => setHouse(e.target.value)} />
+  </div>
 
-          <div className={styles.paymentSection}>
-            <h2 className={styles.sectionTitle}>Выберите способ оплаты</h2>
-            <div className={styles.paymentMethods}>
-              <label>
-                <input type="radio" name="payment" value="invoice" onChange={(e) => setPaymentMethod(e.target.value)} />
-                Счёт на оплату
-              </label>
-              <label>
-                <input type="radio" name="payment" value="freedompay" onChange={(e) => setPaymentMethod(e.target.value)} />
-                Freedom Pay
-              </label>
-              <label>
-                <input type="radio" name="payment" value="kaspi" onChange={(e) => setPaymentMethod(e.target.value)} />
-                Kaspi
-              </label>
-            </div>
-          </div>
+  <div className={styles.assemblyCheckbox}>
+    <div className={styles.assemblyCheckboxRow}>
+  <label className={styles.switch}>
+    <input
+      type="checkbox"
+      checked={needAssembly}
+      onChange={(e) => setNeedAssembly(e.target.checked)}
+    />
+    <span className={styles.slider}></span>
+  </label>
+  <span>Необходима сборка мебели</span>
+</div>
+
+    <p className={styles.assemblyNote}>
+      Мебель в собранном виде при перевозке занимает<br />
+      большой объём, поэтому доставка может стоить дороже
+    </p>
+  </div>
+</div>
+
+<div className={styles.paymentSection}>
+  <h2 className={styles.sectionTitle}>Выберите способ оплаты</h2>
+  <div className={styles.paymentMethods}>
+<label className={`${styles.paymentCard} ${paymentMethod === "invoice" ? styles.active : ""}`}>
+  <div className={styles.radioWrapper}>
+    <input
+      type="radio"
+      name="payment"
+      value="invoice"
+      checked={paymentMethod === "invoice"}
+      onChange={(e) => setPaymentMethod(e.target.value)}
+    />
+    <span className={styles.radioCustom}></span>
+  </div>
+  <img src="/icons/inquiry.svg" alt="icon" />
+  <div>
+    <div className={styles.paymentTitle}>Счёт на оплату</div>
+    <div className={styles.paymentDesc}>Для юридических лиц при безналичном расчёте с полным пакетом документов</div>
+  </div>
+</label>
+
+
+    <label className={`${styles.paymentCard} ${paymentMethod === "freedompay" ? styles.active : ""}`}>
+      <input type="radio" name="payment" value="freedompay" onChange={(e) => setPaymentMethod(e.target.value)} />
+      <img src="/icons/freedom.svg" alt="" />
+      <div>
+        <div className={styles.paymentTitle}>Freedom Pay</div>
+        <div className={styles.paymentDesc}>Оплата картой или в рассрочку до 6 месяцев без переплат</div>
+      </div>
+    </label>
+
+    <label className={`${styles.paymentCard} ${paymentMethod === "kaspi" ? styles.active : ""}`}>
+      <input type="radio" name="payment" value="kaspi" onChange={(e) => setPaymentMethod(e.target.value)} />
+      <img src="/icons/kaspi.svg" alt="" />
+      <div>
+        <div className={styles.paymentTitle}>Kaspi</div>
+        <div className={styles.paymentDesc}>Оплата с возможностью беспроцентной рассрочки до 3 месяцев</div>
+      </div>
+    </label>
+  </div>
+</div>
+
         </div>
 
         <div className={styles.cartRight}>
-          <div className={styles.promoBlock}>
-            <input type="text" placeholder="Введите промокод" className={styles.promoInput} />
-            <button className={styles.applyPromo}>Применить</button>
-          </div>
+         <div className={styles.promoBlock}>
+  <h2 className={styles.sectionTitle}>Промо-код</h2>
+  <input
+    type="text"
+    placeholder="Введите промокод"
+    className={styles.promoInput}
+  />
+  <button className={styles.promoButton}>Применить</button>
+</div>
+
 
           <div className={styles.totalBlock}>
             <h2>Итого:</h2>

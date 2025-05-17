@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import './ProductCard.module.css';
 import styles from './ProductCard.module.css';
@@ -31,26 +33,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
     }
   }, [colorData]);
 
-  console.log(colors);
-  // const colors = {
-  //   'colorData': [
-  //     {
-  //       'imageUrl': "/textures/material-yellow.png",
-  //       'altText': "Желтая кожа",
-  //       'isSelected': true
-  //     },
-  //     {
-  //       'imageUrl': "/textures/material-white.png",
-  //       'altText': "Белая кожа",
-  //       'isSelected': false
-  //     },
-  //     {
-  //       'imageUrl': "/textures/material-brown.png",
-  //       'altText': "Коричнивая кожа",
-  //       'isSelected': false
-  //     }
-  //   ]
-  // }
   function formatWithSpaces(n: number): string {
     return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   }

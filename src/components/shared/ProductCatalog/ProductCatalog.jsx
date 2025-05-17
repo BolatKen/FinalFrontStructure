@@ -3,13 +3,13 @@ import ProductCatalogTitle from '../ProductCatalogTitle/ProductCatalogTitle';
 import ProductCatalogTags from '../ProductCatalogTags/ProductCatalogTags';
 import ProductCatalogItems from '../ProductCatalogItems/ProductCatalogItems';
 
-export default function ProductCatalog({ title, tags, products, material_colors }) {
+export default function ProductCatalog({ title, slug, tags, products }) {
     return (
         <section className={styles.catalog}>
             <div className={[styles.catalog__inner, '_container-bigger'].join(' ')}>
-                <ProductCatalogTitle text={title} />
+                <ProductCatalogTitle text={title} slug={slug} />
                 <ProductCatalogTags tags={tags} />
-                <ProductCatalogItems products={products} material_colors={material_colors} />
+                <ProductCatalogItems products={products} />
             </div>
         </section>
     );

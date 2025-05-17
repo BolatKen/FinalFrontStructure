@@ -99,7 +99,6 @@ interface CartItem {
 function getCartItems(): CartItem[] {
   const raw = localStorage.getItem("cartItems");
   if (!raw) return [];
-
   try {
     return JSON.parse(raw);
   } catch {
@@ -113,12 +112,14 @@ function saveCartItems(cart: CartItem[]) {
 
 export default function CartPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
     const updateCart = () => {
       const loaded = getCartItems();
       setCartItems(loaded);
+      setIsLoading(false);
     };
 
     updateCart();
@@ -134,7 +135,9 @@ export default function CartPage() {
   }, []);
 
   useEffect(() => {
-    saveCartItems(cartItems);
+    if (!isLoading) {
+      saveCartItems(cartItems);
+    }
   }, [cartItems]);
 
   const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
@@ -161,6 +164,8 @@ export default function CartPage() {
         .filter((item) => item.quantity > 0)
     );
   };
+
+  if (isLoading) return null;
 
   if (cartItems.length === 0) {
     return (

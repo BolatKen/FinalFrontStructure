@@ -112,13 +112,13 @@ export default function ModalPaymentFreedomPay({
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/d/d6/Visa_2021.svg"
               alt="Visa"
-              width={48}
+              width={74.16}
               height={24}
             />
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
               alt="Mastercard"
-              width={48}
+              width={38.56}
               height={24}
             />
           </div>

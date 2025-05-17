@@ -86,6 +86,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "./Cart.module.css";
 import { ButtonOrange } from "@/components/ui/ButtonOrange/ButtonOrange";
+import ModalPaymentFreedomPay from "@/components/ui/Modal/ModalPaymentFreedomPay";
+import ModalInvoicePayment from "@/components/ui/Modal/ModalInvoicePayment";
+import ModalPaymentResult from "@/components/ui/Modal/ModalPaymentResult";
+
 
 interface CartItem {
   id: number;
@@ -114,6 +118,12 @@ export default function CartPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  const [showModal, setShowModal] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [showInvoiceModal, setShowInvoiceModal] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState<"success" | "error" | null>(null);
+
+
 
   useEffect(() => {
     const updateCart = () => {
@@ -235,9 +245,18 @@ export default function CartPage() {
           <div className={styles.paymentSection}>
             <h2 className={styles.sectionTitle}>Выберите способ оплаты</h2>
             <div className={styles.paymentMethods}>
-              <label><input type="radio" name="payment" /> Счёт на оплату</label>
-              <label><input type="radio" name="payment" /> Freedom Pay</label>
-              <label><input type="radio" name="payment" /> Kaspi</label>
+              <label>
+                <input type="radio" name="payment" value="invoice" onChange={(e) => setPaymentMethod(e.target.value)} />
+                Счёт на оплату
+              </label>
+              <label>
+                <input type="radio" name="payment" value="freedompay" onChange={(e) => setPaymentMethod(e.target.value)} />
+                Freedom Pay
+              </label>
+              <label>
+                <input type="radio" name="payment" value="kaspi" onChange={(e) => setPaymentMethod(e.target.value)} />
+                Kaspi
+              </label>
             </div>
           </div>
         </div>
@@ -258,7 +277,18 @@ export default function CartPage() {
             <div className={styles.bonus}>+ 12 000 бонусов</div>
           </div>
 
-          <ButtonOrange>Оформить заказ</ButtonOrange>
+<ButtonOrange onClick={() => {
+  if (paymentMethod === "freedompay") {
+    setShowModal(true);
+  } else if (paymentMethod === "invoice") {
+    setShowInvoiceModal(true);
+  } else {
+    router.push("/order-confirmation");
+  }
+}}>
+  Оформить заказ
+</ButtonOrange>
+
 
           <button onClick={clearCart} className={styles.clearCartButton}>Очистить корзину</button>
 
@@ -269,6 +299,18 @@ export default function CartPage() {
           </div>
         </div>
       </div>
+
+      {/* МОДАЛЬНОЕ ОКНО ОПЛАТЫ */}
+      {showModal && (
+        <ModalPaymentFreedomPay
+          amount={totalPrice}
+          onClose={() => setShowModal(false)}
+        />
+      )}
+      {showInvoiceModal && (
+  <ModalInvoicePayment onClose={() => setShowInvoiceModal(false)} />
+)}
+
     </div>
   );
 }

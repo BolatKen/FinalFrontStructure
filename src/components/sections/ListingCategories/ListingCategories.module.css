@@ -1,24 +1,22 @@
-.listing {}
-
 .listing__inner {
-    padding: 96px 16px;
+  padding: 48px 16px 0px 16px;
 }
 
 .listing__title {
-    color: #131111;
+  color: #131111;
 }
 
 .listing__items {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 
-    margin-top: 40px;
-    padding: 0px 26px;
+  margin-top: 40px;
+  padding: 0px 26px;
 }
 
 .listing__items>* {
-    flex: 0 1 calc((100% - 96px) / 3);
-    box-sizing: border-box;
+  flex: 0 1 calc((100% - 96px) / 3);
+  box-sizing: border-box;
 }
 
 .listing__items>*:nth-child(3n+2),

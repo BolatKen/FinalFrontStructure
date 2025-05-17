@@ -1,41 +1,56 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './ProductCard.module.css';
 import styles from './ProductCard.module.css';
 import BonusValue from '@/components/ui/BonusValue/BonusValue';
 import ColorList from '@/components/ui/ColorList/ColorList';
+import { ProductCardProps } from '@/types/product';
 
-interface ProductCardProps {
-  imageSrc: string;
-  title: string;
-  oldPrice: string;
-  newPrice: string;
-}
+type ColorItem = {
+  imageUrl: string;
+  altText: string;
+  isSelected: boolean;
+};
+
 
 const ProductCard: React.FC<ProductCardProps> = ({
   imageSrc,
   title,
   oldPrice,
   newPrice,
+  colorData,
 }) => {
-  const colors = {
-    'colorData': [
-      {
-        'imageUrl': "/textures/material-yellow.png",
-        'altText': "Желтая кожа",
-        'isSelected': true
-      },
-      {
-        'imageUrl': "/textures/material-white.png",
-        'altText': "Белая кожа",
-        'isSelected': false
-      },
-      {
-        'imageUrl': "/textures/material-brown.png",
-        'altText': "Коричнивая кожа",
-        'isSelected': false
-      }
-    ]
-  }
+  const [colors, setColors] = useState<ColorItem[]>([]);
+  useEffect(() => {
+    if (colorData && colorData?.length > 0) {
+      const mappedColors = colorData?.map((item, idx) => ({
+        imageUrl: item.image,
+        altText: item.name,
+        isSelected: idx === 0
+      }));
+      setColors(mappedColors);
+    }
+  }, [colorData]);
+
+  console.log(colors);
+  // const colors = {
+  //   'colorData': [
+  //     {
+  //       'imageUrl': "/textures/material-yellow.png",
+  //       'altText': "Желтая кожа",
+  //       'isSelected': true
+  //     },
+  //     {
+  //       'imageUrl': "/textures/material-white.png",
+  //       'altText': "Белая кожа",
+  //       'isSelected': false
+  //     },
+  //     {
+  //       'imageUrl': "/textures/material-brown.png",
+  //       'altText': "Коричнивая кожа",
+  //       'isSelected': false
+  //     }
+  //   ]
+  // }
   function formatWithSpaces(n: number): string {
     return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   }
@@ -52,7 +67,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <div className={styles['product-card__inner']}>
         <div className={styles['product-cart__colors']}>
           <ColorList
-            colorData={colors.colorData}
+            colorData={colors}
             isSmall={true} onColorSelect={undefined} />
         </div>
         <div className={styles['product-card__info']}>

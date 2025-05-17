@@ -1,27 +1,31 @@
 // services/product.service.ts
-import API from './axios'
+import axios from "axios";
+
+const API_URL = process.env.NEXT_PUBLIC_API_DOMAIN
 
 export const getAllProducts = async () => {
-  // Получить все товары (для страницы /catalog)
-  const res = await API.get('/catalog/products/')
-  return res.data
+  const response = await axios.get<any[]>(
+    `${API_URL}/catalog/products/`
+  );
+  return response.data;
 }
 
 export const getProductBySlug = async (slug: string) => {
-  // Получить товар по слагу (для страницы /catalog/[slug])
   try {
-    console.log('Product found:', slug)
-    const res = await API.get(`/catalog/products/${slug}/`)
+    const response = await axios.get<any[]>(
+      `${API_URL}/catalog/products/${slug}/`
+    );
 
-    return res.data
+    return response.data
   } catch (err) {
     console.error('Product not found:', err)
-
     return null
   }
 }
 
 export const getAllProductSlugs = async (): Promise<{ slug: string }[]> => {
-  const res = await API.get('/products/')
-  return res.data.map((p: any) => ({ slug: p.slug }))
+  const response = await axios.get<any[]>(
+    `${API_URL}/products/`
+  );
+  return response.data.map((p: any) => ({ slug: p.slug }))
 }

@@ -1,5 +1,5 @@
 
-interface Color {
+export interface Color {
     id: number;
     name: string;
     hex_code: string;
@@ -46,12 +46,13 @@ interface Variant {
     is_active: boolean;
 }
 
-interface Image {
+interface ProductImage {
     id: number;
     image: string;
     alt: string;
-    type: string;
     type_display: string;
+    material: number;
+    color: number;
 }
 
 interface Characteristics {
@@ -67,6 +68,14 @@ interface DimensionPart {
     unit: string;
 }
 
+export interface ProductCardProps {
+    imageSrc: string;
+    title: string;
+    oldPrice: string;
+    newPrice: string;
+    colorData?: Color[];
+}
+
 export interface Product {
     id: number;
     base_sku: string;
@@ -80,7 +89,7 @@ export interface Product {
     meta_description: string;
     meta_keywords: [string];
     sold_count: number;
-    images?: Image[];
+    images?: ProductImage[];
     configurable_parts: [string];
     with_without?: [];
     materials?: Material[];
@@ -92,4 +101,14 @@ export interface Product {
     variants: Variant[];
     default_variant_id: number;
     similar_products: [number];
+}
+
+
+export interface ProductShort {
+    name: string;
+    old_price: string;
+    new_price: string;
+    bonus: string;
+    images: ProductImage[];
+    sub_categories: number[];
 }

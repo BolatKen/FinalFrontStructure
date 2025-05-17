@@ -1,7 +1,7 @@
 import styles from './ProductCatalogItems.module.css';
 import ProductCard from '../../shared/ProductCard/ProductCard';
 
-export default function ProductCatalogItems({ products }) {
+export default function ProductCatalogItems({ products, material_colors }) {
     return (
         <div className={styles.items}>
             <div className={styles.items__inner}>
@@ -10,11 +10,13 @@ export default function ProductCatalogItems({ products }) {
                 </div>
                 <ul className={styles.items__list}>
                     {products.map((item, key) => (
+                        console.log(item.material_colors),
                         <ProductCard key={key}
                             title={item.name}
-                            imageSrc={item.model_url}
-                            oldPrice={item.variants[0].old_price}
-                            newPrice={item.variants[0].price}
+                            imageSrc={item.images[0].image}
+                            oldPrice={item.old_price}
+                            newPrice={item.new_price}
+                            colorData={material_colors}
                         />
                     ))}
                 </ul>

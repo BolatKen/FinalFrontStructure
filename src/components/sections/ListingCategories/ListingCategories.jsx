@@ -1,151 +1,7 @@
 import styles from './ListingCategories.module.css';
 import ProductCart from '../../shared/ProductCard/ProductCard';
 
-export default function ListingCategories() {
-
-    const products = [
-        {
-            'model_url': '',
-            'name': 'Aurora',
-            'variants': [
-                {
-                    'old_price': '121000',
-                    'price': '104000'
-                }
-            ]
-        },
-        {
-            'model_url': '',
-            'name': 'Aurora',
-            'variants': [
-                {
-                    'old_price': '121000',
-                    'price': '104000'
-                }
-            ]
-        },
-        {
-            'model_url': '',
-            'name': 'Aurora',
-            'variants': [
-                {
-                    'old_price': '',
-                    'price': '104000'
-                }
-            ]
-        },
-        {
-            'model_url': '',
-            'name': 'Aurora',
-            'variants': [
-                {
-                    'old_price': '121000',
-                    'price': '104000'
-                }
-            ]
-        },
-        {
-            'model_url': '',
-            'name': 'Aurora',
-            'variants': [
-                {
-                    'old_price': '121000',
-                    'price': '104000'
-                }
-            ]
-        },
-        {
-            'model_url': '',
-            'name': 'Aurora',
-            'variants': [
-                {
-                    'old_price': '',
-                    'price': '104000'
-                }
-            ]
-        },
-        {
-            'model_url': '',
-            'name': 'Aurora',
-            'variants': [
-                {
-                    'old_price': '',
-                    'price': '104000'
-                }
-            ]
-        },
-        {
-            'model_url': '',
-            'name': 'Aurora',
-            'variants': [
-                {
-                    'old_price': '',
-                    'price': '104000'
-                }
-            ]
-        },
-        {
-            'model_url': '',
-            'name': 'Aurora',
-            'variants': [
-                {
-                    'old_price': '',
-                    'price': '104000'
-                }
-            ]
-        },
-        {
-            'model_url': '',
-            'name': 'Aurora',
-            'variants': [
-                {
-                    'old_price': '',
-                    'price': '104000'
-                }
-            ]
-        },
-        {
-            'model_url': '',
-            'name': 'Aurora',
-            'variants': [
-                {
-                    'old_price': '',
-                    'price': '104000'
-                }
-            ]
-        },
-        {
-            'model_url': '',
-            'name': 'Aurora',
-            'variants': [
-                {
-                    'old_price': '',
-                    'price': '104000'
-                }
-            ]
-        },
-        {
-            'model_url': '',
-            'name': 'Aurora',
-            'variants': [
-                {
-                    'old_price': '',
-                    'price': '104000'
-                }
-            ]
-        },
-        {
-            'model_url': '',
-            'name': 'Aurora',
-            'variants': [
-                {
-                    'old_price': '',
-                    'price': '104000'
-                }
-            ]
-        },
-    ]
-
+export default function ListingCategories({ products }) {
     return (
         <section className={[styles.listing, '_container'].join(" ")}>
             <div className={styles.listing__inner}>
@@ -154,10 +10,11 @@ export default function ListingCategories() {
                     {products.map((item, idx) => (
                         <ProductCart
                             key={idx}
-                            imageSrc={item.model_url || "/products/chair1.png"}
+                            imageSrc={item.images[0].image || "/products/chair1.png"}
                             title={item.name}
-                            oldPrice={item.variants[0].old_price}
-                            newPrice={item.variants[0].price}
+                            oldPrice={item.old_price}
+                            newPrice={item.new_price}
+                            colorData={item.material_colors}
                         />
                     ))}
                 </ul>

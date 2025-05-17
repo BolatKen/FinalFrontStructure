@@ -1,16 +1,26 @@
 'use client';
 
+import { useRef } from 'react';
 import styles from './CategoryPageClient.module.css';
 import Header from '@/components/layout/Header/Header';
+import BestOffers from '@/components/sections/BestOffers/BestOffers';
+import ListingCategories from '@/components/sections/ListingCategories/ListingCategories';
 import ButtonFilter from '@/components/ui/ButtonFilter/ButtonFilter';
 import { CategoryListItem } from '@/types/category';
+import { Pagination } from '@/components/shared/Pagination/Pagination';
 
-export default function CategoryPageClient({ category }: { category: CategoryListItem }) {
+export default function CategoryPageClient({ category, currentPage }: { category: CategoryListItem, currentPage: number }) {
     const allFilters = {
         icon: '/icons/filter/all.svg',
         alt: 'Иконка для всех фильтров',
         name: 'Все фильтры',
         is_selected: true
+    };
+    const pagesNum = Math.ceil(category.product_count / 15);
+
+    const listRef = useRef<HTMLDivElement>(null);
+    const scrollToListing = () => {
+        listRef.current?.scrollIntoView({ behavior: 'smooth' });
     };
 
     return (
@@ -47,10 +57,21 @@ export default function CategoryPageClient({ category }: { category: CategoryLis
                             ))}
                         </ul>
                     </div>
+
                 </div>
             </div>
-            {/* <BestOffers isListing={true} /> */}
-            {/* <ListingCategories /> */}
+            <BestOffers products={category.best_offers} isListing={true} />
+            <div ref={listRef} className={styles['scroll-target']}>
+                <ListingCategories products={category.products} />
+            </div>
+
+
+            <Pagination
+                currentPage={currentPage}
+                totalPages={pagesNum}
+                baseUrl={`/catalog/categories/${category.slug}`}
+                onPageClick={scrollToListing}
+            />
         </>
     );
 }

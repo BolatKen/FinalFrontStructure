@@ -40,15 +40,15 @@ export const getProductsByCategorySlug = async (slug: string): Promise<any[]> =>
   }
 }
 
-export const getCategoryListingBySlug = async (slug: string): Promise<CategoryListItem> => {
+export const getCategoryListingBySlug = async (slug: string, currentPage: number): Promise<CategoryListItem | null> => {
   try {
     const response = await axios.get<CategoryListItem>(
-      `${API_URL}/catalog/categories/${slug}/listing/`
+      `${API_URL}/catalog/categories/${slug}/listing/?page=${currentPage}`
     );
     return response.data;
   } catch (error) {
     console.error('Ошибка при получении товаров категории:', error);
-    throw new Error('Не удалось получить категорию');
+    return null;
   }
 }
 

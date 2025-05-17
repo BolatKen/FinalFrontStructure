@@ -29,8 +29,10 @@ export interface CategoryWelcome {
 export interface CategoryListItem {
     id: number;
     name: string;
+    slug: string;
     filters: Tag[];
     popular_subcategories: SubCatergory[];
     best_offers: ProductShort[];
     product_count: number;
+    products: ProductShort[];
 }

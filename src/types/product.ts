@@ -50,6 +50,7 @@ interface ProductImage {
     id: number;
     image: string;
     alt: string;
+    type: string;
     type_display: string;
     material: number;
     color: number;

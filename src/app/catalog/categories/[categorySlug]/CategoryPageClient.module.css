@@ -17,6 +17,8 @@
     line-height: 203px;
     letter-spacing: -0.02em;
     color: #131111;
+
+    text-align: center;
 }
 
 .header__filters {

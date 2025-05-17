@@ -55,6 +55,7 @@
     letter-spacing: -.02em;
     font-weight: 500;
     line-height: 100%;
+    cursor: pointer;
 }
 
 .desc__title_normal {

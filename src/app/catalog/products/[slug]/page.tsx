@@ -1,23 +1,21 @@
-// // app/product/[slug]/page.tsx
+// app/product/[slug]/page.tsx
+
 import { getProductBySlug } from '@/services/product.service';
-import Welcome from '@/components/sections/Welcome/Welcome';
-import Description from '@/components/sections/Description/Description';
-import Configurator from '@/components/sections/Configurator/Configurator';
-import BestOffers from '@/components/sections/BestOffers/BestOffers';
-import Header from '@/components/layout/Header/Header';
+import ProductDetail from './ProductDetail';
 
+type Props = {
+  params: {
+    productSlug: string;
+  };
+};
 
-export default async function ProductPage({ params }: { params: { slug: string } }) {
-  const product = await getProductBySlug(params.slug);
-  if (!product) {
+export default async function ProductPage({ params }: Props) {
+  const { productSlug } = await params;
+  const productData = await getProductBySlug(productSlug);
+
+  if (!productData) {
     return <div>Товар не найден</div>
   }
 
-  return (<>
-    <Header />
-    <Welcome product={product} />
-    <Configurator product={product} />
-    <Description product={product} />
-    <BestOffers />
-  </>)
+  return <ProductDetail product={productData} />;
 }

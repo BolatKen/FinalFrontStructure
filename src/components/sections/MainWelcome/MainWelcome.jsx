@@ -104,7 +104,7 @@ export default function MainWelcome() {
         }
     }, [products]);
 
-
+    // Категорий
     const [categories, setCategories] = useState([])
 
     useEffect(() => {
@@ -214,9 +214,9 @@ export default function MainWelcome() {
                 (item.is_full_format ? (<ProductCatalog
                     key={key}
                     title={item.name}
+                    slug={item.slug}
                     tags={item.subcategories}
-                    products={item.products}
-                    material_colors={item.material_colors} />) : (
+                    products={item.products} />) : (
                     <OtherCatalog />
                 ))
             ))}

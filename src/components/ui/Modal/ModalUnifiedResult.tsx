@@ -12,30 +12,30 @@ interface ModalUnifiedResultProps {
 
 const modalConfig = {
   freedom_success: {
-    icon: "https://upload.wikimedia.org/wikipedia/commons/5/50/Yes_Check_Circle.svg",
+    icon: "/icons/accept.png",
     title: "Спасибо за покупку!",
     text: "Детали заказа будут отправлены на указанную вам почту.",
     buttonText: "На главную",
     redirect: "/",
   },
   freedom_error: {
-    icon: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Close_icon_red.svg",
+    icon: "/icons/error.png",
     title: "Оплата не прошла",
-    text: "Проверьте данные карты или попробуйте снова.",
+    text: "Что то пошло не так. Проверьте данные карты или попробуйте снова.",
     buttonText: "В корзину",
     redirect: "/cart",
   },
   invoice_success: {
-    icon: "https://upload.wikimedia.org/wikipedia/commons/5/50/Yes_Check_Circle.svg",
+    icon: "/icons/accept.png",
     title: "Счёт на оплату сформирован",
     text: "В ближайшее время с вами свяжется оператор по указанному номеру.",
     buttonText: "На главную",
     redirect: "/",
   },
   invoice_error: {
-    icon: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Close_icon_red.svg",
-    title: "Ошибка при генерации счёта",
-    text: "Попробуйте ещё раз или свяжитесь с менеджером.",
+    icon: "/icons/error.png",
+    title: "Оплата не прошла",
+    text: "Что то пошло не так. Проверьте данные карты или попробуйте снова.",
     buttonText: "В корзину",
     redirect: "/cart",
   },

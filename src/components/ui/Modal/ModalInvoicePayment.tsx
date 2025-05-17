@@ -6,9 +6,10 @@ import { ButtonOrange } from "@/components/ui/ButtonOrange/ButtonOrange";
 
 interface ModalInvoicePaymentProps {
   onClose: () => void;
+  onResult: (status: "invoice_success" | "invoice_error") => void;
 }
 
-export default function ModalInvoicePayment({ onClose }: ModalInvoicePaymentProps) {
+export default function ModalInvoicePayment({ onClose, onResult }: ModalInvoicePaymentProps) {
   const [formData, setFormData] = useState({
     iin: "",
     address: "",
@@ -20,6 +21,17 @@ export default function ModalInvoicePayment({ onClose }: ModalInvoicePaymentProp
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = () => {
+    if (!isFormValid) return;
+
+    onClose(); // Закрываем модалку
+
+    setTimeout(() => {
+      const success = Math.random() > 0.5;
+      onResult(success ? "invoice_success" : "invoice_error");
+    }, 500);
   };
 
   return (
@@ -49,13 +61,7 @@ export default function ModalInvoicePayment({ onClose }: ModalInvoicePaymentProp
       <ButtonOrange
         type="button"
         className={!isFormValid ? styles["submit--disabled"] : ""}
-        onClick={() => {
-          if (isFormValid) {
-            // тут может быть логика скачивания PDF или переход
-            alert("Счёт сформирован и отправлен");
-            onClose();
-          }
-        }}
+        onClick={handleSubmit}
       >
         Скачать счёт на оплату
       </ButtonOrange>

@@ -7,9 +7,14 @@ import { ButtonOrange } from "@/components/ui/ButtonOrange/ButtonOrange";
 interface ModalPaymentFreedomPayProps {
   amount: number;
   onClose: () => void;
+  onResult: (status: "freedom_success" | "freedom_error") => void;
 }
 
-export default function ModalPaymentFreedomPay({ amount, onClose }: ModalPaymentFreedomPayProps) {
+export default function ModalPaymentFreedomPay({
+  amount,
+  onClose,
+  onResult,
+}: ModalPaymentFreedomPayProps) {
   const [formData, setFormData] = useState({
     cardNumber: "",
     expiry: "",
@@ -23,6 +28,18 @@ export default function ModalPaymentFreedomPay({ amount, onClose }: ModalPayment
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = () => {
+    if (!isFormValid) return;
+
+    onClose(); // Закрыть модалку
+
+    // Симуляция оплаты
+    setTimeout(() => {
+      const success = Math.random() > 0.5;
+      onResult(success ? "freedom_success" : "freedom_error");
+    }, 500);
   };
 
   return (
@@ -75,10 +92,13 @@ export default function ModalPaymentFreedomPay({ amount, onClose }: ModalPayment
 
           <ButtonOrange
             className={!isFormValid ? styles["submit--disabled"] : ""}
-            type="submit"
+            type="button"
+            onClick={handleSubmit}
           >
             Оплатить {amount.toLocaleString()} ₸
           </ButtonOrange>
+          {/* <ButtonOrange className={""} children={`Оплатить ${amount.toLocaleString()} ₸`}/> */}
+          
         </div>
 
         {/* Правая колонка */}

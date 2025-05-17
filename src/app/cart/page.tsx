@@ -85,7 +85,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "./Cart.module.css";
-import { ButtonOrange } from "@/components/ui/ButtonOrange/ButtonOrange"; // Путь поправь под свой проект!
+import { ButtonOrange } from "@/components/ui/ButtonOrange/ButtonOrange";
 
 interface CartItem {
   id: number;
@@ -96,16 +96,49 @@ interface CartItem {
   image: string;
 }
 
+function getCartItems(): CartItem[] {
+  const raw = localStorage.getItem("cartItems");
+  if (!raw) return [];
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return [];
+  }
+}
+
+function saveCartItems(cart: CartItem[]) {
+  localStorage.setItem("cartItems", JSON.stringify(cart));
+}
+
 export default function CartPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
-    const storedCart = localStorage.getItem("cartItems");
-    if (storedCart) {
-      setCartItems(JSON.parse(storedCart));
-    }
+    const updateCart = () => {
+      const loaded = getCartItems();
+      setCartItems(loaded);
+      setIsLoading(false);
+    };
+
+    updateCart();
+    window.addEventListener("storage", updateCart);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") updateCart();
+    });
+
+    return () => {
+      window.removeEventListener("storage", updateCart);
+      document.removeEventListener("visibilitychange", updateCart);
+    };
   }, []);
+
+  useEffect(() => {
+    if (!isLoading) {
+      saveCartItems(cartItems);
+    }
+  }, [cartItems]);
 
   const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
@@ -114,6 +147,26 @@ export default function CartPage() {
     setCartItems([]);
   };
 
+  const increaseQuantity = (id: number) => {
+    setCartItems((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    );
+  };
+
+  const decreaseQuantity = (id: number) => {
+    setCartItems((prev) =>
+      prev
+        .map((item) =>
+          item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+        )
+        .filter((item) => item.quantity > 0)
+    );
+  };
+
+  if (isLoading) return null;
+
   if (cartItems.length === 0) {
     return (
       <div className={styles.emptyCart}>
@@ -121,9 +174,7 @@ export default function CartPage() {
         <h2 className={styles.emptyCartTitle}>Ваша корзина пуста</h2>
         <p className={styles.emptyCartText}>Воспользуйтесь каталогом для выбора товара</p>
         <div className={styles.emptyCartButtons}>
-          <Link href="/catalog">
-            <ButtonOrange>Перейти в каталог</ButtonOrange>
-          </Link>
+          <Link href="/catalog"><ButtonOrange>Перейти в каталог</ButtonOrange></Link>
           <Link href="/order-status">
             <ButtonOrange className={styles.secondaryButton}>Статус заказа</ButtonOrange>
           </Link>
@@ -135,10 +186,13 @@ export default function CartPage() {
   return (
     <div className={styles.cartPage}>
       <h1 className={styles.cartTitle}>Корзина</h1>
-
       <div className={styles.cartContent}>
-        {/* Левая часть */}
         <div className={styles.cartLeft}>
+          <div className={styles.cartHeader}>
+            <label><input type="checkbox" /> Выбрать все</label>
+            <button className={styles.deleteSelected}>Удалить выбранные</button>
+          </div>
+
           {cartItems.map((item) => (
             <div key={item.id} className={styles.cartItem}>
               <input type="checkbox" className={styles.checkbox} />
@@ -146,69 +200,75 @@ export default function CartPage() {
               <div className={styles.itemInfo}>
                 <div className={styles.itemTitle}>{item.name}</div>
                 <div className={styles.itemPrice}>
-                  {item.price.toLocaleString()} {item.currency}
+                  {item.price.toLocaleString()} {item.currency} + 12 000 бонусов
                 </div>
               </div>
               <div className={styles.quantityControl}>
-                <button>-</button>
+                <button onClick={() => decreaseQuantity(item.id)}>-</button>
                 <span>{item.quantity}</span>
-                <button>+</button>
+                <button onClick={() => increaseQuantity(item.id)}>+</button>
               </div>
             </div>
           ))}
 
-          {/* Блок доставки */}
-          <div className={styles.deliverySection}>
-            <h2 className={styles.sectionTitle}>Доставка курьером</h2>
-            <input
-              type="text"
-              placeholder="Введите адрес"
-              className={styles.addressInput}
-            />
-            <div className={styles.assemblyOption}>
-              <label>
-                <input type="checkbox" />
-                Необходима сборка мебели
-              </label>
+          <div className={styles.customerInfo}>
+            <h2 className={styles.sectionTitle}>Информация о получателе</h2>
+            <div className={styles.inputGroup}>
+              <input type="text" placeholder="Имя" className={styles.input} />
+              <input type="text" placeholder="Фамилия" className={styles.input} />
             </div>
+            <input type="text" placeholder="Номер телефона" className={styles.input} />
           </div>
 
-          {/* Блок оплаты */}
+          <div className={styles.deliverySection}>
+            <h2 className={styles.sectionTitle}>Доставка курьером</h2>
+            <div className={styles.inputGroup}>
+              <input type="text" placeholder="Город" className={styles.input} />
+              <input type="text" placeholder="Улица" className={styles.input} />
+              <input type="text" placeholder="Дом" defaultValue="256" className={styles.input} />
+            </div>
+            <label className={styles.assemblyCheckbox}>
+              <input type="checkbox" /> Необходима сборка мебели
+            </label>
+          </div>
+
           <div className={styles.paymentSection}>
             <h2 className={styles.sectionTitle}>Выберите способ оплаты</h2>
             <div className={styles.paymentMethods}>
               <label><input type="radio" name="payment" /> Счёт на оплату</label>
-              <label><input type="radio" name="payment" /> Оплата через Kaspi</label>
-              <label><input type="radio" name="payment" /> Оплата через Halyk</label>
+              <label><input type="radio" name="payment" /> Freedom Pay</label>
+              <label><input type="radio" name="payment" /> Kaspi</label>
             </div>
           </div>
         </div>
 
-        {/* Правая часть */}
         <div className={styles.cartRight}>
-          <h2 className={styles.sectionTitle}>Итого:</h2>
-          <div className={styles.totalPrice}>
-            {totalPrice.toLocaleString()} {cartItems[0]?.currency}
+          <div className={styles.promoBlock}>
+            <input type="text" placeholder="Введите промокод" className={styles.promoInput} />
+            <button className={styles.applyPromo}>Применить</button>
           </div>
 
-          <div className={styles.bonus}>
-            +12 000 бонусов
+          <div className={styles.totalBlock}>
+            <h2>Итого:</h2>
+            <p>{cartItems.length} товара на сумму</p>
+            <div className={styles.totalPrice}>
+              {totalPrice.toLocaleString()} {cartItems[0]?.currency}
+            </div>
+            <p className={styles.discount}>Скидка - 240.000 KZT</p>
+            <div className={styles.bonus}>+ 12 000 бонусов</div>
           </div>
-
-          <input
-            type="text"
-            placeholder="Введите промокод"
-            className={styles.promoInput}
-          />
 
           <ButtonOrange>Оформить заказ</ButtonOrange>
 
-          <button onClick={clearCart} className={styles.clearCartButton}>
-            Очистить корзину
-          </button>
+          <button onClick={clearCart} className={styles.clearCartButton}>Очистить корзину</button>
+
+          <div className={styles.legalLinks}>
+            <Link href="#">Доставка</Link>
+            <Link href="#">Оферта физических лиц</Link>
+            <Link href="#">Оферта для юридических лиц</Link>
+          </div>
         </div>
       </div>
     </div>
   );
 }
-

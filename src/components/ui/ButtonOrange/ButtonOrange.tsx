@@ -7,7 +7,12 @@ interface ButtonOrangeProps {
   type?: "button" | "submit" | "reset";
 }
 
-export default function ButtonOrange({ className = '', children, onClick, type = "button" }: ButtonOrangeProps) {
+export default function ButtonOrange({
+  className = '',
+  children,
+  onClick,
+  type = "button"
+}: ButtonOrangeProps) {
   return (
     <div className="btn">
       <button className={[styles.btn__action, className].join(" ")} type={type} onClick={onClick}>

@@ -1,5 +1,5 @@
 // src/services/category.service.ts
-import { Category, CategoryListItem, CategoryWelcome } from '@/types/category'
+import { Category, CategoryFilters, CategoryListItem, CategoryWelcome } from '@/types/category'
 import axios from 'axios'
 
 const API_URL = process.env.NEXT_PUBLIC_API_DOMAIN
@@ -59,5 +59,17 @@ export const getWelcomeCategories = async (): Promise<CategoryWelcome[]> => {
   } catch (err) {
     console.error('Ошибка при получении товаров категории:', err);
     return []
+  }
+}
+
+export const getCategoryFilters = async (): Promise<CategoryFilters | null> => {
+  try {
+    const response = await axios.get<CategoryFilters>(
+      `${API_URL}/catalog/categories/listing/filters/attributes/`
+    );
+    return response.data
+  } catch (err) {
+    console.error('Ошибка при получении фильтров категории:', err);
+    return null;
   }
 }

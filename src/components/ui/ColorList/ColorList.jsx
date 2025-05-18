@@ -1,19 +1,29 @@
 "use client"
 
 import styles from './ColorList.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ColorItem from '../ColorItem/ColorItem';
 
 export default function ColorList({
   colorData,
   isSmall = false,
-  onColorSelect
+  onColorSelect,
+  selectedMaterialId = 0,
 }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const handleSelect = (code, idx) => {
+  useEffect(() => {
+    setSelectedIndex(0);
+    if (Array.isArray(colorData) && colorData.length > 0) {
+      onColorSelect?.(colorData[0].id);
+    } else {
+      onColorSelect?.(null);
+    }
+  }, [selectedMaterialId]);
+
+  const handleSelect = (colorId, idx) => {
     setSelectedIndex(idx);
-    onColorSelect?.(code);
+    onColorSelect?.(colorId);
   };
 
   return (
@@ -21,14 +31,13 @@ export default function ColorList({
       {Array.isArray(colorData) && colorData.map((item, idx) => (
         <ColorItem
           key={idx}
-          itemKey={idx}
-          color={item.color}
-          code={item.code}
-          imageUrl={item.imageUrl}
-          altText={item.altText}
+          color={item.name}
+          code={item.hex_code}
+          imageUrl={item.image}
+          altText={item.name}
           isSelected={selectedIndex === idx}
           isSmall={isSmall}
-          onSelect={() => handleSelect(item.code, idx)}
+          onSelect={() => handleSelect(item.id, idx)}
         />
       ))}
     </ul>

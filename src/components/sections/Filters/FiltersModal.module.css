@@ -1,86 +1,128 @@
 /* FiltersModal.module.css */
 .overlay {
   position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 1000;
+  inset: 0px;
+  z-index: 10;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
+  font-family: "Suisse Int'l", sans-serif;
+  color: rgba(0, 0, 0, 1);
+  height: 100vh;
+  overflow-y: auto;
 }
 
-.modal {
+
+.overlay__inner {
   background: white;
-  width: 90%;
-  max-width: 400px;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  width: calc(565 / 1728 * 100%);
+  max-width: 565px;
+  padding: 36px 40px;
+  margin-top: 70px;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-weight: bold;
-  font-size: 24px;
+}
+
+.header__text {
+  font-family: "Graphik";
+  color: rgba(0, 0, 0, 1);
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 48px;
+  letter-spacing: -1.2px;
+}
+
+.header__cross {
+  padding: 20px;
+  cursor: pointer;
+}
+
+.overlay__features {
+  margin-top: 43px;
 }
 
 .switch {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 16px;
+  flex-direction: column;
 }
 
-.prices {
+.switch>*:not(:first-child) {
+  margin-top: 24px;
+}
+
+.switch__item {
   display: flex;
-  gap: 10px;
-  margin: 16px 0;
-}
-
-.prices input {
-  flex: 1;
-  padding: 8px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
-.section {
-  margin: 16px 0;
-}
-
-.choices button {
-  margin: 4px;
-  padding: 6px 12px;
-  border-radius: 20px;
-  border: 1px solid #ccc;
-  background: white;
+  align-items: center;
+  padding: 12px 0px;
+  border-bottom: 1px solid rgba(232, 227, 226, 1);
   cursor: pointer;
 }
 
-.selected {
-  background: black;
-  color: white;
+.switch__item>*:last-child {
+  margin-left: 12px;
 }
 
-.colors {
+.switch__icon {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  align-items: center;
+}
+
+
+.prices__item {
+  flex: 1 1 50%;
+  background-color: rgba(250, 250, 250, 1);
+  border: 1px solid rgba(208, 208, 208, 1);
+  border-radius: 12px;
+
+  padding: 8px 14px;
+}
+
+.prices__inner {
+  margin-top: 24px;
+  display: flex;
+  gap: 8px;
+}
+
+.prices__text {
+  color: rgba(89, 89, 89, 1);
+  letter-spacing: -.02em;
+}
+
+.prices__item input {
+  width: 90%;
+  background-color: rgba(250, 250, 250, 1);
+  border: 0px;
   margin-top: 8px;
 }
 
-.colorCircle {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 2px solid transparent;
-  cursor: pointer;
+.prices__item input:focus {
+  outline: none;
+  border: none;
 }
 
-.colorSelected {
-  border: 2px solid black;
+.features {
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(232, 227, 226, 1);
+}
+
+.features__section {
+  margin-top: 16px;
+}
+
+.section__choices {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  gap: 14px;
+}
+
+.section__colors {
+  margin-top: 12px;
 }
 
 .actions {
@@ -88,6 +130,15 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.actions__inner {
+  margin-top: 60px;
+  text-align: center;
+}
+
+.actions__width {
+  width: 100%;
 }
 
 .apply {
@@ -104,4 +155,11 @@
   color: black;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.actions__reset {
+  display: inline-block;
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(19, 17, 17, 0.4);
+  margin-top: 24px;
 }

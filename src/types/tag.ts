@@ -3,5 +3,6 @@ export interface Tag {
     name: string;
     group: string;
     priority: number;
-    icon: string
+    icon: string;
+    is_toggle: boolean;
 }

@@ -1,3 +1,4 @@
+import { Material } from 'three';
 import { ProductShort } from './product';
 import { Color } from './product';
 import { Tag } from './tag';
@@ -35,4 +36,10 @@ export interface CategoryListItem {
     best_offers: ProductShort[];
     product_count: number;
     products: ProductShort[];
+}
+
+export interface CategoryFilters {
+    tags: Tag[];
+    materials: Material[];
+    colors: Color[];
 }

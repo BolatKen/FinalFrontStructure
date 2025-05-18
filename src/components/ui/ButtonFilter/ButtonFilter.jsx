@@ -1,25 +1,28 @@
 import styles from './ButtonFilter.module.css';
+import Toggle from '@/components/ui/Toggle/Toggle';
 
 export default function ButtonFilter({
     iconImage,
     iconAlt,
     iconText,
     isSelected,
+    isToggle = false,
     onClick
 }) {
     return (
         <div className={[styles['filter-btn'], 'btn'].join(" ")}>
             <button
-                onClick={onClick} // 🟢 добавлено!
+                onClick={onClick}
                 className={[
                     styles['filter-btn__item'],
                     isSelected ? styles['filter-btn__item_selected'] : ''
                 ].join(" ")}
             >
-                <img src={iconImage} alt={iconAlt} />
+                {(iconImage !== null && iconImage !== '')  ? (<img src={iconImage} alt={iconAlt} />) : ''}
+                {isToggle ? (<Toggle />) : ''}
                 <span className={[
                     styles['filter-btn__text'],
-                    iconImage ? styles['filter-btn__text_margin'] : ''
+                    (iconImage || isToggle) ? styles['filter-btn__text_margin'] : ''
                 ].join(" ")}>
                     {iconText}
                 </span>

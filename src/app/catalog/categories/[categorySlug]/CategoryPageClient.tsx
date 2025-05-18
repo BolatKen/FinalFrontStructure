@@ -6,16 +6,18 @@ import Header from "@/components/layout/Header/Header";
 import BestOffers from "@/components/sections/BestOffers/BestOffers";
 import ListingCategories from "@/components/sections/ListingCategories/ListingCategories";
 import ButtonFilter from "@/components/ui/ButtonFilter/ButtonFilter";
-import { CategoryListItem } from "@/types/category";
+import { CategoryFilters, CategoryListItem } from "@/types/category";
 import { Pagination } from "@/components/shared/Pagination/Pagination";
 import FiltersModal from "@/components/sections/Filters/FiltersModal";
 
 export default function CategoryPageClient({
   category,
   currentPage,
+  categoryFilters,
 }: {
   category: CategoryListItem;
   currentPage: number;
+  categoryFilters: CategoryFilters | null;
 }) {
   const allFilters = {
     icon: "/icons/filter/all.svg",
@@ -25,7 +27,7 @@ export default function CategoryPageClient({
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => {
-    setIsModalOpen((prev) => !prev);
+    setIsModalOpen((prev) => (prev = !prev));
   };
   const pagesNum = Math.ceil(category.product_count / 15);
 
@@ -55,8 +57,9 @@ export default function CategoryPageClient({
                   iconImage={item.icon}
                   iconAlt={item.name}
                   iconText={item.name}
-                  isSelected={idx === 0}
-                  onClick={console.log("smth")}
+                  isSelected={false}
+                  isToggle={item.is_toggle}
+                  onClick={() => { }}
                 />
               ))}
               <span className={[styles.header__found].join(" ")}>
@@ -64,18 +67,14 @@ export default function CategoryPageClient({
               </span>
             </ul>
 
+
             <FiltersModal
+              categoryFilters={categoryFilters}
               isOpen={isModalOpen}
               onClose={() => setIsModalOpen(false)}
               onApply={(filters) => {
-                // TODO: handle filter application
                 console.log("Applied filters:", filters);
-              }}
-            >
-              {/* Здесь размести контент фильтров, например: */}
-              <h2>Фильтры</h2>
-              {/* список фильтров, чекбоксы и т.п. */}
-            </FiltersModal>
+              }} />
             <ul
               className={[styles.header__searches, styles.searches].join(" ")}
             >

@@ -1,84 +1,3 @@
-// "use client";
-
-// import { useEffect, useState } from "react";
-
-// export default function CartPage() {
-//   const [cartItems, setCartItems] = useState<any[]>([]);
-
-//   useEffect(() => {
-//     const storedCart = localStorage.getItem("cartItems");
-//     if (storedCart) {
-//       setCartItems(JSON.parse(storedCart));
-//     }
-//   }, []);
-
-//   // Подсчёт итоговой суммы
-//   const totalPrice = cartItems.reduce((acc, item) => {
-//     return acc + item.price * item.quantity;
-//   }, 0);
-
-//   // Очистить корзину
-//   const clearCart = () => {
-//     localStorage.removeItem("cartItems");
-//     setCartItems([]);
-//   };
-
-//   if (cartItems.length === 0) {
-//     return (
-//       <div style={{ padding: "20px", fontSize: "22px", color: "#222" }}>
-//         Корзина пуста
-//       </div>
-//     );
-//   }
-
-//   return (
-//     <div style={{ padding: "20px", color: "#222" }}>
-//       <h1 style={{ fontSize: "32px", marginBottom: "20px" }}>Корзина</h1>
-
-//       <ul style={{ listStyle: "none", padding: 0 }}>
-//         {cartItems.map((item) => (
-//           <li
-//             key={item.id}
-//             style={{
-//               marginBottom: "20px",
-//               padding: "10px",
-//               border: "1px solid #ccc",
-//               borderRadius: "8px",
-//               fontSize: "18px",
-//             }}
-//           >
-//             <strong>{item.name}</strong><br />
-//             Цена: {item.price} {item.currency}<br />
-//             Количество: {item.quantity}
-//           </li>
-//         ))}
-//       </ul>
-
-//       <div style={{ fontSize: "24px", marginTop: "30px", fontWeight: "bold" }}>
-//         Итого: {totalPrice.toFixed(2)} {cartItems[0]?.currency}
-//       </div>
-
-//       <button
-//         onClick={clearCart}
-//         style={{
-//           marginTop: "20px",
-//           padding: "10px 20px",
-//           backgroundColor: "#FF7244",
-//           color: "#fff",
-//           border: "none",
-//           borderRadius: "8px",
-//           cursor: "pointer",
-//           fontSize: "18px",
-//         }}
-//       >
-//         Очистить корзину
-//       </button>
-//     </div>
-//   );
-// }
-
-
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -90,6 +9,7 @@ import ModalPaymentFreedomPay from "@/components/ui/Modal/ModalPaymentFreedomPay
 import ModalInvoicePayment from "@/components/ui/Modal/ModalInvoicePayment";
 import ModalUnifiedResult from "@/components/ui/Modal/ModalUnifiedResult";
 import { sendTelegramMessage } from "@/lib/sendTelegramMessage";
+import Toggle from '@/components/ui/Toggle/Toggle';
 
 interface CartItem {
   id: number;
@@ -262,91 +182,84 @@ export default function CartPage() {
           </div>
 
           <div className={styles.deliverySection}>
-  <h2 className={styles.sectionTitle}>Доставка курьером</h2>
-  <p className={styles.assemblyNote}>
-    Курьеры не занимаются подъёмом мебели на этаж, при доставке производится только отгрузка<br />
-    По стоимости доставки мебели с вами свяжется оператор
-  </p>
-  <div className={styles.inputGroup}>
-    <input type="text" placeholder="Город" className={styles.input} value={city} onChange={(e) => setCity(e.target.value)} />
-    <input type="text" placeholder="Улица" className={styles.input} value={street} onChange={(e) => setStreet(e.target.value)} />
-    <input type="text" placeholder="Дом" className={styles.input} value={house} onChange={(e) => setHouse(e.target.value)} />
-  </div>
+            <h2 className={styles.sectionTitle}>Доставка курьером</h2>
+            <p className={styles.assemblyNote}>
+              Курьеры не занимаются подъёмом мебели на этаж, при доставке производится только отгрузка<br />
+              По стоимости доставки мебели с вами свяжется оператор
+            </p>
+            <div className={styles.inputGroup}>
+              <input type="text" placeholder="Город" className={styles.input} value={city} onChange={(e) => setCity(e.target.value)} />
+              <input type="text" placeholder="Улица" className={styles.input} value={street} onChange={(e) => setStreet(e.target.value)} />
+              <input type="text" placeholder="Дом" className={styles.input} value={house} onChange={(e) => setHouse(e.target.value)} />
+            </div>
 
-  <div className={styles.assemblyCheckbox}>
-    <div className={styles.assemblyCheckboxRow}>
-  <label className={styles.switch}>
-    <input
-      type="checkbox"
-      checked={needAssembly}
-      onChange={(e) => setNeedAssembly(e.target.checked)}
-    />
-    <span className={styles.slider}></span>
-  </label>
-  <span>Необходима сборка мебели</span>
-</div>
+            <div className={styles.assemblyCheckbox}>
+              <div className={styles.assemblyCheckboxRow}>
+                <Toggle setter={needAssembly} method={setNeedAssembly} />
+                <span>Необходима сборка мебели</span>
+              </div>
 
-    <p className={styles.assemblyNote}>
-      Мебель в собранном виде при перевозке занимает<br />
-      большой объём, поэтому доставка может стоить дороже
-    </p>
-  </div>
-</div>
+              <p className={styles.assemblyNote}>
+                Мебель в собранном виде при перевозке занимает<br />
+                большой объём, поэтому доставка может стоить дороже
+              </p>
+            </div>
+          </div>
 
-<div className={styles.paymentSection}>
-  <h2 className={styles.sectionTitle}>Выберите способ оплаты</h2>
-  <div className={styles.paymentMethods}>
-<label className={`${styles.paymentCard} ${paymentMethod === "invoice" ? styles.active : ""}`}>
-  <div className={styles.radioWrapper}>
-    <input
-      type="radio"
-      name="payment"
-      value="invoice"
-      checked={paymentMethod === "invoice"}
-      onChange={(e) => setPaymentMethod(e.target.value)}
-    />
-    <span className={styles.radioCustom}></span>
-  </div>
-  <img src="/icons/inquiry.svg" alt="icon" />
-  <div>
-    <div className={styles.paymentTitle}>Счёт на оплату</div>
-    <div className={styles.paymentDesc}>Для юридических лиц при безналичном расчёте с полным пакетом документов</div>
-  </div>
-</label>
+          <div className={styles.paymentSection}>
+            <h2 className={styles.sectionTitle}>Выберите способ оплаты</h2>
+            <div className={styles.paymentMethods}>
+              <label className={`${styles.paymentCard} ${paymentMethod === "invoice" ? styles.active : ""}`}>
+                <div className={styles.radioWrapper}>
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="invoice"
+                    checked={paymentMethod === "invoice"}
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                  />
+                  <span className={styles.radioCustom}></span>
+                </div>
+                <img src="/icons/inquiry.svg" alt="icon" />
+                <div>
+                  <div className={styles.paymentTitle}>Счёт на оплату</div>
+                  <div className={styles.paymentDesc}>Для юридических лиц при безналичном расчёте с полным пакетом документов</div>
+                </div>
+              </label>
 
 
-    <label className={`${styles.paymentCard} ${paymentMethod === "freedompay" ? styles.active : ""}`}>
-      <input type="radio" name="payment" value="freedompay" onChange={(e) => setPaymentMethod(e.target.value)} />
-      <img src="/icons/freedom.svg" alt="" />
-      <div>
-        <div className={styles.paymentTitle}>Freedom Pay</div>
-        <div className={styles.paymentDesc}>Оплата картой или в рассрочку до 6 месяцев без переплат</div>
-      </div>
-    </label>
+              <label className={`${styles.paymentCard} ${paymentMethod === "freedompay" ? styles.active : ""}`}>
+                <input type="radio" name="payment" value="freedompay" onChange={(e) => setPaymentMethod(e.target.value)} />
+                <img src="/icons/freedom.svg" alt="" />
+                <div>
+                  <div className={styles.paymentTitle}>Freedom Pay</div>
+                  <div className={styles.paymentDesc}>Оплата картой или в рассрочку до 6 месяцев без переплат</div>
+                </div>
+              </label>
 
-    <label className={`${styles.paymentCard} ${paymentMethod === "kaspi" ? styles.active : ""}`}>
-      <input type="radio" name="payment" value="kaspi" onChange={(e) => setPaymentMethod(e.target.value)} />
-      <img src="/icons/kaspi.svg" alt="" />
-      <div>
-        <div className={styles.paymentTitle}>Kaspi</div>
-        <div className={styles.paymentDesc}>Оплата с возможностью беспроцентной рассрочки до 3 месяцев</div>
-      </div>
-    </label>
-  </div>
-</div>
+              <label className={`${styles.paymentCard} ${paymentMethod === "kaspi" ? styles.active : ""}`}>
+                <input type="radio" name="payment" value="kaspi" onChange={(e) => setPaymentMethod(e.target.value)} />
+                <img src="/icons/kaspi.svg" alt="" />
+                <div>
+                  <div className={styles.paymentTitle}>Kaspi</div>
+                  <div className={styles.paymentDesc}>Оплата с возможностью беспроцентной рассрочки до 3 месяцев</div>
+                </div>
+              </label>
+            </div>
+          </div>
 
         </div>
 
         <div className={styles.cartRight}>
-         <div className={styles.promoBlock}>
-  <h2 className={styles.sectionTitle}>Промо-код</h2>
-  <input
-    type="text"
-    placeholder="Введите промокод"
-    className={styles.promoInput}
-  />
-  <button className={styles.promoButton}>Применить</button>
-</div>
+          <div className={styles.promoBlock}>
+            <h2 className={styles.sectionTitle}>Промо-код</h2>
+            <input
+              type="text"
+              placeholder="Введите промокод"
+              className={styles.promoInput}
+            />
+            <button className={styles.promoButton}>Применить</button>
+          </div>
 
 
           <div className={styles.totalBlock}>

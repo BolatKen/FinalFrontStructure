@@ -186,7 +186,7 @@ import Arrow from "@/components/ui/Arrow/Arrow";
 import ProductCard from "@/components/shared/ProductCard/ProductCard";
 
 export default function BestOffers(
-  { products, isListing }: { products: ProductShort[], isListing: boolean },
+  { products = [], isListing }: { products?: ProductShort[], isListing?: boolean },
 ) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
@@ -241,7 +241,7 @@ export default function BestOffers(
                 )).map((product, i) => (
                   <ProductCard
                     key={i}
-                    imageSrc={product.images[0].image}
+                    imageSrc={(product.images && product.images[0]?.image) || "/products/chair1.png"} // если нет картинки
                     title={product.name}
                     oldPrice={product.old_price}
                     newPrice={product.new_price}

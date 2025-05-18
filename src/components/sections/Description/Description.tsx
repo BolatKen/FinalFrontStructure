@@ -91,7 +91,7 @@ export default function Description({ product }: DescriptionProps) {
                     <Image
                       src={
                         product.images?.find((img) => img.type === "FRONT")
-                          ?.image || ""
+                          ?.image || "/core/1.png"
                       }
                       alt="Вид спереди"
                       width={393}

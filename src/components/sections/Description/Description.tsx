@@ -96,7 +96,6 @@ export default function Description({ product }: DescriptionProps) {
                       alt="Вид спереди"
                       width={393}
                       height={393}
-                      layout="responsive"
                     />
                   </div>
                   <figcaption className={styles.sizes__elem}>
@@ -118,7 +117,6 @@ export default function Description({ product }: DescriptionProps) {
                     alt="Вид сбоку"
                     width={393}
                     height={393}
-                    layout="responsive"
                   />
                   <figcaption className={styles.specs__caption}>
                     79 см × 52 см

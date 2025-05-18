@@ -1,40 +1,3 @@
-// "use client";
-
-// import { useRef } from "react";
-// import ProductCard from "@/components/shared/ProductCard/ProductCard";
-// import styles from './BestOffers.module.css';
-// import Arrow from "@/components/ui/Arrow/Arrow";
-
-// interface VariantOption {
-//   id: number;
-//   option_display: {
-//     id: number;
-//     option_type_display: string;
-//     value: string;
-//     code: string;
-//   };
-// }
-
-// interface Variant {
-//   id: number;
-//   sku: string;
-//   price: string;
-//   old_price?: string | null;
-//   currency: string;
-//   variant_options: VariantOption[];
-// }
-
-// interface Product {
-//   id: number;
-//   name: string;
-//   description: string;
-//   slug: string;
-//   category: string;
-//   options: any[];
-//   variants: Variant[];
-//   model_url?: string;
-//   base_sku?: string;
-// }
 
 // export default function BestOffers(props?: any) {
 //   const containerRef = useRef<HTMLDivElement>(null);
@@ -123,44 +86,6 @@
 //       </div>
 //     </section >
 //   );
-// }
-
-// "use client";
-
-// import { useRef } from "react";
-// import ProductCard from "@/components/shared/ProductCard/ProductCard";
-// import styles from './BestOffers.module.css';
-// import Arrow from "@/components/ui/Arrow/Arrow";
-
-// interface VariantOption {
-//   id: number;
-//   option_display: {
-//     id: number;
-//     option_type_display: string;
-//     value: string;
-//     code: string;
-//   };
-// }
-
-// interface Variant {
-//   id: number;
-//   sku: string;
-//   price: string;
-//   old_price?: string | null;
-//   currency: string;
-//   variant_options: VariantOption[];
-// }
-
-// interface Product {
-//   id: number;
-//   name: string;
-//   description: string;
-//   slug: string;
-//   category: string;
-//   options: any[];
-//   variants: Variant[];
-//   model_url?: string;
-//   base_sku?: string;
 // }
 
 // export default function BestOffers(props?: any) {
@@ -254,20 +179,15 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
-import ProductCard from "@/components/shared/ProductCard/ProductCard";
 import styles from './BestOffers.module.css';
+import { useEffect, useState } from "react";
+import { ProductShort } from "@/types/product";
 import Arrow from "@/components/ui/Arrow/Arrow";
+import ProductCard from "@/components/shared/ProductCard/ProductCard";
 
-export default function BestOffers(props?: any) {
-  const products = [
-    { model_url: '', name: 'Aurora', variants: [{ old_price: '121000', price: '104000' }] },
-    { model_url: '', name: 'Egor', variants: [{ old_price: '121000', price: '104000' }] },
-    { model_url: '', name: 'Bolat', variants: [{ old_price: '121000', price: '104000' }] },
-    { model_url: '', name: 'Rasul', variants: [{ old_price: '121000', price: '104000' }] },
-    { model_url: '', name: 'Assyl', variants: [{ old_price: '121000', price: '104000' }] },
-  ];
-
+export default function BestOffers(
+  { products, isListing }: { products: ProductShort[], isListing: boolean },
+) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -293,43 +213,54 @@ export default function BestOffers(props?: any) {
   }, []);
 
   return (
-    <section className={[styles['best-offers'], props?.isListing ? styles['best-offers_gray'] : ''].join(" ")}>
-    <section className={[styles['best-offers'], props?.isListing ? styles['best-offers_gray'] : ''].join(" ")}>
-      <div className={styles['best-offers__inner']}>
-        <h2 className={[styles['best-offers__title'], 'title', '_container'].join(" ")}>Лучшие предложения</h2>
+    <section className={[
+      styles['best-offers'],
+      (isListing ? styles['best-offers_gray'] : '')].join(" ")
+    }>
+      <section className={[
+        styles['best-offers'],
+        isListing ? styles['best-offers_gray'] : ''].join(" ")
+      }>
+        <div className={styles['best-offers__inner']}>
+          <h2 className={[styles['best-offers__title'], 'title', '_container'].join(" ")}>
+            Лучшие предложения
+          </h2>
+          <div className={[styles['best-offers__main'], '_container-bigger'].join(" ")}>
 
+            {/* Стрелки только на десктопе */}
+            {!isMobile && (
+              <Arrow onClick={() => scroll("left")} disabled={currentIndex === 0} />
+            )}
 
-        <div className={[styles['best-offers__main'], '_container-bigger'].join(" ")}>
+            <div className={styles['best-offers__viewport']}>
+              <div className={styles['best-offers__list']}>
 
-          {/* Стрелки только на десктопе */}
-          {!isMobile && (
-            <Arrow onClick={() => scroll("left")} disabled={currentIndex === 0} />
-          )}
+                {/* На мобилке — все карточки сразу, на десктопе — slice */}
+                {(isMobile ? products : products.slice(
+                  currentIndex, currentIndex + visibleCards
+                )).map((product, i) => (
+                  <ProductCard
+                    key={i}
+                    imageSrc={product.images[0].image}
+                    title={product.name}
+                    oldPrice={product.old_price}
+                    newPrice={product.new_price}
+                    colorData={product.material_colors}
+                  />
+                ))}
 
-          <div className={styles['best-offers__viewport']}>
-            <div className={styles['best-offers__list']}>
-
-              {/* На мобилке — все карточки сразу, на десктопе — slice */}
-              {(isMobile ? products : products.slice(currentIndex, currentIndex + visibleCards)).map((product, i) => (
-                <ProductCard
-                  key={i}
-                  imageSrc={product.model_url || "/products/chair1.png"}
-                  title={product.name}
-                  oldPrice={product.variants[0]?.old_price || ""}
-                  newPrice={product.variants[0]?.price}
-                />
-              ))}
-
+              </div>
             </div>
+
+            {!isMobile && (
+              <Arrow direction="right" onClick={
+                () => scroll("right")} disabled={currentIndex === maxIndex
+                } />
+            )}
+
           </div>
-
-          {!isMobile && (
-            <Arrow direction="right" onClick={() => scroll("right")} disabled={currentIndex === maxIndex} />
-          )}
-
         </div>
-      </div>
-    </section>
+      </section>
     </section>
   );
 }

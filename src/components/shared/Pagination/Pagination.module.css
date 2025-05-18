@@ -1,0 +1,28 @@
+/* pagination */
+.pagination__inner {
+    margin-top: 64px;
+    display: flex;
+    align-items: center;
+    padding: 0px 42px 48px 42px;
+}
+
+.pagination__inner>*:not(:first-child) {
+    margin-left: 14px;
+}
+
+.pagination__arrow {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination__items {
+    display: flex;
+
+}
+
+.pagination__items>*:not(:first-child) {
+    margin-left: 14px;
+}

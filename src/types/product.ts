@@ -50,6 +50,7 @@ interface ProductImage {
     id: number;
     image: string;
     alt: string;
+    type: string;
     type_display: string;
     material: number;
     color: number;
@@ -111,4 +112,5 @@ export interface ProductShort {
     bonus: string;
     images: ProductImage[];
     sub_categories: number[];
+    material_colors: Color[];
 }

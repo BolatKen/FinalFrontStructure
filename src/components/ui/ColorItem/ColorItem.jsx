@@ -2,7 +2,6 @@
 import styles from './ColorItem.module.css';
 
 export default function ColorItem({
-  itemKey,
   color,
   code,
   imageUrl,

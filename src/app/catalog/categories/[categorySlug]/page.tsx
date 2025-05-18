@@ -1,4 +1,4 @@
-import { getCategoryListingBySlug } from '@/services/category.service'
+import { getCategoryFilters, getCategoryListingBySlug } from '@/services/category.service'
 import CategoryPageClient from './CategoryPageClient';
 
 
@@ -15,9 +15,15 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   const currentPage = parseInt(page || '1', 10);
   const categoryData = await getCategoryListingBySlug(categorySlug, currentPage);
 
+  const categoryFilters = await getCategoryFilters();
+
+
   if (!categoryData) {
     return <div>Категория не найдена</div>;
   }
 
-  return <CategoryPageClient category={categoryData} currentPage={currentPage} />;
+  return <CategoryPageClient
+    category={categoryData}
+    currentPage={currentPage}
+    categoryFilters={categoryFilters} />;
 }

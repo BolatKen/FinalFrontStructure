@@ -5,6 +5,7 @@ export interface Color {
     hex_code: string;
     image: string;
     extra_price: string;
+    material: number;
 }
 
 interface Part {

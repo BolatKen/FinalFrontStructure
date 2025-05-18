@@ -1,11 +1,17 @@
 // components/sections/Filters/FiltersModal.tsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./FiltersModal.module.css";
 import { ReactNode } from "react";
+import ButtonFilter from '@/components/ui/ButtonFilter/ButtonFilter';
+import ColorList from "@/components/ui/ColorList/ColorList";
+import ButtonOrange from "@/components/ui/ButtonOrange/ButtonOrange";
+import Toggle from '@/components/ui/Toggle/Toggle';
+import { CategoryFilters } from "@/types/category";
 
 type FiltersModalProps = {
+  categoryFilters: CategoryFilters | null;
   isOpen: boolean;
   onClose: () => void;
   onApply: (filters: any) => void;
@@ -13,111 +19,210 @@ type FiltersModalProps = {
 };
 
 export default function FiltersModal({
+  categoryFilters,
   isOpen,
   onClose,
   onApply,
 }: FiltersModalProps) {
-  const [inStock, setInStock] = useState(false);
-  const [discountOnly, setDiscountOnly] = useState(false);
-  const [isNew, setIsNew] = useState(false);
-  const [priceFrom, setPriceFrom] = useState("600000");
-  const [priceTo, setPriceTo] = useState("800000");
-  const [material, setMaterial] = useState<string | null>(null);
-  const [color, setColor] = useState<string | null>(null);
 
-  const materials = ["Велюр", "Экокожа", "Бархат", "Кожа"];
-  const colors = [
-    "#F2D4CA", "#B8A59C", "#B8B3A7", "#A7A6A3", "#78737B",
-    "#6D7C87", "#888A96", "#5A4942", "#D7ECF7", "#536161"
-  ];
+  const tags = categoryFilters?.tags;
+  const materials = categoryFilters?.materials;
+  const colors = categoryFilters?.colors;
+
+  const [tagToggles, setTagToggles] = useState<{ [tagId: number]: boolean }>({});
+  const [selectedMaterialId, setSelectedMaterialId] = useState<number | null>(
+    materials && materials.length > 0 ? materials[0].id : null);
+  const [color, setColor] = useState<number | null>(null);
+  const [priceFrom, setPriceFrom] = useState('');
+  const [priceTo, setPriceTo] = useState('');
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef2 = useRef<HTMLInputElement>(null);
+
+  const CURRENCY_SIGN = ' ₸';
+
+  const handleToggleChange = (tagId: number) => {
+    setTagToggles(prev => ({
+      ...prev,
+      [tagId]: !prev[tagId],
+    }));
+  };
+
+  const formatCurrency = (val: string) => {
+    const num = parseInt(val.replace(/\D/g, ''), 10);
+    if (isNaN(num)) return '';
+    return new Intl.NumberFormat('ru-RU').format(num) + CURRENCY_SIGN;
+  };
+
+  const handleChangePriceFrom = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onlyDigits = e.target.value.replace(/\D/g, '');
+
+    if (onlyDigits === '') {
+      setPriceFrom('');
+      return;
+    }
+
+    const formatted = formatCurrency(onlyDigits);
+    setPriceFrom(formatted);
+
+    setTimeout(() => {
+      if (!inputRef.current) return;
+      const pos = formatted.length - CURRENCY_SIGN.length;
+      inputRef.current.setSelectionRange(pos, pos);
+    }, 0);
+  };
+
+  const handleChangePriceTo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onlyDigits = e.target.value.replace(/\D/g, '');
+
+    if (onlyDigits === '') {
+      setPriceTo('');
+      return;
+    }
+
+    const formatted = formatCurrency(onlyDigits);
+    setPriceTo(formatted);
+
+    setTimeout(() => {
+      if (!inputRef2.current) return;
+      const pos = formatted.length - CURRENCY_SIGN.length;
+      inputRef2.current.setSelectionRange(pos, pos);
+    }, 0);
+  };
 
   const handleApply = () => {
+    const activeTagIds = Object.entries(tagToggles)
+      .filter(([_, isActive]) => isActive)
+      .map(([tagId]) => Number(tagId));
+
     onApply({
-      inStock,
-      discountOnly,
-      isNew,
+      activeTagIds,
       priceFrom,
       priceTo,
-      material,
+      selectedMaterialId,
       color,
     });
     onClose();
   };
 
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      onClose();
+      isOpen = false;
+    };
+  }
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('modal-open');
+    } else {
+      document.body.classList.remove('modal-open');
+    }
+    return () => document.body.classList.remove('modal-open');
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
+
   return (
-    <div className={styles.overlay}>
-      <div className={styles.modal}>
+    <div className={styles.overlay} onClick={handleOverlayClick}>
+      <div className={styles.overlay__inner} ref={modalRef}>
         <div className={styles.header}>
-          <h2>Фильтр</h2>
-          <button onClick={onClose}>×</button>
-        </div>
-
-        <label className={styles.switch}>
-          <input type="checkbox" checked={inStock} onChange={() => setInStock(!inStock)} />
-          <span>В наличии</span>
-        </label>
-
-        <label className={styles.switch}>
-          <input type="checkbox" checked={discountOnly} onChange={() => setDiscountOnly(!discountOnly)} />
-          <span>Товары со скидкой</span>
-        </label>
-
-        <label className={styles.switch}>
-          <input type="checkbox" checked={isNew} onChange={() => setIsNew(!isNew)} />
-          <span>Новинки</span>
-        </label>
-
-        <div className={styles.prices}>
-          <input value={priceFrom} onChange={(e) => setPriceFrom(e.target.value)} placeholder="Цена от" />
-          <input value={priceTo} onChange={(e) => setPriceTo(e.target.value)} placeholder="Цена до" />
-        </div>
-
-        <div className={styles.section}>
-          <span>Материал</span>
-          <div className={styles.choices}>
-            {materials.map((mat) => (
-              <button
-                key={mat}
-                className={material === mat ? styles.selected : ""}
-                onClick={() => setMaterial(mat)}
-              >
-                {mat}
-              </button>
-            ))}
+          <div className={styles.header__text}>
+            <h2>Фильтр</h2>
+          </div>
+          <div className={[styles.header__cross, '_img'].join(' ')} onClick={onClose}>
+            <img src="/icons/cross.svg" alt="Крестик" />
           </div>
         </div>
 
-        <div className={styles.section}>
-          <span>Цвет</span>
-          <div className={styles.colors}>
-            {colors.map((col, idx) => (
-              <button
-                key={idx}
-                style={{ backgroundColor: col }}
-                className={`${styles.colorCircle} ${color === col ? styles.colorSelected : ""}`}
-                onClick={() => setColor(col)}
-              />
-            ))}
+        <div className={[styles.overlay__features].join(' ')}>
+          <div className={styles.switch}>
+            {tags?.map((item, key) => [
+              <label key={key} className={styles.switch__item}>
+                <Toggle
+                  setter={tagToggles[item.id] || false}
+                  method={() => handleToggleChange(item.id)} />
+                <span>{item.name}</span>
+              </label>
+            ])}
+          </div>
+
+          <div className={styles.prices}>
+            <div className={styles.prices__inner}>
+              <div className={styles.prices__item}>
+                <div className={styles.prices__text}>
+                  Цена от
+                </div>
+                <input
+                  ref={inputRef}
+                  value={priceFrom}
+                  onChange={handleChangePriceFrom} />
+              </div>
+              <div className={styles.prices__item}>
+                <div className={styles.prices__text}>
+                  Цена до
+                </div>
+                <input
+                  ref={inputRef2}
+                  value={priceTo}
+                  onChange={handleChangePriceTo} />
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.features}>
+            <div className={styles.features__section}>
+              <span>Материал</span>
+              <div className={styles.section__choices}>
+                {materials?.map((item, idx) => (
+                  <ButtonFilter
+                    key={idx}
+                    iconImage={''}
+                    iconAlt={item.name}
+                    iconText={item.name}
+                    isSelected={selectedMaterialId === item.id}
+                    onClick={() => setSelectedMaterialId(item.id)}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className={styles.features__section}>
+              <span>Цвет</span>
+              <div className={styles.section__colors}>
+                <ColorList colorData={selectedMaterialId
+                  ? colors?.filter(color => color.material === selectedMaterialId)
+                  : colors}
+                  onColorSelect={setColor}
+                  selectedMaterialId={selectedMaterialId === null ? undefined : selectedMaterialId} />
+              </div>
+            </div>
           </div>
         </div>
 
         <div className={styles.actions}>
-          <button className={styles.apply} onClick={handleApply}>Применить</button>
-          <button className={styles.reset} onClick={() => {
-            setInStock(false);
-            setDiscountOnly(false);
-            setIsNew(false);
-            setPriceFrom("");
-            setPriceTo("");
-            setMaterial(null);
-            setColor(null);
-          }}>
-            Сбросить фильтр
-          </button>
+          <div className={styles.actions__inner}>
+            <ButtonOrange className={styles.actions__width} children={'Применить'} onClick={handleApply} />
+            <div
+              className={styles.actions__reset}
+              onClick={() => {
+                setTagToggles({});
+                setSelectedMaterialId(
+                  materials && materials.length > 0 ? materials[0].id : null
+                );
+                setColor(null);
+                setPriceFrom('');
+                setPriceTo('');
+              }}
+            >
+              Сбросить
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 }

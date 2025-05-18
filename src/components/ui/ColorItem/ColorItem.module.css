@@ -9,9 +9,9 @@
     cursor: pointer;
 }
 
-.color__item:not(:first-child) {
+/* .color__item:not(:first-child) {
     margin-left: 12px;
-}
+} */
 
 /* inner img */
 .color__item>*:first-child {

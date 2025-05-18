@@ -250,7 +250,7 @@
   line-height: 1.4;
 }
 
-.switch {
+/* .switch {
   position: relative;
   display: inline-block;
   width: 34px;
@@ -293,7 +293,7 @@
 
 .switch input:checked + .slider::before {
   transform: translateX(14px);
-}
+} */
 
 
 .paymentSection {

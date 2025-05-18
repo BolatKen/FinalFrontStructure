@@ -1,0 +1,25 @@
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 736px;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 24px 28px;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  z-index: 1000;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 24px 0 8px;
+}
+
+.description {
+  font-size: 16px;
+  margin-bottom: 32px;
+  color: #555;
+}

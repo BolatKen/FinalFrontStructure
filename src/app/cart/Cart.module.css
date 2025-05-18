@@ -29,18 +29,29 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #f5f6f7;
+  width: 100%;
+  max-width: 967px;
+  max-height: 67px;
+  padding: 16px 24px;
+  border-radius: 8px;
+  gap: 16px;
 }
+
 
 .cartItem {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  background-color: #f5f6f7;
+  border-radius: 8px;
+  padding: 16px 24px;
   gap: 16px;
-  background: #fff;
-  padding: 16px;
-  border-radius: 12px;
-  border: 1px solid #eee;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  width: 100%;
+  max-width: 967px;
+  min-height: 112px;
 }
+
 
 .checkbox {
   width: 20px;
@@ -48,45 +59,93 @@
 }
 
 .itemImage {
-  width: 90px;
-  height: 90px;
+  width: 80px;
+  height: 80px;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 12px;
 }
+
 
 .itemInfo {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-grow: 1;
 }
 
+
 .itemTitle {
+  font-size: 16px;
   font-weight: 500;
-  margin-bottom: 4px;
 }
 
 .itemPrice {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .quantityControl {
   display: flex;
   align-items: center;
+  background-color: #e0e0e0; /* светло-серый */
+  border-radius: 999px;
+  height: 38px;
   gap: 12px;
+  padding: 0 6px 0 6px;
+}
+
+.quantityControl span {
+  font-size: 16px;
+  font-weight: 600;
+  min-width: 36px;
+  text-align: center;
+  line-height: 1;
 }
 
 .quantityControl button {
-  width: 32px;
-  height: 32px;
-  font-size: 18px;
+  width: 38px;
+  height: 38px;
+  background-color: #fff;
   border: none;
-  background: #eee;
-  border-radius: 6px;
+  border-radius: 50%;
+  font-size: 18px;
+  font-weight: 600;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
+.quantityControl button:hover {
+  background-color: #f1f1f1;
+}
+
+.removeBtn {
+  width: 38px;
+  height: 38px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: background 0.2s;
+}
+
+.removeBtn:hover {
+  background-color: #f1f1f1;
+}
+
+
 .button,
-.applyPromo,
-.deleteSelected {
+.applyPromo {
   background-color: #ff6600;
   color: white;
   font-weight: 600;
@@ -97,6 +156,17 @@
   transition: 0.2s;
 }
 
+.deleteSelected {
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 2px;
+}
+
 .button:hover,
 .applyPromo:hover,
 .deleteSelected:hover {
@@ -104,9 +174,14 @@
 }
 
 .customerInfo {
-  background: #f9f9f9;
-  padding: 20px;
-  border-radius: 12px;
+  background-color: #f5f6f7;
+  padding: 32px 40px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 967px;
 }
 
 .sectionTitle {
@@ -117,8 +192,7 @@
 
 .inputGroup {
   display: flex;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: 24px;
 }
 
 .inputGroup input {
@@ -126,37 +200,201 @@
 }
 
 .input {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
+  flex: 1;
+  padding: 20px;
+  font-size: 16px;
+  border: 1px solid #dcdcdc;
   border-radius: 8px;
-  font-size: 14px;
+  background-color: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  outline: none;
+  transition: border 0.2s;
+}
+
+.input::placeholder {
+  color: #aaa;
+}
+
+.input:focus {
+  border-color: #ff6600;
 }
 
 .deliverySection {
-  background: #f1f1f1;
-  padding: 20px;
-  border-radius: 12px;
+  background-color: #f3f5f7;
+  padding: 32px 40px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 967px;
 }
 
 .assemblyCheckbox {
-  margin-top: 12px;
   display: flex;
-  gap: 8px;
-  font-size: 14px;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 16px;
+  font-weight: 500;
 }
 
+.assemblyCheckboxRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.assemblyNote {
+  font-size: 14px;
+  color: #888;
+  line-height: 1.4;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 20px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.2s;
+  border-radius: 9999px;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  top: 2px;
+  background-color: white;
+  transition: 0.2s;
+  border-radius: 50%;
+}
+
+.switch input:checked + .slider {
+  background-color: #ff7244;
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(14px);
+}
+
+
 .paymentSection {
-  background: #f1f1f1;
-  padding: 20px;
-  border-radius: 12px;
+  background-color: #f3f5f7;
+  padding: 32px 40px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 967px;
 }
 
 .paymentMethods {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  gap: 24px;
+  flex-wrap: wrap;
 }
+
+.paymentCard {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 16px;
+  flex: 1;
+  min-width: 240px;
+  padding: 24px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.paymentCard input {
+  display: none;
+}
+
+.paymentCard img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.paymentTitle {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.paymentDesc {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* Активная */
+.paymentCard.active {
+  border-color: #ff7244;
+  background-color: #fff3ef;
+}
+
+.radioWrapper {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+}
+
+.radioWrapper input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.radioCustom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  transition: border-color 0.2s;
+}
+
+.radioWrapper input:checked + .radioCustom {
+  border-color: #ff7244;
+}
+
+.radioWrapper input:checked + .radioCustom::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ff7244;
+}
+
 
 .cartRight {
   flex: 1;
@@ -169,17 +407,44 @@
 }
 
 .promoBlock {
+  background-color: #f3f5f7;
+  padding: 32px 40px;
+  border-radius: 8px;
   display: flex;
-  gap: 12px;
-  margin-bottom: 16px;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 565px;
 }
 
 .promoInput {
-  flex: 1;
-  padding: 12px;
-  border-radius: 8px;
+  padding: 20px;
+  font-size: 16px;
   border: 1px solid #ccc;
-  font-size: 14px;
+  border-radius: 12px;
+  background-color: #fff;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.promoInput:focus {
+  border-color: #ff7244;
+}
+
+.promoButton {
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  background-color: #ff7244;
+  color: white;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.promoButton:hover {
+  background-color: #e35e2e;
 }
 
 .totalBlock h2 {

@@ -26,7 +26,7 @@ export default function HeaderItem({
         <ul className={styles.dropdown}>
           {childrenCategories.map((child) => (
             <li className={styles.dropdownItem} key={child.id}>
-              <Link href="/catalog">
+              <Link href={`/catalog/categories/${child.slug}`}>
                 {child.name}
               </Link>
             </li>

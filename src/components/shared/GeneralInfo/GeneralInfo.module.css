@@ -1,6 +1,7 @@
 .general {
     background-color: var(--general-color);
     color: white;
+    /* max-width: var(--header-max-width); */
 }
 
 .general_light {
@@ -11,13 +12,34 @@
 .general__inner {
     padding: 48px 0px;
 }
+@media (max-width: 768px) {
+    .general__inner {
+    padding: 48px 16px;
+}
+    
+}
 
 .general__content {
     padding-bottom: 48px;
 }
 
+
 .content {
     display: flex;
+}
+
+/* ._img img {
+    position: absolute;
+} */
+@media (max-width: 768px) {
+    .content {
+        padding-bottom: 0px;
+        display: block;
+    }
+    /* ._img img {
+        position: relative ;
+    } */
+    
 }
 
 .content>*:first-child {

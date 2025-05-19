@@ -108,6 +108,7 @@ export interface ProductShort {
     name: string;
     variants: Variant[];
     images: ProductImage[];
+    tags: number[];
     sub_categories: number[];
     material_colors: MaterialColor[];
 }

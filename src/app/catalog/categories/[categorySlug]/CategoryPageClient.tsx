@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import styles from "./CategoryPageClient.module.css";
 import Header from "@/components/layout/Header/Header";
 import BestOffers from "@/components/sections/BestOffers/BestOffers";
@@ -9,6 +9,7 @@ import ButtonFilter from "@/components/ui/ButtonFilter/ButtonFilter";
 import { CategoryFilters, CategoryListItem } from "@/types/category";
 import { Pagination } from "@/components/shared/Pagination/Pagination";
 import FiltersModal from "@/components/sections/Filters/FiltersModal";
+import { ProductShort } from "@/types/product";
 
 export default function CategoryPageClient({
   category,
@@ -25,6 +26,12 @@ export default function CategoryPageClient({
     name: "Все фильтры",
     is_selected: true,
   };
+  const resetAll = {
+    icon: "/icons/filter/circular.png",
+    alt: "Сброс всех настроек",
+    name: "Сбросить фильтры",
+    is_selected: true,
+  };
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => {
     setIsModalOpen((prev) => (prev = !prev));
@@ -34,6 +41,41 @@ export default function CategoryPageClient({
   const listRef = useRef<HTMLDivElement>(null);
   const scrollToListing = () => {
     listRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const [selectedSubcategory, setSelectedSubcategory] = useState<number | null>(null);
+  const [selectedTag, setSelectedTag] = useState<number | null>(null);
+  const [filteredProducts, setFilteredProducts] = useState<ProductShort[]>(category?.products || []);
+
+  const handleSubcategoryClick = (subcategoryId: number) => {
+    setSelectedSubcategory(subcategoryId);
+    listRef?.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleTagClick = (tagId: number) => {
+    setSelectedTag(tagId);
+  }
+
+  useEffect(() => {
+    let filtered = category?.products || [];
+
+    if (selectedSubcategory !== null) {
+      filtered = filtered.filter((product) =>
+        product.sub_categories.includes(selectedSubcategory)
+      );
+    }
+    if (selectedTag !== null) {
+      filtered = filtered.filter((product) =>
+        product.tags.includes(selectedTag)
+      );
+    }
+
+    setFilteredProducts(filtered);
+  }, [selectedSubcategory, selectedTag, category?.products]);
+
+  const resetFilters = () => {
+    setSelectedSubcategory(null);
+    setSelectedTag(null);
   };
 
   return (
@@ -57,11 +99,18 @@ export default function CategoryPageClient({
                   iconImage={item.icon}
                   iconAlt={item.name}
                   iconText={item.name}
-                  isSelected={false}
+                  isSelected={selectedTag === item.id}
                   isToggle={item.is_toggle}
-                  onClick={() => { }}
+                  onClick={() => handleTagClick(item.id)}
                 />
               ))}
+              <ButtonFilter
+                iconImage={resetAll.icon}
+                iconAlt={resetAll.name}
+                iconText={resetAll.name}
+                isSelected={resetAll.is_selected}
+                onClick={resetFilters}
+              />
               <span className={[styles.header__found].join(" ")}>
                 Найдено {category?.product_count}
               </span>
@@ -83,7 +132,11 @@ export default function CategoryPageClient({
               </span>
               {category?.popular_subcategories.map((item, idx) => (
                 <li key={idx} className={styles.searches__item}>
-                  <a className={styles.searches__link} href="#">
+                  <a className={[
+                    styles.searches__link,
+                    (selectedSubcategory == item.id ? styles.searches__link_selected : '')
+                  ].join(' ')}
+                    onClick={() => handleSubcategoryClick(item.id)}>
                     {item.name}
                   </a>
                 </li>
@@ -91,10 +144,10 @@ export default function CategoryPageClient({
             </ul>
           </div>
         </div>
-      </div>
+      </div >
       <BestOffers products={category.best_offers} isListing={true} />
       <div ref={listRef} className={styles["scroll-target"]}>
-        <ListingCategories products={category.products} />
+        <ListingCategories products={filteredProducts} />
       </div>
 
       <Pagination

@@ -18,7 +18,7 @@ export default function ButtonFilter({
                     isSelected ? styles['filter-btn__item_selected'] : ''
                 ].join(" ")}
             >
-                {(iconImage !== null && iconImage !== '')  ? (<img src={iconImage} alt={iconAlt} />) : ''}
+                {(iconImage !== null && iconImage !== '')  ? (<img className={styles['filter-btn__img']} src={iconImage} alt={iconAlt} />) : ''}
                 {isToggle ? (<Toggle />) : ''}
                 <span className={[
                     styles['filter-btn__text'],

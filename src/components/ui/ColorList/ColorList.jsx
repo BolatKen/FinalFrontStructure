@@ -6,7 +6,6 @@ import ColorItem from '../ColorItem/ColorItem';
 
 export default function ColorList({
   colorData,
-  isSmall = false,
   onColorSelect,
   selectedMaterialId = 0,
 }) {
@@ -28,18 +27,18 @@ export default function ColorList({
 
   return (
     <ul className={`${styles.color__items} ${styles.color__margin}`}>
-      {Array.isArray(colorData) && colorData.map((item, idx) => (
-        <ColorItem
-          key={idx}
-          color={item.name}
-          code={item.hex_code}
-          imageUrl={item.image}
-          altText={item.name}
-          isSelected={selectedIndex === idx}
-          isSmall={isSmall}
-          onSelect={() => handleSelect(item.id, idx)}
-        />
-      ))}
+      {Array.isArray(colorData) && colorData.map((item, idx) => (<ColorItem
+        key={idx}
+        color={item.name}
+        code={item.hex_code}
+        imageUrl={item.image}
+        altText={item.name}
+        isSelected={item.isSelected}
+        isSmall={false}
+        onSelect={() => {
+          handleSelect(item.id, idx);
+        }}
+      />))}
     </ul>
   );
 }

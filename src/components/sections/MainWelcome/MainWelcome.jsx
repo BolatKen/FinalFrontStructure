@@ -111,10 +111,8 @@ export default function MainWelcome() {
                                         const existingItemIndex = storedCart.findIndex((item) => item.id === currentProduct.id);
 
                                         if (existingItemIndex !== -1) {
-                                            // Уже в корзине — увеличим количество
                                             storedCart[existingItemIndex].quantity += 1;
                                         } else {
-                                            // Новый товар — добавляем
                                             storedCart.push({
                                                 id: currentProduct.id,
                                                 name: currentProduct.name,
@@ -126,8 +124,6 @@ export default function MainWelcome() {
                                         }
 
                                         localStorage.setItem("cartItems", JSON.stringify(storedCart));
-
-                                        // Обновим ивент для хедера, если он слушает изменения
                                         window.dispatchEvent(new Event("storage"));
                                     }}
                                 />

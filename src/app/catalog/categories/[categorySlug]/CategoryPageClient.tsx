@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import styles from "./CategoryPageClient.module.css";
 import Header from "@/components/layout/Header/Header";
 import BestOffers from "@/components/sections/BestOffers/BestOffers";
-import ListingCategories from "@/components/sections/ListingCategories/ListingCategories";
+import { ListingCategories } from "@/components/sections/ListingCategories/ListingCategories";
 import ButtonFilter from "@/components/ui/ButtonFilter/ButtonFilter";
 import { CategoryFilters, CategoryListItem } from "@/types/category";
 import { Pagination } from "@/components/shared/Pagination/Pagination";

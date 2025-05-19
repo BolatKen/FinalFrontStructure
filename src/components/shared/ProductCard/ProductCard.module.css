@@ -48,6 +48,7 @@
   padding: 16px 12px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   margin-top: 308px;
   z-index: 2;

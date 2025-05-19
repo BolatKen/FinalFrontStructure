@@ -1,7 +1,9 @@
 import styles from './ListingCategories.module.css';
 import ProductCart from '../../shared/ProductCard/ProductCard';
+import { ProductShort } from '@/types/product';
 
-export default function ListingCategories({ products }) {
+export default function ListingCategories({ products }: { products: ProductShort[] }) {
+
     return (
         <section className={[styles.listing, '_container'].join(" ")}>
             <div className={styles.listing__inner}>
@@ -10,11 +12,11 @@ export default function ListingCategories({ products }) {
                     {(Array.isArray(products) ? products : []).map((item, idx) => (
                         <ProductCart
                             key={idx}
-                            imageSrc={item.images[0]?.image || "/products/chair1.png"}
-                            title={item.name}
-                            oldPrice={item.old_price}
-                            newPrice={item.new_price}
-                            colorData={item.material_colors}
+                            images={item.images}
+                            name={item.name}
+                            variants={item.variants}
+                            sub_categories={item.sub_categories}
+                            material_colors={item.material_colors}
                         />
                     ))}
                 </ul>

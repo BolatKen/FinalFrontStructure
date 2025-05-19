@@ -488,23 +488,12 @@
   margin-bottom: 24px;
 }
 
-.emptyCartTitle {
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-
-.emptyCartText {
-  color: #777;
-  margin-bottom: 32px;
-}
-
-.emptyCartButtons {
+/* .emptyCartButtons {
   display: flex;
   flex-direction: column;
   gap: 12px;
   align-items: center;
-}
+} */
 
 .secondaryButton {
   background-color: #fff !important;
@@ -518,6 +507,31 @@
   flex-direction: column;
   gap: 4px;
   font-size: 13px;
+}
+
+.emptyCartTitle {
+  color: black;
+  font-size: 40px;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -2%;
+}
+
+.emptyCartText {
+  color: black;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: 0%;
+  margin-top: 24px;
+}
+
+.emptyCartButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  margin-top: 40px;
 }
 
 /* Адаптация */

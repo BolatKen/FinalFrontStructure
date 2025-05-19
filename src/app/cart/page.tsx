@@ -134,7 +134,7 @@ export default function CartPage() {
         <div className={styles.emptyCartButtons}>
           <Link href="/catalog"><ButtonOrange>Перейти в каталог</ButtonOrange></Link>
           <Link href="/order-status">
-            <ButtonOrange className={styles.secondaryButton}>Статус заказа</ButtonOrange>
+            <ButtonOrange>Статус заказа</ButtonOrange>
           </Link>
         </div>
       </div>

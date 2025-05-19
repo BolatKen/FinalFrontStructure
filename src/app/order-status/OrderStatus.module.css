@@ -1,0 +1,46 @@
+.statusPage {
+  max-width: 1736px;
+  margin: 0 auto;
+  padding: 72px;
+}
+
+.title {
+  font-size: 48px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.card {
+  background-color: #f6f6f6;
+  padding: 48px;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 72px;
+}
+
+.subtitle {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.description {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 32px;
+}
+
+.inputGroup {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.input {
+  padding: 12px 16px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  min-width: 320px;
+}

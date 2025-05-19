@@ -33,11 +33,9 @@ export default function ColorList({
         code={item.hex_code}
         imageUrl={item.image}
         altText={item.name}
-        isSelected={item.isSelected}
+        isSelected={selectedIndex === idx}
         isSmall={false}
-        onSelect={() => {
-          handleSelect(item.id, idx);
-        }}
+        onSelect={() => (handleSelect(item.id, idx))}
       />))}
     </ul>
   );

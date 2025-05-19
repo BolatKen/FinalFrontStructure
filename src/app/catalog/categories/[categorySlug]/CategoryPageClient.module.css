@@ -58,3 +58,11 @@
 .scroll-target {
   scroll-margin-top: 70px;
 }
+
+.searches__link {
+    cursor: pointer;
+}
+
+.searches__link_selected {
+    font-weight: 500;
+}

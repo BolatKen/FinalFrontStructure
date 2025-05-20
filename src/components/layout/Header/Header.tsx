@@ -7,6 +7,7 @@ import styles from "./Header.module.css";
 import { Category } from "@/types/category";
 
 import { getCategories } from "@/services/category.service";
+import Link from "next/link";
 
 export default function Header({ isBlur = false }) {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -53,7 +54,7 @@ export default function Header({ isBlur = false }) {
       className={[styles.header, isBlur ? styles.header_blur : ""].join(" ")}
     >
       <div className={`${styles.header__inner} _container-bigger`}>
-        <div className={styles.header__logo}>Leka Beauty</div>
+        <div className={styles.header__logo}><Link href="/">Leka Beauty</Link></div>
 
         <ul className={styles.header__items}>
           {/* {["Кресла", "Столы", "Диваны", "Мойки", "Стулья", "Шкафы", "Другая мебель"] */}

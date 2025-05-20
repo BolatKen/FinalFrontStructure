@@ -36,3 +36,46 @@
   width: 526.58px;
   height: 56px;
 }
+
+
+@media (max-width: 768px) {
+  .modal {
+    width: 90%;
+    max-width: 90%;
+    max-height: none;
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .title {
+    font-size: 24px;
+    width: 100%;
+    height: auto;
+    margin: 16px 0;
+  }
+
+  .description {
+    font-size: 16px;
+    width: 100%;
+    height: auto;
+    line-height: 24px;
+    margin: 0 auto 24px auto;
+    padding: 0 12px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .description {
+    font-size: 14px;
+    line-height: 22px;
+  }
+}

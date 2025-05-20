@@ -43,3 +43,11 @@ export interface CategoryFilters {
     materials: Material[];
     colors: Color[];
 }
+
+export interface FilteredData {
+    activeTagIds?: number[];
+    color?: number;
+    priceFrom?: string;
+    priceTo?: string;
+    selectedMaterialId?: number;
+}

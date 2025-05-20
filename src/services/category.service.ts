@@ -1,6 +1,13 @@
 // src/services/category.service.ts
-import { Category, CategoryFilters, CategoryListItem, CategoryWelcome } from '@/types/category'
-import axios from 'axios'
+import {
+  Category,
+  CategoryFilters,
+  CategoryListItem,
+  CategoryWelcome,
+  FilteredData
+} from '@/types/category';
+import { ProductShort } from '@/types/product';
+import axios from 'axios';
 
 const API_URL = process.env.NEXT_PUBLIC_API_DOMAIN
 
@@ -52,6 +59,29 @@ export const getCategoryListingBySlug = async (slug: string, currentPage: number
   }
 }
 
+export const applyFilters = async (filterData: FilteredData, categorySlug: string, currentPage: number): Promise<ProductShort[] | null> => {
+  try {
+    let minPrice = filterData.priceFrom?.split(' ')[0].replace(/\s/g, "");
+    let maxPrice = filterData.priceTo?.split(' ')[0].replace(/\s/g, "");
+    const materialId = filterData.selectedMaterialId ? filterData.selectedMaterialId : '';
+    const colorId = filterData.color ? filterData.color : '';
+    let tags = '';
+    filterData.activeTagIds?.map((item, idx) => {
+      tags += ('tags=' + item);
+      if (idx !== (filterData.activeTagIds?.length ?? 0) - 1) {
+        tags += '&';
+      }
+    });
+    const response = await axios.get<ProductShort[]>(
+      `${API_URL}/catalog/categories/${categorySlug}/listing/filters/?${tags}&min_price=${minPrice}&max_price=${maxPrice}&material=${materialId}&color=${colorId}&page=${currentPage}`
+    );
+    return response.data;
+  } catch (err) {
+    console.error('Ошибка при получении товаров при фильтрации:', err);
+    return null;
+  }
+}
+
 export const getWelcomeCategories = async (): Promise<CategoryWelcome[]> => {
   try {
     const response = await axios.get<CategoryWelcome[]>(`${API_URL}/catalog/home/categories/`)
@@ -73,3 +103,4 @@ export const getCategoryFilters = async (): Promise<CategoryFilters | null> => {
     return null;
   }
 }
+

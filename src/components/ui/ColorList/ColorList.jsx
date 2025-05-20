@@ -9,20 +9,21 @@ export default function ColorList({
   onColorSelect,
   selectedMaterialId = 0,
 }) {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   useEffect(() => {
-    setSelectedIndex(0);
-    if (Array.isArray(colorData) && colorData.length > 0) {
-      onColorSelect?.(colorData[0].id);
-    } else {
-      onColorSelect?.(null);
-    }
+    setSelectedIndex(null);
+    onColorSelect?.(null);
   }, [selectedMaterialId]);
 
   const handleSelect = (colorId, idx) => {
-    setSelectedIndex(idx);
-    onColorSelect?.(colorId);
+    if (selectedIndex === idx) {
+      setSelectedIndex(null);
+      onColorSelect?.(null);
+    } else {
+      setSelectedIndex(idx);
+      onColorSelect?.(colorId);
+    }
   };
 
   return (

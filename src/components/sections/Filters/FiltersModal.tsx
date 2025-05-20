@@ -30,8 +30,7 @@ export default function FiltersModal({
   const colors = categoryFilters?.colors;
 
   const [tagToggles, setTagToggles] = useState<{ [tagId: number]: boolean }>({});
-  const [selectedMaterialId, setSelectedMaterialId] = useState<number | null>(
-    materials && materials.length > 0 ? materials[0].id : null);
+  const [selectedMaterialId, setSelectedMaterialId] = useState<number | null>(null);
   const [color, setColor] = useState<number | null>(null);
   const [priceFrom, setPriceFrom] = useState('');
   const [priceTo, setPriceTo] = useState('');
@@ -46,6 +45,14 @@ export default function FiltersModal({
       ...prev,
       [tagId]: !prev[tagId],
     }));
+  };
+
+  const reset = () => {
+    setTagToggles({});
+    setSelectedMaterialId(null);
+    setColor(null);
+    setPriceFrom('');
+    setPriceTo('');
   };
 
   const formatCurrency = (val: string) => {
@@ -125,6 +132,10 @@ export default function FiltersModal({
 
   if (!isOpen) return null;
 
+  const handleMaterialClick = (materialId: number) => {
+    setSelectedMaterialId(prev => (prev === materialId ? null : materialId));
+    setColor(null);
+  }
 
   return (
     <div className={styles.overlay} onClick={handleOverlayClick}>
@@ -184,7 +195,7 @@ export default function FiltersModal({
                     iconAlt={item.name}
                     iconText={item.name}
                     isSelected={selectedMaterialId === item.id}
-                    onClick={() => setSelectedMaterialId(item.id)}
+                    onClick={() => handleMaterialClick(item.id)}
                   />
                 ))}
               </div>
@@ -208,16 +219,7 @@ export default function FiltersModal({
             <ButtonOrange className={styles.actions__width} children={'Применить'} onClick={handleApply} />
             <div
               className={styles.actions__reset}
-              onClick={() => {
-                setTagToggles({});
-                setSelectedMaterialId(
-                  materials && materials.length > 0 ? materials[0].id : null
-                );
-                setColor(null);
-                setPriceFrom('');
-                setPriceTo('');
-              }}
-            >
+              onClick={reset}>
               Сбросить
             </div>
           </div>

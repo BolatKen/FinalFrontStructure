@@ -21,7 +21,7 @@ export default function ListingCategories({ products }: { products: ProductShort
                                 variants={item.variants}
                                 sub_categories={item.sub_categories}
                                 material_colors={item.material_colors}
-                                tags={item.tags} />
+                                tags={item.tags} id={item.id} />
                         ))}
                     </ul>
                 )}

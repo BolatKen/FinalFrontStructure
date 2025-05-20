@@ -1,6 +1,7 @@
 .bonus {
     display: flex;
     align-items: center;
+    color: white;
 }
 
 .bonus__icon {

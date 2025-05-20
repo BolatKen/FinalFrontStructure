@@ -1,24 +1,33 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./CategoryPageClient.module.css";
 import Header from "@/components/layout/Header/Header";
 import BestOffers from "@/components/sections/BestOffers/BestOffers";
 import { ListingCategories } from "@/components/sections/ListingCategories/ListingCategories";
 import ButtonFilter from "@/components/ui/ButtonFilter/ButtonFilter";
-import { CategoryFilters, CategoryListItem } from "@/types/category";
-import { Pagination } from "@/components/shared/Pagination/Pagination";
+import { CategoryFilters, CategoryListItem, FilteredData } from "@/types/category";
+import Pagination from "@/components/shared/Pagination/Pagination";
 import FiltersModal from "@/components/sections/Filters/FiltersModal";
 import { ProductShort } from "@/types/product";
+import { applyFilters } from "@/services/category.service";
+import buildFilterQueryString from "@/utils/buildFilterQueryString";
 
 export default function CategoryPageClient({
   category,
+  products,
   currentPage,
   categoryFilters,
+  categorySlug,
+  initialFilters,
 }: {
   category: CategoryListItem;
+  products: ProductShort[];
   currentPage: number;
   categoryFilters: CategoryFilters | null;
+  categorySlug: string;
+  initialFilters: FilteredData;
 }) {
   const allFilters = {
     icon: "/icons/filter/all.svg",
@@ -32,50 +41,75 @@ export default function CategoryPageClient({
     name: "Сбросить фильтры",
     is_selected: true,
   };
+
+  const router = useRouter();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = () => {
     setIsModalOpen((prev) => (prev = !prev));
   };
-  const pagesNum = Math.ceil(category.product_count / 15);
+  const pagesNum = Math.ceil(products.length / 15);
 
   const listRef = useRef<HTMLDivElement>(null);
-  const scrollToListing = () => {
-    listRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
 
   const [selectedSubcategory, setSelectedSubcategory] = useState<number | null>(null);
-  const [selectedTag, setSelectedTag] = useState<number | null>(null);
-  const [filteredProducts, setFilteredProducts] = useState<ProductShort[]>(category?.products || []);
+  const [selectedTags, setSelectedTags] = useState<number[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<ProductShort[]>(products || []);
+  const [filters, setFilters] = useState<FilteredData>(initialFilters || {} as FilteredData);
+
+  useEffect(() => {
+    const fetchFilteredProducts = async () => {
+      const filtered = await applyFilters(filters, categorySlug, currentPage);
+      setFilteredProducts(filtered || []);
+    };
+    fetchFilteredProducts();
+  }, [filters, categorySlug, currentPage]);
+
+  const handleApplyFilters = (newFilters: FilteredData) => {
+    const queryString = buildFilterQueryString(newFilters);
+    const url = queryString
+      ? `/catalog/categories/${categorySlug}?filtered=${queryString}&page=1`
+      : `/catalog/categories/${categorySlug}?page=1`;
+
+    router.push(url);
+
+    setFilters(newFilters);
+  };
 
   const handleSubcategoryClick = (subcategoryId: number) => {
-    setSelectedSubcategory(subcategoryId);
-    listRef?.current?.scrollIntoView({ behavior: "smooth" });
+    setSelectedSubcategory((prev) => (prev === subcategoryId ? null : subcategoryId));
   };
 
   const handleTagClick = (tagId: number) => {
-    setSelectedTag(tagId);
+    setSelectedTags((prev) =>
+      prev.includes(tagId) ? prev.filter(id => id !== tagId) : [...prev, tagId]
+    );
   }
 
   useEffect(() => {
-    let filtered = category?.products || [];
+    let filtered = products;
 
     if (selectedSubcategory !== null) {
-      filtered = filtered.filter((product) =>
+      filtered = filtered.filter(product =>
         product.sub_categories.includes(selectedSubcategory)
       );
     }
-    if (selectedTag !== null) {
-      filtered = filtered.filter((product) =>
-        product.tags.includes(selectedTag)
+
+    if (selectedTags.length > 0) {
+      filtered = filtered.filter(product =>
+        selectedTags.every(tagId => product.tags.includes(tagId))
       );
     }
 
     setFilteredProducts(filtered);
-  }, [selectedSubcategory, selectedTag, category?.products]);
+  }, [selectedSubcategory, selectedTags, products]);
 
   const resetFilters = () => {
     setSelectedSubcategory(null);
-    setSelectedTag(null);
+    setSelectedTags([]);
+    setFilteredProducts(products);
+    const url = `/catalog/categories/${categorySlug}?page=1`;
+    router.push(url);
   };
 
   return (
@@ -99,7 +133,7 @@ export default function CategoryPageClient({
                   iconImage={item.icon}
                   iconAlt={item.name}
                   iconText={item.name}
-                  isSelected={selectedTag === item.id}
+                  isSelected={selectedTags.includes(item.id)}
                   isToggle={item.is_toggle}
                   onClick={() => handleTagClick(item.id)}
                 />
@@ -121,9 +155,7 @@ export default function CategoryPageClient({
               categoryFilters={categoryFilters}
               isOpen={isModalOpen}
               onClose={() => setIsModalOpen(false)}
-              onApply={(filters) => {
-                console.log("Applied filters:", filters);
-              }} />
+              onApply={handleApplyFilters} />
             <ul
               className={[styles.header__searches, styles.searches].join(" ")}
             >
@@ -153,8 +185,6 @@ export default function CategoryPageClient({
       <Pagination
         currentPage={currentPage}
         totalPages={pagesNum}
-        baseUrl={`/catalog/categories/${category.slug}`}
-        onPageClick={scrollToListing}
       />
     </>
   );

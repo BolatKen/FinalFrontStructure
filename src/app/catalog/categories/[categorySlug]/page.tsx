@@ -1,29 +1,42 @@
-import { getCategoryFilters, getCategoryListingBySlug } from '@/services/category.service'
+import { applyFilters, getCategoryFilters, getCategoryListingBySlug } from '@/services/category.service'
 import CategoryPageClient from './CategoryPageClient';
+import parseFiltersFromUrl from '@/utils/parseFiltersFromUrl';
 
 
 type Props = {
   params: {
     categorySlug: string;
   };
-  searchParams: { page?: string };
+  searchParams: {
+    page?: string;
+    filtered?: string;
+  };
 };
 
 export default async function CategoryPage({ params, searchParams }: Props) {
   const { categorySlug } = await params;
-  const { page } = await searchParams;
+  const searchParamsResolved = await searchParams;
+  const { filtered, page } = searchParamsResolved;
   const currentPage = parseInt(page || '1', 10);
+
   const categoryData = await getCategoryListingBySlug(categorySlug, currentPage);
-
-  const categoryFilters = await getCategoryFilters();
-
-
   if (!categoryData) {
     return <div>Категория не найдена</div>;
   }
+  const categoryFilters = await getCategoryFilters();
+
+  const parsedFilters = parseFiltersFromUrl(filtered);
+
+  const products = Object.keys(parsedFilters).length
+    ? await applyFilters(parsedFilters, categorySlug, currentPage)
+    : categoryData.products;
+
 
   return <CategoryPageClient
     category={categoryData}
+    products={products || []}
     currentPage={currentPage}
-    categoryFilters={categoryFilters} />;
+    categoryFilters={categoryFilters}
+    categorySlug={categoryData.slug}
+    initialFilters={parsedFilters} />;
 }

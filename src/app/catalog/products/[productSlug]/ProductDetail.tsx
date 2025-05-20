@@ -9,7 +9,7 @@ import { Product } from "@/types/product";
 
 export default function ProductDetail({ product }: { product: Product }) {
     return (<>
-        <Header />
+        <Header isBlur={false} />
         <Welcome product={product} />
         <Configurator product={product} />
         <Description product={product} />

@@ -2,7 +2,7 @@
 
 ._container {
     max-width: calc(var(--general-max-width));
-    width: 100%;
+    /* width: 100%;  footer's width is too big*/
     margin: 0 auto;
     padding: 0 15px;
 }

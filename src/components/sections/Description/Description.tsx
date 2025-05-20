@@ -98,13 +98,6 @@ export default function Description({ product }: DescriptionProps) {
                       height={393}
                     />
                   </div>
-                  <figcaption className={styles.sizes__elem}>
-                    <span className={styles.sizes__item}>79 см</span>
-                    <div
-                      className={styles.sizes__line}
-                      aria-hidden="true"
-                    ></div>
-                  </figcaption>
                 </figure>
 
                 {/* Второе изображение */}

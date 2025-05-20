@@ -58,6 +58,13 @@ export default function Header({ isBlur = false }) {
     <header className={[styles.header, isBlur ? styles.header_blur : ""].join(" ")}>
       <div className={`${styles.header__inner} _container-bigger`}>
         <div className={[styles.header__logo, styles.logo].join(' ')}>
+          <div
+            className={styles.burger}
+            onClick={() => setIsMenuOpen((prev) => !prev)}
+          >
+            <span />
+            <span />
+          </div>
           <Link href="/" className={styles.logo__link}>
             <div className={[styles.logo__item, '_img'].join(' ')}>
               {

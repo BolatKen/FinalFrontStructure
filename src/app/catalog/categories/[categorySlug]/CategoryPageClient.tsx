@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import styles from "./CategoryPageClient.module.css";
 import Header from "@/components/layout/Header/Header";
 import BestOffers from "@/components/sections/BestOffers/BestOffers";

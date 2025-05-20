@@ -88,21 +88,21 @@ export default function MainWelcome() {
                                 <p className={styles.desc__text}>{currentProduct?.description || '...'}</p>
 
 
-                                      <div className={styles.desc__price}>
-                  <div className={styles.price__value}>
-                    {
-                      currentProduct?.variants?.[0]?.final_price ??
-                      currentProduct?.variants?.[0]?.base_price
-                        ? `${currentProduct.variants[0].final_price ?? currentProduct.variants[0].base_price} ${currentProduct.variants[0].currency}`
-                        : "Нет в наличии"
-                    }
-                  </div>
-                  <BonusValue bonusVal={"12 000"} />
-                </div>
+                                <div className={styles.desc__price}>
+                                    <div className={styles.price__value}>
+                                        {
+                                            currentProduct?.price ??
+                                                currentProduct?.price
+                                                ? `${currentProduct.variants[0].final_price} ${currentProduct.currency}`
+                                                : "Нет в наличии"
+                                        }
+                                    </div>
+                                    {currentProduct?.bonus !== 0.0 ? (<BonusValue bonusVal={currentProduct?.bonus} />) : ''}
+                                </div>
 
                                 <ButtonPrimary
                                     isWhite={true}
-                                    children={'Купить'}
+                                    children={'Перейти'}
                                     onClick={() => {
                                         if (!currentProduct) return;
 

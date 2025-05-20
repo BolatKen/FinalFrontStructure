@@ -86,6 +86,7 @@ export default function CartPage() {
 
   const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const totalBonus = cartItems.reduce((acc, item) => acc + (item.bonus || 0) * item.quantity, 0);
+  const finalTotalPrice = totalPrice - promoDiscount;
 
 
   const clearCart = () => {
@@ -141,7 +142,8 @@ const removeSelected = () => {
       )
       .join("\n\n");
 
-    return `📦 <b>Новый заказ через ${method}</b>\n\n${itemLines}\n\n💰 <b>Итого: ${total.toLocaleString()} ${items[0]?.currency}</b>\n\n👤 <b>Получатель:</b>\n${firstName} ${lastName}\n📞 ${phone}\n🏙️ ${city}, ул. ${street}, д. ${house}\n🔧 Сборка: ${needAssembly ? "Да" : "Нет"}`;
+    return `📦 <b>Новый заказ через ${method}</b>\n\n${itemLines}\n\n💰 <b>Итого: ${finalTotalPrice.toLocaleString()} ${items[0]?.currency}</b>
+\n\n👤 <b>Получатель:</b>\n${firstName} ${lastName}\n📞 ${phone}\n🏙️ ${city}, ул. ${street}, д. ${house}\n🔧 Сборка: ${needAssembly ? "Да" : "Нет"}`;
   };
 
   if (isLoading) return null;
@@ -386,7 +388,7 @@ const removeSelected = () => {
 
         {showModal && (
           <ModalPaymentFreedomPay
-            amount={totalPrice}
+            amount={finalTotalPrice}
             onClose={() => setShowModal(false)}
             onResult={async (status) => {
               setShowModal(false);
@@ -406,7 +408,7 @@ const removeSelected = () => {
               setShowInvoiceModal(false);
               setPaymentStatus(status);
               if (status === "invoice_success") {
-                const msg = generateOrderMessage("Счёт на оплату", cartItems, totalPrice);
+                const msg = generateOrderMessage("Счёт на оплату", cartItems, finalTotalPrice);
                 await sendTelegramMessage(msg);
               }
             }}

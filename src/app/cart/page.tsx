@@ -318,7 +318,20 @@ const removeSelected = () => {
     <p>Бонусы начисляются только при добавлении номера WhatsApp.</p>
   </div>
 
-  <ButtonOrange>Оформить заказ</ButtonOrange>
+  <ButtonOrange
+  onClick={() => {
+    if (paymentMethod === "freedompay") {
+      setShowModal(true);
+    } else if (paymentMethod === "invoice") {
+      setShowInvoiceModal(true);
+    } else {
+      alert("Выберите способ оплаты");
+    }
+  }}
+>
+  Оформить заказ
+</ButtonOrange>
+
 
   <p className={styles.legalText}>
     Нажимая кнопку "Оформить заказ", вы принимаете условия

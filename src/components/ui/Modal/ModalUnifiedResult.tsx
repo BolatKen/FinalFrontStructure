@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import styles from "./ModalUnifiedResult.module.css";
 import { ButtonOrange } from "@/components/ui/ButtonOrange/ButtonOrange";
 import Image from "next/image";
@@ -21,7 +22,7 @@ const modalConfig = {
   freedom_error: {
     icon: "/icons/error.png",
     title: "Оплата не прошла",
-    text: "Что то пошло не так. Проверьте данные карты или попробуйте снова.",
+    text: "Что-то пошло не так. Проверьте данные карты или попробуйте снова.",
     buttonText: "В корзину",
     redirect: "/cart",
   },
@@ -35,7 +36,7 @@ const modalConfig = {
   invoice_error: {
     icon: "/icons/error.png",
     title: "Оплата не прошла",
-    text: "Что то пошло не так. Проверьте данные карты или попробуйте снова.",
+    text: "Что-то пошло не так. Проверьте данные карты или попробуйте снова.",
     buttonText: "В корзину",
     redirect: "/cart",
   },
@@ -45,17 +46,29 @@ export default function ModalUnifiedResult({ type, onClose }: ModalUnifiedResult
   const router = useRouter();
   const config = modalConfig[type];
 
+  useEffect(() => {
+    const onEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onEsc);
+    return () => document.removeEventListener("keydown", onEsc);
+  }, [onClose]);
+
   return (
-    <div className={styles.modal}>
-      <Image src={config.icon} alt="icon" width={100} height={100} />
-      <h2 className={styles.title}>{config.title}</h2>
-      <p className={styles.description}>{config.text}</p>
-      <ButtonOrange onClick={() => {
-        onClose();
-        router.push(config.redirect);
-      }}>
-        {config.buttonText}
-      </ButtonOrange>
+    <div className={styles.overlay} onClick={onClose}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        <Image src={config.icon} alt="icon" width={100} height={100} />
+        <h2 className={styles.title}>{config.title}</h2>
+        <p className={styles.description}>{config.text}</p>
+        <ButtonOrange
+          onClick={() => {
+            onClose();
+            router.push(config.redirect);
+          }}
+        >
+          {config.buttonText}
+        </ButtonOrange>
+      </div>
     </div>
   );
 }

@@ -28,6 +28,19 @@
   cursor: pointer;
 }
 
+.logo__link {
+    display: flex;
+
+}
+
+.logo__item {
+    padding: 12px 17px;
+}
+
+.logo__text {
+    margin-left: 8px;
+}
+
 .header__items {
   display: flex;
   gap: 24px;

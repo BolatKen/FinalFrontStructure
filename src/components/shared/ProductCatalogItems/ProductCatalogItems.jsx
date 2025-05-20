@@ -1,12 +1,15 @@
 import styles from './ProductCatalogItems.module.css';
 import ProductCard from '../../shared/ProductCard/ProductCard';
 
-export default function ProductCatalogItems({ products }) {
+export default function ProductCatalogItems({ products, currentBatch, totalBatches }) {
+    if (products.length === 0) {
+        return <div className={styles.items__empty}>Нету подходящих товаров</div>;
+    }
     return (
         <div className={styles.items}>
             <div className={styles.items__inner}>
                 <div className={styles.items__count}>
-                    <span className={styles.items__current}>1</span>/{products.length}
+                    <span className={styles.items__current}>{currentBatch}</span>/{totalBatches}
                 </div>
                 <ul className={styles.items__list}>
                     {products.map((item, key) => (

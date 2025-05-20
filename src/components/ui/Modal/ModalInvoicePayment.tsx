@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./ModalInvoicePayment.module.css";
 import { ButtonOrange } from "@/components/ui/ButtonOrange/ButtonOrange";
 
@@ -34,37 +34,48 @@ export default function ModalInvoicePayment({ onClose, onResult }: ModalInvoiceP
     }, 500);
   };
 
-  return (
-    <div className={styles["modal"]}>
-      <input
-        name="iin"
-        placeholder="ИИН/БИН"
-        value={formData.iin}
-        onChange={handleChange}
-        className={styles["input"]}
-      />
-      <input
-        name="address"
-        placeholder="Юр. Адрес"
-        value={formData.address}
-        onChange={handleChange}
-        className={styles["input"]}
-      />
-      <input
-        name="phone"
-        placeholder="Номер телефона"
-        value={formData.phone}
-        onChange={handleChange}
-        className={styles["input"]}
-      />
+  // Закрытие по Escape
+  useEffect(() => {
+    const onEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onEsc);
+    return () => document.removeEventListener("keydown", onEsc);
+  }, [onClose]);
 
-      <ButtonOrange
-        type="button"
-        className={!isFormValid ? styles["submit--disabled"] : ""}
-        onClick={handleSubmit}
-      >
-        Скачать счёт на оплату
-      </ButtonOrange>
+  return (
+    <div className={styles.overlay} onClick={onClose}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        <input
+          name="iin"
+          placeholder="ИИН/БИН"
+          value={formData.iin}
+          onChange={handleChange}
+          className={styles.input}
+        />
+        <input
+          name="address"
+          placeholder="Юр. Адрес"
+          value={formData.address}
+          onChange={handleChange}
+          className={styles.input}
+        />
+        <input
+          name="phone"
+          placeholder="Номер телефона"
+          value={formData.phone}
+          onChange={handleChange}
+          className={styles.input}
+        />
+
+        <ButtonOrange
+          type="button"
+          className={!isFormValid ? styles["submit--disabled"] : ""}
+          onClick={handleSubmit}
+        >
+          Скачать счёт на оплату
+        </ButtonOrange>
+      </div>
     </div>
   );
 }

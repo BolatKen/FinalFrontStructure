@@ -10,7 +10,7 @@ import GeneralInfoRightUpper from '../../shared/GeneralInfoRightUpper/GeneralInf
 import GeneralInfoRightDown from '../../shared/GeneralInfoRightDown/GeneralInfoRightDown.jsx';
 import GeneralInfoLeftDown from '../../shared/GeneralInfoLeftDown/GeneralInfoLeftDown.jsx';
 import InfoList from '../../shared/InfoList/InfoList';
-import ProductCatalog from '../../shared/ProductCatalog/ProductCatalog';
+import ProductCatalog from "@/components/shared/ProductCatalog/ProductCatalog";
 import OtherCatalog from '../../shared/OtherCatalog/OtherCatalog';
 import { getWelcomeCategories } from "@/services/category.service";
 

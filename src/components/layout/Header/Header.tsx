@@ -55,20 +55,25 @@ export default function Header({ isBlur = false }) {
   };
 
   return (
-    <header
-      className={[styles.header, isBlur ? styles.header_blur : ""].join(" ")}
-    >
+    <header className={[styles.header, isBlur ? styles.header_blur : ""].join(" ")}>
       <div className={`${styles.header__inner} _container-bigger`}>
-        <div
-          className={styles.burger}
-          onClick={() => setIsMenuOpen((prev) => !prev)}
-        >
-          <span />
-          <span />
-        </div>
-
-        <div className={styles.header__logo}>
-          <Link href="/">Leka Beauty</Link>
+        <div className={[styles.header__logo, styles.logo].join(' ')}>
+          <div
+            className={styles.burger}
+            onClick={() => setIsMenuOpen((prev) => !prev)}
+          >
+            <span />
+            <span />
+          </div>
+          <Link href="/" className={styles.logo__link}>
+            <div className={[styles.logo__item, '_img'].join(' ')}>
+              {
+                isBlur ? (<img src="/logo/LB_light.svg" alt="Логотип Leka Beauty" />) :
+                  (<img src="/logo/LB.svg" alt="Логотип Leka Beauty" />)
+              }
+            </div>
+            <div className={styles.logo__text}>Leka Beauty</div>
+          </Link>
         </div>
 
         <ul className={styles.header__items}>

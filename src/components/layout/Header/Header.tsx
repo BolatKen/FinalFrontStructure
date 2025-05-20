@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { HeaderItem } from "../../shared/HeaderItem/HeaderItem";
 import styles from "./Header.module.css";
 import { Category } from "@/types/category";
-
 import { getCategories } from "@/services/category.service";
 import Link from "next/link";
 
@@ -14,15 +13,21 @@ export default function Header({ isBlur = false }) {
   const [cartCount, setCartCount] = useState(0);
   const router = useRouter();
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [openSection, setOpenSection] = useState<string | null>(null);
+
+  const toggleSection = (section: string) => {
+    setOpenSection(openSection === section ? null : section);
+  };
+
   useEffect(() => {
-    // Получаем категории с бэкенда
     getCategories().then(setCategories);
   }, []);
 
-  // Группировка по parent
   const parentCategories = categories.filter(
     (cat) => cat.parent === null && cat.is_in_welcome
   );
+
   const childCategories = (parentId: number) =>
     categories.filter((cat) => cat.parent === parentId);
 
@@ -49,9 +54,6 @@ export default function Header({ isBlur = false }) {
     router.push("/cart");
   };
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  
   return (
     <header
       className={[styles.header, isBlur ? styles.header_blur : ""].join(" ")}
@@ -64,13 +66,12 @@ export default function Header({ isBlur = false }) {
           <span />
           <span />
         </div>
+
         <div className={styles.header__logo}>
           <Link href="/">Leka Beauty</Link>
         </div>
 
         <ul className={styles.header__items}>
-          {/* {["Кресла", "Столы", "Диваны", "Мойки", "Стулья", "Шкафы", "Другая мебель"] */}
-
           {parentCategories.map((parent) => (
             <HeaderItem
               key={parent.id}
@@ -111,39 +112,55 @@ export default function Header({ isBlur = false }) {
           )}
         </div>
       </div>
-      {/* Overlay */}
-      {isMenuOpen && (
-        <div
-          className="burger-overlay"
-          onClick={() => setIsMenuOpen(false)}
-        />
-      )}
 
-      {/* Меню */}
       {isMenuOpen && (
-        <nav className={styles.burgerMenu}>
-          <button
-            className={styles.burgerMenuClose}
+        <>
+          <div
+            className={styles.burgerOverlay}
             onClick={() => setIsMenuOpen(false)}
-            aria-label="Закрыть меню"
-          >
-            ×
-          </button>
-          <ul className={styles.burgerMenuList}>
-            <li className={styles.burgerMenuItem}>
-              <Link href="/">Главная</Link>
-            </li>
-            <li className={styles.burgerMenuItem}>
-              <Link href="/menu">Меню</Link>
-            </li>
-            <li className={styles.burgerMenuItem}>
-              <Link href="/about">О нас</Link>
-            </li>
-            <li className={styles.burgerMenuItem}>
-              <Link href="/contacts">Контакты</Link>
-            </li>
-          </ul>
-        </nav>
+          />
+          <nav className={styles.burgerMenu}>
+            <button
+              className={styles.burgerMenuClose}
+              onClick={() => setIsMenuOpen(false)}
+              aria-label="Закрыть меню"
+            >
+              ×
+            </button>
+            <ul className={styles.burgerMenuList}>
+              {parentCategories.map((parent) => (
+                <li key={parent.id}>
+                  <button
+                    className={styles.burgerToggle}
+                    onClick={() => toggleSection(parent.name)}
+                  >
+                    {parent.name}
+                    <span
+                      className={
+                        openSection === parent.name
+                          ? styles.arrowUp
+                          : styles.arrowDown
+                      }
+                    />
+                  </button>
+
+                  {openSection === parent.name &&
+                    childCategories(parent.id).length > 0 && (
+                      <ul className={styles.subMenu}>
+                        {childCategories(parent.id).map((child) => (
+                          <li key={child.id}>
+                            <Link href={`/category/${child.slug}`}>
+                              {child.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </>
       )}
     </header>
   );

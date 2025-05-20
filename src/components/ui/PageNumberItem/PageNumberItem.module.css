@@ -8,10 +8,11 @@
 
     padding: 9px 16.5px;
     color: black;
+    cursor: pointer;
 }
 
 .item__content_selected {
     color: white;
-    background-color: rgba(255, 114, 68, 1);
-    border-color: rgba(255, 114, 68, 1);
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
 }

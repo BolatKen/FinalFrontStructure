@@ -1,14 +1,27 @@
+'use client';
+
 import styles from './Pagination.module.css';
 import PageNumberItem from '@/components/ui/PageNumberItem/PageNumberItem';
-import Link from 'next/link';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 
 export default function Pagination({
     currentPage,
     totalPages,
-    baseUrl,
-    onPageClick
+}: {
+    currentPage: number;
+    totalPages: number;
 }) {
     const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+    const searchParams = useSearchParams();
+    const router = useRouter();
+    const pathname = usePathname();
+
+    const handlePageClick = (page: number) => {
+        const params = new URLSearchParams(searchParams.toString());
+        params.set('page', page.toString());
+
+        router.push(`${pathname}?${params.toString()}`);
+    };
 
     return (
         <div className={[styles.pagination, '_container'].join(' ')}>
@@ -17,19 +30,13 @@ export default function Pagination({
                     <img src="/icons/left.svg" alt="Левая стрелка" />
                 </div>
                 <ul className={styles.pagination__items}>
-                    {pages.map((_, idx) => (
-                        <Link key={idx}
-                            href={`${baseUrl}?page=${idx + 1}`}
-                            scroll={false}
-                            onClick={() => {
-                                if (onPageClick) onPageClick();
-                            }}
-                        >
+                    {pages.map((pageNumber) => (
+                        <div key={pageNumber} onClick={() => handlePageClick(pageNumber)}>
                             <PageNumberItem
-                                key={idx}
-                                pageNumber={idx + 1}
-                                isSelected={idx + 1 === currentPage} />
-                        </Link>
+                                pageNumber={pageNumber}
+                                isSelected={pageNumber === currentPage}
+                            />
+                        </div>
                     ))}
                 </ul>
                 <div className={styles.pagination__arrow}>
@@ -37,7 +44,5 @@ export default function Pagination({
                 </div>
             </div>
         </div>
-    )
+    );
 }
-
-export { default as Pagination } from './Pagination';

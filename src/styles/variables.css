@@ -3,7 +3,8 @@
     --general-font-size: 16px;
     --general-color: #131111;
     --general-max-width: 1190px;
-    --accent-color: #ff7244;
+    --accent-color: #1F3830;
+    --accent-color-opacity: rgba(31, 56, 48, 0.1);
     --letter-space: -0.03em;
     --line-height: 120%;
 }

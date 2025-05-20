@@ -105,6 +105,7 @@ interface MaterialColor {
 
 
 export interface ProductShort {
+    id: number;
     name: string;
     variants: Variant[];
     images: ProductImage[];

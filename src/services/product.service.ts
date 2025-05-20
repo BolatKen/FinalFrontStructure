@@ -13,7 +13,6 @@ export const getAllProducts = async () => {
 
 export const getProductBySlug = async (slug: string) => {
   try {
-    console.log(slug);
     const response = await axios.get<Product>(
       `${API_URL}/catalog/products/${slug}/`
     );

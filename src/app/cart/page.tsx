@@ -52,8 +52,10 @@ export default function CartPage() {
   const [phone, setPhone] = useState("");
   const [city, setCity] = useState("");
   const [street, setStreet] = useState("");
-  const [house, setHouse] = useState("256");
+  const [house, setHouse] = useState("");
   const [needAssembly, setNeedAssembly] = useState(false);
+  const [selectedItems, setSelectedItems] = useState<number[]>([]);
+
 
   useEffect(() => {
     const updateCart = () => {
@@ -86,6 +88,20 @@ export default function CartPage() {
     localStorage.removeItem("cartItems");
     setCartItems([]);
   };
+
+  const toggleSelectAll = () => {
+  if (selectedItems.length === cartItems.length) {
+    setSelectedItems([]);
+  } else {
+    setSelectedItems(cartItems.map((item) => item.id));
+  }
+};
+
+const removeSelected = () => {
+  setCartItems((prev) => prev.filter((item) => !selectedItems.includes(item.id)));
+  setSelectedItems([]);
+};
+
 
   const increaseQuantity = (id: number) => {
     setCartItems((prev) =>
@@ -148,31 +164,53 @@ export default function CartPage() {
               <h1 className={styles.cartTitle}>Корзина</h1>
       <div className={styles.cartContent}>
         <div className={styles.cartLeft}>
-          <div className={styles.cartHeader}>
-            <label><input type="checkbox" /> Выбрать все</label>
-            <button className={styles.deleteSelected}>Удалить выбранные</button>
-          </div>
+<div className={styles.cartHeader}>
+  <label>
+    <input
+      type="checkbox"
+      checked={selectedItems.length === cartItems.length}
+      onChange={toggleSelectAll}
+    />
+    Выбрать все
+  </label>
+  <button className={styles.deleteSelected} onClick={removeSelected}>
+    Удалить выбранные
+  </button>
+</div>
 
-            {cartItems.map((item) => (
-              <div key={item.id} className={styles.cartItem}>
-                <input type="checkbox" className={styles.checkbox} />
-                <img src={item.image} alt={item.name} className={styles.itemImage} />
-                <div className={styles.itemInfo}>
-                  <div className={styles.itemTitle}>{item.name}</div>
-                  <div className={styles.itemPrice}>
-                    {item.price.toLocaleString()} {item.currency} + 12 000 бонусов
-                  </div>
-                </div>
-                <div className={styles.quantityControl}>
-                  <button onClick={() => decreaseQuantity(item.id)}>-</button>
-                  <span>{item.quantity}</span>
-                  <button onClick={() => increaseQuantity(item.id)}>+</button>
-                  <button className={styles.removeBtn} onClick={() => removeItem(item.id)}>
-                    <img src="/icons/trash.svg" alt="Удалить" />
-                  </button>
+
+          {cartItems.map((item) => (
+            <div key={item.id} className={styles.cartItem}>
+              <input
+  type="checkbox"
+  className={styles.checkbox}
+  checked={selectedItems.includes(item.id)}
+  onChange={() => {
+    if (selectedItems.includes(item.id)) {
+      setSelectedItems((prev) => prev.filter((i) => i !== item.id));
+    } else {
+      setSelectedItems((prev) => [...prev, item.id]);
+    }
+  }}
+/>
+
+              <img src={item.image} alt={item.name} className={styles.itemImage} />
+              <div className={styles.itemInfo}>
+                <div className={styles.itemTitle}>{item.name}</div>
+                <div className={styles.itemPrice}>
+                  {item.price.toLocaleString()} {item.currency} + 12 000 бонусов
                 </div>
               </div>
-            ))}
+              <div className={styles.quantityControl}>
+                <button onClick={() => decreaseQuantity(item.id)}>-</button>
+                <span>{item.quantity}</span>
+                <button onClick={() => increaseQuantity(item.id)}>+</button>
+              </div>
+                              <button className={styles.removeBtn} onClick={() => removeItem(item.id)}>
+                  <img src="/icons/trash.svg" alt="Удалить" />
+                </button>
+            </div>
+          ))}
 
             <div className={styles.customerInfo}>
               <h2 className={styles.sectionTitle}>Информация о получателе</h2>

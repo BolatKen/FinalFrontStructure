@@ -1,3 +1,13 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .payment-modal {
   position: fixed;
   top: 50%;
@@ -106,4 +116,70 @@
   align-self: flex-end;
   height: 30px;
   width: 125.71px;
+}
+
+
+@media (max-width: 768px) {
+  .payment-modal {
+    width: 90%;
+    max-width: 90%;
+    max-height: none;
+    height: auto;
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .payment-modal__inner {
+    flex-direction: column;
+    gap: 20px;
+    height: auto;
+  }
+
+  .payment-modal__form,
+  .payment-modal__info {
+    width: 100%;
+    height: auto;
+  }
+
+  .input {
+    height: 56px;
+    font-size: 15px;
+  }
+
+  .info__amount {
+    font-size: 28px;
+    width: 100%;
+  }
+
+  .info__logos {
+    align-self: flex-start;
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-modal {
+    padding: 16px;
+    border-radius: 10px;
+  }
+
+  .input {
+    height: 48px;
+    font-size: 14px;
+  }
+
+  .info__amount {
+    font-size: 24px;
+  }
+
+  .hint {
+    font-size: 11px;
+    margin-top: -6px;
+    margin-bottom: 12px;
+  }
+
+  .info__logos {
+    width: auto;
+    gap: 8px;
+  }
 }

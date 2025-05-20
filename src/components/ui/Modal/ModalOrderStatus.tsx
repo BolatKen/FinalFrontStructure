@@ -1,5 +1,5 @@
-// components/ui/ModalOrderStatus/ModalOrderStatus.tsx
 "use client";
+import { useEffect } from "react";
 import styles from "./ModalOrderStatus.module.css";
 
 interface OrderItem {
@@ -16,17 +16,25 @@ interface Props {
 }
 
 export default function ModalOrderStatus({ onClose, items }: Props) {
-  return (
-    <div className={styles.overlay}>
-      <div className={styles.modal}>
-        <div className={styles.iconWrap}>
-  <img src="/icons/delivery.svg" alt="delivery" />
-</div>
+  useEffect(() => {
+    const onEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onEsc);
+    return () => document.removeEventListener("keydown", onEsc);
+  }, [onClose]);
 
-<div className={styles.titleRow}>
-  <h2 className={styles.title}>Статус заказа</h2>
-  <span className={styles.status}>В ОБРАБОТКЕ</span>
-</div>
+  return (
+    <div className={styles.overlay} onClick={onClose}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        <div className={styles.iconWrap}>
+          <img src="/icons/delivery.svg" alt="delivery" />
+        </div>
+
+        <div className={styles.titleRow}>
+          <h2 className={styles.title}>Статус заказа</h2>
+          <span className={styles.status}>В ОБРАБОТКЕ</span>
+        </div>
 
         <div className={styles.list}>
           {items.map((item) => (

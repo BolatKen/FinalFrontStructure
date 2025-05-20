@@ -57,8 +57,6 @@ export default function Header({ isBlur = false }) {
         <div className={styles.header__logo}><Link href="/">Leka Beauty</Link></div>
 
         <ul className={styles.header__items}>
-          {/* {["Кресла", "Столы", "Диваны", "Мойки", "Стулья", "Шкафы", "Другая мебель"] */}
-
           {parentCategories.map((parent) => (
             <HeaderItem
               key={parent.id}

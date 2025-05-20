@@ -10,13 +10,15 @@ export default function ProductCatalogItems({ products }) {
                 </div>
                 <ul className={styles.items__list}>
                     {products.map((item, key) => (
-                        <ProductCard key={key}
-                            title={item.name}
-                            imageSrc={item.images[0].image}
-                            oldPrice={item.old_price}
-                            newPrice={item.new_price}
-                            colorData={item.material_colors}
-                        />
+                        <ProductCard
+                            key={key}
+                            id={item.id}
+                            images={item.images}
+                            name={item.name}
+                            variants={item.variants}
+                            sub_categories={item.sub_categories}
+                            material_colors={item.material_colors}
+                            tags={item.tags} />
                     ))}
                 </ul>
             </div>

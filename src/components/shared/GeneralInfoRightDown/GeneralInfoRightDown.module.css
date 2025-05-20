@@ -66,3 +66,24 @@
     width: 24px;
     height: 24px;
 }
+
+
+
+@media (max-width: 768px) {
+  
+  ._img img{
+    height: 100%;
+    position:relative !important;
+  }
+
+  .images > * {
+    flex: 0 1 100%; /* Каждое изображение занимает всю ширину */
+    padding: 8px; /* Уменьшим паддинги */
+    margin-left: 0 !important; /* Сбрасываем отступы слева */
+  }
+
+  .action__title {
+    font-size: 20px;
+    line-height: 28px;
+  }
+}

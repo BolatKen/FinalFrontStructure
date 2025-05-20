@@ -21,27 +21,27 @@
   top: 100%;
   left: 0;
   min-width: 160px;
-  background-color: rgba(19, 17, 17, 0.6); /* полупрозрачный фон */
-     /* для Safari */
+  background: rgba(19, 17, 17, 0.6); /* полупрозрачный фон */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px); /* для Safari */
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   z-index: 1001;
   list-style: none;
-  padding: 0;
+  padding: 24px 18px;
   margin: 0;
   border-radius: 8px;
+  color:white;
 }
 
 .dropdownItem {
-  padding: 8px 16px;
   cursor: pointer;
   white-space: nowrap;
-  background: transparent; /* убираем лишний фон */
-  transition: background 0.2s;
-  border-radius: 0; /* убираем радиус, чтобы не было артефактов */
-
+  transition: background 1.2s;
+}
+.dropdownItem:not(:last-child) {
+  margin-bottom: 24px; /* расстояние между пунктами */
 }
 
 .dropdownItem:hover {
-  background: #727272;
-  border-radius: 6px;
+  color: var(--accent-color)
 }

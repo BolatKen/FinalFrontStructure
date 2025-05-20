@@ -2,7 +2,7 @@
 
 ._container {
     max-width: calc(var(--general-max-width));
-    width: 100%;
+    /* width: 100%; footer's with is to big */
     margin: 0 auto;
     padding: 0 15px;
 }
@@ -36,12 +36,17 @@
 }
 
 ._img img {
-    position: absolute;
+    position: absolute; 
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
     object-fit: cover;
+}
+@media (max-width: 768px) {
+    ._img img {
+        position: relative;
+    }
 }
 
 /* ICON STYLES */

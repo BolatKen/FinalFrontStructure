@@ -31,8 +31,8 @@
     transform: rotate(90deg);
 }
 
-@media (max-width: 640px) {
+/* @media (max-width: 640px) {
   .arrow {
     display: none !important;
   }
-}
+} */

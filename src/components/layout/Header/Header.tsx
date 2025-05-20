@@ -149,7 +149,7 @@ export default function Header({ isBlur = false }) {
                       <ul className={styles.subMenu}>
                         {childCategories(parent.id).map((child) => (
                           <li key={child.id}>
-                            <Link href={`/category/${child.slug}`}>
+                            <Link href={`/catalog/categories/${child.slug}`}>
                               {child.name}
                             </Link>
                           </li>

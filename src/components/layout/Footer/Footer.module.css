@@ -253,6 +253,9 @@
     .footer-list__item:not(:first-child) {
         margin-left: 0;
     }
+    .footer__info > *:not(:first-child) {
+        margin-left: 0;
+    }
 
     .footer__content {
         flex-direction: column;
@@ -275,6 +278,7 @@
     .footer__info {
         flex-direction: column;
         gap: 16px;
+        margin-top: 32px;
     }
 
     .footer__whatsapp {

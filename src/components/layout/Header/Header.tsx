@@ -49,12 +49,24 @@ export default function Header({ isBlur = false }) {
     router.push("/cart");
   };
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  
   return (
     <header
       className={[styles.header, isBlur ? styles.header_blur : ""].join(" ")}
     >
       <div className={`${styles.header__inner} _container-bigger`}>
-        <div className={styles.header__logo}><Link href="/">Leka Beauty</Link></div>
+        <div
+          className={styles.burger}
+          onClick={() => setIsMenuOpen((prev) => !prev)}
+        >
+          <span />
+          <span />
+        </div>
+        <div className={styles.header__logo}>
+          <Link href="/">Leka Beauty</Link>
+        </div>
 
         <ul className={styles.header__items}>
           {/* {["Кресла", "Столы", "Диваны", "Мойки", "Стулья", "Шкафы", "Другая мебель"] */}
@@ -99,6 +111,40 @@ export default function Header({ isBlur = false }) {
           )}
         </div>
       </div>
+      {/* Overlay */}
+      {isMenuOpen && (
+        <div
+          className="burger-overlay"
+          onClick={() => setIsMenuOpen(false)}
+        />
+      )}
+
+      {/* Меню */}
+      {isMenuOpen && (
+        <nav className={styles.burgerMenu}>
+          <button
+            className={styles.burgerMenuClose}
+            onClick={() => setIsMenuOpen(false)}
+            aria-label="Закрыть меню"
+          >
+            ×
+          </button>
+          <ul className={styles.burgerMenuList}>
+            <li className={styles.burgerMenuItem}>
+              <Link href="/">Главная</Link>
+            </li>
+            <li className={styles.burgerMenuItem}>
+              <Link href="/menu">Меню</Link>
+            </li>
+            <li className={styles.burgerMenuItem}>
+              <Link href="/about">О нас</Link>
+            </li>
+            <li className={styles.burgerMenuItem}>
+              <Link href="/contacts">Контакты</Link>
+            </li>
+          </ul>
+        </nav>
+      )}
     </header>
   );
 }

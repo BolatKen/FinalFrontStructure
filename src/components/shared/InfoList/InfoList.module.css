@@ -8,10 +8,18 @@
     padding: 40px 0;
 }
 
-.list__inner>* {
-    flex: 0 1 33.33%;
+.list__inner > *:not(:first-child) {
+    margin-left: 40px;
 }
 
-.list__inner>*:not(:first-child) {
-    margin-left: 40px;
+/* Стили для мобильных устройств */
+@media (max-width: 768px) {
+    .list__inner {
+        flex-direction: column;
+        align-items: stretch; /* или center, если нужно выравнивание по центру */
+    }
+    .list__inner > *:not(:first-child) {
+        margin-left: 0;
+        margin-top: 24px; /* вертикальный отступ между карточками */
+    }
 }

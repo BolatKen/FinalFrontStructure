@@ -7,14 +7,25 @@ import ColorItem from '../ColorItem/ColorItem';
 export default function ColorList({
   colorData,
   onColorSelect,
+  initialSelected = -1,
   selectedMaterialId = 0,
 }) {
-  const [selectedIndex, setSelectedIndex] = useState(null);
+  const findInitialIndex = () => {
+    if (!initialSelected || !Array.isArray(colorData)) return null;
+    const idx = colorData.findIndex(color => color.id === initialSelected);
+    return idx === -1 ? null : idx;
+  };
+  const [selectedIndex, setSelectedIndex] = useState(findInitialIndex());
 
   useEffect(() => {
     setSelectedIndex(null);
     onColorSelect?.(null);
   }, [selectedMaterialId]);
+  
+  useEffect(() => {
+    const initialIndex = findInitialIndex();
+    setSelectedIndex(initialIndex);
+  }, [initialSelected]);
 
   const handleSelect = (colorId, idx) => {
     if (selectedIndex === idx) {

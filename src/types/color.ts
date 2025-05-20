@@ -1,4 +1,5 @@
 export type ColorItemType = {
+    id: number;
     name: string;
     hex_code: string;
     image: string;

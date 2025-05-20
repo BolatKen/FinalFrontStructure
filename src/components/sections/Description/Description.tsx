@@ -86,18 +86,20 @@ export default function Description({ product }: DescriptionProps) {
               {/* Галерея изображений */}
               <div className={styles.specs__images}>
                 {/* Первое изображение с размерами */}
-                <figure className={`${styles.specs__image} ${styles.sizes}`}>
-                  <div className={styles.description__image}>
-                    <Image
-                      src={
-                        product.images?.find((img) => img.type === "FRONT")
-                          ?.image || "/core/1.png"
-                      }
-                      alt="Вид спереди"
-                      width={393}
-                      height={393}
-                    />
-                  </div>
+
+                <figure className={styles.specs__imageItem}>
+                  <Image
+                    src={
+                      product.images?.find((img) => img.type === "FRONT")
+                        ?.image || "/core/1.png"
+                    }
+                    alt="Вид спереди"
+                    width={393}
+                    height={393}
+                  />
+                  <figcaption className={styles.specs__caption}>
+                    79 см × 52 см
+                  </figcaption>
                 </figure>
 
                 {/* Второе изображение */}

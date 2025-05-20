@@ -9,3 +9,7 @@
   letter-spacing: -0.32px;
   font-weight: 400;
 }
+
+.btn__action:hover {
+  background-color: var(--accent-color-opacity);
+}

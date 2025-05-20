@@ -7,9 +7,11 @@ import BonusValue from '@/components/ui/BonusValue/BonusValue';
 import ColorProductList from '@/components/ui/ColorProductList/ColorProductList';
 import { ProductShort } from '@/types/product';
 import { ColorItemType as ColorItem } from '@/types/color';
+import Link from 'next/link';
 
 const ProductCard: React.FC<ProductShort> = ({
   name,
+  slug,
   variants,
   images,
   material_colors,
@@ -33,6 +35,7 @@ const ProductCard: React.FC<ProductShort> = ({
   useEffect(() => {
     if (material_colors && material_colors.length > 0) {
       const mappedColors = material_colors.map((item, idx) => ({
+        id: item.color.id,
         image: item.color.image,
         hex_code: item.color.hex_code,
         name: item.color.name,
@@ -67,6 +70,7 @@ const ProductCard: React.FC<ProductShort> = ({
   if (!selectedColor) return null;
 
   return (
+
     <div className={styles['product-card']}>
       <div className={styles['product-card__image']}>
         <img src={image} alt={name} />
@@ -78,30 +82,32 @@ const ProductCard: React.FC<ProductShort> = ({
             onColorSelect={handleColorSelect}
           />
         </div>
-        <div className={styles['product-card__info']}>
-          <div className={styles['product-card__more']}>
-            <h3 className={styles['product-card__title']}>{name}</h3>
-            <div className={styles['product-card__bottom']}>
-              <div className={styles['product-card__prices']}>
-                {
-                  oldPrice !== newPrice ? (<span className={styles['product-card__old-price']}>{
-                    formatWithSpaces(Number(oldPrice))
-                  } ТГ</span>) : ''
-                }
-                <span className={styles['product-card__new-price']}>{
-                  formatWithSpaces(Number(newPrice))
-                } ТГ</span>
+        <Link href={'/catalog/products/' + slug + `?selectedColorId=${selectedColor.id}`}>
+          <div className={styles['product-card__info']}>
+            <div className={styles['product-card__more']}>
+              <h3 className={styles['product-card__title']}>{name}</h3>
+              <div className={styles['product-card__bottom']}>
+                <div className={styles['product-card__prices']}>
+                  {
+                    oldPrice !== newPrice ? (<span className={styles['product-card__old-price']}>{
+                      formatWithSpaces(Number(oldPrice))
+                    } ТГ</span>) : ''
+                  }
+                  <span className={styles['product-card__new-price']}>{
+                    formatWithSpaces(Number(newPrice))
+                  } ТГ</span>
+                </div>
+                {bonusNumber !== 0 ? (<BonusValue bonusVal={bonusNumber} isDark={true} />) : ''}
               </div>
-              {bonusNumber !== 0 ? (<BonusValue bonusVal={bonusNumber} isDark={true} />) : ''}
+            </div>
+            <div className="product-card__arrow">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 6L15 12L9 18" stroke="#1D1C1B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </div>
           </div>
-          <div className="product-card__arrow">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 6L15 12L9 18" stroke="#1D1C1B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </div>
-        </div>
+        </Link>
       </div>
     </div>
   );

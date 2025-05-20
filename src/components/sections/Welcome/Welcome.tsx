@@ -7,7 +7,11 @@ import Arrow from '../../ui/Arrow/Arrow';
 import ButtonOrange from '../../ui/ButtonOrange/ButtonOrange';
 import ProductScene from "@/components/explosion/ProductScene";
 import BonusValue from '../../ui/BonusValue/BonusValue';
-import { Product } from "@/types/product";
+import { Product, Variant, VariantOption } from "@/types/product";
+import { useSearchParams } from 'next/navigation';
+import { color } from "three/tsl";
+import WelcomePrice from "@/components/shared/WelcomePrice/WelcomePrice";
+
 
 interface WelcomeProps {
   product: Product;
@@ -15,52 +19,7 @@ interface WelcomeProps {
 
 export default function Welcome({ product }: WelcomeProps) {
   const mainVariant = product;
-  let configurableParts: {
-    configureTitle: string;
-    colorData: {
-      color: string;
-      code: string;
-      imageUrl: string;
-      altText: string;
-      isSelected: boolean;
-    }[];
-  }[] = [];
-
-  if (product.materials && product.materials.length > 0) {
-    product.materials[0].parts.map((part) => {
-      configurableParts.push({
-        configureTitle: "Цвет и материал",
-        colorData: (part.colors || []).slice(0, 3).map((color) => {
-          return {
-            color: color.name,
-            code: color.hex_code,
-            imageUrl: color.image,
-            altText: color.name,
-            isSelected: color.id === (part.colors?.[0]?.id || 0) ? true : false,
-          }
-        })
-      });
-    })
-  }
-
-  if (product.selection_parts && product.selection_parts.length > 0) {
-    product.selection_parts.map((part) => {
-      configurableParts.push({
-        configureTitle: part.name,
-        colorData: (part.colors || []).map((color) => {
-          return {
-            color: color.name,
-            code: color.hex_code,
-            imageUrl: color.image,
-            altText: color.name,
-            isSelected: color.id === (part.colors?.[0]?.id || 0) ? true : false,
-          }
-        })
-      });
-    })
-  }
-
-  const colorsAndMaterials = configurableParts;
+  const colorsAndMaterials = product.variant_options_values;
 
   const titleBlock =
     product.name.length > 13 ? (
@@ -75,8 +34,19 @@ export default function Welcome({ product }: WelcomeProps) {
       </div>
     );
 
+  const searchParams = useSearchParams();
+  const selectedColorId = parseInt(searchParams.get('selectedColorId') || '0', 10);
   const [selectedView, setSelectedView] = useState<"gallery" | "3d">("gallery");
-  const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const [selectedColor, setSelectedColor] = useState<number | null>(selectedColorId);
+
+  const initialVariant = product.variants.find(variant =>
+    variant.options.some(option => option.color.id === selectedColorId)
+  );
+
+  console.log(initialVariant);
+
+  const [selectedVariant, setSelectedVariant] = useState<Variant | undefined>(initialVariant);
+  const [selectedOption, setSelectedOption] = useState<VariantOption | undefined>();
 
   const galleryImages = product.images && product.images.length > 0
     ? product.images.map((image) => image.image)
@@ -112,6 +82,21 @@ export default function Welcome({ product }: WelcomeProps) {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  useEffect(() => {
+    if (!product?.variants || selectedColor == null) return;
+
+    const matched = product.variants.find(variant =>
+      variant.options.some(option => option.color.id === selectedColor)
+    );
+
+    if (matched) {
+      setSelectedVariant(matched);
+
+      const option = matched.options.find(opt => opt.color.id === selectedColor);
+      setSelectedOption(option);
+    }
+  }, [selectedColor, product?.variants]);
+
   return (
     <main className={styles.welcome}>
       <div className={styles.welcome__product}>
@@ -134,7 +119,7 @@ export default function Welcome({ product }: WelcomeProps) {
                 </div>
               </>
             )}
-            {selectedView === "3d" && <ProductScene modelUrl={product.model_url} color={selectedColor} />}
+            {selectedView === "3d" && <ProductScene modelUrl={product.model_url} option={selectedOption} />}
 
             <div
               className={`${styles.welcome__info} ${styles.info} ${selectedView === "3d" ? styles.welcome__info_margin : ""
@@ -196,61 +181,27 @@ export default function Welcome({ product }: WelcomeProps) {
         <div className={`_container ${styles.configure}`}>
           <div className={styles.configure__inner}>
             <div className={styles.configure__material}>
-              {colorsAndMaterials.map((item, idx) => (
-                <ColorConfigure
-                  key={idx}
-                  configureTitle={item.configureTitle}
-                  colorData={item.colorData}
-                  onColorSelect={(color: string) => setSelectedColor(color)}
-                />
-              ))}
+              {colorsAndMaterials.slice(0, 2).map((item, idx) => {
+                const foundColor = item.colors.find((color) => color.id === selectedColorId);
+
+                return (
+                  <ColorConfigure
+                    key={idx}
+                    configureTitle={item.part.name}
+                    colorData={item.colors}
+                    initialSelected={foundColor?.id ?? null}
+                    onColorSelect={(colorId: number) => setSelectedColor(colorId)}
+                  />
+                );
+              })}
               <ButtonPrimary onClick={null}>Конфигуратор</ButtonPrimary>
             </div>
 
-            <div className={`${styles.configure__price} ${styles.price}`}>
-              <div className={styles.price__item}>
-                <div className={styles.configure__title}>Цена</div>
-                <div className={styles.price__text}>
-                  {mainVariant.variants[0].base_price} {mainVariant.variants[0].currency}
-                </div>
-                <BonusValue bonusVal={"12 000"} />
-              </div>
-              <div className={`${styles.configure__btn} ${styles.btn}`}>
-                <ButtonOrange
-                  onClick={() => {
-                    const storedCart = localStorage.getItem("cartItems");
-                    const cartItems = storedCart ? JSON.parse(storedCart) : [];
-
-                    const newItem = {
-                      id: product.id,
-                      name: product.name,
-                      price: product.variants[0].base_price,
-                      currency: product.variants[0].currency,
-                      quantity: 1,
-                    };
-
-                    const existingItemIndex = cartItems.findIndex(
-                      (item: any) => item.id === newItem.id
-                    );
-
-                    if (existingItemIndex !== -1) {
-                      cartItems[existingItemIndex].quantity += 1;
-                    } else {
-                      cartItems.push(newItem);
-                    }
-
-                    localStorage.setItem(
-                      "cartItems",
-                      JSON.stringify(cartItems)
-                    );
-                    window.dispatchEvent(new Event("storage"));
-                  }}
-                  type="button"
-                >
-                  Купить
-                </ButtonOrange>
-              </div>
-            </div>
+            {selectedVariant ? (
+              <WelcomePrice product={product} variant={selectedVariant} />
+            ) : (
+              <div>Выберите цвет, чтобы увидеть цену</div>
+            )}
           </div>
         </div>
       </div>

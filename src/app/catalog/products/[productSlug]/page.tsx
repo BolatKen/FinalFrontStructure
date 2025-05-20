@@ -11,7 +11,6 @@ type Props = {
 
 export default async function ProductPage({ params }: Props) {
   const { productSlug } = await params;
-  console.log('ProductPage', productSlug);
   const productData = await getProductBySlug(productSlug);
 
   if (!productData) {

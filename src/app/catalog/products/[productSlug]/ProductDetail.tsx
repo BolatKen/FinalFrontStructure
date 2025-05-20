@@ -13,6 +13,6 @@ export default function ProductDetail({ product }: { product: Product }) {
         <Welcome product={product} />
         <Configurator product={product} />
         <Description product={product} />
-        <BestOffers />
+        <BestOffers products={product.best_offers} />
     </>);
 }

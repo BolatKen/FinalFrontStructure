@@ -354,37 +354,37 @@ const removeSelected = () => {
 </ButtonOrange>
 
 
-  <p className={styles.legalText}>
-    Нажимая кнопку "Оформить заказ", вы принимаете условия
-    соответствующей оферты: <Link href="#">Оферты для физических лиц</Link>, <Link href="#">Оферты для юр. лиц</Link>,
-    и соглашаетесь с <Link href="#">политикой обработки данных</Link>.
-  </p>
-</div>
+              <p className={styles.legalText}>
+                Нажимая кнопку "Оформить заказ", вы принимаете условия
+                соответствующей оферты: <Link href="#">Оферты для физических лиц</Link>, <Link href="#">Оферты для юр. лиц</Link>,
+                и соглашаетесь с <Link href="#">политикой обработки данных</Link>.
+              </p>
+            </div>
 
 
-<div className={styles.legalBlock}>
-  <div className={styles.legalItem}>
-    <span>Доставка</span>
-    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-    </svg>
-  </div>
-  <div className={styles.legalItem}>
-    <span>Оферта физических лиц</span>
-    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-    </svg>
-  </div>
-  <div className={styles.legalItem}>
-    <span>Оферта для юридических лиц</span>
-    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-    </svg>
-  </div>
-</div>
+            <div className={styles.legalBlock}>
+              <div className={styles.legalItem}>
+                <span>Доставка</span>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+              <div className={styles.legalItem}>
+                <span>Оферта физических лиц</span>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+              <div className={styles.legalItem}>
+                <span>Оферта для юридических лиц</span>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
 
+          </div>
         </div>
-      </div>
 
         {showModal && (
           <ModalPaymentFreedomPay
@@ -415,12 +415,12 @@ const removeSelected = () => {
           />
         )}
 
-      {paymentStatus && (
-        <ModalUnifiedResult
-          type={paymentStatus}
-          onClose={() => setPaymentStatus(null)}
-        />
-      )}
+        {paymentStatus && (
+          <ModalUnifiedResult
+            type={paymentStatus}
+            onClose={() => setPaymentStatus(null)}
+          />
+        )}
       </div>
     </div>
   );

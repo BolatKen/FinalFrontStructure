@@ -4,7 +4,9 @@ interface Part {
     id: number;
     name: string;
     is_configurable: boolean;
+    model_part_selector: string;
     colors?: Color[];
+    dimensions?: DimensionPart[];
     extra_price: string;
 }
 
@@ -16,7 +18,7 @@ interface Material {
 }
 
 
-interface VariantOption {
+export interface VariantOption {
     id: number;
     part: Part;
     color: Color;
@@ -25,7 +27,7 @@ interface VariantOption {
     is_toggle: boolean;
 }
 
-interface Variant {
+export interface Variant {
     id: number;
     sku: string;
     final_price?: string | null;
@@ -70,11 +72,17 @@ export interface ProductCardProps {
     colorData?: Color[];
 }
 
+interface VariantOptionValue {
+    part: Part;
+    colors: Color[];
+}
+
 export interface Product {
     id: number;
     base_sku: string;
     slug: string;
     category: string;
+    best_offers: ProductShort[];
     name: string;
     base_price: string;
     description: string;
@@ -96,6 +104,7 @@ export interface Product {
     variants: Variant[];
     default_variant_id: number;
     similar_products: [number];
+    variant_options_values: VariantOptionValue[];
 }
 
 interface MaterialColor {
@@ -107,6 +116,7 @@ interface MaterialColor {
 export interface ProductShort {
     id: number;
     name: string;
+    slug: string;
     variants: Variant[];
     images: ProductImage[];
     tags: number[];

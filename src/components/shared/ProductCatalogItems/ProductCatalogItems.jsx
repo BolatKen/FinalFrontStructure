@@ -18,6 +18,7 @@ export default function ProductCatalogItems({ products, currentBatch, totalBatch
                             id={item.id}
                             images={item.images}
                             name={item.name}
+                            slug={item.slug}
                             variants={item.variants}
                             sub_categories={item.sub_categories}
                             material_colors={item.material_colors}

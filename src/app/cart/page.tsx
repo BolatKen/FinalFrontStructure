@@ -142,8 +142,9 @@ export default function CartPage() {
   }
 
   return (
-    <div className={styles.cartPage}>
-      <h1 className={styles.cartTitle}>Корзина</h1>
+    <div className={[styles.cartPage, "_container-bigger"].join(" ")}>
+      <div className={styles.cartPage__inner}>
+              <h1 className={styles.cartTitle}>Корзина</h1>
       <div className={styles.cartContent}>
         <div className={styles.cartLeft}>
           <div className={styles.cartHeader}>
@@ -262,39 +263,53 @@ export default function CartPage() {
           </div>
 
 
-          <div className={styles.totalBlock}>
-            <h2>Итого:</h2>
-            <p>{cartItems.length} товара на сумму</p>
-            <div className={styles.totalPrice}>
-              {totalPrice.toLocaleString()} {cartItems[0]?.currency}
-            </div>
-            <p className={styles.discount}>Скидка - 240.000 KZT</p>
-            <div className={styles.bonus}>+ 12 000 бонусов</div>
-          </div>
+<div className={styles.totalBlock}>
+  <h2>
+    Итого:
+    <span>{(totalPrice - 24000 - 12000).toLocaleString()} KZT</span>
+  </h2>
 
-          <ButtonOrange
-            onClick={() => {
-              if (paymentMethod === "freedompay") {
-                setShowModal(true);
-              } else if (paymentMethod === "invoice") {
-                setShowInvoiceModal(true);
-              } else {
-                router.push("/order-confirmation");
-              }
-            }}
-          >
-            Оформить заказ
-          </ButtonOrange>
+  <p>{cartItems.length} товара на сумму {totalPrice.toLocaleString()} KZT</p>
+  <p className={styles.discount}>Скидка - 24.000 KZT</p>
+  <p className={styles.promo}>Промокод - 12.000 KZT</p>
 
-          <button onClick={clearCart} className={styles.clearCartButton}>
-            Очистить корзину
-          </button>
+  <div className={styles.bonusBox}>
+    <p><b>+ 12 000 бонусов</b></p>
+    <p>1 бонус = 1 тенге</p>
+    <p>Бонусы начисляются только при добавлении номера WhatsApp.</p>
+  </div>
 
-          <div className={styles.legalLinks}>
-            <Link href="#">Доставка</Link>
-            <Link href="#">Оферта физических лиц</Link>
-            <Link href="#">Оферта для юридических лиц</Link>
-          </div>
+  <ButtonOrange>Оформить заказ</ButtonOrange>
+
+  <p className={styles.legalText}>
+    Нажимая кнопку "Оформить заказ", вы принимаете условия
+    соответствующей оферты: <Link href="#">Оферты для физических лиц</Link>, <Link href="#">Оферты для юр. лиц</Link>,
+    и соглашаетесь с <Link href="#">политикой обработки данных</Link>.
+  </p>
+</div>
+
+
+<div className={styles.legalBlock}>
+  <div className={styles.legalItem}>
+    <span>Доставка</span>
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+    </svg>
+  </div>
+  <div className={styles.legalItem}>
+    <span>Оферта физических лиц</span>
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+    </svg>
+  </div>
+  <div className={styles.legalItem}>
+    <span>Оферта для юридических лиц</span>
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+    </svg>
+  </div>
+</div>
+
         </div>
       </div>
 
@@ -333,6 +348,7 @@ export default function CartPage() {
           onClose={() => setPaymentStatus(null)}
         />
       )}
+      </div>
     </div>
   );
 }

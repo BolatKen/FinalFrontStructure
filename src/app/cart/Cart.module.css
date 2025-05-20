@@ -1,9 +1,16 @@
+
+
 .cartPage {
-  padding: 40px 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+  /* padding: 32px 16px; */
+  /* max-width: 1728px; */
+  /* margin: 0 auto; */
   /* font-family: 'Inter', sans-serif; */
   color: #000;
+  /* overflow-x: hidden; */
+}
+
+.cartPage__inner {
+  margin-bottom: 48px;
 }
 
 .cartTitle {
@@ -14,12 +21,17 @@
 
 .cartContent {
   display: flex;
+  justify-content: center;
+  align-items: flex-start;
   gap: 40px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: hidden;
 }
 
 .cartLeft {
-  flex: 2;
+  
+  flex: 0 1 50%;
+  /* flex-shrink: 0; */
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -30,9 +42,10 @@
   justify-content: space-between;
   align-items: center;
   background-color: #f5f6f7;
-  width: 100%;
-  max-width: 967px;
-  max-height: 67px;
+  /* width: 100%; */
+  /* max-width: 967px; */
+  /* max-height: 67px; */
+  flex: 1 1 100%;
   padding: 16px 24px;
   border-radius: 8px;
   gap: 16px;
@@ -47,8 +60,9 @@
   border-radius: 8px;
   padding: 16px 24px;
   gap: 16px;
-  width: 100%;
-  max-width: 967px;
+  /* width: 100%; */
+  /* max-width: 967px; */
+  flex: 1 1 100%;
   min-height: 112px;
 }
 
@@ -180,8 +194,9 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  width: 100%;
-  max-width: 967px;
+  flex: 1 0 100%;
+  /* width: 100%; */
+  /* max-width: 967px; */
 }
 
 .sectionTitle {
@@ -226,8 +241,9 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  width: 100%;
-  max-width: 967px;
+  /* width: 100%; */
+  /* max-width: 967px; */
+  flex: 1 1 100%;
 }
 
 .assemblyCheckbox {
@@ -303,8 +319,9 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  width: 100%;
-  max-width: 967px;
+  /* width: 100%; */
+  /* max-width: 967px; */
+  flex: 1 1 100%;
 }
 
 .paymentMethods {
@@ -397,13 +414,18 @@
 
 
 .cartRight {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1 1 50%;
   background: #fff;
-  border: 1px solid #eee;
+  /* border: 1px solid #eee; */
   border-radius: 12px;
-  padding: 24px;
+  /* padding: 24px; */
   min-width: 300px;
-  height: fit-content;
+  /* height: fit-content; */
+  /* margin-left: 24px; */
+  /* flex-shrink: 0; */
 }
 
 .promoBlock {
@@ -413,8 +435,8 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  width: 100%;
-  max-width: 565px;
+  /* width: 100%; */
+  /* max-width: 565px; */
 }
 
 .promoInput {
@@ -447,15 +469,51 @@
   background-color: #e35e2e;
 }
 
+.totalBlock {
+  /* width: 565px; */
+  background-color: #f3f5f7;
+  border-radius: 8px;
+  padding: 32px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  /* flex: 1 1 100%; */
+}
+
 .totalBlock h2 {
-  font-size: 20px;
-  margin-bottom: 8px;
+  font-size: 28px;
+  font-weight: 800;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
 }
 
 .totalPrice {
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 8px;
+}
+
+.totalBlock p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.totalBlock .discount,
+.totalBlock .promo {
+  color: #ff3c3c;
+  font-weight: bold;
+}
+
+.totalBlock .bonusBox {
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  border: 1px solid #ddd;
 }
 
 .discount {
@@ -501,13 +559,39 @@
   border: 1px solid #ff6600 !important;
 }
 
-.legalLinks {
-  margin-top: 24px;
+.legalBlock {
+  /* width: 565px; */
+  background-color: #f3f5f7;
+  border-radius: 8px;
+  padding: 32px 40px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  font-size: 13px;
+  gap: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
 }
+
+.legalItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 500;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e0e0e0;
+  cursor: pointer;
+}
+
+.legalItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.legalItem svg {
+  width: 20px;
+  height: 20px;
+  stroke: #999;
+}
+
 
 .emptyCartTitle {
   color: black;
@@ -538,12 +622,18 @@
 @media (max-width: 768px) {
   .cartContent {
     flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cartLeft,
+  .cartRight {
+    width: 100%;
   }
 
   .cartRight {
-    width: 100%;
-    margin-top: 24px;
+    margin-top: 32px;
   }
+
 
   .inputGroup {
     flex-direction: column;

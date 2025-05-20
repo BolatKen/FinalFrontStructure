@@ -9,8 +9,8 @@
 }
 
 .filter-btn__item_selected {
-    background-color: #FF7244;
-    border: 1px solid #FF7244;
+    background-color: var(--accent-color);
+    border: 1px solid var(--accent-color);
 }
 
 .filter-btn__item_selected .filter-btn__text {

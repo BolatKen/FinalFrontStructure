@@ -5,25 +5,25 @@
 }
 
 .header__content {
-    margin-top: 105px;
+    margin-top: 94.5px;
     color: #666666;
     padding: 12px 16px;
 }
 
 .header__title {
     font-family: "Suisse Int'l", sans-serif;
-    font-size: 280px;
+    font-size: 64px;
     font-weight: 500;
-    line-height: 203px;
+    line-height: 46px;
     letter-spacing: -0.02em;
     color: #131111;
-
+    margin-top: 84px;
     text-align: center;
 }
 
 .header__filters {
     display: flex;
-    margin-top: 38px;
+    margin-top: 24px;
     align-items: center;
 }
 

@@ -103,29 +103,31 @@ export default function MainWelcome() {
                                 <ButtonPrimary
                                     isWhite={true}
                                     children={'Перейти'}
-                                    onClick={() => {
-                                        if (!currentProduct) return;
+onClick={() => {
+  if (!currentProduct) return;
 
-                                        const storedCart = JSON.parse(localStorage.getItem("cartItems") || "[]");
+  const storedCart = JSON.parse(localStorage.getItem("cartItems") || "[]");
 
-                                        const existingItemIndex = storedCart.findIndex((item) => item.id === currentProduct.id);
+  const existingItemIndex = storedCart.findIndex((item) => item.id === currentProduct.id);
 
-                                        if (existingItemIndex !== -1) {
-                                            storedCart[existingItemIndex].quantity += 1;
-                                        } else {
-                                            storedCart.push({
-                                                id: currentProduct.id,
-                                                name: currentProduct.name,
-                                                image: currentProduct.image || '',
-                                                price: currentProduct.variants?.[0]?.final_price || '0',
-                                                currency: currentProduct.variants?.[0]?.currency || 'KZT',
-                                                quantity: 1
-                                            });
-                                        }
+  if (existingItemIndex !== -1) {
+    storedCart[existingItemIndex].quantity += 1;
+  } else {
+    storedCart.push({
+      id: currentProduct.id,
+      name: currentProduct.name,
+      image: currentProduct.image || '',
+      price: currentProduct.variants?.[0]?.final_price || '0',
+      currency: currentProduct.variants?.[0]?.currency || 'KZT',
+      quantity: 1,
+      bonus: currentProduct.bonus || 0  // добавляем бонус
+    });
+  }
 
-                                        localStorage.setItem("cartItems", JSON.stringify(storedCart));
-                                        window.dispatchEvent(new Event("storage"));
-                                    }}
+  localStorage.setItem("cartItems", JSON.stringify(storedCart));
+  window.dispatchEvent(new Event("storage"));
+}}
+
                                 />
                             </div>
                             <div className={styles['welcome__items-wrapper']}>

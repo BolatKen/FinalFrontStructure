@@ -161,7 +161,7 @@
 
 .button,
 .applyPromo {
-  background-color: #ff6600;
+  background-color: var(--accent-color);
   color: white;
   font-weight: 600;
   padding: 10px 16px;
@@ -185,7 +185,7 @@
 .button:hover,
 .applyPromo:hover,
 .deleteSelected:hover {
-  color: #e65500;
+  color: var(--accent-color);
 }
 
 .customerInfo {
@@ -232,7 +232,7 @@
 }
 
 .input:focus {
-  border-color: #ff7244;
+  border-color: var(--accent-color);
 }
 
 .deliverySection {
@@ -325,7 +325,7 @@
 
 /* Активная */
 .paymentCard.active {
-  border-color: #ff7244;
+  border-color: var(--accent-color);
   background-color: #fff3ef;
 }
 
@@ -357,7 +357,7 @@
 }
 
 .radioWrapper input:checked+.radioCustom {
-  border-color: #ff7244;
+  border-color: var(--accent-color);
 }
 
 .radioWrapper input:checked+.radioCustom::after {
@@ -368,7 +368,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: #ff7244;
+  background-color: var(--accent-color);
 }
 
 
@@ -409,7 +409,7 @@
 }
 
 .promoInput:focus {
-  border-color: #ff7244;
+  border-color: var(--accent-color);
 }
 
 .promoButton {
@@ -417,7 +417,7 @@
   font-size: 16px;
   font-weight: 600;
   border: none;
-  background-color: #ff7244;
+  background-color: var(--accent-color);
   color: white;
   border-radius: 9999px;
   cursor: pointer;
@@ -425,7 +425,7 @@
 }
 
 .promoButton:hover {
-  background-color: #e35e2e;
+  background-color: var(--accent-color);
 }
 
 .totalBlock {
@@ -465,7 +465,7 @@
 
 .totalBlock .discount,
 .totalBlock .promo {
-  color: rgba(255, 114, 68, 1);
+  color: var(--accent-color);
   font-weight: 400;
   font-size: 18px;
   line-height: 100%;
@@ -486,7 +486,7 @@
 }
 
 .discount {
-  color: red;
+  color: var(--accent-color);
   margin-bottom: 8px;
 }
 
@@ -524,8 +524,8 @@
 
 .secondaryButton {
   background-color: #fff !important;
-  color: #ff6600 !important;
-  border: 1px solid #ff6600 !important;
+  color: var(--accent-color) !important;
+  border: 1px solid var(--accent-color) !important;
 }
 
 .legalBlock {

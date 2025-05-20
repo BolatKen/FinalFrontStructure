@@ -2,7 +2,14 @@ import styles from './ProductCatalogTitle.module.css';
 import Link from 'next/link';
 import Arrow from '../../ui/Arrow/Arrow';
 
-export default function ProductCatalogTitle({ text, slug }) {
+export default function ProductCatalogTitle({
+    text,
+    slug,
+    onPrev,
+    onNext,
+    disablePrev,
+    disableNext,
+}) {
     return (
         <div className={styles.text}>
             <div className={styles.text__inner}>
@@ -12,8 +19,8 @@ export default function ProductCatalogTitle({ text, slug }) {
                     </div>
                 </Link>
                 <div className={styles.text__arrows}>
-                    <Arrow isWhite={true} onClick={null} />
-                    <Arrow direction={'right'} isWhite={true} onClick={null} />
+                    <Arrow isWhite={true} onClick={onPrev} disabled={disablePrev} />
+                    <Arrow direction="right" isWhite={true} onClick={onNext} disabled={disableNext} />
                 </div>
             </div>
         </div >

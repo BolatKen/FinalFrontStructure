@@ -1,6 +1,6 @@
 import { Material } from 'three';
 import { ProductShort } from './product';
-import { Color } from './product';
+import { Color } from './color';
 import { Tag } from './tag';
 
 export interface Category {

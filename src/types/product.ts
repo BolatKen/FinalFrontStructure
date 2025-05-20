@@ -1,48 +1,40 @@
-
-export interface Color {
-    id: number;
-    name: string;
-    hex_code: string;
-    image: string;
-    extra_price: string;
-    material: number;
-}
+import { Color } from './color';
 
 interface Part {
     id: number;
     name: string;
     is_configurable: boolean;
     colors?: Color[];
+    extra_price: string;
 }
 
 interface Material {
     id: number;
     name: string;
     parts: Part[];
+    extra_price: string;
 }
 
 
 interface VariantOption {
     id: number;
-    part_option_display: {
-        id: number;
-        color?: Color | null;
-        material?: Material | null;
-        total_extra_price?: number;
-        is_toggle: boolean;
-    };
+    part: Part;
+    color: Color;
+    material: Material;
+    total_extra_price: number;
+    is_toggle: boolean;
 }
 
 interface Variant {
     id: number;
     sku: string;
-    base_price: string;
     final_price?: string | null;
-    old_price?: string | null;
+    has_bonus: boolean;
+    bonus_number: string;
     currency: string;
-    variant_options: VariantOption[];
+    options: VariantOption[];
     has_discount: boolean;
-    discount_percent: string;
+    discount_number: string;
     is_default: boolean;
     is_active: boolean;
 }
@@ -84,6 +76,7 @@ export interface Product {
     slug: string;
     category: string;
     name: string;
+    base_price: string;
     description: string;
     warranty_period: number;
     is_active: boolean;
@@ -105,13 +98,17 @@ export interface Product {
     similar_products: [number];
 }
 
+interface MaterialColor {
+    variant: number;
+    color: Color;
+}
+
 
 export interface ProductShort {
     name: string;
-    old_price: string;
-    new_price: string;
-    bonus: string;
+    variants: Variant[];
     images: ProductImage[];
+    tags: number[];
     sub_categories: number[];
-    material_colors: Color[];
+    material_colors: MaterialColor[];
 }

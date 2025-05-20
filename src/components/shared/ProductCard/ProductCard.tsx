@@ -4,63 +4,95 @@ import React, { useEffect, useState } from 'react';
 import './ProductCard.module.css';
 import styles from './ProductCard.module.css';
 import BonusValue from '@/components/ui/BonusValue/BonusValue';
-import ColorList from '@/components/ui/ColorList/ColorList';
-import { ProductCardProps } from '@/types/product';
+import ColorProductList from '@/components/ui/ColorProductList/ColorProductList';
+import { ProductShort } from '@/types/product';
+import { ColorItemType as ColorItem } from '@/types/color';
 
-type ColorItem = {
-  imageUrl: string;
-  altText: string;
-  isSelected: boolean;
-};
-
-
-const ProductCard: React.FC<ProductCardProps> = ({
-  imageSrc,
-  title,
-  oldPrice,
-  newPrice,
-  colorData,
+const ProductCard: React.FC<ProductShort> = ({
+  name,
+  variants,
+  images,
+  material_colors,
 }) => {
   const [colors, setColors] = useState<ColorItem[]>([]);
+  const [selectedColor, setSelectedColor] = useState<ColorItem | undefined>(undefined);
+
+  const [newPrice, setNewPrice] = useState(0);
+  const [oldPrice, setOldPrice] = useState(0);
+  const [bonusNumber, setBonusNumber] = useState(0);
+
+  const updatePrices = (variantIndex: number) => {
+    const variant = variants.find(v => v.id === variantIndex);
+    if (variant) {
+      setNewPrice(Number(variant.final_price) ?? 0);
+      setOldPrice((Number(variant.final_price) ?? 0) + (Number(variant.discount_number) ?? 0));
+      setBonusNumber(Number(variant.bonus_number) ?? 0);
+    }
+  };
+
   useEffect(() => {
-    if (colorData && colorData?.length > 0) {
-      const mappedColors = colorData?.map((item, idx) => ({
-        imageUrl: item.image,
-        altText: item.name,
-        isSelected: idx === 0
+    if (material_colors && material_colors.length > 0) {
+      const mappedColors = material_colors.map((item, idx) => ({
+        image: item.color.image,
+        hex_code: item.color.hex_code,
+        name: item.color.name,
+        isSelected: idx === 0,
+        variant: item.variant
       }));
       setColors(mappedColors);
+      setSelectedColor(mappedColors[0]);
+      updatePrices(mappedColors[0].variant);
     }
-  }, [colorData]);
+  }, [material_colors]);
+
+  const handleColorSelect = (selected: ColorItem) => {
+    setColors((prev) =>
+      prev.map((color) => ({
+        ...color,
+        isSelected: color.variant === selected.variant,
+      }))
+    );
+    setSelectedColor(selected);
+    updatePrices(selected.variant);
+  };
 
   function formatWithSpaces(n: number): string {
     return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   }
 
-  const calculateBonus = (price: string) => {
-    const numPrice = parseFloat(price);
-    return Math.round(numPrice * 0.05).toString();
-  };
+  let image = Array.isArray(images) && images[0]?.image
+    ? images[0].image
+    : '/products/chair1.png';
+
+  if (!selectedColor) return null;
+
   return (
     <div className={styles['product-card']}>
       <div className={styles['product-card__image']}>
-        <img src={imageSrc} alt={title} />
+        <img src={image} alt={name} />
       </div>
       <div className={styles['product-card__inner']}>
         <div className={styles['product-cart__colors']}>
-          <ColorList
+          <ColorProductList
             colorData={colors}
-            isSmall={true} onColorSelect={undefined} />
+            onColorSelect={handleColorSelect}
+          />
         </div>
         <div className={styles['product-card__info']}>
           <div className={styles['product-card__more']}>
-            <h3 className={styles['product-card__title']}>{title}</h3>
+            <h3 className={styles['product-card__title']}>{name}</h3>
             <div className={styles['product-card__bottom']}>
               <div className={styles['product-card__prices']}>
-                <span className={styles['product-card__old-price']}>{formatWithSpaces(Number(oldPrice))} ТГ</span>
-                <span className={styles['product-card__new-price']}>{formatWithSpaces(Number(newPrice))} ТГ</span>
+                {
+                  oldPrice !== newPrice ? (<span className={styles['product-card__old-price']}>{
+                    formatWithSpaces(Number(oldPrice))
+                  } ТГ</span>) : ''
+                }
+                <span className={styles['product-card__new-price']}>{
+                  formatWithSpaces(Number(newPrice))
+                } ТГ</span>
               </div>
-              <BonusValue bonusVal={calculateBonus(newPrice)} isDark={true} />
+              {bonusNumber !== 0 ? (<BonusValue bonusVal={bonusNumber} isDark={true} />) : ''}
             </div>
           </div>
           <div className="product-card__arrow">

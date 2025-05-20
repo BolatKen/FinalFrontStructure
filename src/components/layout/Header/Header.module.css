@@ -1,115 +1,291 @@
 .header {
-    width: 100%;
-    font-family: "Suisse Int'l", sans-serif;
-    background-color: white;
-    color: var(--general-color);
-
-    position: fixed;      /* добавьте это */
-    top: 0;               /* добавьте это */
-    left: 0;              /* добавьте это */
-    z-index: 1000;        /* чтобы header был поверх всего */
+  width: 100%;
+  font-family: "Suisse Int'l", sans-serif;
+  background-color: white;
+  color: var(--general-color);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
 .header_blur {
-    /* position: sticky; */
-    color: white;
-    background-color: rgba(19, 17, 17, 0.6);
-    backdrop-filter: blur(64px);
+  color: white;
+  background-color: rgba(19, 17, 17, 0.6);
+  backdrop-filter: blur(64px);
 }
 
 .header__inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 70px;
 }
 
 .header__logo {
-    font-weight: 500;
-    font-size: 24px;
-    cursor: pointer;
+  font-weight: 500;
+  font-size: 24px;
+  cursor: pointer;
 }
 
 .header__items {
-    display: flex;
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+
+.header__cart {
+  margin-left: 24px;
 }
 
 .cart__icon {
-    position: relative;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
+  position: relative;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
 }
 
 .cart__rect {
-    position: absolute;
-    width: inherit;
-    height: inherit;
-    border: 1px solid var(--general-color);
-    border-radius: 50%;
-    opacity: 40%;
-    z-index: -1;
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  border: 1px solid var(--general-color);
+  border-radius: 50%;
+  opacity: 0.4;
+  z-index: -1;
 }
 
 .cart__rect_white {
-    border-color: white;
+  border-color: white;
 }
 
 .cart__svg {
-    max-width: 24px;
-    max-height: 24px;
+  max-width: 24px;
+  max-height: 24px;
 }
 
+.icon__notification {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: #e74c3c;
+  color: white;
+  font-size: 11px;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 4px;
+  font-weight: bold;
+}
+
+/* Burger Menu */
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.burger span {
+  height: 3px;
+  background: #ffffff;
+  margin: 5px 0;
+  border-radius: 2px;
+  transition: 0.3s;
+  display: block;
+}
 
 @media (max-width: 1024px) {
-    .header__items {
-        display: none;
-        /* скрыть меню на планшетах и ниже */
-    }
+  .burger {
+    display: flex;
+    margin: 0 16px;
+  }
 
-    .header__inner {
-        justify-content: space-between;
-    }
+  .header__items {
+    display: none;
+  }
 
-    .header__cart {
-        margin-left: auto;
-    }
+  .header__inner {
+    justify-content: space-between;
+  }
+
+  .header__cart {
+    margin-left: auto;
+  }
+}
+
+.burgerOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 101;
+  animation: fadeIn 0.2s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.burgerMenu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 280px;
+  height: 100vh;
+  background: #000000;
+  box-shadow: -2px 0 16px rgba(0, 0, 0, 0.08);
+  z-index: 102;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 24px 24px 24px;
+  animation: slideIn 0.3s;
+}
+
+@keyframes slideIn {
+  from {
+    right: -300px;
+    opacity: 0;
+  }
+  to {
+    right: 0;
+    opacity: 1;
+  }
+}
+
+.burgerMenuClose {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: none;
+  border: none;
+  font-size: 32px;
+  cursor: pointer;
+  color: #c4c3c3;
+  transition: color 0.2s;
+}
+
+.burgerMenuClose:hover {
+  color: #e74c3c;
+}
+
+.burgerMenuList {
+  list-style: none;
+  padding: 0;
+  margin: 80px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.burgerMenuItem a {
+  text-decoration: none;
+  color: #d6d6d6;
+  font-size: 22px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.burgerMenuItem a:hover {
+  color: #e74c3c;
+}
+
+.burgerToggle {
+  background: none;
+  border: none;
+  color: #d6d6d6;
+  font-size: 20px;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subMenu {
+  list-style: none;
+  padding-left: 16px;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.subMenu li a {
+  color: #bbbbbb;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.subMenu li a:hover {
+  color: #ffffff;
+}
+
+.arrowDown::after,
+.arrowUp::after {
+  content: '';
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 4px;
+  margin-left: 8px;
+  transform: rotate(45deg);
+  transition: transform 0.3s;
+}
+
+.arrowUp::after {
+  transform: rotate(-135deg);
 }
 
 @media (max-width: 768px) {
-    .header__logo {
-        font-size: 20px;
-    }
+  .header__logo {
+    font-size: 20px;
+  }
 
-    .cart__icon {
-        width: 40px;
-        height: 40px;
-    }
+  .cart__icon {
+    width: 40px;
+    height: 40px;
+  }
 
-    .cart__rect {
-        width: 40px;
-        height: 40px;
-    }
+  .cart__rect {
+    width: 40px;
+    height: 40px;
+  }
 
-    .cart__svg {
-        width: 20px;
-        height: 20px;
-    }
+  .cart__svg {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 @media (max-width: 480px) {
-    .header__inner {
-        padding: 0 16px;
-    }
+  .header__inner {
+    padding: 0 16px;
+  }
 
-    .cart__notification {
-        top: -4px;
-        right: -4px;
-        font-size: 9px;
-        min-width: 14px;
-        height: 14px;
-    }
+  .icon__notification {
+    top: -4px;
+    right: -4px;
+    font-size: 9px;
+    min-width: 14px;
+    height: 14px;
+  }
 }

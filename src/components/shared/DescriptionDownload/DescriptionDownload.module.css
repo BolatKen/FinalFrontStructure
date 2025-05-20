@@ -45,3 +45,45 @@
 }
 
 .meta__weight {}
+
+@media (max-width: 768px) {
+  .downloads__item {
+    flex: 1 1 100%;
+    align-items: flex-start;
+    gap: 12px;
+    margin-left: 0 !important;
+  }
+
+  .downloads__info {
+    width: 100%;
+  }
+
+  .downloads__name {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .downloads__meta {
+    font-size: 14px;
+    line-height: 18px;
+    flex-wrap: wrap;
+  }
+
+  .meta {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .meta__weight {
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .downloads__item button {
+    align-self: stretch; /* кнопка на всю ширину */
+    padding: 12px;
+    font-size: 14px;
+    text-align: center;
+  }
+}

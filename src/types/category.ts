@@ -44,10 +44,10 @@ export interface CategoryFilters {
     colors: Color[];
 }
 
-export interface FilteredData {
-    activeTagIds?: number[];
-    color?: number;
-    priceFrom?: string;
-    priceTo?: string;
-    selectedMaterialId?: number;
-}
+export type FilteredData = {
+    activeTagIds: number[];
+    priceFrom: string;
+    priceTo: string;
+    selectedMaterialId: number | null;
+    color?: number | null;
+};

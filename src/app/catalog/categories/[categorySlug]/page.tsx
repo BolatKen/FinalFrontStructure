@@ -3,19 +3,16 @@ import CategoryPageClient from './CategoryPageClient';
 import parseFiltersFromUrl from '@/utils/parseFiltersFromUrl';
 
 
+
 type Props = {
-  params: {
-    categorySlug: string;
-  };
-  searchParams: {
-    page?: string;
-    filtered?: string;
-  };
+  params: { categorySlug: string };
+  searchParams: { page?: string; filtered?: string };
 };
 
+
 export default async function CategoryPage({ params, searchParams }: Props) {
-  const { categorySlug } = await params;
-  const searchParamsResolved = await searchParams;
+  const { categorySlug } = params;
+  const searchParamsResolved =  searchParams;
   const { filtered, page } = searchParamsResolved;
   const currentPage = parseInt(page || '1', 10);
 

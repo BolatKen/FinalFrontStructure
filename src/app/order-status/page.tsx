@@ -105,7 +105,6 @@ export default function OrderStatusPage() {
           <ModalOrderStatus onClose={() => setShowModal(false)} items={demoItems} />
         )}
       </main>
-      <Footer />
     </>
   );
 }

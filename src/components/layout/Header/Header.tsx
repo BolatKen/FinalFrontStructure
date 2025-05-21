@@ -54,6 +54,16 @@ export default function Header({ isBlur = false }) {
     router.push("/cart");
   };
 
+
+   const spanStyle = {
+    height: '3px',
+    backgroundColor: isBlur ? '#ffffff' : '#000000',
+    margin: '5px 0',
+    borderRadius: '2px',
+    transition: '0.3s',
+    display: 'block',
+  };
+
   return (
     <header className={[styles.header, isBlur ? styles.header_blur : ""].join(" ")}>
       <div className={`${styles.header__inner} _container-bigger`}>
@@ -62,8 +72,8 @@ export default function Header({ isBlur = false }) {
             className={styles.burger}
             onClick={() => setIsMenuOpen((prev) => !prev)}
           >
-            <span />
-            <span />
+            <span style={spanStyle}/>
+            <span style={spanStyle}/>
           </div>
           <Link href="/" className={styles.logo__link}>
             <div className={[styles.logo__item, '_img'].join(' ')}>
@@ -144,7 +154,7 @@ export default function Header({ isBlur = false }) {
                     className={styles.burgerToggle}
                     onClick={() => toggleSection(parent.name)}
                   >
-                    {parent.name}
+                    <Link href={`/catalog/categories/${parent.slug}`}>{parent.name}</Link>
                     <span
                       className={
                         openSection === parent.name

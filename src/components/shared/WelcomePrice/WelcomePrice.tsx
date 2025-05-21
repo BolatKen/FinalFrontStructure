@@ -17,18 +17,26 @@ export default function WelcomePrice({ product, variant }: { product: Product; v
             <ButtonOrange
                 onClick={() => {
                     const storedCart = localStorage.getItem("cartItems");
-                    const cartItems = storedCart ? JSON.parse(storedCart) : [];
+                    type CartItem = {
+                        id: number | string;
+                        name: string;
+                        price: number;
+                        currency: string;
+                        quantity: number;
+                    };
 
-                    const newItem = {
+                    const cartItems: CartItem[] = storedCart ? JSON.parse(storedCart) : [];
+
+                    const newItem: CartItem = {
                         id: product.id,
                         name: product.name,
-                        price: variant.final_price,
+                        price: Number(variant.final_price) || 0,
                         currency: variant.currency,
                         quantity: 1,
                     };
 
                     const existingItemIndex = cartItems.findIndex(
-                        (item: any) => item.id === newItem.id
+                        (item: CartItem) => item.id === newItem.id
                     );
 
                     if (existingItemIndex !== -1) {

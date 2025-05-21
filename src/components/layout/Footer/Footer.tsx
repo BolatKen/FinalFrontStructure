@@ -7,15 +7,15 @@ import { Category } from "@/types/category";
 import { getCategories } from "@/services/category.service";
 
 export default function Footer() {
-  const footerHeaderList = [
-    "Кресло",
-    "Мойки",
-    "Диваны",
-    "Столы",
-    "Стулья",
-    "Шкафы",
-    "Другая мебель",
-  ];
+  // const footerHeaderList = [
+  //   "Кресло",
+  //   "Мойки",
+  //   "Диваны",
+  //   "Столы",
+  //   "Стулья",
+  //   "Шкафы",
+  //   "Другая мебель",
+  // ];
 
   const footerMenu = {
     "Контакты": "/info",

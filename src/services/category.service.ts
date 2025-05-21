@@ -35,9 +35,9 @@ export const getCategoryBySlug = async (slug: string): Promise<Category | null> 
   }
 }
 
-export const getProductsByCategorySlug = async (slug: string): Promise<any[]> => {
+export const getProductsByCategorySlug = async (slug: string): Promise<ProductShort[]> => {
   try {
-    const response = await axios.get<any[]>(
+    const response = await axios.get<ProductShort[]>(
       `${API_URL}/catalog/categories/${slug}/`
     )
     return response.data
@@ -61,8 +61,8 @@ export const getCategoryListingBySlug = async (slug: string, currentPage: number
 
 export const applyFilters = async (filterData: FilteredData, categorySlug: string, currentPage: number): Promise<ProductShort[] | null> => {
   try {
-    let minPrice = filterData.priceFrom?.split(' ')[0].replace(/\s/g, "");
-    let maxPrice = filterData.priceTo?.split(' ')[0].replace(/\s/g, "");
+    const minPrice = filterData.priceFrom?.split(' ')[0].replace(/\s/g, "");
+    const maxPrice = filterData.priceTo?.split(' ')[0].replace(/\s/g, "");
     const materialId = filterData.selectedMaterialId ? filterData.selectedMaterialId : '';
     const colorId = filterData.color ? filterData.color : '';
     let tags = '';

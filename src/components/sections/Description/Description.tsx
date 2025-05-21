@@ -1,9 +1,9 @@
 import styles from "./Description.module.css";
 import { SpecsList } from "../../shared/SpecsList/SpecsList";
 import { DescriptionDownload } from "../../shared/DescriptionDownload/DescriptionDownload";
-import Image from "next/image";
+// import Image from "next/image";
 import { Product } from "@/types/product";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 interface DescriptionProps {
   product: Product;

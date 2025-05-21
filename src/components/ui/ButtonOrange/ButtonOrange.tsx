@@ -2,6 +2,7 @@ import styles from './ButtonOrange.module.css';
 
 interface ButtonOrangeProps {
   className?: string;
+  disabled?: boolean;
   children: React.ReactNode;
   onClick?: () => void;
   type?: "button" | "submit" | "reset";

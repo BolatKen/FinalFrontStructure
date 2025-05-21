@@ -58,6 +58,8 @@ export default function CartPage() {
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [promoCode, setPromoCode] = useState("");
   const [promoDiscount, setPromoDiscount] = useState(0);
+  const [showValidation, setShowValidation] = useState(false);
+
 
   useEffect(() => {
     const updateCart = () => {
@@ -87,6 +89,63 @@ export default function CartPage() {
   const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const totalBonus = cartItems.reduce((acc, item) => acc + (item.bonus || 0) * item.quantity, 0);
   const finalTotalPrice = totalPrice - promoDiscount;
+
+
+  const createOrder = async () => {
+  const payload = {
+    customer: {
+      name: firstName,
+      surname: lastName,
+      phone_number: phone, // тут было неправильно — должно быть phone_number
+    },
+    delivery_address: {
+      customer: null, // можно null, не парься
+      address: {
+        country: "Казахстан",
+        city: city || "Город не указан",     // на всякий случай если пусто
+        street: street || "Улица не указана",
+        house: house || "0",
+        apartment: null,
+        postal_code: null,
+        comment: needAssembly ? "Требуется сборка мебели" : null
+      },
+      is_default: false
+    },
+    items: cartItems.map((item) => ({
+      product_variant: Number(item.id), // ВАЖНО: число, не строка
+      quantity: Number(item.quantity)
+    }))
+  };
+
+  console.log("📦 Payload:", JSON.stringify(payload, null, 2));
+
+  try {
+    const res = await fetch("http://localhost:8000/process/orders/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.error("🔥 Сервер ответил ошибкой:", errorData);
+      throw new Error("Ошибка при создании заказа");
+    }
+
+    const data = await res.json();
+    console.log("✅ Заказ создан:", data);
+
+    localStorage.removeItem("cartItems");
+    setCartItems([]);
+
+  } catch (err) {
+    console.error("❌ Ошибка при создании заказа:", err);
+  }
+};
+
+
 
 
   const clearCart = () => {
@@ -167,6 +226,18 @@ export default function CartPage() {
     );
   }
 
+  
+
+const isOrderFormValid =
+  firstName !== "" &&
+  lastName !== "" &&
+  phone !== "" &&
+  city !== "" &&
+  street !== "" &&
+  house !== "" &&
+  paymentMethod !== "";
+
+
   return (
     <div className={[styles.cartPage, "_container-bigger"].join(" ")}>
       <Header />
@@ -221,38 +292,76 @@ export default function CartPage() {
             ))}
 
             <div className={styles.customerInfo}>
-              <h2 className={styles.sectionTitle}>Информация о получателе</h2>
-              <div className={styles.inputGroup}>
-                <input type="text" placeholder="Имя" className={styles.input} value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-                <input type="text" placeholder="Фамилия" className={styles.input} value={lastName} onChange={(e) => setLastName(e.target.value)} />
-              </div>
-              <input type="text" placeholder="Номер телефона" className={styles.input} value={phone} onChange={(e) => setPhone(e.target.value)} />
-            </div>
+  <h2 className={styles.sectionTitle}>Информация о получателе</h2>
+  <div className={styles.inputGroup}>
+    <input
+      type="text"
+      placeholder="Имя"
+      className={`${styles.input} ${showValidation && firstName === "" ? styles.errorInput : ""}`}
+      value={firstName}
+      onChange={(e) => setFirstName(e.target.value)}
+    />
+    <input
+      type="text"
+      placeholder="Фамилия"
+      className={`${styles.input} ${showValidation && lastName === "" ? styles.errorInput : ""}`}
+      value={lastName}
+      onChange={(e) => setLastName(e.target.value)}
+    />
+  </div>
+  <input
+    type="text"
+    placeholder="Номер телефона"
+    className={`${styles.input} ${showValidation && phone === "" ? styles.errorInput : ""}`}
+    value={phone}
+    onChange={(e) => setPhone(e.target.value)}
+  />
+</div>
+
 
             <div className={styles.deliverySection}>
-              <h2 className={styles.sectionTitle}>Доставка курьером</h2>
-              <p className={styles.assemblyNote}>
-                Курьеры не занимаются подъёмом мебели на этаж, при доставке производится только отгрузка<br />
-                По стоимости доставки мебели с вами свяжется оператор
-              </p>
-              <div className={styles.inputGroup}>
-                <input type="text" placeholder="Город" className={styles.input} value={city} onChange={(e) => setCity(e.target.value)} />
-                <input type="text" placeholder="Улица" className={styles.input} value={street} onChange={(e) => setStreet(e.target.value)} />
-                <input type="text" placeholder="Дом" className={styles.input} value={house} onChange={(e) => setHouse(e.target.value)} />
-              </div>
+  <h2 className={styles.sectionTitle}>Доставка курьером</h2>
+  <p className={styles.assemblyNote}>
+    Курьеры не занимаются подъёмом мебели на этаж, при доставке производится только отгрузка<br />
+    По стоимости доставки мебели с вами свяжется оператор
+  </p>
+  <div className={styles.inputGroup}>
+    <input
+      type="text"
+      placeholder="Город"
+      className={`${styles.input} ${showValidation && city === "" ? styles.errorInput : ""}`}
+      value={city}
+      onChange={(e) => setCity(e.target.value)}
+    />
+    <input
+      type="text"
+      placeholder="Улица"
+      className={`${styles.input} ${showValidation && street === "" ? styles.errorInput : ""}`}
+      value={street}
+      onChange={(e) => setStreet(e.target.value)}
+    />
+    <input
+      type="text"
+      placeholder="Дом"
+      className={`${styles.input} ${showValidation && house === "" ? styles.errorInput : ""}`}
+      value={house}
+      onChange={(e) => setHouse(e.target.value)}
+    />
+  </div>
 
-              <div className={styles.assemblyCheckbox}>
-                <div className={styles.assemblyCheckboxRow}>
-                  <Toggle setter={needAssembly} method={setNeedAssembly} />
-                  <span>Необходима сборка мебели</span>
-                </div>
+  <div className={styles.assemblyCheckbox}>
+    <div className={styles.assemblyCheckboxRow}>
+      <Toggle setter={needAssembly} method={setNeedAssembly} />
+      <span>Необходима сборка мебели</span>
+    </div>
 
-                <p className={styles.assemblyNote}>
-                  Мебель в собранном виде при перевозке занимает<br />
-                  большой объём, поэтому доставка может стоить дороже
-                </p>
-              </div>
-            </div>
+    <p className={styles.assemblyNote}>
+      Мебель в собранном виде при перевозке занимает<br />
+      большой объём, поэтому доставка может стоить дороже
+    </p>
+  </div>
+</div>
+
 
             <div className={styles.paymentSection}>
               <h2 className={styles.sectionTitle}>Выберите способ оплаты</h2>
@@ -341,19 +450,24 @@ export default function CartPage() {
               </div>
 
 
-              <ButtonOrange
-                onClick={() => {
-                  if (paymentMethod === "freedompay") {
-                    setShowModal(true);
-                  } else if (paymentMethod === "invoice") {
-                    setShowInvoiceModal(true);
-                  } else {
-                    alert("Выберите способ оплаты");
-                  }
-                }}
-              >
-                Оформить заказ
-              </ButtonOrange>
+<ButtonOrange
+  disabled={!isOrderFormValid}
+  onClick={() => {
+    if (!isOrderFormValid) {
+      setShowValidation(true); // включаем ошибки
+      return;
+    }
+
+    if (paymentMethod === "freedompay") {
+      setShowModal(true);
+    } else if (paymentMethod === "invoice") {
+      setShowInvoiceModal(true);
+    }
+  }}
+>
+  Оформить заказ
+</ButtonOrange>
+
 
 
               <p className={styles.legalText}>
@@ -396,9 +510,10 @@ export default function CartPage() {
               setShowModal(false);
               setPaymentStatus(status);
               if (status === "freedom_success") {
-                const msg = generateOrderMessage("FreedomPay", cartItems, totalPrice);
-                await sendTelegramMessage(msg);
-              }
+  const msg = generateOrderMessage("FreedomPay", cartItems, totalPrice);
+  await sendTelegramMessage(msg);
+  await createOrder(); // 👈 вот эта строчка
+}
             }}
           />
         )}
@@ -410,9 +525,10 @@ export default function CartPage() {
               setShowInvoiceModal(false);
               setPaymentStatus(status);
               if (status === "invoice_success") {
-                const msg = generateOrderMessage("Счёт на оплату", cartItems, finalTotalPrice);
-                await sendTelegramMessage(msg);
-              }
+  const msg = generateOrderMessage("Счёт на оплату", cartItems, finalTotalPrice);
+  await sendTelegramMessage(msg);
+  await createOrder(); // 👈 вот эта строчка
+}
             }}
           />
         )}

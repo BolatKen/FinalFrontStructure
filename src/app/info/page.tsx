@@ -18,7 +18,11 @@ export default function Home() {
   return (
     <>
       <Header />
-      <div className="main__title">Leka Beauty</div>
+      <div className={[styles['main-title'], '_container-bigger'].join(' ')}>
+        <div className={[styles['main-title__inner']].join(' ')}>
+          LEKA BEAUTY
+        </div>
+      </div>
       <GeneralInfo
         contentLeft={leftContentDown}
         contentRight={rightContentDown}

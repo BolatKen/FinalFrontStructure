@@ -2,13 +2,19 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    height: 558.8px;
+    height: 500.8px;
+    width: 100%;
+    margin: 0 auto;
 }
 
-.product-model > *:first-child {
+.product-model>*:first-child {
     position: absolute;
-    top: 0; 
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+.width {
+    min-width: 350px;
 }

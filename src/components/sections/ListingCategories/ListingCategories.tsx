@@ -16,6 +16,7 @@ export default function ListingCategories({ products }: { products: ProductShort
                         {(Array.isArray(products) ? products : []).map((item, idx) => (
                             <ProductCard
                                 key={idx}
+                                slug={item.slug}
                                 images={item.images}
                                 name={item.name}
                                 variants={item.variants}

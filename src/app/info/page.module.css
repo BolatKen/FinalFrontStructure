@@ -10,6 +10,21 @@
   box-sizing: border-box;
 }
 
+.main-title {
+  color: var(--general-color);
+}
+
+.main-title__inner {
+  margin-top: 176px;
+  padding: 48px 0px;
+  text-align: center;
+
+  font-weight: 500;
+  font-size: 180px;
+  border-top: 1px solid rgba(19, 17, 17, 0.2);
+  line-height: 100%;
+}
+
 .contactItem {
   min-width: 250px;
 }

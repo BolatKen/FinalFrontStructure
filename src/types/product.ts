@@ -1,6 +1,6 @@
 import { Color } from './color';
 
-interface Part {
+export interface Part {
     id: number;
     name: string;
     is_configurable: boolean;
@@ -13,8 +13,9 @@ interface Part {
 interface Material {
     id: number;
     name: string;
-    parts: Part[];
-    extra_price: string;
+    parts?: Part[];
+    colors?: Color[];
+    extra_price?: string;
 }
 
 
@@ -77,6 +78,12 @@ interface VariantOptionValue {
     colors: Color[];
 }
 
+export interface ConfigurableParts {
+    part: Part;
+    materials: Material[];
+    distinct_colors: Color[];
+}
+
 export interface Product {
     id: number;
     base_sku: string;
@@ -93,10 +100,8 @@ export interface Product {
     meta_keywords: [string];
     sold_count: number;
     images?: ProductImage[];
-    configurable_parts: [string];
+    configurable_parts: ConfigurableParts[];
     with_without?: [];
-    materials?: Material[];
-    selection_parts?: Part[];
     characteristics?: Characteristics[];
     dimension_parts?: DimensionPart[];
     model_url: string;

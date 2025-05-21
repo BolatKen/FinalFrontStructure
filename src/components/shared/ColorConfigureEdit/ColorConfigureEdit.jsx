@@ -1,17 +1,20 @@
 import styles from './ColorConfigureEdit.module.css';
 import ColorList from '../../ui/ColorList/ColorList';
-import { ButtonPrimary } from '../../ui/ButtonPrimary/ButtonPrimary';
 
-export default function ColorConfigureEdit({ configureTitle, configureVal, colorData }) {
+export default function ColorConfigureEdit({
+    className = '',
+    colorData,
+    configureTitle = '',
+    configureVal = '',
+    onColorSelect }) {
     return (
-        <div className={[styles.configurator__option, styles.variant].join(" ")}>
+        <div className={[styles.configurator__option, styles.variant, className].join(" ")}>
             <div className={styles.variant__title}>
-                <div className={styles.variant__text}>{configureTitle}</div>
-                <div className={styles.variant__subtext}>{configureVal}</div>
+                {configureTitle !== '' ? (<div className={styles.variant__text}>{configureTitle}</div>) : ''}
+                {configureVal !== '' ? (<div className={styles.variant__subtext}>{configureVal}</div>) : ''}
             </div>
-            <div className={styles.variant__inner}>
-                <ColorList colorData={colorData} onColorSelect={undefined} />
-                <ButtonPrimary children={"Под заказ"} onClick={null} />
+            <div className={[styles.variant__inner].join(' ')}>
+                <ColorList colorData={colorData} onColorSelect={onColorSelect} />
             </div>
         </div>
     );

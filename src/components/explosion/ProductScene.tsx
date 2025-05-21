@@ -11,9 +11,13 @@ const Model = dynamic(() => import('./Model'), { ssr: false });
 export default function ProductScene({ modelUrl = '/models/6.glb', option }: { modelUrl: string; option?: VariantOption }) {
     return (
         <div className={styles['product-model']}>
-            <Canvas camera={{ position: [0, 0, 5], fov: 35 }}>
+            <Canvas camera={{ position: [0, 0, 5], fov: 40 }}>
                 <ambientLight intensity={1.2} />
-                <OrbitControls />
+                <OrbitControls
+                    minPolarAngle={Math.PI / 3}
+                    maxPolarAngle={Math.PI / 1.8}
+                    minAzimuthAngle={-Math.PI / 2}
+                    maxAzimuthAngle={Math.PI / 2} />
                 <Suspense fallback={null}>
                     <Model url={modelUrl}
                         color={option?.color.hex_code}

@@ -95,34 +95,6 @@ export default function Description({ product }: DescriptionProps) {
       <div className={[styles.description__inner, "_container"].join(" ")}>
         <section className={styles.specs}>
           <h2 className={`${styles.specs__title} title`}>Характеристики</h2>
-
-          {/* Табы */}
-          {/* <div className={styles.specs__tabs} role="tablist">
-            <button
-              type="button"
-              role="tab"
-              aria-selected="true"
-              className={`${styles.tabs__btn} ${styles.tabs__btn_active}`}
-            >
-              Характеристики
-            </button>
-            <button
-              type="button"
-              role="tab"
-              aria-selected="false"
-              className={styles.tabs__btn}
-            >
-              Размеры
-            </button>
-            <button
-              type="button"
-              role="tab"
-              aria-selected="false"
-              className={styles.tabs__btn}
-            >
-              Дизайнерам
-            </button>
-          </div> */}
           <div
             ref={tabsRef}
             className={styles.specs__tabs}
@@ -165,36 +137,29 @@ export default function Description({ product }: DescriptionProps) {
               <div className={styles.specs__images}>
                 {/* Первое изображение с размерами */}
 
-                <figure className={styles.specs__imageItem}>
-                  <Image
-                    src={
+                <div className={styles.figure}>
+                  <div className={[styles.specs__img,].join(' ')}>
+                    <img src={
                       product.images?.find((img) => img.type === "FRONT")
                         ?.image || "/core/1.png"
-                    }
-                    alt="Вид спереди"
-                    width={393}
-                    height={393}
-                  />
-                  <figcaption className={styles.specs__caption}>
+                    } alt="Вид спереди" />
+                  </div>
+                  <div className={styles.figure__caption}>
                     79 см × 52 см
-                  </figcaption>
-                </figure>
+                  </div>
+                </div>
 
-                {/* Второе изображение */}
-                <figure className={styles.specs__imageItem}>
-                  <Image
-                    src={
+                <div className={styles.figure}>
+                  <div className={[styles.specs__img,].join(' ')}>
+                    <img src={
                       product.images?.find((img) => img.type === "SIDE")
                         ?.image || ""
-                    }
-                    alt="Вид сбоку"
-                    width={393}
-                    height={393}
-                  />
-                  <figcaption className={styles.specs__caption}>
+                    } alt="Вид сбоку" />
+                  </div>
+                  <div className={styles.figure__caption}>
                     79 см × 52 см
-                  </figcaption>
-                </figure>
+                  </div>
+                </div>
               </div>
 
               {/* Блок загрузок */}

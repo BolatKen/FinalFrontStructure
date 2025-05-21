@@ -266,7 +266,7 @@ export default function CartPage() {
                       checked={paymentMethod === "invoice"}
                       onChange={(e) => setPaymentMethod(e.target.value)}
                     />
-                    <span className={styles.radioCustom}></span>
+                    {/* <span className={styles.radioCustom}></span> */}
                   </div>
                   <img src="/icons/inquiry.svg" alt="icon" />
                   <div>

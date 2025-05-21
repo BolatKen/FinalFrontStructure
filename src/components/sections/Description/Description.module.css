@@ -59,23 +59,26 @@
   flex-direction: column;
 }
 
-.specs__media {
-  margin-top: 94px;
+.specs__imageItem {
+  padding: calc(500 / 1123.2 * 100% );
 }
-
 
 .specs__images {
   display: flex;
   justify-content: space-between;
-  margin-top: 64px;
+  margin-top: 40px;
   flex-wrap: wrap;
 }
 
-.description__image {
-  width: 393.28px;
-  height: 393.28px;
-  position: absolute;
-  margin-left: 55px;
+.figure {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.figure__caption {
+  margin-top: 12px;
 }
 
 .specs__images>* :first-child img {

@@ -63,12 +63,12 @@ export default function BestOffers(
                   <ProductCard
                     key={idx}
                     images={item.images}
+                    slug={item.slug}
                     name={item.name}
                     variants={item.variants}
                     sub_categories={item.sub_categories}
                     material_colors={item.material_colors}
                     id={item.id}
-                    slug={item.slug}
                     tags={item.tags} />
                 ))}
 

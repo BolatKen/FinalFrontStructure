@@ -19,7 +19,7 @@ export default function Footer() {
 
   const footerMenu = {
     "Контакты": "/info",
-    "Гарантия": "/varranty",
+    "Гарантия": "/info",
     "Доставка и оплата": "/order-status",
     "О компании": "/info",
   };
@@ -45,16 +45,9 @@ export default function Footer() {
                   " "
                 )}
               >
-                {/* {footerHeaderList.map((item, idx) => (
-                  <li className={styles["footer-list__item"]} key={idx}>
-                    <a href="#" className={styles["footer-list__link"]}>
-                      {item}
-                    </a>
-                  </li>
-                ))} */}
                 {parentCategories.map((parent) => (
                   <li className={styles["footer-list__item"]} key={parent.id}>
-                    <a href={`catalog/categories/${parent.slug}`} className={styles["footer-list__link"]}>
+                    <a href={`/catalog/categories/${parent.slug}`} className={styles["footer-list__link"]}>
                       {parent.name}
                     </a>
                   </li>

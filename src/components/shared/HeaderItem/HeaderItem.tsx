@@ -21,7 +21,7 @@ export default function HeaderItem({
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      <span>{category.name}</span>
+      <Link href={`/catalog/categories/${category.slug}`}><span>{category.name}</span></Link>
       {childrenCategories.length > 0 && open && (
         <ul className={styles.dropdown}>
           {childrenCategories.map((child) => (

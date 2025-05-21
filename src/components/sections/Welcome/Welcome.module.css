@@ -31,7 +31,7 @@
 
 @media (max-width: 768px) {
     .welcome__title_short {
-        font-size: calc(140px * 0.9);
+        font-size: calc(140px * 0.7);
         margin-top: 32px;
     }
 }

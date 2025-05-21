@@ -80,3 +80,8 @@
   cursor: pointer;
   white-space: nowrap;
 }
+
+.podpiska__btn:hover {
+  background-color: var(--accent-color-opacity);
+  color: var(--general-color);
+}

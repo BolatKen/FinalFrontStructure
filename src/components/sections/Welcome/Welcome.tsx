@@ -1,24 +1,21 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import styles from "./Welcome.module.css";
-import ColorConfigure from "../../shared/ColorConfigure/ColorConfigure";
-import ButtonPrimary from '../../ui/ButtonPrimary/ButtonPrimary';
-import Arrow from '../../ui/Arrow/Arrow';
-import ButtonOrange from '../../ui/ButtonOrange/ButtonOrange';
 import ProductScene from "@/components/explosion/ProductScene";
-import BonusValue from '../../ui/BonusValue/BonusValue';
+import WelcomePrice from "@/components/shared/WelcomePrice/WelcomePrice";
+import ColorConfigure from "@/components/shared/ColorConfigure/ColorConfigure";
+import ButtonPrimary from '@/components/ui/ButtonPrimary/ButtonPrimary';
+import Arrow from '@/components/ui/Arrow/Arrow';
 import { Product, Variant, VariantOption } from "@/types/product";
 import { useSearchParams } from 'next/navigation';
-import { color } from "three/tsl";
-import WelcomePrice from "@/components/shared/WelcomePrice/WelcomePrice";
 
 
 interface WelcomeProps {
   product: Product;
+  scrollToConfigurator: () => void;
 }
 
-export default function Welcome({ product }: WelcomeProps) {
-  const mainVariant = product;
+export default function Welcome({ product, scrollToConfigurator }: WelcomeProps) {
   const colorsAndMaterials = product.variant_options_values;
 
   const titleBlock =
@@ -42,8 +39,6 @@ export default function Welcome({ product }: WelcomeProps) {
   const initialVariant = product.variants.find(variant =>
     variant.options.some(option => option.color.id === selectedColorId)
   );
-
-  console.log(initialVariant);
 
   const [selectedVariant, setSelectedVariant] = useState<Variant | undefined>(initialVariant);
   const [selectedOption, setSelectedOption] = useState<VariantOption | undefined>();
@@ -194,7 +189,7 @@ export default function Welcome({ product }: WelcomeProps) {
                   />
                 );
               })}
-              <ButtonPrimary onClick={null}>Конфигуратор</ButtonPrimary>
+              <ButtonPrimary onClick={scrollToConfigurator}>Конфигуратор</ButtonPrimary>
             </div>
 
             {selectedVariant ? (

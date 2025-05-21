@@ -29,20 +29,21 @@
 }
 
 .logo__link {
-    display: flex;
+  display: flex;
 
 }
 
 .logo__item {
-    padding: 12px 17px;
+  padding: 12px 17px;
 }
 
 .logo__text {
-    margin-left: 8px;
+  margin-left: 8px;
 }
 
 .header__items {
   display: flex;
+  align-items: center;
   gap: 24px;
   list-style: none;
 }
@@ -126,9 +127,10 @@
   .header__items {
     display: none;
   }
+
   .logo__item {
     padding: 0;
-}
+  }
 
   .header__inner {
     justify-content: space-between;
@@ -137,9 +139,10 @@
   .header__cart {
     margin-left: auto;
   }
+
   .logo__item {
     width: 32px;
-}
+  }
 }
 
 .burgerOverlay {
@@ -157,6 +160,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -182,6 +186,7 @@
     right: -300px;
     opacity: 0;
   }
+
   to {
     right: 0;
     opacity: 1;
@@ -277,11 +282,12 @@
 @media (max-width: 768px) {
   .header__logo {
     font-size: 20px;
-    display:flex;
-    align-items:center;
+    display: flex;
+    align-items: center;
   }
+
   .logo__link {
-    align-items:center;
+    align-items: center;
   }
 
   .cart__icon {

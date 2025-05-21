@@ -84,6 +84,11 @@ export default function Header({ isBlur = false }) {
               childrenCategories={childCategories(parent.id)}
             />
           ))}
+          <li className={styles.header__item}>
+            <Link href={`/order-status/`}>
+              Статус заказа
+            </Link>
+          </li>
         </ul>
 
         <div

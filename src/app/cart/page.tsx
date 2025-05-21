@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import styles from "./Cart.module.css";
 import { ButtonOrange } from "@/components/ui/ButtonOrange/ButtonOrange";
 import ModalPaymentFreedomPay from "@/components/ui/Modal/ModalPaymentFreedomPay";
 import ModalInvoicePayment from "@/components/ui/Modal/ModalInvoicePayment";
 import ModalUnifiedResult from "@/components/ui/Modal/ModalUnifiedResult";
 import { sendTelegramMessage } from "@/lib/sendTelegramMessage";
-import Toggle from '@/components/ui/Toggle/Toggle';
+import Toggle from "@/components/ui/Toggle/Toggle";
 import Header from "@/components/layout/Header/Header";
 
 interface CartItem {
@@ -45,7 +45,11 @@ export default function CartPage() {
   const [showModal, setShowModal] = useState(false);
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState<
-    null | "freedom_success" | "freedom_error" | "invoice_success" | "invoice_error"
+    | null
+    | "freedom_success"
+    | "freedom_error"
+    | "invoice_success"
+    | "invoice_error"
   >(null);
 
   const [firstName, setFirstName] = useState("");
@@ -59,7 +63,6 @@ export default function CartPage() {
   const [promoCode, setPromoCode] = useState("");
   const [promoDiscount, setPromoDiscount] = useState(0);
   const [showValidation, setShowValidation] = useState(false);
-
 
   useEffect(() => {
     const updateCart = () => {
@@ -86,67 +89,68 @@ export default function CartPage() {
     }
   }, [cartItems]);
 
-  const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const totalBonus = cartItems.reduce((acc, item) => acc + (item.bonus || 0) * item.quantity, 0);
+  const totalPrice = cartItems.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
+  const totalBonus = cartItems.reduce(
+    (acc, item) => acc + (item.bonus || 0) * item.quantity,
+    0
+  );
   const finalTotalPrice = totalPrice - promoDiscount;
 
-
   const createOrder = async () => {
-  const payload = {
-    customer: {
-      name: firstName,
-      surname: lastName,
-      phone_number: phone, // тут было неправильно — должно быть phone_number
-    },
-    delivery_address: {
-      customer: null, // можно null, не парься
-      address: {
-        country: "Казахстан",
-        city: city || "Город не указан",     // на всякий случай если пусто
-        street: street || "Улица не указана",
-        house: house || "0",
-        apartment: null,
-        postal_code: null,
-        comment: needAssembly ? "Требуется сборка мебели" : null
+    const payload = {
+      customer: {
+        name: firstName,
+        surname: lastName,
+        phone_number: phone, // тут было неправильно — должно быть phone_number
       },
-      is_default: false
-    },
-    items: cartItems.map((item) => ({
-      product_variant: Number(item.id), // ВАЖНО: число, не строка
-      quantity: Number(item.quantity)
-    }))
-  };
-
-  console.log("📦 Payload:", JSON.stringify(payload, null, 2));
-
-  try {
-    const res = await fetch("http://localhost:8000/process/orders/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+      delivery_address: {
+        customer: null, // можно null, не парься
+        address: {
+          country: "Казахстан",
+          city: city || "Город не указан", // на всякий случай если пусто
+          street: street || "Улица не указана",
+          house: house || "0",
+          apartment: null,
+          postal_code: null,
+          comment: needAssembly ? "Требуется сборка мебели" : null,
+        },
+        is_default: false,
       },
-      body: JSON.stringify(payload),
-    });
+      items: cartItems.map((item) => ({
+        product_variant: Number(item.id), // ВАЖНО: число, не строка
+        quantity: Number(item.quantity),
+      })),
+    };
 
-    if (!res.ok) {
-      const errorData = await res.json();
-      console.error("🔥 Сервер ответил ошибкой:", errorData);
-      throw new Error("Ошибка при создании заказа");
+    console.log("📦 Payload:", JSON.stringify(payload, null, 2));
+
+    try {
+      const res = await fetch("http://localhost:8000/process/orders/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        console.error("🔥 Сервер ответил ошибкой:", errorData);
+        throw new Error("Ошибка при создании заказа");
+      }
+
+      const data = await res.json();
+      console.log("✅ Заказ создан:", data);
+
+      localStorage.removeItem("cartItems");
+      setCartItems([]);
+    } catch (err) {
+      console.error("❌ Ошибка при создании заказа:", err);
     }
-
-    const data = await res.json();
-    console.log("✅ Заказ создан:", data);
-
-    localStorage.removeItem("cartItems");
-    setCartItems([]);
-
-  } catch (err) {
-    console.error("❌ Ошибка при создании заказа:", err);
-  }
-};
-
-
-
+  };
 
   // const clearCart = () => {
   //   localStorage.removeItem("cartItems");
@@ -162,10 +166,11 @@ export default function CartPage() {
   };
 
   const removeSelected = () => {
-    setCartItems((prev) => prev.filter((item) => !selectedItems.includes(item.id)));
+    setCartItems((prev) =>
+      prev.filter((item) => !selectedItems.includes(item.id))
+    );
     setSelectedItems([]);
   };
-
 
   const increaseQuantity = (id: number) => {
     setCartItems((prev) =>
@@ -191,18 +196,24 @@ export default function CartPage() {
 
   const generateOrderMessage = (
     method: string,
-    items: CartItem[],
+    items: CartItem[]
     // total: number
   ) => {
     const itemLines = items
       .map(
         (item) =>
-          `🪑 <b>${item.name}</b>\n💵 ${item.price.toLocaleString()} ${item.currency} × ${item.quantity}`
+          `🪑 <b>${item.name}</b>\n💵 ${item.price.toLocaleString()} ${
+            item.currency
+          } × ${item.quantity}`
       )
       .join("\n\n");
 
-    return `📦 <b>Новый заказ через ${method}</b>\n\n${itemLines}\n\n💰 <b>Итого: ${finalTotalPrice.toLocaleString()} ${items[0]?.currency}</b>
-\n\n👤 <b>Получатель:</b>\n${firstName} ${lastName}\n📞 ${phone}\n🏙️ ${city}, ул. ${street}, д. ${house}\n🔧 Сборка: ${needAssembly ? "Да" : "Нет"}`;
+    return `📦 <b>Новый заказ через ${method}</b>\n\n${itemLines}\n\n💰 <b>Итого: ${finalTotalPrice.toLocaleString()} ${
+      items[0]?.currency
+    }</b>
+\n\n👤 <b>Получатель:</b>\n${firstName} ${lastName}\n📞 ${phone}\n🏙️ ${city}, ул. ${street}, д. ${house}\n🔧 Сборка: ${
+      needAssembly ? "Да" : "Нет"
+    }`;
   };
 
   if (isLoading) return null;
@@ -212,11 +223,19 @@ export default function CartPage() {
       <div className={styles.cart}>
         <Header />
         <div className={styles.emptyCart}>
-          <img src="/icons/korzina.png" alt="Empty Cart" className={styles.emptyIcon} />
+          <img
+            src="/icons/korzina.png"
+            alt="Empty Cart"
+            className={styles.emptyIcon}
+          />
           <h2 className={styles.emptyCartTitle}>Ваша корзина пуста</h2>
-          <p className={styles.emptyCartText}>Воспользуйтесь каталогом для выбора товара</p>
+          <p className={styles.emptyCartText}>
+            Воспользуйтесь каталогом для выбора товара
+          </p>
           <div className={styles.emptyCartButtons}>
-            <Link href="/catalog"><ButtonOrange>Перейти в каталог</ButtonOrange></Link>
+            <Link href="/catalog">
+              <ButtonOrange>Перейти в каталог</ButtonOrange>
+            </Link>
             <Link href="/order-status">
               <ButtonOrange>Статус заказа</ButtonOrange>
             </Link>
@@ -226,17 +245,14 @@ export default function CartPage() {
     );
   }
 
-  
-
-const isOrderFormValid =
-  firstName !== "" &&
-  lastName !== "" &&
-  phone !== "" &&
-  city !== "" &&
-  street !== "" &&
-  house !== "" &&
-  paymentMethod !== "";
-
+  const isOrderFormValid =
+    firstName !== "" &&
+    lastName !== "" &&
+    phone !== "" &&
+    city !== "" &&
+    street !== "" &&
+    house !== "" &&
+    paymentMethod !== "";
 
   return (
     <div className={[styles.cartPage, "_container-bigger"].join(" ")}>
@@ -254,7 +270,10 @@ const isOrderFormValid =
                 />
                 Выбрать все
               </label>
-              <button className={styles.deleteSelected} onClick={removeSelected}>
+              <button
+                className={styles.deleteSelected}
+                onClick={removeSelected}
+              >
                 Удалить выбранные
               </button>
             </div>
@@ -267,17 +286,24 @@ const isOrderFormValid =
                   checked={selectedItems.includes(item.id)}
                   onChange={() => {
                     if (selectedItems.includes(item.id)) {
-                      setSelectedItems((prev) => prev.filter((i) => i !== item.id));
+                      setSelectedItems((prev) =>
+                        prev.filter((i) => i !== item.id)
+                      );
                     } else {
                       setSelectedItems((prev) => [...prev, item.id]);
                     }
                   }}
                 />
-                <img src={item.image} alt={item.name} className={styles.itemImage} />
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className={styles.itemImage}
+                />
                 <div className={styles.itemInfo}>
                   <div className={styles.itemTitle}>{item.name}</div>
                   <div className={styles.itemPrice}>
-                    {item.price.toLocaleString()} {item.currency} + {(item.bonus || 0).toLocaleString()} бонусов
+                    {item.price.toLocaleString()} {item.currency} +{" "}
+                    {(item.bonus || 0).toLocaleString()} бонусов
                   </div>
                 </div>
                 <div className={styles.quantityControl}>
@@ -285,88 +311,108 @@ const isOrderFormValid =
                   <span>{item.quantity}</span>
                   <button onClick={() => increaseQuantity(item.id)}>+</button>
                 </div>
-                <button className={styles.removeBtn} onClick={() => removeItem(item.id)}>
+                <button
+                  className={styles.removeBtn}
+                  onClick={() => removeItem(item.id)}
+                >
                   <img src="/icons/trash.svg" alt="Удалить" />
                 </button>
               </div>
             ))}
 
             <div className={styles.customerInfo}>
-  <h2 className={styles.sectionTitle}>Информация о получателе</h2>
-  <div className={styles.inputGroup}>
-    <input
-      type="text"
-      placeholder="Имя"
-      className={`${styles.input} ${showValidation && firstName === "" ? styles.errorInput : ""}`}
-      value={firstName}
-      onChange={(e) => setFirstName(e.target.value)}
-    />
-    <input
-      type="text"
-      placeholder="Фамилия"
-      className={`${styles.input} ${showValidation && lastName === "" ? styles.errorInput : ""}`}
-      value={lastName}
-      onChange={(e) => setLastName(e.target.value)}
-    />
-  </div>
-  <input
-    type="text"
-    placeholder="Номер телефона"
-    className={`${styles.input} ${showValidation && phone === "" ? styles.errorInput : ""}`}
-    value={phone}
-    onChange={(e) => setPhone(e.target.value)}
-  />
-</div>
-
+              <h2 className={styles.sectionTitle}>Информация о получателе</h2>
+              <div className={styles.inputGroup}>
+                <input
+                  type="text"
+                  placeholder="Имя"
+                  className={`${styles.input} ${
+                    showValidation && firstName === "" ? styles.errorInput : ""
+                  }`}
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Фамилия"
+                  className={`${styles.input} ${
+                    showValidation && lastName === "" ? styles.errorInput : ""
+                  }`}
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+              </div>
+              <input
+                type="text"
+                placeholder="Номер телефона"
+                className={`${styles.input} ${
+                  showValidation && phone === "" ? styles.errorInput : ""
+                }`}
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </div>
 
             <div className={styles.deliverySection}>
-  <h2 className={styles.sectionTitle}>Доставка курьером</h2>
-  <p className={styles.assemblyNote}>
-    Курьеры не занимаются подъёмом мебели на этаж, при доставке производится только отгрузка<br />
-    По стоимости доставки мебели с вами свяжется оператор
-  </p>
-  <div className={styles.inputGroup}>
-    <input
-      type="text"
-      placeholder="Город"
-      className={`${styles.input} ${showValidation && city === "" ? styles.errorInput : ""}`}
-      value={city}
-      onChange={(e) => setCity(e.target.value)}
-    />
-    <input
-      type="text"
-      placeholder="Улица"
-      className={`${styles.input} ${showValidation && street === "" ? styles.errorInput : ""}`}
-      value={street}
-      onChange={(e) => setStreet(e.target.value)}
-    />
-    <input
-      type="text"
-      placeholder="Дом"
-      className={`${styles.input} ${showValidation && house === "" ? styles.errorInput : ""}`}
-      value={house}
-      onChange={(e) => setHouse(e.target.value)}
-    />
-  </div>
+              <h2 className={styles.sectionTitle}>Доставка курьером</h2>
+              <p className={styles.assemblyNote}>
+                Курьеры не занимаются подъёмом мебели на этаж, при доставке
+                производится только отгрузка
+                <br />
+                По стоимости доставки мебели с вами свяжется оператор
+              </p>
+              <div className={styles.inputGroup}>
+                <input
+                  type="text"
+                  placeholder="Город"
+                  className={`${styles.input} ${
+                    showValidation && city === "" ? styles.errorInput : ""
+                  }`}
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Улица"
+                  className={`${styles.input} ${
+                    showValidation && street === "" ? styles.errorInput : ""
+                  }`}
+                  value={street}
+                  onChange={(e) => setStreet(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Дом"
+                  className={`${styles.input} ${
+                    showValidation && house === "" ? styles.errorInput : ""
+                  }`}
+                  value={house}
+                  onChange={(e) => setHouse(e.target.value)}
+                />
+              </div>
 
-  <div className={styles.assemblyCheckbox}>
-    <div className={styles.assemblyCheckboxRow}>
-      <Toggle setter={needAssembly} method={setNeedAssembly} />
-      <span>Необходима сборка мебели</span>
-    </div>
+              <div className={styles.assemblyCheckbox}>
+                <div className={styles.assemblyCheckboxRow}>
+                  <Toggle setter={needAssembly} method={setNeedAssembly} />
+                  <span>Необходима сборка мебели</span>
+                </div>
 
-    <p className={styles.assemblyNote}>
-      Мебель в собранном виде при перевозке занимает<br />
-      большой объём, поэтому доставка может стоить дороже
-    </p>
-  </div>
-</div>
-
+                <p className={styles.assemblyNote}>
+                  Мебель в собранном виде при перевозке занимает
+                  <br />
+                  большой объём, поэтому доставка может стоить дороже
+                </p>
+              </div>
+            </div>
 
             <div className={styles.paymentSection}>
               <h2 className={styles.sectionTitle}>Выберите способ оплаты</h2>
               <div className={styles.paymentMethods}>
-                <label className={`${styles.paymentCard} ${paymentMethod === "invoice" ? styles.active : ""}`}>
+                <label
+                  className={`${styles.paymentCard} ${
+                    paymentMethod === "invoice" ? styles.active : ""
+                  }`}
+                >
                   <div className={styles.radioWrapper}>
                     <input
                       type="radio"
@@ -380,31 +426,54 @@ const isOrderFormValid =
                   <img src="/icons/inquiry.svg" alt="icon" />
                   <div>
                     <div className={styles.paymentTitle}>Счёт на оплату</div>
-                    <div className={styles.paymentDesc}>Для юридических лиц при безналичном расчёте с полным пакетом документов</div>
+                    <div className={styles.paymentDesc}>
+                      Для юридических лиц при безналичном расчёте с полным
+                      пакетом документов
+                    </div>
                   </div>
                 </label>
 
-
-                <label className={`${styles.paymentCard} ${paymentMethod === "freedompay" ? styles.active : ""}`}>
-                  <input type="radio" name="payment" value="freedompay" onChange={(e) => setPaymentMethod(e.target.value)} />
+                <label
+                  className={`${styles.paymentCard} ${
+                    paymentMethod === "freedompay" ? styles.active : ""
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="freedompay"
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                  />
                   <img src="/icons/freedom.svg" alt="" />
                   <div>
                     <div className={styles.paymentTitle}>Freedom Pay</div>
-                    <div className={styles.paymentDesc}>Оплата картой или в рассрочку до 6 месяцев без переплат</div>
+                    <div className={styles.paymentDesc}>
+                      Оплата картой или в рассрочку до 6 месяцев без переплат
+                    </div>
                   </div>
                 </label>
 
-                <label className={`${styles.paymentCard} ${paymentMethod === "kaspi" ? styles.active : ""}`}>
-                  <input type="radio" name="payment" value="kaspi" onChange={(e) => setPaymentMethod(e.target.value)} />
+                <label
+                  className={`${styles.paymentCard} ${
+                    paymentMethod === "kaspi" ? styles.active : ""
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="kaspi"
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                  />
                   <img src="/icons/kaspi.svg" alt="" />
                   <div>
                     <div className={styles.paymentTitle}>Kaspi</div>
-                    <div className={styles.paymentDesc}>Оплата с возможностью беспроцентной рассрочки до 3 месяцев</div>
+                    <div className={styles.paymentDesc}>
+                      Оплата с возможностью беспроцентной рассрочки до 3 месяцев
+                    </div>
                   </div>
                 </label>
               </div>
             </div>
-
           </div>
 
           <div className={styles.cartRight}>
@@ -429,9 +498,7 @@ const isOrderFormValid =
               >
                 Применить
               </button>
-
             </div>
-
 
             <div className={styles.totalBlock}>
               <h2>
@@ -439,66 +506,85 @@ const isOrderFormValid =
                 <span>{(totalPrice - promoDiscount).toLocaleString()} KZT</span>
               </h2>
 
-              <p>{cartItems.length} товара на сумму {totalPrice.toLocaleString()} KZT</p>
+              <p>
+                {cartItems.length} товара на сумму {totalPrice.toLocaleString()}{" "}
+                KZT
+              </p>
               {/* <p className={styles.discount}>Скидка - 24.000 KZT</p> */}
-              <p className={styles.promo}>Промокод - {promoDiscount.toLocaleString()} KZT</p>
+              <p className={styles.promo}>
+                Промокод - {promoDiscount.toLocaleString()} KZT
+              </p>
 
               <div className={styles.bonusBox}>
-                <p><b>+ {totalBonus.toLocaleString()} бонусов</b></p>
+                <p>
+                  <b>+ {totalBonus.toLocaleString()} бонусов</b>
+                </p>
                 <p>1 бонус = 1 тенге</p>
                 <p>Бонусы начисляются только при добавлении номера WhatsApp.</p>
               </div>
 
+              <ButtonOrange
+                disabled={!isOrderFormValid}
+                onClick={() => {
+                  if (!isOrderFormValid) {
+                    setShowValidation(true); // включаем ошибки
+                    return;
+                  }
 
-<ButtonOrange
-  disabled={!isOrderFormValid}
-  onClick={() => {
-    if (!isOrderFormValid) {
-      setShowValidation(true); // включаем ошибки
-      return;
-    }
-
-    if (paymentMethod === "freedompay") {
-      setShowModal(true);
-    } else if (paymentMethod === "invoice") {
-      setShowInvoiceModal(true);
-    }
-  }}
->
-  Оформить заказ
-</ButtonOrange>
-
-
+                  if (paymentMethod === "freedompay") {
+                    setShowModal(true);
+                  } else if (paymentMethod === "invoice") {
+                    setShowInvoiceModal(true);
+                  }
+                }}
+              >
+                Оформить заказ
+              </ButtonOrange>
 
               <p className={styles.legalText}>
-                Нажимая кнопку "Оформить заказ", вы принимаете условия
-                соответствующей оферты: <Link href="#">Оферты для физических лиц</Link>, <Link href="#">Оферты для юр. лиц</Link>,
-                и соглашаетесь с <Link href="#">политикой обработки данных</Link>.
+                Нажимая кнопку &quot;Оформить заказ&quot;, вы принимаете условия
+                соответствующей оферты:{" "}
+                <Link href="#">Оферты для физических лиц</Link>,{" "}
+                <Link href="#">Оферты для юр. лиц</Link>, и соглашаетесь с{" "}
+                <Link href="#">политикой обработки данных</Link>.
               </p>
             </div>
-
 
             <div className={styles.legalBlock}>
               <div className={styles.legalItem}>
                 <span>Доставка</span>
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  <path
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
                 </svg>
               </div>
               <div className={styles.legalItem}>
                 <span>Оферта физических лиц</span>
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  <path
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
                 </svg>
               </div>
               <div className={styles.legalItem}>
                 <span>Оферта для юридических лиц</span>
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  <path
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
                 </svg>
               </div>
             </div>
-
           </div>
         </div>
 
@@ -510,12 +596,13 @@ const isOrderFormValid =
               setShowModal(false);
               setPaymentStatus(status);
               if (status === "freedom_success") {
-  const msg = generateOrderMessage("FreedomPay", cartItems, //totalPrice
-
-  );
-  await sendTelegramMessage(msg);
-  await createOrder(); // 👈 вот эта строчка
-}
+                const msg = generateOrderMessage(
+                  "FreedomPay",
+                  cartItems //totalPrice
+                );
+                await sendTelegramMessage(msg);
+                await createOrder(); // 👈 вот эта строчка
+              }
             }}
           />
         )}
@@ -527,11 +614,13 @@ const isOrderFormValid =
               setShowInvoiceModal(false);
               setPaymentStatus(status);
               if (status === "invoice_success") {
-  const msg = generateOrderMessage("Счёт на оплату", cartItems, //finalTotalPrice
-  );
-  await sendTelegramMessage(msg);
-  await createOrder(); // 👈 вот эта строчка
-}
+                const msg = generateOrderMessage(
+                  "Счёт на оплату",
+                  cartItems //finalTotalPrice
+                );
+                await sendTelegramMessage(msg);
+                await createOrder(); // 👈 вот эта строчка
+              }
             }}
           />
         )}

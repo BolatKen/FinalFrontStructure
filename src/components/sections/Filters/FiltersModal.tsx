@@ -105,7 +105,7 @@ export default function FiltersModal({
 
   const handleApply = () => {
     const activeTagIds = Object.entries(tagToggles)
-      .filter(([_, isActive]) => isActive)
+      .filter(([isActive]) => isActive)
       .map(([tagId]) => Number(tagId));
 
     onApply({
@@ -222,7 +222,11 @@ export default function FiltersModal({
 
         <div className={styles.actions}>
           <div className={styles.actions__inner}>
-            <ButtonOrange className={styles.actions__width} children={'Применить'} onClick={handleApply} />
+            <ButtonOrange className={styles.actions__width} onClick={handleApply}>
+              Применить
+            </ButtonOrange>
+
+
             <div
               className={styles.actions__reset}
               onClick={reset}>

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Header from "@/components/layout/Header/Header";
-import Footer from "@/components/layout/Footer/Footer";
+// import Footer from "@/components/layout/Footer/Footer";
 import { ButtonOrange } from "@/components/ui/ButtonOrange/ButtonOrange";
 import styles from "./OrderStatus.module.css";
 import ModalOrderStatus from "@/components/ui/Modal/ModalOrderStatus";

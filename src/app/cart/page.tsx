@@ -91,6 +91,63 @@ export default function CartPage() {
   const finalTotalPrice = totalPrice - promoDiscount;
 
 
+  const createOrder = async () => {
+  const payload = {
+    customer: {
+      name: firstName,
+      surname: lastName,
+      phone_number: phone, // тут было неправильно — должно быть phone_number
+    },
+    delivery_address: {
+      customer: null, // можно null, не парься
+      address: {
+        country: "Казахстан",
+        city: city || "Город не указан",     // на всякий случай если пусто
+        street: street || "Улица не указана",
+        house: house || "0",
+        apartment: null,
+        postal_code: null,
+        comment: needAssembly ? "Требуется сборка мебели" : null
+      },
+      is_default: false
+    },
+    items: cartItems.map((item) => ({
+      product_variant: Number(item.id), // ВАЖНО: число, не строка
+      quantity: Number(item.quantity)
+    }))
+  };
+
+  console.log("📦 Payload:", JSON.stringify(payload, null, 2));
+
+  try {
+    const res = await fetch("http://localhost:8000/process/orders/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.error("🔥 Сервер ответил ошибкой:", errorData);
+      throw new Error("Ошибка при создании заказа");
+    }
+
+    const data = await res.json();
+    console.log("✅ Заказ создан:", data);
+
+    localStorage.removeItem("cartItems");
+    setCartItems([]);
+
+  } catch (err) {
+    console.error("❌ Ошибка при создании заказа:", err);
+  }
+};
+
+
+
+
   const clearCart = () => {
     localStorage.removeItem("cartItems");
     setCartItems([]);
@@ -453,9 +510,10 @@ const isOrderFormValid =
               setShowModal(false);
               setPaymentStatus(status);
               if (status === "freedom_success") {
-                const msg = generateOrderMessage("FreedomPay", cartItems, totalPrice);
-                await sendTelegramMessage(msg);
-              }
+  const msg = generateOrderMessage("FreedomPay", cartItems, totalPrice);
+  await sendTelegramMessage(msg);
+  await createOrder(); // 👈 вот эта строчка
+}
             }}
           />
         )}
@@ -467,9 +525,10 @@ const isOrderFormValid =
               setShowInvoiceModal(false);
               setPaymentStatus(status);
               if (status === "invoice_success") {
-                const msg = generateOrderMessage("Счёт на оплату", cartItems, finalTotalPrice);
-                await sendTelegramMessage(msg);
-              }
+  const msg = generateOrderMessage("Счёт на оплату", cartItems, finalTotalPrice);
+  await sendTelegramMessage(msg);
+  await createOrder(); // 👈 вот эта строчка
+}
             }}
           />
         )}

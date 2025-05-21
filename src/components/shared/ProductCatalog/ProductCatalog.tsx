@@ -25,10 +25,10 @@ export default function ProductCatalog(
     }, [selectedTag, products]);
 
     const totalBatches = Math.ceil(filteredProducts.length / ITEMS_PER_BATCH);
-    const currentProducts = useMemo(() => {
-        const start = currentBatch * ITEMS_PER_BATCH;
-        return filteredProducts.slice(start, start + ITEMS_PER_BATCH);
-    }, [filteredProducts, currentBatch]);
+    // const currentProducts = useMemo(() => {
+    //     const start = currentBatch * ITEMS_PER_BATCH;
+    //     return filteredProducts.slice(start, start + ITEMS_PER_BATCH);
+    // }, [filteredProducts, currentBatch]);
 
     const handlePrev = () => setCurrentBatch((prev) => Math.max(prev - 1, 0));
     const handleNext = () => setCurrentBatch((prev) => Math.min(prev + 1, totalBatches - 1));

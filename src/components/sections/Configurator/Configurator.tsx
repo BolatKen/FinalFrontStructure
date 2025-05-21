@@ -1,7 +1,7 @@
 import styles from "./Configurator.module.css";
 import { ButtonOrange } from "../../ui/ButtonOrange/ButtonOrange";
 import { ColorConfigureEdit } from "../../shared/ColorConfigureEdit/ColorConfigureEdit";
-import { Part, Product } from "@/types/product";
+import { Product } from "@/types/product";
 import ButtonFilter from "@/components/ui/ButtonFilter/ButtonFilter";
 import { Color } from '@/types/color';
 import { useEffect, useState } from "react";
@@ -30,9 +30,10 @@ export default function Configurator({ product }: ConfiguratorProps) {
   );
 
 
-  useEffect(() => {
+useEffect(() => {
+    if (!product) return;
     const initialSelection: Record<number, number> = {};
-    configurableData.forEach(item => {
+    product.configurable_parts.forEach(item => {
       if (item.materials.length > 0) {
         initialSelection[item.part.id] = item.materials[0].id;
       }

@@ -5,7 +5,7 @@ import axios from "axios";
 const API_URL = process.env.NEXT_PUBLIC_API_DOMAIN
 
 export const getAllProducts = async () => {
-  const response = await axios.get<any[]>(
+  const response = await axios.get<Product[]>(
     `${API_URL}/catalog/products/`
   );
   return response.data;
@@ -24,8 +24,8 @@ export const getProductBySlug = async (slug: string) => {
 }
 
 export const getAllProductSlugs = async (): Promise<{ slug: string }[]> => {
-  const response = await axios.get<any[]>(
+  const response = await axios.get<Product[]>(
     `${API_URL}/products/`
   );
-  return response.data.map((p: any) => ({ slug: p.slug }))
+  return response.data.map((p: Product) => ({ slug: p.slug }))
 }

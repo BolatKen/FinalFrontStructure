@@ -14,7 +14,13 @@ type FiltersModalProps = {
   categoryFilters: CategoryFilters | null;
   isOpen: boolean;
   onClose: () => void;
-  onApply: (filters: any) => void;
+  onApply: (filters: {
+    activeTagIds: number[];
+    priceFrom: string;
+    priceTo: string;
+    selectedMaterialId: number | null;
+    color: number | null;
+  }) => void;
   children?: ReactNode;
 };
 

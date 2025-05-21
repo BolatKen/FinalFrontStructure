@@ -39,7 +39,7 @@ function saveCartItems(cart: CartItem[]) {
 export default function CartPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
+  // const router = useRouter();
 
   const [paymentMethod, setPaymentMethod] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -148,10 +148,10 @@ export default function CartPage() {
 
 
 
-  const clearCart = () => {
-    localStorage.removeItem("cartItems");
-    setCartItems([]);
-  };
+  // const clearCart = () => {
+  //   localStorage.removeItem("cartItems");
+  //   setCartItems([]);
+  // };
 
   const toggleSelectAll = () => {
     if (selectedItems.length === cartItems.length) {
@@ -192,7 +192,7 @@ export default function CartPage() {
   const generateOrderMessage = (
     method: string,
     items: CartItem[],
-    total: number
+    // total: number
   ) => {
     const itemLines = items
       .map(
@@ -510,7 +510,9 @@ const isOrderFormValid =
               setShowModal(false);
               setPaymentStatus(status);
               if (status === "freedom_success") {
-  const msg = generateOrderMessage("FreedomPay", cartItems, totalPrice);
+  const msg = generateOrderMessage("FreedomPay", cartItems, //totalPrice
+
+  );
   await sendTelegramMessage(msg);
   await createOrder(); // 👈 вот эта строчка
 }
@@ -525,7 +527,8 @@ const isOrderFormValid =
               setShowInvoiceModal(false);
               setPaymentStatus(status);
               if (status === "invoice_success") {
-  const msg = generateOrderMessage("Счёт на оплату", cartItems, finalTotalPrice);
+  const msg = generateOrderMessage("Счёт на оплату", cartItems, //finalTotalPrice
+  );
   await sendTelegramMessage(msg);
   await createOrder(); // 👈 вот эта строчка
 }

@@ -8,3 +8,7 @@
 .color__text {
     color: black;
 }
+
+.color__text {
+    cursor: pointer;
+}

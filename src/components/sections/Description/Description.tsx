@@ -3,6 +3,7 @@ import { SpecsList } from "../../shared/SpecsList/SpecsList";
 import { DescriptionDownload } from "../../shared/DescriptionDownload/DescriptionDownload";
 import Image from "next/image";
 import { Product } from "@/types/product";
+import { useEffect, useRef, useState } from "react";
 
 interface DescriptionProps {
   product: Product;
@@ -12,6 +13,50 @@ export default function Description({ product }: DescriptionProps) {
   if (!product?.characteristics) {
     return <div>Загрузка характеристик...</div>;
   }
+
+  const specsRef = useRef<HTMLDivElement | null>(null);
+  const sizesRef = useRef<HTMLDivElement | null>(null);
+  const designersRef = useRef<HTMLDivElement | null>(null);
+  const tabsRef = useRef<HTMLDivElement | null>(null);
+
+  const [activeTab, setActiveTab] = useState<"specs" | "sizes" | "designers">("specs");
+
+  const scrollToSection = (ref: React.RefObject<HTMLDivElement | null>, tab: typeof activeTab) => {
+    ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setActiveTab(tab);
+  };
+
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver(
+  //     entries => {
+  //       entries.forEach(entry => {
+  //         if (!entry.isIntersecting) return;
+
+  //         switch (entry.target) {
+  //           case specsRef.current:
+  //             setActiveTab("specs");
+  //             break;
+  //           case sizesRef.current:
+  //             setActiveTab("sizes");
+  //             break;
+  //           case designersRef.current:
+  //             setActiveTab("designers");
+  //             break;
+  //         }
+  //       });
+  //     },
+  //     {
+  //       rootMargin: "-100px 0px -70% 0px",
+  //       threshold: 0.1,
+  //     }
+  //   );
+
+  //   if (specsRef.current) observer.observe(specsRef.current);
+  //   if (sizesRef.current) observer.observe(sizesRef.current);
+  //   if (designersRef.current) observer.observe(designersRef.current);
+
+  //   return () => observer.disconnect();
+  // }, []);
 
   const groupedOptions = product.characteristics.reduce(
     (acc: Record<string, string[]>, characteristic) => {
@@ -52,7 +97,7 @@ export default function Description({ product }: DescriptionProps) {
           <h2 className={`${styles.specs__title} title`}>Характеристики</h2>
 
           {/* Табы */}
-          <div className={styles.specs__tabs} role="tablist">
+          {/* <div className={styles.specs__tabs} role="tablist">
             <button
               type="button"
               role="tab"
@@ -77,12 +122,45 @@ export default function Description({ product }: DescriptionProps) {
             >
               Дизайнерам
             </button>
+          </div> */}
+          <div
+            ref={tabsRef}
+            className={styles.specs__tabs}
+            role="tablist"
+          >
+            <button
+              type="button"
+              role="tab"
+              aria-selected={activeTab === "specs"}
+              onClick={() => scrollToSection(specsRef, "specs")}
+              className={`${styles.tabs__btn} ${activeTab === "specs" ? styles.tabs__btn_active : ""}`}
+            >
+              Характеристики
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={activeTab === "sizes"}
+              onClick={() => scrollToSection(sizesRef, "sizes")}
+              className={`${styles.tabs__btn} ${activeTab === "sizes" ? styles.tabs__btn_active : ""}`}
+            >
+              Размеры
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={activeTab === "designers"}
+              onClick={() => scrollToSection(designersRef, "designers")}
+              className={`${styles.tabs__btn} ${activeTab === "designers" ? styles.tabs__btn_active : ""}`}
+            >
+              Дизайнерам
+            </button>
           </div>
 
           <div className={styles.specs__main}>
-            <SpecsList specsData={specsDB.length > 0 ? specsDB : []} />
+            <SpecsList className={styles.specs__item} ref={specsRef} specsData={specsDB.length > 0 ? specsDB : []} />
 
-            <div className={styles.specs__media}>
+            <div ref={sizesRef} className={[styles.specs__media, styles.specs__item].join(' ')}>
               {/* Галерея изображений */}
               <div className={styles.specs__images}>
                 {/* Первое изображение с размерами */}
@@ -120,7 +198,7 @@ export default function Description({ product }: DescriptionProps) {
               </div>
 
               {/* Блок загрузок */}
-              <div className={styles.specs__downloads}>
+              <div ref={designersRef} className={[styles.specs__downloads, styles.specs__item].join(' ')}>
                 {downloadable.map((item, idx) => (
                   <DescriptionDownload
                     key={idx}

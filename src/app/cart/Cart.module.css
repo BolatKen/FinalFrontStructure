@@ -590,6 +590,12 @@
   margin-top: 40px;
 }
 
+.errorInput {
+  border: 1px solid red;
+  background-color: #ffe6e6;
+}
+
+
 /* Адаптация */
 @media (max-width: 768px) {
   .cartContent {

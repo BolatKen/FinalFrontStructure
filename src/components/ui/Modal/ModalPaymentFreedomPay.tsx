@@ -25,10 +25,34 @@ export default function ModalPaymentFreedomPay({
 
   const isFormValid = Object.values(formData).every((v) => v.trim() !== "");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const { name, value } = e.target;
+
+  let formattedValue = value;
+
+  if (name === "cardNumber") {
+    // Убираем всё, кроме цифр
+    formattedValue = value.replace(/\D/g, "").slice(0, 16);
+    // Добавляем пробелы каждые 4 цифры
+    formattedValue = formattedValue.replace(/(\d{4})(?=\d)/g, "$1 ");
+  }
+
+  if (name === "expiry") {
+    // Убираем всё, кроме цифр
+    formattedValue = value.replace(/\D/g, "").slice(0, 4);
+    // Добавляем слэш после 2 цифр
+    if (formattedValue.length > 2) {
+      formattedValue = formattedValue.slice(0, 2) + "/" + formattedValue.slice(2);
+    }
+  }
+
+  if (name === "cvc") {
+    formattedValue = value.replace(/\D/g, "").slice(0, 4);
+  }
+
+  setFormData((prev) => ({ ...prev, [name]: formattedValue }));
+};
+
 
   const handleSubmit = () => {
     if (!isFormValid) return;

@@ -63,7 +63,7 @@ const ProductCard: React.FC<ProductShort> = ({
     return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   }
 
-  let image = Array.isArray(images) && images[0]?.image
+  const image = Array.isArray(images) && images[0]?.image
     ? images[0].image
     : '/products/chair1.png';
 

@@ -10,53 +10,28 @@ interface DescriptionProps {
 }
 
 export default function Description({ product }: DescriptionProps) {
-  if (!product?.characteristics) {
-    return <div>Загрузка характеристик...</div>;
-  }
 
   const specsRef = useRef<HTMLDivElement | null>(null);
   const sizesRef = useRef<HTMLDivElement | null>(null);
   const designersRef = useRef<HTMLDivElement | null>(null);
   const tabsRef = useRef<HTMLDivElement | null>(null);
-
+  
   const [activeTab, setActiveTab] = useState<"specs" | "sizes" | "designers">("specs");
+
+
+  if (!product?.characteristics) {
+    return <div>Загрузка характеристик...</div>;
+  }
+
+  
+
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement | null>, tab: typeof activeTab) => {
     ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     setActiveTab(tab);
   };
 
-  // useEffect(() => {
-  //   const observer = new IntersectionObserver(
-  //     entries => {
-  //       entries.forEach(entry => {
-  //         if (!entry.isIntersecting) return;
 
-  //         switch (entry.target) {
-  //           case specsRef.current:
-  //             setActiveTab("specs");
-  //             break;
-  //           case sizesRef.current:
-  //             setActiveTab("sizes");
-  //             break;
-  //           case designersRef.current:
-  //             setActiveTab("designers");
-  //             break;
-  //         }
-  //       });
-  //     },
-  //     {
-  //       rootMargin: "-100px 0px -70% 0px",
-  //       threshold: 0.1,
-  //     }
-  //   );
-
-  //   if (specsRef.current) observer.observe(specsRef.current);
-  //   if (sizesRef.current) observer.observe(sizesRef.current);
-  //   if (designersRef.current) observer.observe(designersRef.current);
-
-  //   return () => observer.disconnect();
-  // }, []);
 
   const groupedOptions = product.characteristics.reduce(
     (acc: Record<string, string[]>, characteristic) => {
@@ -68,9 +43,15 @@ export default function Description({ product }: DescriptionProps) {
     {}
   );
 
-  let specsDB: any = [];
+  const specsDB = Object.entries(groupedOptions).map(([type, values]) => {
+  const val = values.join(", ").toLowerCase();
+  return {
+    name: type,
+    values: val.charAt(0).toUpperCase() + val.slice(1),
+  };
+});
 
-  Object.entries(groupedOptions).map(([type, values], idx) => {
+  Object.entries(groupedOptions).map(([type, values]) => {
     const val = values.join(", ").toLowerCase();
     specsDB.push({
       name: type,

@@ -29,16 +29,17 @@
     ]
   },
   "include": [
-    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    "src/components/ui/ButtonOrange/ButtonOrange.jsx",
+    "next-env.d.ts",
     "src/components/shared/ColorConfigure/ColorConfigure.jsx",
+    "src/components/ui/Arrow/Arrow.jsx",
+    "src/components/ui/ButtonOrange/ButtonOrange.jsx",
     "src/components/ui/ColorItem/ColorItem.jsx",
-    "src/components/ui/Arrow/Arrow.jsx"
+    ".next/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+  ".next/types"
   ]
 }

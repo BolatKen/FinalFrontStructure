@@ -127,8 +127,9 @@ export default function CartPage() {
 
     console.log("📦 Payload:", JSON.stringify(payload, null, 2));
 
+    const API_URL = process.env.NEXT_PUBLIC_API_DOMAIN
     try {
-      const res = await fetch("http://localhost:8000/process/orders/", {
+      const res = await fetch(`${API_URL}process/orders/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

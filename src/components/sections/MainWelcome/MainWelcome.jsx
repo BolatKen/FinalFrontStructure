@@ -151,14 +151,17 @@ onClick={() => {
             <GeneralInfo contentRight={rightContent} />
             <InfoList />
             {categories.map((item, key) => (
-                (item.is_full_format ? (<ProductCatalog
-                    key={key}
-                    title={item.name}
-                    slug={item.slug}
-                    tags={item.subcategories}
-                    products={item.products} />) : (
-                    <OtherCatalog />
-                ))
+                item.is_full_format ? (
+                    <ProductCatalog
+                        key={item.slug || key}
+                        title={item.name}
+                        slug={item.slug}
+                        tags={item.subcategories}
+                        products={item.products}
+                    />
+                ) : (
+                    <OtherCatalog key={item.slug || key} />
+                )
             ))}
             <GeneralInfo
                 contentLeft={leftContentDown}

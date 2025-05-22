@@ -13,6 +13,7 @@ import InfoList from '../../shared/InfoList/InfoList';
 import ProductCatalog from "@/components/shared/ProductCatalog/ProductCatalog";
 import OtherCatalog from '../../shared/OtherCatalog/OtherCatalog';
 import { getWelcomeCategories } from "@/services/category.service";
+import { useRouter } from "next/navigation";
 
 
 export default function MainWelcome() {
@@ -36,7 +37,7 @@ export default function MainWelcome() {
         if (products.length > 1) {
             const interval = setInterval(() => {
                 setCurrentIndex(prev => (prev + 1) % products.length);
-            }, 4000); // каждые 4 секунды
+            }, 7000); // каждые 4 секунды
 
             return () => clearInterval(interval);
         }
@@ -44,6 +45,8 @@ export default function MainWelcome() {
 
     // Категорий
     const [categories, setCategories] = useState([])
+    const router = useRouter();
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -57,6 +60,7 @@ export default function MainWelcome() {
     const rightContent = (<GeneralInfoRightUpper />);
     const rightContentDown = (<GeneralInfoRightDown />);
     const leftContentDown = (<GeneralInfoLeftDown />);
+
 
     return (
         <>
@@ -101,35 +105,16 @@ export default function MainWelcome() {
                                     {currentProduct?.bonus !== 0.0 ? (<BonusValue bonusVal={currentProduct?.bonus} />) : ''}
                                 </div>
 
-                                <ButtonPrimary
-                                    isWhite={true}
-                                    children={'Перейти'}
-onClick={() => {
-  if (!currentProduct) return;
+<ButtonPrimary
+  isWhite={true}
+  children={'Перейти'}
+  onClick={() => {
+    if (!currentProduct?.slug) return;
+    router.push(`/catalog/products/${currentProduct.slug}`);
+  }}
+/>
 
-  const storedCart = JSON.parse(localStorage.getItem("cartItems") || "[]");
 
-  const existingItemIndex = storedCart.findIndex((item) => item.id === currentProduct.id);
-
-  if (existingItemIndex !== -1) {
-    storedCart[existingItemIndex].quantity += 1;
-  } else {
-    storedCart.push({
-      id: currentProduct.id,
-      name: currentProduct.name,
-      image: currentProduct.image || '',
-      price: currentProduct.variants?.[0]?.final_price || '0',
-      currency: currentProduct.variants?.[0]?.currency || 'KZT',
-      quantity: 1,
-      bonus: currentProduct.bonus || 0  // добавляем бонус
-    });
-  }
-
-  localStorage.setItem("cartItems", JSON.stringify(storedCart));
-  window.dispatchEvent(new Event("storage"));
-}}
-
-                                />
                             </div>
                             <div className={styles['welcome__items-wrapper']}>
                                 <ul className={[styles.welcome__items, styles.items].join(' ')}>
@@ -151,17 +136,14 @@ onClick={() => {
             <GeneralInfo contentRight={rightContent} />
             <InfoList />
             {categories.map((item, key) => (
-                item.is_full_format ? (
-                    <ProductCatalog
-                        key={item.slug || key}
-                        title={item.name}
-                        slug={item.slug}
-                        tags={item.subcategories}
-                        products={item.products}
-                    />
-                ) : (
-                    <OtherCatalog key={item.slug || key} />
-                )
+                (item.is_full_format ? (<ProductCatalog
+                    key={key}
+                    title={item.name}
+                    slug={item.slug}
+                    tags={item.subcategories}
+                    products={item.products} />) : (
+                    <OtherCatalog />
+                ))
             ))}
             <GeneralInfo
                 contentLeft={leftContentDown}

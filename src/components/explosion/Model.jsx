@@ -1,26 +1,29 @@
 'use client';
 import { Color } from 'three';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { useLoader } from '@react-three/fiber';
+import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
 
 const Model = (props) => {
-
-    const gltf = useLoader(GLTFLoader, props.url)
+    const gltf = useLoader(GLTFLoader, props.url);
     const color = props.color;
     const part = props.part;
 
-    useEffect(() => {
-        if (!color || !gltf?.scene) return;
+    // Клонируем сцену, чтобы избежать shared reference
+    const clonedScene = useMemo(() => clone(gltf.scene), [gltf.scene]);
 
-        gltf.scene.traverse((child) => {
+    useEffect(() => {
+        if (!color || !clonedScene) return;
+
+        clonedScene.traverse((child) => {
             if (child.isMesh && child.name === part) {
                 child.material.color = new Color(color);
             }
         });
-    }, [gltf, color]);
+    }, [clonedScene, color, part]);
 
-    return <primitive object={gltf.scene} {...props} />;
-}
+    return <primitive object={clonedScene} {...props} />;
+};
 
 export default Model;

@@ -32,7 +32,7 @@
 .product-card__image img {
   max-width: 100%;
   object-fit: cover;
-  object-position: center -115px;
+  /* object-position: center -115px; */
   display: block;
 }
 

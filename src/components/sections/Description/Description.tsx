@@ -43,21 +43,13 @@ export default function Description({ product }: DescriptionProps) {
     {}
   );
 
-  const specsDB = Object.entries(groupedOptions).map(([type, values]) => {
+const specsDB = Object.entries(groupedOptions).map(([type, values]) => {
   const val = values.join(", ").toLowerCase();
   return {
     name: type,
     values: val.charAt(0).toUpperCase() + val.slice(1),
   };
 });
-
-  Object.entries(groupedOptions).map(([type, values]) => {
-    const val = values.join(", ").toLowerCase();
-    specsDB.push({
-      name: type,
-      values: String(val).charAt(0).toUpperCase() + String(val).slice(1),
-    });
-  });
 
   const downloadable = [
     {

@@ -2,17 +2,15 @@ import { applyFilters, getCategoryFilters, getCategoryListingBySlug } from '@/se
 import CategoryPageClient from './CategoryPageClient';
 import parseFiltersFromUrl from '@/utils/parseFiltersFromUrl';
 
-interface CategoryPageProps {
+// Типы параметров страницы (в Next 13 App Router)
+interface PageProps {
   params: { categorySlug: string };
-  searchParams: { page?: string; filtered?: string };
+  searchParams?: { page?: string; filtered?: string };
 }
 
-export default async function CategoryPage({
-  params,
-  searchParams,
-}: CategoryPageProps) {
+export default async function CategoryPage({ params, searchParams }: PageProps) {
   const { categorySlug } = params;
-  const { filtered, page } = searchParams;
+  const { filtered, page } = searchParams || {};
   const currentPage = parseInt(page || '1', 10);
 
   const categoryData = await getCategoryListingBySlug(categorySlug, currentPage);

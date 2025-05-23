@@ -18,18 +18,18 @@ interface WelcomeProps {
 export default function Welcome({ product, scrollToConfigurator }: WelcomeProps) {
   const colorsAndMaterials = product.variant_options_values;
 
-  const titleBlock =
-    product.name.length > 13 ? (
-      <div className={`${styles.welcome__title} ${styles.welcome__title_long}`}>
-        {product.name.split(",")[0]}
-      </div>
-    ) : (
-      <div
-        className={`${styles.welcome__title} ${styles.welcome__title_short}`}
-      >
-        {product.name}
-      </div>
-    );
+const titleBlock =
+  product.name.length > 13 ? (
+    <div className={`${styles.welcome__title} ${styles.welcome__title_long}`}>
+      {product.name.split(",").map((line, idx) => (
+        <div key={idx}>{line.trim()}</div>
+      ))}
+    </div>
+  ) : (
+    <div className={`${styles.welcome__title} ${styles.welcome__title_short}`}>
+      {product.name}
+    </div>
+  );
 
   const searchParams = useSearchParams();
   const selectedColorId = parseInt(searchParams.get('selectedColorId') || '0', 10);

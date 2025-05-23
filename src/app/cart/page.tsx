@@ -127,7 +127,7 @@ export default function CartPage() {
 
     console.log("📦 Payload:", JSON.stringify(payload, null, 2));
 
-    const API_URL = process.env.NEXT_PUBLIC_API_DOMAIN
+    const API_URL = process.env.NEXT_PUBLIC_API_DOMAIN;
     try {
       const res = await fetch(`${API_URL}process/orders/`, {
         method: "POST",
@@ -303,8 +303,8 @@ export default function CartPage() {
                 <div className={styles.itemInfo}>
                   <div className={styles.itemTitle}>{item.name}</div>
                   <div className={styles.itemPrice}>
-                    {item.price.toLocaleString()} {item.currency} +{" "}
-                    {(item.bonus || 0).toLocaleString()} бонусов
+                    {(item.price ?? 0).toLocaleString()} {item.currency ?? ""} +{" "}
+                    {(item.bonus ?? 0).toLocaleString()} бонусов
                   </div>
                 </div>
                 <div className={styles.quantityControl}>

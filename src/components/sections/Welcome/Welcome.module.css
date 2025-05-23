@@ -20,6 +20,9 @@
     z-index: -3;
     text-align: center;
     color: var(--general-color);
+
+    white-space: normal; /* разрешаем перенос строк */
+  word-break: break-word; /* переносим длинные слова */
 }
 
 .welcome__title_short {
@@ -30,6 +33,11 @@
 }
 
 @media (max-width: 768px) {
+    .welcome__title {
+    white-space: normal;
+    word-break: break-word;
+    text-align: center;
+  }
     .welcome__title_short {
         font-size: calc(140px * 0.6);
         margin-top: 98px;

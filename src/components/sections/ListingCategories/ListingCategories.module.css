@@ -6,25 +6,47 @@
 .listing__title {
   color: #131111;
 }
-
 .listing__items {
   display: flex;
   flex-wrap: wrap;
-
+  gap: 32px; /* заменяет margin-left и margin-top */
   margin-top: 40px;
-  padding: 0px 26px;
+  padding: 0 16px;
+  justify-content: center;
 }
 
-.listing__items>* {
-  flex: 0 1 calc((100% - 96px) / 3);
+.listing__items > * {
+  flex: 1 1 calc(33.333% - 32px);
+  max-width: calc(33.333% - 32px);
   box-sizing: border-box;
 }
 
-.listing__items>*:nth-child(3n+2),
-.listing__items>*:nth-child(3n+3) {
-  margin-left: 48px;
+/* планшеты */
+@media (max-width: 1024px) {
+  .listing__items > * {
+    flex: 1 1 calc(50% - 32px);
+    max-width: calc(50% - 32px);
+  }
 }
 
-.listing__items>*:nth-child(n+4) {
-  margin-top: 64px;
+/* мобильные */
+@media (max-width: 600px) {
+  .listing__items {
+    gap: 20px;
+    padding: 0 10px;
+  }
+
+  .listing__items > * {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
 }
+
+
+
+
+
+
+
+
+

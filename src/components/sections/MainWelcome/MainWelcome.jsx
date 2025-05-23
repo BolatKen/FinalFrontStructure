@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import styles from './MainWelcome.module.css';
 import ButtonPrimary from '../../ui/ButtonPrimary/ButtonPrimary.jsx';
 import BonusValue from '../../ui/BonusValue/BonusValue.jsx';
@@ -62,14 +62,70 @@ export default function MainWelcome() {
     const leftContentDown = (<GeneralInfoLeftDown />);
 
 
+
+      const touchStartX = useRef(null);
+  const touchEndX = useRef(null);
+     // Добавляем обработчики свайпа:
+  const minSwipeDistance = 50; // минимальное расстояние для срабатывания свайпа
+
+  function onTouchStart(e) {
+    
+    touchEndX.current = null; // сброс
+    touchStartX.current = e.targetTouches[0].clientX;
+  }
+
+  function onTouchMove(e) {
+    touchEndX.current = e.targetTouches[0].clientX;
+  }
+
+  function onTouchEnd() {
+    if (!touchStartX.current || !touchEndX.current) return;
+
+    const distance = touchStartX.current - touchEndX.current;
+    if (Math.abs(distance) > minSwipeDistance) {
+      if (distance > 0) {
+        // свайп влево — следующий слайд
+        setCurrentIndex((prev) => (prev + 1) % products.length);
+      } else {
+        // свайп вправо — предыдущий слайд
+        setCurrentIndex((prev) => (prev - 1 + products.length) % products.length);
+      }
+    }
+  }
+
+  const intervalRef = useRef(null); // 👈 храним id интервала
+
+
     return (
         <>
-            <section className={[styles.welcome].join(' ')}>
-                <div className={[styles.welcome__img, '_img'].join(' ')}>
+            <section
+  className={[styles.welcome].join(' ')}
+  onTouchStart={onTouchStart}
+  onTouchMove={onTouchMove}
+  onTouchEnd={onTouchEnd}
+>
+  <div className={styles.slider}>
+    <div
+      className={styles.sliderInner}
+      style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+    >
+      {products.map((product, i) => (
+        <div
+          className={[styles.slide, styles.welcome__img, '_img'].join(' ')}
+          key={i}
+        >
+          {product?.image && (
+            <img src={product.image} alt="Фото" />
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+                {/* <div className={[styles.welcome__img, '_img'].join(' ')}>
                     {currentProduct?.image && (
                         <img src={currentProduct.image} alt="Фото" />
                     )}
-                </div>
+                </div> */}
                 <Header isBlur={true} />
                 <div className={styles.welcome__inner}>
                     <div className={[styles.welcome__description, styles.desc].join(' ')}>

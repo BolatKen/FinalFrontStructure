@@ -20,6 +20,7 @@
 
 .items__list {
     display: flex;
+    overflow:auto;
 }
 
 .items__list>*:not(:first-child) {

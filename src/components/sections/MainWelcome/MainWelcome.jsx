@@ -93,7 +93,7 @@ export default function MainWelcome() {
     }
   }
 
-  const intervalRef = useRef(null); // 👈 храним id интервала
+  
 
 
     return (
@@ -104,22 +104,35 @@ export default function MainWelcome() {
   onTouchMove={onTouchMove}
   onTouchEnd={onTouchEnd}
 >
-  <div className={styles.slider}>
-    <div
-      className={styles.sliderInner}
-      style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-    >
-      {products.map((product, i) => (
-        <div
-          className={[styles.slide, styles.welcome__img, '_img'].join(' ')}
-          key={i}
-        >
-          {product?.image && (
-            <img src={product.image} alt="Фото" />
-          )}
-        </div>
-      ))}
+    <div className={styles.desktop}>
+
+        <div className={[styles.welcome__img, '_img'].join(' ')}>
+  <div key={currentProduct?.image} className={styles.imageWrapper}>
+    {currentProduct?.image && (
+      <img src={currentProduct.image} alt="Фото" />
+    )}
+  </div>
+</div>
     </div>
+
+  <div className={styles.mobile}>
+      <div className={styles.slider}>
+        <div
+          className={styles.sliderInner}
+          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+        >
+          {products.map((product, i) => (
+            <div
+              className={[styles.slide, styles.welcome__img, '_img'].join(' ')}
+              key={i}
+            >
+              {product?.image && (
+                <img src={product.image} alt="Фото" />
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
   </div>
                 {/* <div className={[styles.welcome__img, '_img'].join(' ')}>
                     {currentProduct?.image && (

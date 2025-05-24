@@ -8,6 +8,9 @@
 
 .welcome__inner {
     display: flex;
+    /* transition: transform 0.5s ease-in-out; */
+    /* will-change: transform; */
+    /* touch-action: pan-y; */
     justify-content: space-between;
     align-items: center;
 }
@@ -71,6 +74,27 @@
     overflow: hidden;
 }
 
+.welcome__img img {
+    position: absolute;
+    /* width: 60%; */
+
+    top: 0;
+    left: 0;
+    object-fit: cover;
+}
+
+@media (min-width: 1360px) {
+    .welcome__img {
+        width: 40vw;
+        height: 0vh;
+    }
+    .welcome__img img {
+        width: 28%;
+        height: 60%;
+        left: 36vh;
+    }
+}
+
 @media (max-width: 768px) {
     .welcome__img {
         position: relative;
@@ -81,14 +105,7 @@
     }
 }
 
-.welcome__img img {
-    position: absolute;
-    width: 100%;
-    height: auto;
-    top: 0;
-    left: 0;
-    object-fit: cover;
-}
+
 
 .welcome__info {
     margin-top: calc(401px * 0.8);

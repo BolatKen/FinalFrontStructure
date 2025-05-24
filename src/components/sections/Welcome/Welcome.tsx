@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./Welcome.module.css";
 import ProductScene from "@/components/explosion/ProductScene";
 import WelcomePrice from "@/components/shared/WelcomePrice/WelcomePrice";
@@ -92,20 +92,56 @@ const titleBlock =
     }
   }, [selectedColor, product?.variants]);
 
+  
+
+    const touchStartX = useRef<number | null>(null);
+    const touchEndX = useRef<number | null>(null);
+    // Добавляем обработчики свайпа:
+    const minSwipeDistance = 50; // минимальное расстояние для срабатывания свайпа
+  
+    function onTouchStart(e: React.TouchEvent<HTMLDivElement>) {
+      touchEndX.current = null; // сброс
+      touchStartX.current = e.targetTouches[0].clientX;
+    }
+  
+    function onTouchMove(e: React.TouchEvent<HTMLDivElement>) {
+      touchEndX.current = e.targetTouches[0].clientX;
+    }
+  
+    function onTouchEnd() {
+      if (touchStartX.current === null || touchEndX.current === null) return;
+  
+      const distance = touchStartX.current - touchEndX.current;
+      if (Math.abs(distance) > minSwipeDistance) {
+        if (distance > 0) {
+          // свайп влево — следующий слайд
+          setCurrentImageIndex((prev) => (prev + 1) % galleryImages.length);
+        } else {
+          // свайп вправо — предыдущий слайд
+          setCurrentImageIndex(
+            (prev) => (prev - 1 + galleryImages.length) % galleryImages.length
+          );
+        }
+      }
+    }
+
+
   return (
     <main className={styles.welcome}>
-      <div className={styles.welcome__product}>
-        <div className={`${styles.welcome__inner} _container-bigger`}>
+      <div className={styles.welcome__product} >
+        <div className={`${styles.welcome__inner} _container-bigger`} onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd} > 
           {/* Стрелка влево */}
           {selectedView === "gallery" && !isMobile && (
             <Arrow onClick={handlePrevImage} />
           )}
 
-          <div className={`${styles.welcome__container} _container`}>
+          <div className={`${styles.welcome__container} _container`} >
             {selectedView === "gallery" && (
               <>
                 {titleBlock}
-                <div className={[styles.welcome__img, '_img'].join(" ")}>
+                <div className={`${styles.welcome__img} _img ${styles.sliderInner}`} >
                   <img
                     className="welcome__item"
                     src={galleryImages[currentImageIndex]}

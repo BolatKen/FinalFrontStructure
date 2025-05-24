@@ -5,6 +5,7 @@
 .tags__inner {
     padding: 40px 0;
     display: flex;
+    overflow: auto;
 }
 
 .tags__inner > *:not(:first-child) {

@@ -2,6 +2,10 @@
     width: 100%;
 }
 
+.welcome__container {
+    margin-top: 32px;
+}
+
 .welcome__inner {
     display: flex;
     justify-content: space-between;
@@ -70,7 +74,7 @@
 @media (max-width: 768px) {
     .welcome__img {
         position: relative;
-        padding: 50%;
+        padding-top: 108%;
         top: 0;
         left: 0;
         margin: 20px 0;

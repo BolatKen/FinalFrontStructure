@@ -114,8 +114,8 @@ const titleBlock =
                 </div>
               </>
             )}
-            {selectedView === "3d" && <ProductScene modelUrl={product.model_url} option={selectedOption} />}
-
+            {selectedView === "3d" && (<>{titleBlock}<ProductScene modelUrl={product.model_url} option={selectedOption} /></>)}
+            
             <div
               className={`${styles.welcome__info} ${styles.info} ${selectedView === "3d" ? styles.welcome__info_margin : ""
                 }`}

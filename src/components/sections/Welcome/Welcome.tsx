@@ -9,6 +9,8 @@ import Arrow from '@/components/ui/Arrow/Arrow';
 import { Product, Variant, VariantOption } from "@/types/product";
 import { useSearchParams } from 'next/navigation';
 
+import Image from "next/image";
+
 
 interface WelcomeProps {
   product: Product;
@@ -142,10 +144,12 @@ const titleBlock =
               <>
                 {titleBlock}
                 <div className={`${styles.welcome__img} _img ${styles.sliderInner}`} >
-                  <img
+                  <Image
                     className="welcome__item"
                     src={galleryImages[currentImageIndex]}
                     alt={`gallery-image-${currentImageIndex}`}
+                    width={500}
+                    height={500}
                   />
                 </div>
               </>

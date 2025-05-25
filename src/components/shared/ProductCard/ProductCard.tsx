@@ -87,7 +87,7 @@ const ProductCard: React.FC<ProductShort> = ({
           <Image
             src={image}
             alt={name}
-            width={347} // фиксированная ширина карточки
+            width={400} // фиксированная ширина карточки
             height={500} // или другую подходящую высоту
             loading="lazy"
           />

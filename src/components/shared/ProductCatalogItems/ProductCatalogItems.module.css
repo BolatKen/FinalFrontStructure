@@ -20,7 +20,7 @@
 
 .items__list {
     display: flex;
-    overflow:auto;
+    /* overflow:auto; */
 }
 
 .items__list>*:not(:first-child) {
@@ -28,5 +28,40 @@
 }
 
 .items__list>* {
+    width: 347px;
+}
+
+
+
+.items__list {
+    display: flex;
+    overflow-x: auto;       /* Добавляем горизонтальную прокрутку */
+    overflow-y: hidden;     /* Отключаем вертикальную прокрутку */
+    white-space: nowrap;    /* Предотвращаем перенос строк */
+    padding-bottom: 10px;   /* Добавим отступ для скроллбара */
+    scrollbar-width: thin;  /* Настройка для Firefox */
+    gap: 40px;              /* Вместо margin между элементами */
+    scrollbar-width: thin;           /* Firefox */
+    scrollbar-color: #999 #f0f0f0;   /* Firefox */
+}
+
+.items__list::-webkit-scrollbar {
+    height: 8px;
+}
+.items__list::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+.items__list::-webkit-scrollbar-thumb {
+        background: #aaa;
+    border-radius: 10px;
+    transition: background 0.3s;
+}
+.items__list::-webkit-scrollbar-thumb:hover {
+    background: #888;
+}
+.items__list > * {
+    flex: 0 0 auto;         /* Не даём элементам сжиматься и переноситься */
     width: 347px;
 }

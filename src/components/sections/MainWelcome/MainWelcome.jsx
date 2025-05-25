@@ -15,6 +15,8 @@ import OtherCatalog from "../../shared/OtherCatalog/OtherCatalog";
 import { getWelcomeCategories } from "@/services/category.service";
 import { useRouter } from "next/navigation";
 
+import Image from "next/image";
+
 export default function MainWelcome() {
   const [products, setProducts] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -102,7 +104,7 @@ export default function MainWelcome() {
           <div className={[styles.welcome__img, "_img"].join(" ")}>
             <div key={currentProduct?.image} className={styles.imageWrapper}>
               {currentProduct?.image && (
-                <img src={currentProduct.image} alt="Фото" />
+                <Image src={currentProduct.image} alt="Фото" fill/>
               )}
             </div>
           </div>
@@ -121,7 +123,7 @@ export default function MainWelcome() {
                   )}
                   key={i}
                 >
-                  {product?.image && <img src={product.image} alt="Фото" />}
+                  {product?.image && <Image src={product.image} alt="Фото" fill/>}
                 </div>
               ))}
             </div>

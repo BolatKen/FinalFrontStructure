@@ -10,6 +10,13 @@ const ModelConfig = (props) => {
     const color = props.color;
     const part = props.part;
 
+    // gltf.scene.traverse((child) => {
+    //     if (child.isMesh) {
+    //         console.log(child.name);
+    //     }
+    // });
+
+
     useEffect(() => {
         if (!color || !gltf?.scene) return;
 

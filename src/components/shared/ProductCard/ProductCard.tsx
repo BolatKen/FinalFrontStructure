@@ -8,6 +8,7 @@ import ColorProductList from "@/components/ui/ColorProductList/ColorProductList"
 import { ProductShort } from "@/types/product";
 import { ColorItemType as ColorItem } from "@/types/color";
 import Link from "next/link";
+import Image from "next/image";
 
 const ProductCard: React.FC<ProductShort> = ({
   name,
@@ -83,7 +84,13 @@ const ProductCard: React.FC<ProductShort> = ({
         }
       >
         <div className={styles["product-card__image"]}>
-          <img src={image} alt={name} />
+          <Image
+            src={image}
+            alt={name}
+            width={347} // фиксированная ширина карточки
+            height={500} // или другую подходящую высоту
+            loading="lazy"
+          />
         </div>
         <div className={styles["product-card__inner"]}>
           <div className={styles["product-cart__colors"]}>

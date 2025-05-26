@@ -167,9 +167,11 @@ export default function MainWelcome() {
 
                 <div className={styles.desc__price}>
                   <div className={styles.price__value}>
-                    {currentProduct?.price ?? currentProduct?.price
-                      ? `${currentProduct.variants[0].final_price} ${currentProduct.currency}`
-                      : "Нет в наличии"}
+{typeof currentProduct?.variants?.[0]?.final_price === "number"
+  ? `${new Intl.NumberFormat("ru-RU").format(currentProduct.variants[0].final_price)} ${currentProduct?.currency || ""}`
+  : "Нет в наличии"}
+
+
                   </div>
                   {currentProduct?.bonus !== 0.0 ? (
                     <BonusValue bonusVal={currentProduct?.bonus} />

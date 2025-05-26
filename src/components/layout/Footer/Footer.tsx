@@ -69,8 +69,9 @@ export default function Footer() {
                     " "
                   )}
                 >
-                  <div className={styles.contacts__item}>+7 (702) 270 000</div>
-                  <div className={styles.contacts__item}>leka_solnce@bk.ru</div>
+                  <div className={styles.contacts__item}>+7 (702) 272 0000<br/>+7 (706) 806 2525</div>
+                  
+                  <div className={styles.contacts__item}>lekabeautystore@gmail.com</div>
                 </div>
 
                 <div className={styles.footer__info}>
@@ -79,7 +80,9 @@ export default function Footer() {
                       Офис продаж
                     </div>
                     <div className={styles["footer__info-text"]}>
-                      Биянху 67, Алматы, Казахстан
+                      <a href="https://2gis.kz/almaty/geo/70000001060069166">Биянху 67, Алматы, Казахстан</a><br/>
+                      <a href="https://go.2gis.com/pvtMz">город Астана, улица Кордай 81</a><br/>
+                      <a href="https://2gis.kz/shymkent/geo/22659371324065267/69.601816,42.362786">город Шымкент, улица Казиева 152/4</a>
                     </div>
                   </div>
                   <div className={styles["footer__info-block"]}>

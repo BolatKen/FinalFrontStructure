@@ -64,26 +64,38 @@ export default function Footer() {
                   Больше чем просто мебель для вашего бизнеса
                 </div>
 
-                <div
-                  className={[styles.footer__contacts, styles.contacts].join(
-                    " "
-                  )}
-                >
-                  <div className={styles.contacts__item}>+7 (702) 272 0000<br/>+7 (706) 806 2525</div>
-                  
-                  <div className={styles.contacts__item}>lekabeautystore@gmail.com</div>
-                </div>
+<div className={[styles.footer__contacts, styles.contacts].join(" ")}>
+  <div className={styles.contacts__item}>
+    <a href="tel:+77022720000">+7 (702) 272 0000</a><br />
+    <a href="tel:+77068062525">+7 (706) 806 2525</a>
+  </div>
+
+  <div className={styles.contacts__item}>
+    <a href="mailto:lekabeautystore@gmail.com">lekabeautystore@gmail.com</a>
+  </div>
+</div>
+
 
                 <div className={styles.footer__info}>
                   <div className={styles["footer__info-block"]}>
                     <div className={styles["footer__info-title"]}>
                       Офис продаж
                     </div>
-                    <div className={styles["footer__info-text"]}>
-                      <a href="https://2gis.kz/almaty/geo/70000001060069166">Биянху 67, Алматы, Казахстан</a><br/>
-                      <a href="https://go.2gis.com/pvtMz">город Астана, улица Кордай 81</a><br/>
-                      <a href="https://2gis.kz/shymkent/geo/22659371324065267/69.601816,42.362786">город Шымкент, улица Казиева 152/4</a>
-                    </div>
+<div className={styles["footer__info-text"]}>
+  <div className={styles["footer__address"]}>
+    <span>Алматы:</span>{" "}
+    <a href="https://2gis.kz/almaty/geo/70000001060069166" target="_blank">ул. Биянху 67</a>
+  </div>
+  <div className={styles["footer__address"]}>
+    <span>Астана:</span>{" "}
+    <a href="https://go.2gis.com/pvtMz" target="_blank">ул. Кордай 81</a>
+  </div>
+  <div className={styles["footer__address"]}>
+    <span>Шымкент:</span>{" "}
+    <a href="https://2gis.kz/shymkent/geo/22659371324065267/69.601816,42.362786" target="_blank">ул. Казиева 152/4</a>
+  </div>
+</div>
+
                   </div>
                   <div className={styles["footer__info-block"]}>
                     <div className={styles["footer__info-title"]}>

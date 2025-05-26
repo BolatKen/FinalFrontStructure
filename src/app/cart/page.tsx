@@ -234,7 +234,7 @@ export default function CartPage() {
             Воспользуйтесь каталогом для выбора товара
           </p>
           <div className={styles.emptyCartButtons}>
-            <Link href="/catalog">
+            <Link href="/">
               <ButtonOrange>Перейти в каталог</ButtonOrange>
             </Link>
             <Link href="/order-status">

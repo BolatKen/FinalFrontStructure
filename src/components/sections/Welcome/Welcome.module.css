@@ -4,6 +4,7 @@
 
 .welcome__container {
     margin-top: 32px;
+    padding: 0;
 }
 
 .welcome__inner {
@@ -59,7 +60,7 @@
 
 @media (max-width: 768px) {
     .welcome__title_long {
-        font-size: calc(60px * 0.9);
+        font-size: calc(60px * 0.6);
         line-height: 1.2;
         margin-top: 32px;
     }

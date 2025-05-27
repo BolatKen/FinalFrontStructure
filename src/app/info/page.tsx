@@ -33,7 +33,7 @@ export default function Home() {
         className={undefined}
         contentLeft={undefined}
       />
-      <div className={styles.contactBlock}>
+      {/* <div className={styles.contactBlock}>
         <div className={styles.contactItem}>
           <div className={styles.contactLabel}>Адрес</div>
           <div className={styles.contactValue}>
@@ -50,8 +50,8 @@ export default function Home() {
           <div className={styles.contactLabel}>Почта</div>
           <div className={styles.contactValue}>leka_solnce@bk.ru</div>
         </div>
-      </div>
-      <MapPage />
+      </div> */}
+      {/* <MapPage /> */}
       <FAQ />
     </>
   );

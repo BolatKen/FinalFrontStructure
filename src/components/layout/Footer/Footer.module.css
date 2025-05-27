@@ -98,6 +98,7 @@
     line-height: 30px;
     letter-spacing: -0.01em;
     margin-top: 56px;
+    
 }
 
 /* FOOTER INFO - ready */
@@ -244,6 +245,8 @@
     margin-left: 48px;
 }
 
+
+
 /* MEDIA QUERIES */
 @media (max-width: 768px) {
     .footer__list {
@@ -274,6 +277,7 @@
         margin-bottom: 32px;
         margin-top: 32px;
         font-size: 18px;
+        align-items: flex-start;
     }
 
     .footer__info {
@@ -331,4 +335,28 @@
         height: 30px;
     }
 
+    .contacts__item {
+        font-size: 18px;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        text-align: left;
+        align-items: flex-start;
+    }
+
+    .contacts > *:not(:first-child) {
+        margin-left: 0 !important;
+    }
+
+}
+
+
+.footer__address {
+  margin-bottom: 8px;
+}
+
+.footer__address span {
+  font-weight: 600;
+  color: white;
+  display: inline-block;
+  min-width: 80px;
 }

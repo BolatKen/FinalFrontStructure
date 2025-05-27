@@ -20,7 +20,7 @@ export default function Footer() {
   const footerMenu = {
     Контакты: "/addresses",
     Гарантия: "/warranty",
-    "Доставка и оплата": "/order-status",
+    // "Доставка и оплата": "/order-status",
     "О компании": "/info",
   };
   const [categories, setCategories] = useState<Category[]>([]);

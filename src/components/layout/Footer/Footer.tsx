@@ -18,8 +18,8 @@ export default function Footer() {
   // ];
 
   const footerMenu = {
-    "Контакты": "/info",
-    "Гарантия": "/info",
+    "Контакты": "/addresses",
+    "Гарантия": "/warranty",
     "Доставка и оплата": "/order-status",
     "О компании": "/info",
   };

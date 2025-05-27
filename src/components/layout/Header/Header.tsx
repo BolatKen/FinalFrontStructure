@@ -148,37 +148,75 @@ export default function Header({ isBlur = false }) {
               ×
             </button>
             <ul className={styles.burgerMenuList}>
-              {parentCategories.map((parent) => (
-                <li key={parent.id}>
-                  <button
-                    className={styles.burgerToggle}
-                    onClick={() => toggleSection(parent.name)}
-                  >
-                    <Link href={`/catalog/categories/${parent.slug}`}>{parent.name}</Link>
-                    <span
-                      className={
-                        openSection === parent.name
-                          ? styles.arrowUp
-                          : styles.arrowDown
-                      }
-                    />
-                  </button>
+  {/* Динамические категории */}
+  {parentCategories.map((parent) => (
+    <li key={parent.id}>
+      <button
+        className={styles.burgerToggle}
+        onClick={() => toggleSection(parent.name)}
+      >
+        <Link href={`/catalog/categories/${parent.slug}`}>{parent.name}</Link>
+        <span
+          className={
+            openSection === parent.name
+              ? styles.arrowUp
+              : styles.arrowDown
+          }
+        />
+      </button>
 
-                  {openSection === parent.name &&
-                    childCategories(parent.id).length > 0 && (
-                      <ul className={styles.subMenu}>
-                        {childCategories(parent.id).map((child) => (
-                          <li key={child.id}>
-                            <Link href={`/catalog/categories/${child.slug}`}>
-                              {child.name}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                </li>
-              ))}
-            </ul>
+      {openSection === parent.name &&
+        childCategories(parent.id).length > 0 && (
+          <ul className={styles.subMenu}>
+            {childCategories(parent.id).map((child) => (
+              <li key={child.id}>
+                <Link href={`/catalog/categories/${child.slug}`}>
+                  {child.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+    </li>
+  ))}
+
+  {/* Статичные пункты — как динамичные */}
+  <li>
+    <Link href="/addresses">
+      <span className={styles.burgerToggle}>Контакты</span>
+    </Link>
+  </li>
+  <li>
+    <Link href="/warranty">
+      <span className={styles.burgerToggle}>Гарантия</span>
+    </Link>
+  </li>
+  <li>
+    <Link href="/order-status">
+      <span className={styles.burgerToggle}>Доставка и оплата</span>
+    </Link>
+  </li>
+  <li>
+    <Link href="/info">
+      <span className={styles.burgerToggle}>О компании</span>
+    </Link>
+  </li>
+</ul>
+
+{/* Мессенджеры */}
+<div className={styles.messengerLinks}>
+  <a href="https://wa.me/7702270000" target="_blank" rel="noopener noreferrer">
+    <img src="/icons/burger/whatsapp-svgrepo-com.svg" alt="WhatsApp" />
+  </a>
+  <a href="https://t.me/lekabeauty" target="_blank" rel="noopener noreferrer">
+    <img src="/icons/burger/telegram-svgrepo-com.svg" alt="Telegram" />
+  </a>
+  <a href="https://www.instagram.com/lekabeauty" target="_blank" rel="noopener noreferrer">
+    <img src="/icons/burger/instagram-svgrepo-com.svg" alt="Instagram" />
+  </a>
+</div>
+
+
           </nav>
         </>
       )}

@@ -38,7 +38,7 @@ export default function MainWelcome() {
     if (products.length > 1) {
       const interval = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % products.length);
-      }, 7000); // каждые 4 секунды
+      }, 7000); // каждые 7 секунд
 
       return () => clearInterval(interval);
     }

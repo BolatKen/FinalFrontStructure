@@ -4,6 +4,21 @@
     flex: 0 1 33.33%;
 }
 
+.card__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.desc__title {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 30px;
+  letter-spacing: -1.2px;
+  margin: 0; /* УБИРАЕМ margin-top */
+}
+
+
 .card__inner {
     padding: 32px;
 }
@@ -25,6 +40,7 @@
 .card__img img {
     width: 32px;
     height: 32px;
+    filter: brightness(1.5);
 }
 
 
@@ -34,7 +50,8 @@
     line-height: 30px;
     letter-spacing: -1.2px;
 
-    margin-top: 32px;
+    /* margin-top: 32px; */
+    text-align: center;
 }
 
 .desc__text {
@@ -43,4 +60,10 @@
     line-height: 21px;
     color: rgba(162, 162, 162, 1);
     margin-top: 24px;
+}
+
+@media (max-width: 768px) {
+  .desc__title {
+    text-align: left;
+  }
 }

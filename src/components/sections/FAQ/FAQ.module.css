@@ -17,8 +17,9 @@
 } */
 
 .title {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -1%;
   color: #131111;
   margin-bottom: 20px;
 }
@@ -69,7 +70,7 @@
   border: none;
   width: 100%;
   text-align: left;
-  font-size: 16px;
+  font-size: 18px;
   /* font-weight: 500; */
   color: #131111;
   display: flex;
@@ -92,7 +93,7 @@
 
 .answer {
   margin-top: 8px;
-  font-size: 14px;
+  font-size: 16px;
   color: #9E9E9E;
   line-height: 22px;
 }

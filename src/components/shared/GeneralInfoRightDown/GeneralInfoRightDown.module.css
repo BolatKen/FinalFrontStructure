@@ -1,7 +1,7 @@
 .block__text {
     font-weight: 500;
-    font-size: 32px;
-    line-height: 48px;
+    font-size: 24px;
+    line-height: 30px;
     letter-spacing: -1.2px;
 }
 
@@ -30,6 +30,7 @@
 .block__desc {
     font-family: "Suisse Int'l", sans-serif;
     font-size: 18px;
+    font-weight: 400;
     line-height: 21px;
     margin-top: 40px;
     color: rgba(162, 162, 162, 1);

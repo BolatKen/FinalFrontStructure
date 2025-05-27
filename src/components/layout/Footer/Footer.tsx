@@ -18,8 +18,8 @@ export default function Footer() {
   // ];
 
   const footerMenu = {
-    "Контакты": "/addresses",
-    "Гарантия": "/warranty",
+    Контакты: "/addresses",
+    Гарантия: "/warranty",
     "Доставка и оплата": "/order-status",
     "О компании": "/info",
   };
@@ -47,7 +47,10 @@ export default function Footer() {
               >
                 {parentCategories.map((parent) => (
                   <li className={styles["footer-list__item"]} key={parent.id}>
-                    <a href={`/catalog/categories/${parent.slug}`} className={styles["footer-list__link"]}>
+                    <a
+                      href={`/catalog/categories/${parent.slug}`}
+                      className={styles["footer-list__link"]}
+                    >
                       {parent.name}
                     </a>
                   </li>
@@ -64,38 +67,55 @@ export default function Footer() {
                   Больше чем просто мебель для вашего бизнеса
                 </div>
 
-<div className={[styles.footer__contacts, styles.contacts].join(" ")}>
-  <div className={styles.contacts__item}>
-    <a href="tel:+77022720000">+7 (702) 272 0000</a><br />
-    <a href="tel:+77068062525">+7 (706) 806 2525</a>
-  </div>
+                <div
+                  className={[styles.footer__contacts, styles.contacts].join(
+                    " "
+                  )}
+                >
+                  <div className={styles.contacts__item}>
+                    <a href="tel:+77022720000">+7 (702) 272 0000</a>
+                    <br />
+                    <a href="tel:+77068062525">+7 (706) 806 2525</a>
+                  </div>
 
-  <div className={styles.contacts__item}>
-    <a href="mailto:lekabeautystore@gmail.com">lekabeautystore@gmail.com</a>
-  </div>
-</div>
-
+                  <div className={styles.contacts__item} style={{ marginLeft: 75 }}>
+                    <a href="mailto:lekabeautystore@gmail.com">
+                      lekabeautystore@gmail.com
+                    </a>
+                  </div>
+                </div>
 
                 <div className={styles.footer__info}>
                   <div className={styles["footer__info-block"]}>
                     <div className={styles["footer__info-title"]}>
                       Офис продаж
                     </div>
-<div className={styles["footer__info-text"]}>
-  <div className={styles["footer__address"]}>
-    <span>Алматы:</span>{" "}
-    <a href="https://2gis.kz/almaty/geo/70000001060069166" target="_blank">ул. Биянху 67</a>
-  </div>
-  <div className={styles["footer__address"]}>
-    <span>Астана:</span>{" "}
-    <a href="https://go.2gis.com/pvtMz" target="_blank">ул. Кордай 81</a>
-  </div>
-  <div className={styles["footer__address"]}>
-    <span>Шымкент:</span>{" "}
-    <a href="https://2gis.kz/shymkent/geo/22659371324065267/69.601816,42.362786" target="_blank">ул. Казиева 152/4</a>
-  </div>
-</div>
-
+                    <div className={styles["footer__info-text"]}>
+                      <div className={styles["footer__address"]}>
+                        <span>Алматы:</span>{" "}
+                        <a
+                          href="https://2gis.kz/almaty/geo/70000001060069166"
+                          target="_blank"
+                        >
+                          ул. Биянху 67
+                        </a>
+                      </div>
+                      <div className={styles["footer__address"]}>
+                        <span>Астана:</span>{" "}
+                        <a href="https://go.2gis.com/pvtMz" target="_blank">
+                          ул. Кордай 81
+                        </a>
+                      </div>
+                      <div className={styles["footer__address"]}>
+                        <span>Шымкент:</span>{" "}
+                        <a
+                          href="https://2gis.kz/shymkent/geo/22659371324065267/69.601816,42.362786"
+                          target="_blank"
+                        >
+                          ул. Казиева 152/4
+                        </a>
+                      </div>
+                    </div>
                   </div>
                   <div className={styles["footer__info-block"]}>
                     <div className={styles["footer__info-title"]}>
@@ -111,11 +131,13 @@ export default function Footer() {
               {/* Правая колонка */}
               <div className={styles.footer__column}>
                 <ul className={[styles.footer__menu, styles.menu].join(" ")}>
-                    {Object.entries(footerMenu).map(([label, href]: [string, string], idx: number) => (
-                    <li className={styles.menu__item} key={idx}>
-                      <Link href={href}>{label}</Link>
-                    </li>
-                    ))}
+                  {Object.entries(footerMenu).map(
+                    ([label, href]: [string, string], idx: number) => (
+                      <li className={styles.menu__item} key={idx}>
+                        <Link href={href}>{label}</Link>
+                      </li>
+                    )
+                  )}
                 </ul>
 
                 <div

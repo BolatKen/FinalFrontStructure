@@ -92,6 +92,26 @@ export default function MainWelcome() {
     }
   }
 
+
+
+
+
+  const handlePrev = () => {
+  setCurrentIndex((prevIndex) =>
+    prevIndex === 0 ? products.length - 1 : prevIndex - 1
+  );
+};
+
+const handleNext = () => {
+  setCurrentIndex((prevIndex) =>
+    prevIndex === products.length - 1 ? 0 : prevIndex + 1
+  );
+};
+
+// useEffect(() => {
+//   setCurrentProduct(products[currentIndex]);
+// }, [currentIndex, products]);
+
   return (
     <>
       <section
@@ -205,6 +225,12 @@ export default function MainWelcome() {
             </div>
           </div>
         </div>
+
+        <div className={styles.navigation}>
+          
+  <button onClick={handlePrev} className={styles.arrowLeft}>‹</button>
+  <button onClick={handleNext} className={styles.arrowRight}>›</button>
+</div>
       </section>
       <GeneralInfo contentRight={rightContent} />
       <InfoList />

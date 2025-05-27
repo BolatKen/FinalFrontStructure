@@ -88,7 +88,8 @@
 }
 
 .contacts>*:not(:first-child) {
-    margin-left: 38px;
+    /* margin-left: 38px; */
+    word-break: break-all;
 }
 
 .contacts__item {

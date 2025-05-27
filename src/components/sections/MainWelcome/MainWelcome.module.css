@@ -13,8 +13,8 @@
 
 .welcome__img {
   position: absolute;
-  width: 80%;
-  height: 100%;
+  width: 70%;
+  height: 95%;
   z-index: -1;
   margin-top: 64px;
   overflow: hidden;
@@ -288,7 +288,7 @@
 
 
 .desc__title {
-  font-size: 32px;
+  font-size: 26px;
   font-weight: 500;
   line-height: 100%;
   letter-spacing: -2%;

@@ -2,6 +2,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 48px 16px;
+  /* font-family: "Grafik"; */
 }
 
 .title {
@@ -17,15 +18,16 @@
 
 .subtitle {
   text-align: center;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 400;
   line-height: 100%;
-  letter-spacing: -1%;
+  letter-spacing: -1.2%;
   color: black;
   margin-bottom: 28px;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  /* font-family: "Regular"; */
 }
 
 .branch {

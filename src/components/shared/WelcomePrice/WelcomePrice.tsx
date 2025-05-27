@@ -5,6 +5,7 @@ import { Product, Variant } from '@/types/product';
 
 
 export default function WelcomePrice({ product, variant }: { product: Product; variant: Variant }) {
+  console.log("🔥 product:", product);
     return (<div className={`${styles.configure__price} ${styles.price}`}>
         <div className={styles.price__item}>
             <div className={styles.configure__title}>Цена</div>
@@ -23,6 +24,7 @@ export default function WelcomePrice({ product, variant }: { product: Product; v
                         price: number;
                         currency: string;
                         quantity: number;
+                        image: string;
                     };
 
                     const cartItems: CartItem[] = storedCart ? JSON.parse(storedCart) : [];
@@ -33,6 +35,7 @@ export default function WelcomePrice({ product, variant }: { product: Product; v
                         price: Number(variant.final_price) || 0,
                         currency: variant.currency,
                         quantity: 1,
+                        image: product.images?.[0]?.image ?? '',
                     };
 
                     const existingItemIndex = cartItems.findIndex(

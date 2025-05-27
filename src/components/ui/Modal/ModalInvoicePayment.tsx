@@ -6,6 +6,7 @@ import { ButtonOrange } from "@/components/ui/ButtonOrange/ButtonOrange";
 
 interface ModalInvoicePaymentProps {
   onClose: () => void;
+  // onResult: (status: "invoice_success" | "invoice_error") => void;
   onResult: (status: "invoice_success" | "invoice_error") => void;
 }
 
@@ -16,25 +17,52 @@ export default function ModalInvoicePayment({ onClose, onResult }: ModalInvoiceP
     phone: "",
   });
 
-  const isFormValid = Object.values(formData).every((val) => val.trim() !== "");
+  const formatPhoneNumber = (value: string) => {
+    const digits = value.replace(/\D/g, "").slice(0, 11);
+    const parts = [
+      "+7",
+      digits.slice(1, 4),
+      digits.slice(4, 7),
+      digits.slice(7, 9),
+      digits.slice(9, 11),
+    ];
+    if (digits.length <= 1) return "+7";
+    if (digits.length <= 4) return `+7 (${parts[1]}`;
+    if (digits.length <= 7) return `+7 (${parts[1]}) ${parts[2]}`;
+    if (digits.length <= 9) return `+7 (${parts[1]}) ${parts[2]}-${parts[3]}`;
+    return `+7 (${parts[1]}) ${parts[2]}-${parts[3]}-${parts[4]}`;
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    let val = value;
+
+    if (name === "iin") {
+      val = val.replace(/\D/g, "").slice(0, 12); // Только цифры, максимум 12 символов
+    }
+
+    if (name === "phone") {
+      val = formatPhoneNumber(val);
+    }
+
+    setFormData((prev) => ({ ...prev, [name]: val }));
   };
+
+  const isFormValid =
+    /^\d{12}$/.test(formData.iin) &&
+    formData.address.trim().length > 0 &&
+    /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/.test(formData.phone);
 
   const handleSubmit = () => {
     if (!isFormValid) return;
 
     onClose(); // Закрываем модалку
 
-    setTimeout(() => {
-      const success = Math.random() > 0.5;
-      onResult(success ? "invoice_success" : "invoice_error");
-    }, 500);
+setTimeout(() => {
+  onResult("invoice_success");
+}, 500);
   };
 
-  // Закрытие по Escape
   useEffect(() => {
     const onEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -48,7 +76,7 @@ export default function ModalInvoicePayment({ onClose, onResult }: ModalInvoiceP
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <input
           name="iin"
-          placeholder="ИИН/БИН"
+          placeholder="ИИН/БИН (12 цифр)"
           value={formData.iin}
           onChange={handleChange}
           className={styles.input}
@@ -62,7 +90,7 @@ export default function ModalInvoicePayment({ onClose, onResult }: ModalInvoiceP
         />
         <input
           name="phone"
-          placeholder="Номер телефона"
+          placeholder="Телефон: +7 (XXX) XXX-XX-XX"
           value={formData.phone}
           onChange={handleChange}
           className={styles.input}

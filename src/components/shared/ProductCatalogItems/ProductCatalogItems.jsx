@@ -8,10 +8,10 @@ export default function ProductCatalogItems({ products, currentBatch, totalBatch
     return (
         <div className={styles.items}>
             <div className={styles.items__inner}>
-                <div className={styles.items__count}>
+                {/* <div className={styles.items__count}>
                     <span className={styles.items__current}>{currentBatch}</span>
                     /{totalBatches}
-                </div>
+                </div> */}
                 <ul className={styles.items__list}>
                     {products.map((item, key) => (
                         <ProductCard

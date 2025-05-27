@@ -1,7 +1,7 @@
 "use client";
 import Header from "@/components/layout/Header/Header";
 import styles from "./page.module.css";
-import MapPage from "@/components/sections/Map/MapPage";
+// import MapPage from "@/components/sections/Map/MapPage";
 import GeneralInfo from "@/components/shared/GeneralInfo/GeneralInfo";
 import GeneralInfoRightUpper from "@/components/shared/GeneralInfoRightUpper/GeneralInfoRightUpper";
 import GeneralInfoRightDown from "@/components/shared/GeneralInfoRightDown/GeneralInfoRightDown";

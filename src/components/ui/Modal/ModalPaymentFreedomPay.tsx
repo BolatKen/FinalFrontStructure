@@ -59,10 +59,10 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
     onClose(); // Закрыть модалку
 
-    setTimeout(() => {
-      const success = Math.random() > 0.5;
-      onResult(success ? "freedom_success" : "freedom_error");
-    }, 500);
+setTimeout(() => {
+  onResult("freedom_success");
+}, 500);
+
   };
 
   // Закрытие по Esc

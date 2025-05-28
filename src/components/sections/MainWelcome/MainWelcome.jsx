@@ -137,7 +137,7 @@ const handleNext = () => {
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
       >
-        <div className={styles.desktop}>
+        {/* <div className={styles.desktop}>
           <div className={[styles.welcome__img, "_img"].join(" ")}>
             <div key={currentProduct?.image} className={styles.imageWrapper}>
               {currentProduct?.image && (
@@ -145,9 +145,9 @@ const handleNext = () => {
               )}
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div className={styles.mobile}>
+        {/* <div className={styles.mobile}>
           <div className={styles.slider}>
             <div
               className={styles.sliderInner}
@@ -165,15 +165,34 @@ const handleNext = () => {
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
         {/* <div className={[styles.welcome__img, '_img'].join(' ')}>
                     {currentProduct?.image && (
                         <img src={currentProduct.image} alt="Фото" />
                     )}
                 </div> */}
         <Header isBlur={false} />
-        <div className={styles.welcome__inner}>
-          <div className={[styles.welcome__description, styles.desc].join(" ")}>
+<div className={styles.welcome__inner}>
+<div className={styles.welcome__img}>
+  <div className={styles.imageWrapper}>
+    {currentProduct?.image && (
+      <Image
+        src={currentProduct.image}
+        alt="Фото"
+        layout="responsive"
+        width={100}
+        height={100}
+        objectFit="contain"
+        priority
+      />
+    )}
+  </div>
+</div>
+
+
+
+  <div className={[styles.welcome__description, styles.desc].join(" ")}>
+
             <div
               className={["_container-bigger", styles.desc__inner].join(" ")}
             >

@@ -15,7 +15,7 @@ const modalConfig = {
   freedom_success: {
     icon: "/icons/accept.png",
     title: "Спасибо за покупку!",
-    text: "Детали заказа будут отправлены на указанную вам почту.",
+    text: "В ближайшее время с вами свяжется оператор по указанному номеру.",
     buttonText: "На главную",
     redirect: "/",
   },

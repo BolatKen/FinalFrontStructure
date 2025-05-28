@@ -64,6 +64,44 @@ export default function CartPage() {
   const [promoDiscount, setPromoDiscount] = useState(0);
   const [showValidation, setShowValidation] = useState(false);
 
+  const nameRegex = /^[A-Za-zА-Яа-яЁё]{2,}$/;
+  const phoneRegex = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/;
+  const cityRegex = /^[A-Za-zА-Яа-яЁё\s\-]{2,}$/;
+
+  const formatPhoneNumber = (value: string) => {
+    const digits = value.replace(/\D/g, "").slice(0, 11);
+    const parts = [
+      "+7",
+      digits.slice(1, 4),
+      digits.slice(4, 7),
+      digits.slice(7, 9),
+      digits.slice(9, 11),
+    ];
+    if (digits.length <= 1) return "+7";
+    if (digits.length <= 4) return `+7 (${parts[1]}`;
+    if (digits.length <= 7) return `+7 (${parts[1]}) ${parts[2]}`;
+    if (digits.length <= 9) return `+7 (${parts[1]}) ${parts[2]}-${parts[3]}`;
+    return `+7 (${parts[1]}) ${parts[2]}-${parts[3]}-${parts[4]}`;
+  };
+
+  const handleNameChange = (setter: (val: string) => void) => 
+  (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const cleaned = value.replace(/[^A-Za-zА-Яа-яЁё\s\-]/g, ""); // только буквы, пробелы и дефисы
+    setter(cleaned);
+};
+
+
+  // Проверка валидации
+  const isOrderFormValid =
+    nameRegex.test(firstName) &&
+    nameRegex.test(lastName) &&
+    phoneRegex.test(phone) &&
+    cityRegex.test(city) &&
+    street.trim() !== "" &&
+    house.trim() !== "" &&
+    paymentMethod !== "";
+
   useEffect(() => {
     const updateCart = () => {
       const loaded = getCartItems();
@@ -246,14 +284,14 @@ export default function CartPage() {
     );
   }
 
-  const isOrderFormValid =
-    firstName !== "" &&
-    lastName !== "" &&
-    phone !== "" &&
-    city !== "" &&
-    street !== "" &&
-    house !== "" &&
-    paymentMethod !== "";
+  // const isOrderFormValid =
+  //   firstName !== "" &&
+  //   lastName !== "" &&
+  //   phone !== "" &&
+  //   city !== "" &&
+  //   street !== "" &&
+  //   house !== "" &&
+  //   paymentMethod !== "";
 
   return (
     <div className={[styles.cartPage, "_container-bigger"].join(" ")}>
@@ -322,88 +360,80 @@ export default function CartPage() {
             ))}
 
             <div className={styles.customerInfo}>
-              <h2 className={styles.sectionTitle}>Информация о получателе</h2>
-              <div className={styles.inputGroup}>
-                <input
-                  type="text"
-                  placeholder="Имя"
-                  className={`${styles.input} ${
-                    showValidation && firstName === "" ? styles.errorInput : ""
-                  }`}
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-                <input
-                  type="text"
-                  placeholder="Фамилия"
-                  className={`${styles.input} ${
-                    showValidation && lastName === "" ? styles.errorInput : ""
-                  }`}
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-              </div>
-              <input
-                type="text"
-                placeholder="Номер телефона"
-                className={`${styles.input} ${
-                  showValidation && phone === "" ? styles.errorInput : ""
-                }`}
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
-            </div>
+  <h2 className={styles.sectionTitle}>Информация о получателе</h2>
+  <div className={styles.inputGroup}>
+<input
+  type="text"
+  placeholder="Имя"
+  value={firstName}
+  onChange={handleNameChange(setFirstName)}
+  className={`${styles.input} ${showValidation && !nameRegex.test(firstName) ? styles.errorInput : ""}`}
+/>
 
-            <div className={styles.deliverySection}>
-              <h2 className={styles.sectionTitle}>Доставка курьером</h2>
-              <p className={styles.assemblyNote}>
-                Курьеры не занимаются подъёмом мебели на этаж, при доставке
-                производится только отгрузка
-                <br />
-                По стоимости доставки мебели с вами свяжется оператор
-              </p>
-              <div className={styles.inputGroup}>
-                <input
-                  type="text"
-                  placeholder="Город"
-                  className={`${styles.input} ${
-                    showValidation && city === "" ? styles.errorInput : ""
-                  }`}
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                />
-                <input
-                  type="text"
-                  placeholder="Улица"
-                  className={`${styles.input} ${
-                    showValidation && street === "" ? styles.errorInput : ""
-                  }`}
-                  value={street}
-                  onChange={(e) => setStreet(e.target.value)}
-                />
-                <input
-                  type="text"
-                  placeholder="Дом"
-                  className={`${styles.input} ${
-                    showValidation && house === "" ? styles.errorInput : ""
-                  }`}
-                  value={house}
-                  onChange={(e) => setHouse(e.target.value)}
-                />
-              </div>
+<input
+  type="text"
+  placeholder="Фамилия"
+  value={lastName}
+  onChange={handleNameChange(setLastName)}
+  className={`${styles.input} ${showValidation && !nameRegex.test(lastName) ? styles.errorInput : ""}`}
+/>
 
-              <div className={styles.assemblyCheckbox}>
-                <div className={styles.assemblyCheckboxRow}>
-                  <Toggle setter={needAssembly} method={setNeedAssembly} />
-                  <span>Необходима сборка мебели</span>
-                </div>
+  </div>
+  <input
+    type="text"
+    placeholder="Номер телефона"
+    className={`${styles.input} ${showValidation && !phoneRegex.test(phone) ? styles.errorInput : ""}`}
+    value={phone}
+    onChange={(e) => setPhone(formatPhoneNumber(e.target.value))}
+  />
+</div>
 
-                <p className={styles.assemblyNote}>
-                  Мебель в собранном виде при перевозке занимает
-                  <br />
-                  большой объём, поэтому доставка может стоить дороже
-                </p>
-              </div>
+<div className={styles.deliverySection}>
+  <h2 className={styles.sectionTitle}>Доставка курьером</h2>
+  <p className={styles.assemblyNote}>
+    Курьеры не занимаются подъёмом мебели на этаж, при доставке производится только отгрузка
+    <br />
+    По стоимости доставки мебели с вами свяжется оператор
+  </p>
+  <div className={styles.inputGroup}>
+    <input
+  type="text"
+  placeholder="Город"
+  className={`${styles.input} ${showValidation && !cityRegex.test(city) ? styles.errorInput : ""}`}
+  value={city}
+  onChange={(e) => {
+    // Разрешаем буквы, пробелы и дефисы
+    const val = e.target.value.replace(/[^A-Za-zА-Яа-яЁё\s\-]/g, '');
+    setCity(val);
+  }}
+/>
+    <input
+      type="text"
+      placeholder="Улица"
+      className={`${styles.input} ${showValidation && street.trim() === "" ? styles.errorInput : ""}`}
+      value={street}
+      onChange={(e) => setStreet(e.target.value)}
+    />
+    <input
+      type="text"
+      placeholder="Дом"
+      className={`${styles.input} ${showValidation && house.trim() === "" ? styles.errorInput : ""}`}
+      value={house}
+      onChange={(e) => setHouse(e.target.value)}
+    />
+  </div>
+
+  <div className={styles.assemblyCheckbox}>
+    <div className={styles.assemblyCheckboxRow}>
+      <Toggle setter={needAssembly} method={setNeedAssembly} />
+      <span>Необходима сборка мебели</span>
+    </div>
+    <p className={styles.assemblyNote}>
+      Мебель в собранном виде при перевозке занимает
+      <br />
+      большой объём, поэтому доставка может стоить дороже
+    </p>
+  </div>
             </div>
 
             <div className={styles.paymentSection}>

@@ -205,7 +205,7 @@ export default function Header({ isBlur = false }) {
 
 {/* Мессенджеры */}
 <div className={styles.messengerLinks}>
-  <a href="https://wa.me/7702270000" target="_blank" rel="noopener noreferrer">
+  <a href="https://wa.me/77022700000" target="_blank" rel="noopener noreferrer">
     <img src="/icons/burger/whatsapp-svgrepo-com.svg" alt="WhatsApp" />
   </a>
   <a href="https://t.me/lekabeauty" target="_blank" rel="noopener noreferrer">

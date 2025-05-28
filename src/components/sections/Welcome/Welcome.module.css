@@ -81,7 +81,8 @@
 
     top: 0;
     left: 0;
-    object-fit: cover;
+    /* object-fit: cover; */
+    object-position: center -150px;
 }
 
 @media (min-width: 1360px) {
@@ -252,6 +253,7 @@
     scroll-snap-align: center;
     cursor: pointer;
     transition: box-shadow 0.2s;
+    /* object-position: center -500px; */
 }
 
 .welcome__imgScroller img.active {

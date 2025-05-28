@@ -275,9 +275,9 @@ export default function CartPage() {
             <Link href="/">
               <ButtonOrange>Перейти в каталог</ButtonOrange>
             </Link>
-            <Link href="/order-status">
+            {/* <Link href="/order-status">
               <ButtonOrange>Статус заказа</ButtonOrange>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

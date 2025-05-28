@@ -20,6 +20,9 @@
 
 .items__list {
     display: flex;
+     overflow-x: scroll;
+      scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; /* для плавности на iOS */
     /* overflow:auto; */
 }
 
@@ -29,6 +32,7 @@
 
 .items__list>* {
     width: 347px;
+    scroll-snap-align: start;
 }
 
 

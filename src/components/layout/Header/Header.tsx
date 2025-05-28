@@ -191,11 +191,11 @@ export default function Header({ isBlur = false }) {
       <span className={styles.burgerToggle}>Гарантия</span>
     </Link>
   </li>
-  <li>
+  {/* <li>
     <Link href="/order-status">
       <span className={styles.burgerToggle}>Доставка и оплата</span>
     </Link>
-  </li>
+  </li> */}
   <li>
     <Link href="/info">
       <span className={styles.burgerToggle}>О компании</span>

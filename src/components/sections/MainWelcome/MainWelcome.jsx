@@ -34,14 +34,25 @@ export default function MainWelcome() {
   }, []);
 
   // Слайдшоу
+ const intervalRef = useRef(null);
+
+  const startTimer = () => {
+    intervalRef.current = setInterval(() => {
+      setCurrentIndex(prev => (prev + 1) % products.length);
+    }, 7000);
+  };
+
+  const resetTimer = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    startTimer();
+  };
+
   useEffect(() => {
     if (products.length > 1) {
-      const interval = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % products.length);
-      }, 7000); // каждые 4 секунды
-
-      return () => clearInterval(interval);
+      startTimer();
     }
+
+    return () => clearInterval(intervalRef.current);
   }, [products]);
 
   // Категорий
@@ -90,6 +101,7 @@ export default function MainWelcome() {
         );
       }
     }
+    resetTimer(); // сброс таймера при свайпе
   }
 
 
@@ -100,17 +112,22 @@ export default function MainWelcome() {
   setCurrentIndex((prevIndex) =>
     prevIndex === 0 ? products.length - 1 : prevIndex - 1
   );
+  resetTimer(); // сброс таймера при переходе назад
 };
 
 const handleNext = () => {
   setCurrentIndex((prevIndex) =>
     prevIndex === products.length - 1 ? 0 : prevIndex + 1
   );
+  resetTimer(); // сброс таймера при переходе вперед  
 };
 
 // useEffect(() => {
 //   setCurrentProduct(products[currentIndex]);
 // }, [currentIndex, products]);
+
+
+
 
   return (
     <>

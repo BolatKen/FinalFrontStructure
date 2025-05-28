@@ -26,6 +26,8 @@
   font-weight: 500;
   font-size: 24px;
   cursor: pointer;
+  display: flex;
+  gap:20px;
 }
 
 .logo__link {
@@ -100,7 +102,7 @@
 
 /* Burger Menu */
 .burger {
-  display: none;
+  /* display: none; */
   flex-direction: column;
   justify-content: center;
   width: 32px;
@@ -112,7 +114,7 @@
 .burger span {
   height: 3px;
   background: #ffffff;
-  margin: 5px 0;
+  margin: 6px 0;
   border-radius: 2px;
   transition: 0.3s;
   display: block;

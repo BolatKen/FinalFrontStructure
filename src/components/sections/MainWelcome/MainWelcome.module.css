@@ -3,10 +3,9 @@
 } */
 
 .welcome {
-  min-height: auto;
-  padding: 64px 0; /* отступы сверху и снизу */
-  display: flex;
-  justify-content: center;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
 }
 
 
@@ -17,11 +16,10 @@
 
 .welcome__inner {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 1440px;
-  height: 600px; /* ← вот ключевое — ограничиваем высоту */
+  align-items: stretch; /* Растягиваем дочерние элементы на всю высоту */
+  max-width: 1280px;
+  margin: 0 auto;
+  min-height: 100vh; /* Занимает всю высоту экрана */
   box-sizing: border-box;
 }
 
@@ -43,24 +41,32 @@
 
 
 .welcome__img {
-  width: 55%;
+  flex: 1 1 50%;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 32px;
-  box-sizing: border-box;
+  overflow: hidden;
 }
 
-
+.welcome__img .imageWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .imageWrapper {
-  width: 100%;
-  max-width: 800px;
-  position: relative;
+  max-width: 100%;
+  height: auto;
 }
 
+
 .imageWrapper img {
-  object-fit: contain !important;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 /* .welcome__img img {
@@ -70,25 +76,32 @@
   display: block;
 } */
 
-.welcome__img {
+/* .welcome__img {
   flex: 1 1 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 32px;
   box-sizing: border-box;
+} */
+
+.welcome__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-
 .welcome__description {
-  width: 45%;
+  flex: 1 1 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 32px;
+  background-color: rgba(19, 17, 17, 0.6);
+  backdrop-filter: blur(64px);
+  padding: 48px;
   box-sizing: border-box;
 }
-
 
 .desc {
     background-color: rgba(19, 17, 17, 0.6);
@@ -102,10 +115,8 @@
 } */
 
 .desc__inner {
-  padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: 24px;
 }
 

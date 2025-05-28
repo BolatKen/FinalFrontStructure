@@ -17,7 +17,7 @@
 .welcome__inner {
   display: flex;
   align-items: stretch; /* Растягиваем дочерние элементы на всю высоту */
-  max-width: 1280px;
+  /* max-width: 1280px; */
   margin: 0 auto;
   min-height: 100vh; /* Занимает всю высоту экрана */
   box-sizing: border-box;

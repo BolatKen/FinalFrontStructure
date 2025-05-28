@@ -1,32 +1,93 @@
-.welcome {
+/* .welcome {
     position: relative;
+} */
+
+.welcome {
+  min-height: auto;
+  padding: 64px 0; /* отступы сверху и снизу */
+  display: flex;
+  justify-content: center;
 }
 
-.welcome__inner {
+
+/* .welcome__inner {
     display: flex;
     justify-content: flex-end;
+} */
+
+.welcome__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1440px;
+  height: 600px; /* ← вот ключевое — ограничиваем высоту */
+  box-sizing: border-box;
 }
+
+
+
 
 .welcome__inner>* {
     flex: 0 1 39.7%;
 }
 
-.welcome__img {
+/* .welcome__img {
   position: absolute;
   width: 80%;
   height: 100%;
   z-index: -1;
   margin-top: 64px;
   overflow: hidden;
+} */
+
+
+.welcome__img {
+  width: 55%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  box-sizing: border-box;
 }
 
-.welcome__img img {
+
+
+.imageWrapper {
+  width: 100%;
+  max-width: 800px;
+  position: relative;
+}
+
+.imageWrapper img {
+  object-fit: contain !important;
+}
+
+/* .welcome__img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+} */
+
+.welcome__img {
+  flex: 1 1 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  box-sizing: border-box;
 }
 
+
+.welcome__description {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 32px;
+  box-sizing: border-box;
+}
 
 
 .desc {
@@ -34,12 +95,20 @@
     backdrop-filter: blur(64px);
 }
 
-.desc__inner {
+/* .desc__inner {
     display: flex;
     flex-direction: column;
     padding: 206px 15px 0px 72px;
-    /* Было 216px */
+} */
+
+.desc__inner {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
 }
+
 
 .desc__content>*:not(:first-child) {
     margin-top: 32px; 

@@ -235,7 +235,10 @@ const titleBlock =
             {selectedVariant ? (
               <WelcomePrice product={product} variant={selectedVariant} />
             ) : (
-              <div>Выберите цвет, чтобы увидеть цену</div>
+              <div className="message__choose-color">
+  Выберите цвет, чтобы увидеть цену
+</div>
+
             )}
           </div>
         </div>

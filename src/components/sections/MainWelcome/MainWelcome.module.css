@@ -32,8 +32,8 @@
 
 /* .welcome__img {
   position: absolute;
-  width: 70%;
-  height: 95%;
+  width: 80%;
+  height: 100%;
   z-index: -1;
   margin-top: 64px;
   overflow: hidden;
@@ -359,7 +359,7 @@
   line-height: 24px;
   letter-spacing: -0.32px;
   padding: 4px 10px;
-  background-color: #FF6A3A;
+  background-color: var(--accent-color);
   border-radius: 8px;
   color: white;
   display: inline-block;
@@ -368,7 +368,7 @@
 
 
 .desc__title {
-  font-size: 26px;
+  font-size: 32px;
   font-weight: 500;
   line-height: 100%;
   letter-spacing: -2%;

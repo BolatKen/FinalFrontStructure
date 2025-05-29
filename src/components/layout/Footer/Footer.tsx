@@ -156,7 +156,7 @@ export default function Footer() {
                         Офис продаж
                       </div>
                       <a
-                        href="https://wa.me/7702270000"
+                        href="https://wa.me/77022720000"
                         className={styles["whatsapp__link"]}
                       >
                         Написать в Whatsapp

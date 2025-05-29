@@ -10,9 +10,11 @@ export default function WelcomePrice({ product, variant }: { product: Product; v
         <div className={styles.price__item}>
             <div className={styles.configure__title}>Цена</div>
             <div className={styles.price__text}>
-                {variant.final_price} {variant.currency}
-            </div>
-            {(Number(variant.bonus_number) !== 0) ? (<BonusValue bonusVal={Number(variant.bonus_number)} />) : ''}
+  {new Intl.NumberFormat('ru-RU').format(Number(variant.final_price))} {variant.currency}
+</div>
+
+            {(Number(variant.bonus_number) !== 0) ? (<BonusValue bonusVal={new Intl.NumberFormat('ru-RU').format(Number(variant.bonus_number))} />
+) : ''}
         </div>
         <div className={`${styles.configure__btn} ${styles.btn}`}>
             <ButtonOrange

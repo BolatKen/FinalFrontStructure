@@ -82,9 +82,13 @@
   .configurator__description {
     margin-top: 107px;
   }
+  .configurator__description  h3{
+    font-size: 32px;
+  }
+
 
 .configurator-text__desc {
-  font-size: 24px;
+  font-size: 20px;
   line-height: 32px;
   letter-spacing: -1.2px;
   margin-top: 40px;

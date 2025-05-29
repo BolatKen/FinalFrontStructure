@@ -20,10 +20,11 @@
 
 .items__list {
     display: flex;
-     overflow-x: scroll;
-      scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch; /* для плавности на iOS */
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: auto; /* для плавности на iOS */
     /* overflow:auto; */
+    scroll-behavior: smooth;
 }
 
 .items__list>*:not(:first-child) {

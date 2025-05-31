@@ -66,6 +66,11 @@
     margin-top: 24px;
   }
   /* Rsul loh aooaohahaha */
+  @media (max-width: 600px) {
+    .panel__colors {
+      max-width: 280px;
+    }
+  }
 
   .configurator__group {
     display: flex;

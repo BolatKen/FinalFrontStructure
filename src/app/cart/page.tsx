@@ -638,30 +638,35 @@ export default function CartPage() {
           />
         )}
 
-        {showInvoiceModal && (
-          <ModalInvoicePayment
-            onClose={() => setShowInvoiceModal(false)}
-            onResult={async (status) => {
-              setShowInvoiceModal(false);
-              setPaymentStatus(status);
-              if (status === "invoice_success") {
-                const msg = generateOrderMessage(
-                  "Счёт на оплату",
-                  cartItems //finalTotalPrice
-                );
-                await sendTelegramMessage(msg);
-                await createOrder(); // 👈 вот эта строчка
-              }
-            }}
-          />
-        )}
+{showInvoiceModal && (
+  <ModalInvoicePayment
+    onClose={() => setShowInvoiceModal(false)}
+    onResult={async (status) => {
+      setShowInvoiceModal(false);
+      setPaymentStatus(status);
+      if (status === "invoice_success") {
+        const msg = generateOrderMessage(
+          "Счёт на оплату",
+          cartItems
+        );
+        await sendTelegramMessage(msg);
+        await createOrder();
+      }
+    }}
+    firstName={firstName}
+    lastName={lastName}
+    cartItems={cartItems}
+    finalTotalPrice={finalTotalPrice}
+  />
+)}
 
-        {paymentStatus && (
-          <ModalUnifiedResult
-            type={paymentStatus}
-            onClose={() => setPaymentStatus(null)}
-          />
-        )}
+{paymentStatus && (
+  <ModalUnifiedResult
+    type={paymentStatus}
+    onClose={() => setPaymentStatus(null)}
+  />
+)}
+
       </div>
     </div>
   );

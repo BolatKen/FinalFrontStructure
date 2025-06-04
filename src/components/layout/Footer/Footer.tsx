@@ -122,7 +122,7 @@ export default function Footer() {
                       Режим работы
                     </div>
                     <div className={styles["footer__info-text"]}>
-                      Пн–пт с 10:00 до 19:00, Сб–вс с 9:00 до 17:00
+                      Пн–пт с 9:00 до 18:00, Сб–вс с 9:00 до 18:00
                     </div>
                   </div>
                 </div>

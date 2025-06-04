@@ -21,6 +21,7 @@ export default function WelcomePrice({ product, variant }: { product: Product; v
                 onClick={() => {
                     const storedCart = localStorage.getItem("cartItems");
                     type CartItem = {
+                        base_sku: string;
                         id: number | string;
                         name: string;
                         price: number;
@@ -32,6 +33,7 @@ export default function WelcomePrice({ product, variant }: { product: Product; v
                     const cartItems: CartItem[] = storedCart ? JSON.parse(storedCart) : [];
 
                     const newItem: CartItem = {
+                        base_sku: product.base_sku,
                         id: product.id,
                         name: product.name,
                         price: Number(variant.final_price) || 0,

@@ -13,6 +13,7 @@ import Toggle from "@/components/ui/Toggle/Toggle";
 import Header from "@/components/layout/Header/Header";
 
 interface CartItem {
+  base_sku: string;
   id: number;
   name: string;
   price: number;

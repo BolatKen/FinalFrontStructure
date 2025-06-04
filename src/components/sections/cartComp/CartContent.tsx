@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 export default function CartContent() {
   interface CartItem {
+    base_sku: string;
     id: string | number;
     name: string;
     price: number;

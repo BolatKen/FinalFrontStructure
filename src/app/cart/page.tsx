@@ -92,6 +92,14 @@ export default function CartPage() {
     setter(cleaned);
 };
 
+const handlePaymentResultClose = () => {
+  // Если оплата прошла успешно
+  if (paymentStatus === "freedom_success" || paymentStatus === "invoice_success") {
+    localStorage.removeItem("cartItems"); // чистим localStorage
+    setCartItems([]); // чистим корзину в состоянии React
+  }
+  setPaymentStatus(null); // закрываем модалку
+};
 
   // Проверка валидации
   const isOrderFormValid =
@@ -664,10 +672,9 @@ export default function CartPage() {
 {paymentStatus && (
   <ModalUnifiedResult
     type={paymentStatus}
-    onClose={() => setPaymentStatus(null)}
+    onClose={handlePaymentResultClose} // вот сюда ставим новую функцию
   />
 )}
-
       </div>
     </div>
   );

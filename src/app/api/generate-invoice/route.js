@@ -90,7 +90,7 @@ export async function POST(req) {
         </div>
 
         <div class="buyer">
-          <div>Покупатель:</div>
+          <div>Покупатель: ${firstName} ${lastName}</div>
           ИИН/БИН: ${iin}<br>
           Юр. Адрес: ${address}  Тел.: ${phone}
         </div>

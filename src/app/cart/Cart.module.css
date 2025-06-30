@@ -640,4 +640,31 @@
     align-items: flex-start;
     gap: 8px;
   }
+
+  .paymentSection {
+    padding: 24px 20px;
+  }
+
+  .paymentMethods {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .paymentCard {
+    flex: 1 1 100%;
+    padding: 16px;
+  }
+
+  .paymentCard img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .paymentTitle {
+    font-size: 15px;
+  }
+
+  .paymentDesc {
+    font-size: 13px;
+  }
 }

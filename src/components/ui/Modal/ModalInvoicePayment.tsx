@@ -4,12 +4,20 @@ import { useState, useEffect } from "react";
 import styles from "./ModalInvoicePayment.module.css";
 import { ButtonOrange } from "@/components/ui/ButtonOrange/ButtonOrange";
 
+interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  // Add other relevant fields as needed
+}
+
 interface ModalInvoicePaymentProps {
   onClose: () => void;
   onResult: (status: "invoice_success" | "invoice_error") => void;
   firstName: string;
   lastName: string;
-  cartItems: any[];
+  cartItems: CartItem[];
   finalTotalPrice: number;
 }
 

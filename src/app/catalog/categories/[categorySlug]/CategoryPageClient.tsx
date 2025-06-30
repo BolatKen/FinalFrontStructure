@@ -160,7 +160,7 @@ export default function CategoryPageClient({
               className={[styles.header__searches, styles.searches].join(" ")}
             >
               <span className={styles.searches__title}>
-                Популярные подкатегорий:
+                Популярные подкатегории:
               </span>
               {category?.popular_subcategories.map((item, idx) => (
                 <li key={idx} className={styles.searches__item}>

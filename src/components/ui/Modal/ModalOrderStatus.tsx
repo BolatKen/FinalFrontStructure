@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import styles from "./ModalOrderStatus.module.css";
 
 interface OrderItem {
-  base_sku: string;
   id: number;
   title: string;
   price: string;

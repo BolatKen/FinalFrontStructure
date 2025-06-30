@@ -2,5 +2,5 @@
 
 
 export default async function CategoriesPage() {
-  return (<>Страница не найдено!</>);
+  return (<>Страница не найдена!</>);
 }

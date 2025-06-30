@@ -67,3 +67,62 @@
 .searches__link_selected {
     font-weight: 500;
 }
+
+@media (max-width: 768px) {
+  .header__title {
+    font-size: 32px;
+    line-height: 38px;
+    margin-top: 32px; /* уменьшен */
+    margin-bottom: 12px; /* добавлен отступ вниз */
+  }
+
+  .header__content {
+    margin-top: 48px;
+    padding: 12px;
+  }
+
+  .header__filters {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+    gap: 10px;
+  }
+
+  .header__filters > * {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  /* Переносим найдено вниз */
+  .header__found {
+    font-size: 14px;
+    white-space: nowrap;
+    margin-top: 12px;
+    margin-left: 0;
+    display: block;
+  }
+
+  .header__searches {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 20px;
+    gap: 12px;
+  }
+
+  .header__searches > * {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .searches__title {
+    font-size: 16px;
+    flex: 0 0 auto;
+  }
+
+  .searches__link {
+    font-size: 14px;
+  }
+}

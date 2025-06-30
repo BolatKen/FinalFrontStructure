@@ -145,11 +145,10 @@ export default function CategoryPageClient({
                 isSelected={resetAll.is_selected}
                 onClick={resetFilters}
               />
-              <span className={[styles.header__found].join(" ")}>
-                Найдено {category?.product_count}
-              </span>
             </ul>
-
+            <span className={[styles.header__found].join(" ")}>
+                Найдено {category?.product_count}
+            </span>
 
             <FiltersModal
               categoryFilters={categoryFilters}

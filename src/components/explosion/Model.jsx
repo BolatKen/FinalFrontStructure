@@ -6,12 +6,12 @@ import { useLoader } from '@react-three/fiber';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
 
 const Model = (props) => {
-    const gltf = useLoader(GLTFLoader, props.url);
+    const gltf = props.url ? useLoader(GLTFLoader, props.url) : null;
     const color = props.color;
     const part = props.part;
 
     // Клонируем сцену, чтобы избежать shared reference
-    const clonedScene = useMemo(() => clone(gltf.scene), [gltf.scene]);
+    const clonedScene = useMemo(() => (gltf && gltf.scene ? clone(gltf.scene) : null), [gltf]);
 
     useEffect(() => {
         if (!color || !clonedScene) return;
@@ -23,7 +23,7 @@ const Model = (props) => {
         });
     }, [clonedScene, color, part]);
 
-    return <primitive object={clonedScene} {...props} />;
+    return clonedScene ? <primitive object={clonedScene} {...props} /> : null;
 };
 
 export default Model;

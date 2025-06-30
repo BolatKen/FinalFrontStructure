@@ -5,7 +5,10 @@ import styles from "./ModalInvoicePayment.module.css";
 import { ButtonOrange } from "@/components/ui/ButtonOrange/ButtonOrange";
 
 interface CartItem {
-  id: string;
+  base_sku: string;
+  currency: string;
+  id: number;
+  image: string;
   name: string;
   price: number;
   quantity: number;
@@ -116,6 +119,8 @@ export default function ModalInvoicePayment({
     return () => document.removeEventListener("keydown", onEsc);
   }, [onClose]);
 
+  console.log("ModalInvoicePayment rendered");
+  console.log(cartItems);
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>

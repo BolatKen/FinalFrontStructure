@@ -6,15 +6,19 @@ import { useLoader } from '@react-three/fiber';
 
 const ModelConfig = (props) => {
 
-    const gltf = useLoader(GLTFLoader, props.url)
     const color = props.color;
     const part = props.part;
 
-    gltf.scene.traverse((child) => {
-        if (child.isMesh) {
-            console.log(child.name);
-        }
-    });
+    // Only load the model if props.url is valid
+    const gltf = props.url ? useLoader(GLTFLoader, props.url) : null;
+
+    if (gltf && gltf.scene) {
+        gltf.scene.traverse((child) => {
+            if (child.isMesh) {
+                console.log(child.name);
+            }
+        });
+    }
 
 
     useEffect(() => {
@@ -26,6 +30,8 @@ const ModelConfig = (props) => {
             }
         });
     }, [gltf, color]);
+
+    if (!gltf || !gltf.scene) return null;
 
     return <primitive object={gltf.scene} {...props} />;
 }

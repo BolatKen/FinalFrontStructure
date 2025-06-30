@@ -5,7 +5,7 @@ import { Product, Variant } from '@/types/product';
 
 
 export default function WelcomePrice({ product, variant }: { product: Product; variant: Variant }) {
-  console.log("🔥 product:", product);
+//   console.log("🔥 product:", product);
     return (<div className={`${styles.configure__price} ${styles.price}`}>
         <div className={styles.price__item}>
             <div className={styles.configure__title}>Цена</div>

@@ -12,13 +12,13 @@ const ModelConfig = (props) => {
     // Only load the model if props.url is valid
     const gltf = props.url ? useLoader(GLTFLoader, props.url) : null;
 
-    if (gltf && gltf.scene) {
-        gltf.scene.traverse((child) => {
-            if (child.isMesh) {
-                console.log(child.name);
-            }
-        });
-    }
+    // if (gltf && gltf.scene) {
+    //     gltf.scene.traverse((child) => {
+    //         if (child.isMesh) {
+    //             console.log(child.name);
+    //         }
+    //     });
+    // }
 
 
     useEffect(() => {

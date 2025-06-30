@@ -119,8 +119,6 @@ export default function ModalInvoicePayment({
     return () => document.removeEventListener("keydown", onEsc);
   }, [onClose]);
 
-  console.log("ModalInvoicePayment rendered");
-  console.log(cartItems);
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>

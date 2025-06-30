@@ -10,7 +10,7 @@ const Model = (props) => {
     const color = props.color;
     const part = props.part;
 
-    // Клонируем сцену, чтобы избежать shared reference
+    // Клонируем сцену, чтобы избежать shared reference.
     const clonedScene = useMemo(() => (gltf && gltf.scene ? clone(gltf.scene) : null), [gltf]);
 
     useEffect(() => {

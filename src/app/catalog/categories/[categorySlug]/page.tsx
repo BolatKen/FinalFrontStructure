@@ -28,9 +28,12 @@ export default async function CategoryPage({ params, searchParams }: PageProps
 
   const parsedFilters = parseFiltersFromUrl(filtered);
 
-  const products = Object.keys(parsedFilters).length
-    ? await applyFilters(parsedFilters, categorySlug, currentPage)
-    : categoryData.products;
+ const filteredResult = Object.keys(parsedFilters).length
+  ? await applyFilters(parsedFilters, categorySlug, currentPage)
+  : { products: categoryData.products, products_length: categoryData.products.length };
+
+ const products = filteredResult?.products || [];
+ const products_length = filteredResult?.products_length ?? products.length;
 
 
   return <CategoryPageClient
@@ -39,5 +42,6 @@ export default async function CategoryPage({ params, searchParams }: PageProps
     currentPage={currentPage}
     categoryFilters={categoryFilters}
     categorySlug={categoryData.slug}
-    initialFilters={parsedFilters} />;
+    initialFilters={parsedFilters} 
+    products_length={products_length}/>;
 }

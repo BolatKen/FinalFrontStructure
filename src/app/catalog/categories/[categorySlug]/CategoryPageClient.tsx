@@ -21,6 +21,7 @@ export default function CategoryPageClient({
   categoryFilters,
   categorySlug,
   initialFilters,
+  products_length,
 }: {
   category: CategoryListItem;
   products: ProductShort[];
@@ -28,6 +29,7 @@ export default function CategoryPageClient({
   categoryFilters: CategoryFilters | null;
   categorySlug: string;
   initialFilters: FilteredData;
+  products_length: number;
 }) {
   const allFilters = {
     icon: "/icons/filter/all.svg",
@@ -48,7 +50,11 @@ export default function CategoryPageClient({
   const toggleModal = () => {
     setIsModalOpen((prev) => (prev = !prev));
   };
-  const pagesNum = Math.ceil(products.length / 15);
+  const pagesNum = Math.ceil(
+    products_length
+    / 15);
+
+    // console.log("CategoryPageClient products", products, products.length);
 
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -60,7 +66,7 @@ export default function CategoryPageClient({
   useEffect(() => {
     const fetchFilteredProducts = async () => {
       const filtered = await applyFilters(filters, categorySlug, currentPage);
-      setFilteredProducts(filtered || []);
+      setFilteredProducts((filtered && Array.isArray(filtered.products)) ? filtered.products : []);
     };
     fetchFilteredProducts();
   }, [filters, categorySlug, currentPage]);

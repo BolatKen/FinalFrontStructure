@@ -6,7 +6,7 @@ import {
   CategoryWelcome,
   FilteredData
 } from '@/types/category';
-import { ProductShort } from '@/types/product';
+import { ProductShort, PaginatedProducts, ProductsWithLength } from '@/types/product';
 import axios from 'axios';
 
 const API_URL = process.env.NEXT_PUBLIC_API_DOMAIN
@@ -59,7 +59,11 @@ export const getCategoryListingBySlug = async (slug: string, currentPage: number
   }
 }
 
-export const applyFilters = async (filterData: FilteredData, categorySlug: string, currentPage: number): Promise<ProductShort[] | null> => {
+export const applyFilters = async (
+  filterData: FilteredData,
+  categorySlug: string,
+  currentPage: number
+): Promise<ProductsWithLength | null> => {
   try {
     const minPrice = filterData.priceFrom?.split(' ')[0].replace(/\s/g, "");
     const maxPrice = filterData.priceTo?.split(' ')[0].replace(/\s/g, "");
@@ -72,10 +76,13 @@ export const applyFilters = async (filterData: FilteredData, categorySlug: strin
         tags += '&';
       }
     });
-    const response = await axios.get<ProductShort[]>(
+    const response = await axios.get<PaginatedProducts>(
       `${API_URL}/catalog/categories/${categorySlug}/listing/filters/?${tags}&min_price=${minPrice}&max_price=${maxPrice}&material=${materialId}&color=${colorId}&page=${currentPage}`
     );
-    return response.data;
+
+    const ans = response.data.results;
+    // Return type: { products: ProductShort[]; products_length: number }
+    return { products: ans, products_length: response.data.count };
   } catch (err) {
     console.error('Ошибка при получении товаров при фильтрации:', err);
     return null;

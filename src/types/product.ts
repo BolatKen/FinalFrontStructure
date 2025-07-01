@@ -117,6 +117,12 @@ interface MaterialColor {
     variant: number;
     color: Color;
 }
+export interface PaginatedProducts {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: ProductShort[];
+}
 
 
 export interface ProductShort {
@@ -128,4 +134,8 @@ export interface ProductShort {
     tags: number[];
     sub_categories: number[];
     material_colors: MaterialColor[];
+}
+export interface ProductsWithLength {
+  products: ProductShort[];
+  products_length: number;
 }

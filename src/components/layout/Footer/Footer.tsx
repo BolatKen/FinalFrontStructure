@@ -177,12 +177,12 @@ export default function Footer() {
           <div className={styles.footer__copyright}>2025 © Leka Beauty</div>
           <ul className={[styles.footer__conf, styles.conf].join(" ")}>
             <li className={styles.conf__item}>
-              <a href="#" className={styles.conf__link}>
+              <a href="/offer" className={styles.conf__link}>
                 Публичная оферта
               </a>
             </li>
             <li className={styles.conf__item}>
-              <a href="#" className={styles.conf__link}>
+              <a href="/privacy-policy" className={styles.conf__link}>
                 Политика конфиденциальности
               </a>
             </li>

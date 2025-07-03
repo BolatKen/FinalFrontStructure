@@ -114,7 +114,7 @@ const titleBlock =
     modalTouchEndX.current = e.targetTouches[0].clientX;
   }
 
-  function onModalTouchEnd(e: React.TouchEvent<HTMLDivElement>) {
+  function onModalTouchEnd(_e: React.TouchEvent<HTMLDivElement>) {
     if (modalTouchStartX.current === null || modalTouchEndX.current === null) return;
     const distance = modalTouchStartX.current - modalTouchEndX.current;
     if (Math.abs(distance) > minModalSwipeDistance) {

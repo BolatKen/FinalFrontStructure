@@ -20,9 +20,9 @@ const ProductCard: React.FC<ProductShort> = ({
   const [colors, setColors] = useState<ColorItem[]>([]);
   const [selectedColor, setSelectedColor] = useState<ColorItem | undefined>(
     undefined
-  );
+  ); 
 
-  const [newPrice, setNewPrice] = useState(0);
+  const [newPrice, setNewPrice] = useState(0); 
   const [oldPrice, setOldPrice] = useState(0);
   const [bonusNumber, setBonusNumber] = useState(0);
 
@@ -40,7 +40,7 @@ const ProductCard: React.FC<ProductShort> = ({
 
   useEffect(() => {
     if (material_colors && material_colors.length > 0) {
-      const mappedColors = material_colors.map((item, idx) => ({
+      const mappedColors = material_colors.map((item, idx) => ({ 
         id: item.color.id,
         image: item.color.image,
         hex_code: item.color.hex_code,
@@ -74,7 +74,7 @@ const ProductCard: React.FC<ProductShort> = ({
       ? images[0].image
       : "/products/chair1.png";
 
-  if (!selectedColor) return null;
+  if (!selectedColor) return null; 
 
   return (
     <div className={styles["product-card"]}>
@@ -147,4 +147,5 @@ const ProductCard: React.FC<ProductShort> = ({
   );
 };
 
-export default ProductCard;
+export default ProductCard; 
+

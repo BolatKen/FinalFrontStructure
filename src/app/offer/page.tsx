@@ -2,7 +2,7 @@
 "use client";
 
 import Header from "@/components/layout/Header/Header";
-import styles from "./offer.module.css";
+import styles from "./legal.module.css";
 
 export default function OfferPage() {
   return (

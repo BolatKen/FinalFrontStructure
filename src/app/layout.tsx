@@ -8,6 +8,9 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 export const metadata: Metadata = {
   title: "Leka Beauty",
   description: "Сайт по обстановке барбершопов.",
+  icons: {
+    icon: '/favicon.svg', // /public path
+  },
 };
 
 export default function RootLayout({

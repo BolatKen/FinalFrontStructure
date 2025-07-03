@@ -117,9 +117,9 @@ const specsDB = Object.entries(groupedOptions).map(([type, values]) => {
                         ?.image || "/core/1.png"
                     } alt="Вид спереди" />
                   </div>
-                  <div className={styles.figure__caption}>
+                  {/* <div className={styles.figure__caption}>
                     79 см × 52 см
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className={styles.figure}>
@@ -129,9 +129,9 @@ const specsDB = Object.entries(groupedOptions).map(([type, values]) => {
                         ?.image || ""
                     } alt="Вид сбоку" />
                   </div>
-                  <div className={styles.figure__caption}>
+                  {/* <div className={styles.figure__caption}>
                     79 см × 52 см
-                  </div>
+                  </div> */}
                 </div>
               </div>
 

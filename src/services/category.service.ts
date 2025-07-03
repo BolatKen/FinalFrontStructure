@@ -56,7 +56,7 @@ export const getCategoryListingBySlug = async (slug: string, currentPage: number
     );
     return response.data;
   } catch (error) {
-    console.error('Ошибка при получении товаров категории:', error);
+    console.error(`Ошибка при получении товаров категории:${currentPage}`, error);
     return null;
   }
 }

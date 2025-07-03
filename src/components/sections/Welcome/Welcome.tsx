@@ -69,6 +69,65 @@ const titleBlock =
 
   const [isMobile, setIsMobile] = useState(false);
 
+  // Состояние для модального окна с фото
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImage, setModalImage] = useState<string | null>(null);
+
+  const handleImageClick = (imgUrl: string) => {
+    setModalImage(imgUrl);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setModalImage(null);
+  };
+
+  // Для листания фото в модалке
+  const handleModalPrev = (e?: React.MouseEvent | React.TouchEvent) => {
+    if (e) e.stopPropagation();
+    if (!modalImage) return;
+    const idx = galleryImages.findIndex(img => img === modalImage);
+    const prevIdx = (idx - 1 + galleryImages.length) % galleryImages.length;
+    setModalImage(galleryImages[prevIdx]);
+  };
+
+  const handleModalNext = (e?: React.MouseEvent | React.TouchEvent) => {
+    if (e) e.stopPropagation();
+    if (!modalImage) return;
+    const idx = galleryImages.findIndex(img => img === modalImage);
+    const nextIdx = (idx + 1) % galleryImages.length;
+    setModalImage(galleryImages[nextIdx]);
+  };
+
+  // Для свайпа в модалке на мобильных
+  const modalTouchStartX = useRef<number | null>(null);
+  const modalTouchEndX = useRef<number | null>(null);
+  const minModalSwipeDistance = 50;
+
+  function onModalTouchStart(e: React.TouchEvent<HTMLDivElement>) {
+    modalTouchEndX.current = null;
+    modalTouchStartX.current = e.targetTouches[0].clientX;
+  }
+
+  function onModalTouchMove(e: React.TouchEvent<HTMLDivElement>) {
+    modalTouchEndX.current = e.targetTouches[0].clientX;
+  }
+
+  function onModalTouchEnd(e: React.TouchEvent<HTMLDivElement>) {
+    if (modalTouchStartX.current === null || modalTouchEndX.current === null) return;
+    const distance = modalTouchStartX.current - modalTouchEndX.current;
+    if (Math.abs(distance) > minModalSwipeDistance) {
+      if (distance > 0) {
+        // свайп влево — следующее фото
+        handleModalNext();
+      } else {
+        // свайп вправо — предыдущее фото
+        handleModalPrev();
+      }
+    }
+  }
+
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -150,6 +209,8 @@ const titleBlock =
                     alt={`gallery-image-${currentImageIndex}`}
                     width={500}
                     height={500}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => handleImageClick(galleryImages[currentImageIndex])}
                   />
                 </div>
               </>
@@ -243,6 +304,110 @@ const titleBlock =
           </div>
         </div>
       </div>
+      {/* Модальное окно для просмотра фото */}
+      {isModalOpen && modalImage && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            background: 'rgba(0,0,0,0.85)',
+            zIndex: 10000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+          }}
+          onClick={handleModalClose}
+          onTouchStart={isMobile ? onModalTouchStart : undefined}
+          onTouchMove={isMobile ? onModalTouchMove : undefined}
+          onTouchEnd={isMobile ? onModalTouchEnd : undefined}
+        >
+          {/* Кнопки только на десктопе */}
+          {!isMobile && (
+            <>
+              <button
+                style={{
+                  position: 'absolute',
+                  left: 32,
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  zIndex: 10001,
+                  background: 'rgba(0,0,0,0.7)',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: 40,
+                  height: 40,
+                  fontSize: 28,
+                  cursor: 'pointer',
+                  display: galleryImages.length > 1 ? 'block' : 'none',
+                }}
+                onClick={handleModalPrev}
+                aria-label="Предыдущее фото"
+              >
+                &#8592;
+              </button>
+              <button
+                style={{
+                  position: 'absolute',
+                  right: 32,
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  zIndex: 10001,
+                  background: 'rgba(0,0,0,0.7)',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: 40,
+                  height: 40,
+                  fontSize: 28,
+                  cursor: 'pointer',
+                  display: galleryImages.length > 1 ? 'block' : 'none',
+                }}
+                onClick={handleModalNext}
+                aria-label="Следующее фото"
+              >
+                &#8594;
+              </button>
+            </>
+          )}
+          <img
+            src={modalImage}
+            alt="full-image"
+            style={{
+              maxWidth: '90vw',
+              maxHeight: '90vh',
+              borderRadius: '12px',
+              boxShadow: '0 0 32px 0 rgba(0,0,0,0.5)',
+              background: '#fff',
+            }}
+            onClick={e => e.stopPropagation()}
+          />
+          <button
+            style={{
+              position: 'fixed',
+              top: 24,
+              right: 32,
+              zIndex: 10001,
+              background: 'rgba(0,0,0,0.7)',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '50%',
+              width: 40,
+              height: 40,
+              fontSize: 28,
+              cursor: 'pointer',
+            }}
+            onClick={handleModalClose}
+            aria-label="Закрыть"
+          >
+            ×
+          </button>
+        </div>
+      )}
     </main>
   );
 }

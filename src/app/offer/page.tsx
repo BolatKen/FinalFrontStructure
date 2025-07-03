@@ -2,7 +2,7 @@
 "use client";
 
 import Header from "@/components/layout/Header/Header";
-import styles from "./legal.module.css";
+import styles from "./offer.module.css";
 
 export default function OfferPage() {
   return (
@@ -119,7 +119,7 @@ export default function OfferPage() {
 Шапагат м-н, ул.Биянху, 67 </p>
           <p>ИИН/БИН 750406302306 </p>
           <p>р/с в тенге: KZ49722S000017488254 </p>
-          <p>в банке: АО "Kaspi Bank" </p>
+          <p>в банке: АО &quot;Kaspi Bank&quot; </p>
           <p>БИК CASPKZKA </p>
           <p>БИН банка: 971240001315 </p>
           <p>ОКПО: 47591 и 31090 </p>

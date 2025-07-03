@@ -133,7 +133,7 @@ export default function CategoryPageClient({
                 isSelected={allFilters.is_selected}
                 onClick={toggleModal}
               />
-              {category?.filters.map((item, idx) => (
+              {category?.filters?.map((item, idx) => (
                 <ButtonFilter
                   key={idx}
                   iconImage={item.icon}
@@ -167,7 +167,7 @@ export default function CategoryPageClient({
               <span className={styles.searches__title}>
                 Популярные подкатегории:
               </span>
-              {category?.popular_subcategories.map((item, idx) => (
+              {category?.popular_subcategories?.map((item, idx) => (
                 <li key={idx} className={styles.searches__item}>
                   <a className={[
                     styles.searches__link,

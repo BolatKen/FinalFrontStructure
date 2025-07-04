@@ -32,7 +32,29 @@ export default function WelcomePrice({ product, variant }: { product: Product; v
 
                     const cartItems: CartItem[] = storedCart ? JSON.parse(storedCart) : [];
 
-                    const newItem: CartItem = {
+
+                    // Собираем только реально выбранные пользователем опции (selected === true или isSelected === true)
+                    // Если в variant.options нет флага выбора, берём только уникальные part + colorId
+                    const selectedOptions = Array.isArray(variant.options)
+                      ? Object.values(
+                          variant.options.reduce((acc, opt) => {
+                            const partName = opt.part?.name || '';
+                            const colorId = opt.color?.id || '';
+                            // Ключ — уникальная комбинация part+colorId
+                            const key = partName + ':' + colorId;
+                            // Сохраняем только если part и colorId не пустые и ещё не добавлены
+                            if (partName && colorId && !acc[key]) {
+                              acc[key] = {
+                                part: partName,
+                                color: opt.color?.name || '',
+                                colorId: colorId
+                              };
+                            }
+                            return acc;
+                          }, {} as Record<string, { part: string; color: string; colorId: string | number }>))
+                      : [];
+
+                    const newItem: CartItem & { config?: any } = {
                         base_sku: product.base_sku,
                         id: product.id,
                         name: product.name,
@@ -40,6 +62,7 @@ export default function WelcomePrice({ product, variant }: { product: Product; v
                         currency: variant.currency,
                         quantity: 1,
                         image: product.images?.[0]?.image ?? '',
+                        config: selectedOptions
                     };
 
                     const existingItemIndex = cartItems.findIndex(
@@ -67,3 +90,6 @@ export default function WelcomePrice({ product, variant }: { product: Product; v
 }
 
 export { default as WelcomePrice } from './WelcomePrice';
+
+
+

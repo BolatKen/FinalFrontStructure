@@ -37,18 +37,49 @@ export default function ColorList({
     }
   };
 
+  const [showAll, setShowAll] = useState(false);
+  const visibleColors = Array.isArray(colorData) ? (showAll ? colorData : colorData.slice(0, 4)) : [];
+  const hasMore = Array.isArray(colorData) && colorData.length > 4 && !showAll;
+
   return (
     <ul className={`${styles.color__items} ${styles.color__margin}`}>
-      {Array.isArray(colorData) && colorData.map((item, idx) => (<ColorItem
-        key={idx}
-        color={item.name}
-        code={item.hex_code}
-        imageUrl={item.image}
-        altText={item.name}
-        isSelected={selectedIndex === idx}
-        isSmall={false}
-        onSelect={() => (handleSelect(item.id, idx))}
-      />))}
+      {visibleColors.map((item, idx) => (
+        <ColorItem
+          key={idx}
+          color={item.name}
+          code={item.hex_code}
+          imageUrl={item.image}
+          altText={item.name}
+          isSelected={selectedIndex === idx}
+          isSmall={false}
+          onSelect={() => (handleSelect(item.id, idx))}
+        />
+      ))}
+      {hasMore && (
+        <li
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 32,
+            height: 32,
+            borderRadius: '50%',
+            background: '#eee',
+            margin: '0 4px',
+            cursor: 'pointer',
+            border: '1px solid #ccc',
+            position: 'relative',
+          }}
+          onClick={() => setShowAll(true)}
+          aria-label="Показать ещё цвета"
+        >
+          <span style={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
+            <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#888', display: 'inline-block' }} />
+            <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#888', display: 'inline-block' }} />
+            <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#888', display: 'inline-block' }} />
+          </span>
+        </li>
+      )}
     </ul>
   );
 }

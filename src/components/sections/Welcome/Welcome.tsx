@@ -277,7 +277,7 @@ const titleBlock =
         <div className={`_container ${styles.configure}`}>
           <div className={styles.configure__inner}>
             <div className={styles.configure__material}>
-              {colorsAndMaterials.slice(0, 2).map((item, idx) => {
+              {colorsAndMaterials.map((item, idx) => {
                 const foundColor = item.colors.find((color) => color.id === selectedColorId);
 
                 return (
@@ -290,7 +290,7 @@ const titleBlock =
                   />
                 );
               })}
-              <ButtonPrimary onClick={scrollToConfigurator}>Конфигуратор</ButtonPrimary>
+              {/* <ButtonPrimary onClick={scrollToConfigurator}>Конфигуратор</ButtonPrimary> */}
             </div>
 
             {selectedVariant ? (

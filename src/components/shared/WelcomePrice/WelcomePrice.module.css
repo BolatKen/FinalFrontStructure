@@ -348,18 +348,41 @@
     }
 }
 
+@media (max-width: 768px) {
+  .priceContainer {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+  .rightSection {
+    align-items: stretch;
+  }
+  .optionGroups {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .optionGroupButton {
+    width: 100%;
+    min-width: unset;
+    box-sizing: border-box;
+  }
+  .optionsDropdown {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+    box-shadow: none;
+    margin-top: 4px;
+  }
+}
+
+/* For very small screens */
 @media (max-width: 540px) {
-    .configure__price {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 10px;
-    }
-    
-    .price {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 8px;
-    }
+  .priceContainer {
+    gap: 8px;
+  }
+  .optionGroups {
+    gap: 4px;
+  }
 }
 
 /* Остальные стили оставлены без изменений */

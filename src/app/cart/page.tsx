@@ -13,9 +13,8 @@ import Toggle from "@/components/ui/Toggle/Toggle";
 import Header from "@/components/layout/Header/Header";
 
 interface CartConfigOption {
-  part?: string;
-  color?: string;
-  colorId?: string | number;
+  group: string;
+  value: string;
 }
 
 interface CartItem {
@@ -92,21 +91,25 @@ export default function CartPage() {
     return `+7 (${parts[1]}) ${parts[2]}-${parts[3]}-${parts[4]}`;
   };
 
-  const handleNameChange = (setter: (val: string) => void) => 
-  (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    const cleaned = value.replace(/[^A-Za-zА-Яа-яЁё\s\-]/g, ""); // только буквы, пробелы и дефисы
-    setter(cleaned);
-};
+  const handleNameChange =
+    (setter: (val: string) => void) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      const cleaned = value.replace(/[^A-Za-zА-Яа-яЁё\s\-]/g, ""); // только буквы, пробелы и дефисы
+      setter(cleaned);
+    };
 
-const handlePaymentResultClose = () => {
-  // Если оплата прошла успешно
-  if (paymentStatus === "freedom_success" || paymentStatus === "invoice_success") {
-    localStorage.removeItem("cartItems"); // чистим localStorage
-    setCartItems([]); // чистим корзину в состоянии React
-  }
-  setPaymentStatus(null); // закрываем модалку
-};
+  const handlePaymentResultClose = () => {
+    // Если оплата прошла успешно
+    if (
+      paymentStatus === "freedom_success" ||
+      paymentStatus === "invoice_success"
+    ) {
+      localStorage.removeItem("cartItems"); // чистим localStorage
+      setCartItems([]); // чистим корзину в состоянии React
+    }
+    setPaymentStatus(null); // закрываем модалку
+  };
 
   // Проверка валидации
   const isOrderFormValid =
@@ -358,12 +361,18 @@ const handlePaymentResultClose = () => {
                   <div className={styles.itemTitle}>{item.name}</div>
                   {/* Выводим выбранные опции (цвета и др.) если есть */}
                   {Array.isArray(item.config) && item.config.length > 0 && (
-                    <div style={{ fontSize: 14, color: '#888', margin: '4px 0 8px 0' }}>
+                    <div
+                      style={{
+                        fontSize: 14,
+                        color: "#888",
+                        margin: "4px 0 8px 0",
+                      }}
+                    >
                       {item.config.map((opt, idx) => (
                         <span key={idx}>
-                          {opt.part ? `${opt.part}: ` : ''}
-                          {opt.color}
-                          {item.config && idx < item.config.length - 1 ? ', ' : ''}
+                          {opt.group ? `${opt.group}: ` : ""}
+                          {opt.value}
+                          {idx < (item.config?.length ?? 0) - 1 ? ", " : ""}
                         </span>
                       ))}
                     </div>
@@ -388,80 +397,107 @@ const handlePaymentResultClose = () => {
             ))}
 
             <div className={styles.customerInfo}>
-  <h2 className={styles.sectionTitle}>Информация о получателе</h2>
-  <div className={styles.inputGroup}>
-<input
-  type="text"
-  placeholder="Имя"
-  value={firstName}
-  onChange={handleNameChange(setFirstName)}
-  className={`${styles.input} ${showValidation && !nameRegex.test(firstName) ? styles.errorInput : ""}`}
-/>
+              <h2 className={styles.sectionTitle}>Информация о получателе</h2>
+              <div className={styles.inputGroup}>
+                <input
+                  type="text"
+                  placeholder="Имя"
+                  value={firstName}
+                  onChange={handleNameChange(setFirstName)}
+                  className={`${styles.input} ${
+                    showValidation && !nameRegex.test(firstName)
+                      ? styles.errorInput
+                      : ""
+                  }`}
+                />
 
-<input
-  type="text"
-  placeholder="Фамилия"
-  value={lastName}
-  onChange={handleNameChange(setLastName)}
-  className={`${styles.input} ${showValidation && !nameRegex.test(lastName) ? styles.errorInput : ""}`}
-/>
+                <input
+                  type="text"
+                  placeholder="Фамилия"
+                  value={lastName}
+                  onChange={handleNameChange(setLastName)}
+                  className={`${styles.input} ${
+                    showValidation && !nameRegex.test(lastName)
+                      ? styles.errorInput
+                      : ""
+                  }`}
+                />
+              </div>
+              <input
+                type="text"
+                placeholder="Номер телефона"
+                className={`${styles.input} ${
+                  showValidation && !phoneRegex.test(phone)
+                    ? styles.errorInput
+                    : ""
+                }`}
+                value={phone}
+                onChange={(e) => setPhone(formatPhoneNumber(e.target.value))}
+              />
+            </div>
 
-  </div>
-  <input
-    type="text"
-    placeholder="Номер телефона"
-    className={`${styles.input} ${showValidation && !phoneRegex.test(phone) ? styles.errorInput : ""}`}
-    value={phone}
-    onChange={(e) => setPhone(formatPhoneNumber(e.target.value))}
-  />
-</div>
+            <div className={styles.deliverySection}>
+              <h2 className={styles.sectionTitle}>Доставка курьером</h2>
+              <p className={styles.assemblyNote}>
+                Курьеры не занимаются подъёмом мебели на этаж, при доставке
+                производится только отгрузка
+                <br />
+                По стоимости доставки мебели с вами свяжется оператор
+              </p>
+              <div className={styles.inputGroup}>
+                <input
+                  type="text"
+                  placeholder="Город"
+                  className={`${styles.input} ${
+                    showValidation && !cityRegex.test(city)
+                      ? styles.errorInput
+                      : ""
+                  }`}
+                  value={city}
+                  onChange={(e) => {
+                    // Разрешаем буквы, пробелы и дефисы
+                    const val = e.target.value.replace(
+                      /[^A-Za-zА-Яа-яЁё\s\-]/g,
+                      ""
+                    );
+                    setCity(val);
+                  }}
+                />
+                <input
+                  type="text"
+                  placeholder="Улица"
+                  className={`${styles.input} ${
+                    showValidation && street.trim() === ""
+                      ? styles.errorInput
+                      : ""
+                  }`}
+                  value={street}
+                  onChange={(e) => setStreet(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Дом"
+                  className={`${styles.input} ${
+                    showValidation && house.trim() === ""
+                      ? styles.errorInput
+                      : ""
+                  }`}
+                  value={house}
+                  onChange={(e) => setHouse(e.target.value)}
+                />
+              </div>
 
-<div className={styles.deliverySection}>
-  <h2 className={styles.sectionTitle}>Доставка курьером</h2>
-  <p className={styles.assemblyNote}>
-    Курьеры не занимаются подъёмом мебели на этаж, при доставке производится только отгрузка
-    <br />
-    По стоимости доставки мебели с вами свяжется оператор
-  </p>
-  <div className={styles.inputGroup}>
-    <input
-  type="text"
-  placeholder="Город"
-  className={`${styles.input} ${showValidation && !cityRegex.test(city) ? styles.errorInput : ""}`}
-  value={city}
-  onChange={(e) => {
-    // Разрешаем буквы, пробелы и дефисы
-    const val = e.target.value.replace(/[^A-Za-zА-Яа-яЁё\s\-]/g, '');
-    setCity(val);
-  }}
-/>
-    <input
-      type="text"
-      placeholder="Улица"
-      className={`${styles.input} ${showValidation && street.trim() === "" ? styles.errorInput : ""}`}
-      value={street}
-      onChange={(e) => setStreet(e.target.value)}
-    />
-    <input
-      type="text"
-      placeholder="Дом"
-      className={`${styles.input} ${showValidation && house.trim() === "" ? styles.errorInput : ""}`}
-      value={house}
-      onChange={(e) => setHouse(e.target.value)}
-    />
-  </div>
-
-  <div className={styles.assemblyCheckbox}>
-    <div className={styles.assemblyCheckboxRow}>
-      <Toggle setter={needAssembly} method={setNeedAssembly} />
-      <span>Необходима сборка мебели</span>
-    </div>
-    <p className={styles.assemblyNote}>
-      Мебель в собранном виде при перевозке занимает
-      <br />
-      большой объём, поэтому доставка может стоить дороже
-    </p>
-  </div>
+              <div className={styles.assemblyCheckbox}>
+                <div className={styles.assemblyCheckboxRow}>
+                  <Toggle setter={needAssembly} method={setNeedAssembly} />
+                  <span>Необходима сборка мебели</span>
+                </div>
+                <p className={styles.assemblyNote}>
+                  Мебель в собранном виде при перевозке занимает
+                  <br />
+                  большой объём, поэтому доставка может стоить дороже
+                </p>
+              </div>
             </div>
 
             <div className={styles.paymentSection}>
@@ -610,54 +646,54 @@ const handlePaymentResultClose = () => {
             </div>
 
             <div className={styles.legalBlock}>
-  <Link href="#" className={styles.legalItem}>
-    <span>Доставка</span>
-    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M9 5l7 7-7 7"
-      />
-    </svg>
-  </Link>
+              <Link href="#" className={styles.legalItem}>
+                <span>Доставка</span>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </Link>
 
-  <Link href="/offer" className={styles.legalItem}>
-    <span>Оферта физических лиц</span>
-    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M9 5l7 7-7 7"
-      />
-    </svg>
-  </Link>
+              <Link href="/offer" className={styles.legalItem}>
+                <span>Оферта физических лиц</span>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </Link>
 
-  <Link href="/offer" className={styles.legalItem}>
-    <span>Оферта для юридических лиц</span>
-    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M9 5l7 7-7 7"
-      />
-    </svg>
-  </Link>
+              <Link href="/offer" className={styles.legalItem}>
+                <span>Оферта для юридических лиц</span>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </Link>
 
-  <Link href="/payment-info" className={styles.legalItem}>
-    <span>Описание процедуры оплаты</span>
-    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M9 5l7 7-7 7"
-      />
-    </svg>
-  </Link>
-</div>
+              <Link href="/payment-info" className={styles.legalItem}>
+                <span>Описание процедуры оплаты</span>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </Link>
+            </div>
           </div>
         </div>
 
@@ -680,34 +716,31 @@ const handlePaymentResultClose = () => {
           />
         )}
 
-{showInvoiceModal && (
-  <ModalInvoicePayment
-    onClose={() => setShowInvoiceModal(false)}
-    onResult={async (status) => {
-      setShowInvoiceModal(false);
-      setPaymentStatus(status);
-      if (status === "invoice_success") {
-        const msg = generateOrderMessage(
-          "Счёт на оплату",
-          cartItems
-        );
-        await sendTelegramMessage(msg);
-        await createOrder();
-      }
-    }}
-    firstName={firstName}
-    lastName={lastName}
-    cartItems={cartItems}
-    finalTotalPrice={finalTotalPrice}
-  />
-)}
+        {showInvoiceModal && (
+          <ModalInvoicePayment
+            onClose={() => setShowInvoiceModal(false)}
+            onResult={async (status) => {
+              setShowInvoiceModal(false);
+              setPaymentStatus(status);
+              if (status === "invoice_success") {
+                const msg = generateOrderMessage("Счёт на оплату", cartItems);
+                await sendTelegramMessage(msg);
+                await createOrder();
+              }
+            }}
+            firstName={firstName}
+            lastName={lastName}
+            cartItems={cartItems}
+            finalTotalPrice={finalTotalPrice}
+          />
+        )}
 
-{paymentStatus && (
-  <ModalUnifiedResult
-    type={paymentStatus}
-    onClose={handlePaymentResultClose} // вот сюда ставим новую функцию
-  />
-)}
+        {paymentStatus && (
+          <ModalUnifiedResult
+            type={paymentStatus}
+            onClose={handlePaymentResultClose} // вот сюда ставим новую функцию
+          />
+        )}
       </div>
     </div>
   );

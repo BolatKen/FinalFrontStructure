@@ -514,8 +514,6 @@
 //   );
 // }
 
-
-
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./Welcome.module.css";
@@ -603,11 +601,10 @@ export default function Welcome({ product, scrollToConfigurator }: WelcomeProps)
   }
 
 
-  function onModalTouchEnd() {
-    if (modalTouchStartX.current === null || modalTouchEndX.current === null) return;
-    const distance = modalTouchStartX.current - modalTouchEndX.current;
-    if (Math.abs(distance) > minModalSwipeDistance) {
-
+  function onTouchEnd() {
+    if (touchStartX.current === null || touchEndX.current === null) return;
+    const distance = touchStartX.current - touchEndX.current;
+    if (Math.abs(distance) > minSwipeDistance) {
       if (distance > 0) {
         handleNextImage();
       } else {

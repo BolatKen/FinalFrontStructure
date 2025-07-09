@@ -140,6 +140,8 @@
     justify-content: space-between;
     gap: 40px;
     width: 100%;
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 
 .leftSection {
@@ -193,7 +195,7 @@
     flex-direction: row;
     gap: 16px;
     flex-wrap: nowrap;
-    overflow-x: auto;
+    /* overflow-x: auto; */
     padding-bottom: 8px;
     width: 100%;
 }

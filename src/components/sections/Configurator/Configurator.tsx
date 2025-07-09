@@ -557,7 +557,7 @@ export default function Configurator({ product }: ConfiguratorProps) {
             ))}
 
             {/* Блок для групп опций */}
-            {product.option_groups?.map((group: OptionGroup, groupIndex: number) => (
+            {/* {product.option_groups?.map((group: OptionGroup, groupIndex: number) => (
               <div key={groupIndex} className={styles.panel__item}>
                 <button
                   className={styles.optionGroup__header}
@@ -590,7 +590,7 @@ export default function Configurator({ product }: ConfiguratorProps) {
                   </div>
                 )}
               </div>
-            ))}
+            ))} */}
 
             <ButtonOrange
               className={styles["configurator__button-last"]}

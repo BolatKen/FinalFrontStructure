@@ -20,6 +20,11 @@ export default function Configurator({ product }: ConfiguratorProps) {
     product.configurable_parts.length > 0 ? product.configurable_parts[0].part.id : null
   );
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedColors, setSelectedColors] = useState<
+    Record<number, Color | null>
+  >({});
+
   useEffect(() => {
     if (!product) return;
     const initialSelection: Record<number, number> = {};
@@ -49,11 +54,6 @@ export default function Configurator({ product }: ConfiguratorProps) {
   const activePart = configurableData.find(
     (item) => item.part.id === activePartId
   );
-
-  const [modalOpen, setModalOpen] = useState(false);
-  const [selectedColors, setSelectedColors] = useState<
-    Record<number, Color | null>
-  >({});
 
   return (
     <div className={styles.configurator}>

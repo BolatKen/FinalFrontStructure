@@ -84,8 +84,14 @@ export interface ConfigurableParts {
     distinct_colors: Color[];
 }
 
+export interface OptionGroup {
+  id: number;
+  name: string;
+  // Добавь другие поля, если знаешь
+}
+
 export interface Product {
-    option_groups: any;
+    option_groups: OptionGroup[];
     length: number;
     id: number;
     base_sku: string;

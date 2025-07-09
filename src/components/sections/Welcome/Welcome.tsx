@@ -528,7 +528,7 @@ interface WelcomeProps {
   scrollToConfigurator: () => void;
 }
 
-export default function Welcome({ product, scrollToConfigurator }: WelcomeProps) {
+export default function Welcome({ product }: WelcomeProps) {
   // Форматирование заголовка
   const titleBlock = product.name.length > 13 ? (
     <div className={`${styles.welcome__title} ${styles.welcome__title_long}`}>

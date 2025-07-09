@@ -63,7 +63,7 @@ async function handleSubmit() {
     await sendTelegramMessage(message);
     setSuccessMessage("Ваш заказ успешно отправлен! Мы свяжемся с вами в ближайшее время.");
     setPhone("");
-  } catch (err) {
+  } catch {
     setError("Не удалось отправить сообщение. Попробуйте позже.");
   }
 }

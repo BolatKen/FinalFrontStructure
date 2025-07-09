@@ -602,10 +602,12 @@ export default function Welcome({ product, scrollToConfigurator }: WelcomeProps)
     touchEndX.current = e.targetTouches[0].clientX;
   }
 
-  function onTouchEnd() {
-    if (touchStartX.current === null || touchEndX.current === null) return;
-    const distance = touchStartX.current - touchEndX.current;
-    if (Math.abs(distance) > minSwipeDistance) {
+
+  function onModalTouchEnd() {
+    if (modalTouchStartX.current === null || modalTouchEndX.current === null) return;
+    const distance = modalTouchStartX.current - modalTouchEndX.current;
+    if (Math.abs(distance) > minModalSwipeDistance) {
+
       if (distance > 0) {
         handleNextImage();
       } else {

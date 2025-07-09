@@ -14,15 +14,10 @@ interface ConfiguratorProps {
 }
 
 export default function Configurator({ product }: ConfiguratorProps) {
-  const [selectedMaterials, setSelectedMaterials] = useState<
-    Record<number, number>
-  >({});
-
+  const [selectedMaterials, setSelectedMaterials] = useState<Record<number, number>>({});
   const [selectedColor, setSelectedColor] = useState<Color | null>(null);
   const [activePartId, setActivePartId] = useState<number | null>(
-    product.configurable_parts.length > 0
-      ? product.configurable_parts[0].part.id
-      : null
+    product.configurable_parts.length > 0 ? product.configurable_parts[0].part.id : null
   );
 
   useEffect(() => {
@@ -35,6 +30,9 @@ export default function Configurator({ product }: ConfiguratorProps) {
     });
     setSelectedMaterials(initialSelection);
   }, [product]);
+
+
+  
 
   if (!product) {
     return <div>Загрузка товара...</div>;

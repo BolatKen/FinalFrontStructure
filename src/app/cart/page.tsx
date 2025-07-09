@@ -12,6 +12,12 @@ import { sendTelegramMessage } from "@/lib/sendTelegramMessage";
 import Toggle from "@/components/ui/Toggle/Toggle";
 import Header from "@/components/layout/Header/Header";
 
+interface CartConfigOption {
+  part?: string;
+  color?: string;
+  colorId?: string | number;
+}
+
 interface CartItem {
   base_sku: string;
   id: number;
@@ -21,6 +27,7 @@ interface CartItem {
   currency: string;
   image: string;
   bonus?: number;
+  config?: CartConfigOption[];
 }
 
 function getCartItems(): CartItem[] {
@@ -349,6 +356,18 @@ const handlePaymentResultClose = () => {
                 />
                 <div className={styles.itemInfo}>
                   <div className={styles.itemTitle}>{item.name}</div>
+                  {/* Выводим выбранные опции (цвета и др.) если есть */}
+                  {Array.isArray(item.config) && item.config.length > 0 && (
+                    <div style={{ fontSize: 14, color: '#888', margin: '4px 0 8px 0' }}>
+                      {item.config.map((opt, idx) => (
+                        <span key={idx}>
+                          {opt.part ? `${opt.part}: ` : ''}
+                          {opt.color}
+                          {item.config && idx < item.config.length - 1 ? ', ' : ''}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                   <div className={styles.itemPrice}>
                     {(item.price ?? 0).toLocaleString()} {item.currency ?? ""} +{" "}
                     {(item.bonus ?? 0).toLocaleString()} бонусов

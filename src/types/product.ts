@@ -85,6 +85,7 @@ export interface ConfigurableParts {
 }
 
 export interface Product {
+    option_groups: any;
     length: number;
     id: number;
     base_sku: string;

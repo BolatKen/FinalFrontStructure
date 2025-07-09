@@ -3,18 +3,19 @@ import BonusValue from "@/components/ui/BonusValue/BonusValue";
 import ButtonOrange from "@/components/ui/ButtonOrange/ButtonOrange";
 import { Product } from "@/types/product";
 import { useEffect, useState } from "react";
+import { OptionGroup } from "@/types/product";
 
-interface Option {
-  name: string;
-  price: string;
-  type: "base_cost" | "surcharge";
-  comment?: string;
-}
+// interface Option {
+//   name: string;
+//   price: string;
+//   type: "base_cost" | "surcharge";
+//   comment?: string;
+// }
 
-interface OptionGroup {
-  title: string;
-  options: Option[];
-}
+// interface OptionGroup {
+//   title: string;
+//   options: Option[];
+// }
 
 interface WelcomePriceProps {
   product: Product;

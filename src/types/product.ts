@@ -1,5 +1,7 @@
 import { Color } from './color';
 
+
+
 export interface Part {
     id: number;
     name: string;
@@ -84,10 +86,16 @@ export interface ConfigurableParts {
     distinct_colors: Color[];
 }
 
-export interface OptionGroup {
-  id: number;
+interface Option {
   name: string;
-  // Добавь другие поля, если знаешь
+  price: string;
+  type: "base_cost" | "surcharge";
+  comment?: string;
+}
+
+export interface OptionGroup {
+  title: string;
+  options: Option[];
 }
 
 export interface Product {

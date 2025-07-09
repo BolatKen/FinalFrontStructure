@@ -10,7 +10,7 @@ export interface Part {
     extra_price: string;
 }
 
-interface Material {
+export interface Material {
     id: number;
     name: string;
     parts?: Part[];

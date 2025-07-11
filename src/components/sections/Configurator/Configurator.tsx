@@ -64,7 +64,7 @@ export default function Configurator({ product }: ConfiguratorProps) {
       >
       <div className={[styles.main__header].join(" ")}>
         <h2 className={[styles.configurator__title, "title"].join(" ")}>
-        Конфигуратор
+        
         </h2>
 
         <div className={styles.configurator__icon}>

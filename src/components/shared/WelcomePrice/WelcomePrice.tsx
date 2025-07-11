@@ -139,11 +139,13 @@ export default function WelcomePrice({
     window.dispatchEvent(new Event("storage"));
   };
 
-
   return (
     <div className={styles.priceContainer}>
       {/* Левый блок - выбор группы */}
       <div className={styles.leftSection}>
+        <h2 className={[styles.configurator__title, "title"].join(" ")}>
+          Конфигуратор
+        </h2>
         {optionGroups.length > 0 && (
           <div className={styles.optionGroups}>
             {optionGroups.map((group, groupIndex) => (
@@ -169,9 +171,37 @@ export default function WelcomePrice({
                             ? styles.optionItemSelected
                             : ""
                         }`}
-                        onClick={() =>
-                          handleOptionSelect(groupIndex, optionIndex)
-                        }
+                        onClick={() => {
+                          if (selectedOptions[groupIndex] === optionIndex) {
+                            // Если уже выбрана — отменяем выбор
+                            const newSelected = { ...selectedOptions };
+                            delete newSelected[groupIndex];
+                            setSelectedOptions(newSelected);
+
+                            // Удаляем опцию из localStorage
+                            localStorage.setItem(
+                              "selectedOptions",
+                              JSON.stringify(newSelected)
+                            );
+
+                            // Возвращаемся к базовой цене, если это была опция базовой стоимости
+                            if (option.type === "base_cost") {
+                              setBasePrice(Number(initialBasePrice));
+                            } else if (
+                              option.type === "surcharge" &&
+                              onSurchargesChange
+                            ) {
+                              // Удаляем надбавку, если это была она
+                              onSurchargesChange(
+                                surcharges.filter(
+                                  (item) => item.name !== option.name
+                                )
+                              );
+                            }
+                          } else {
+                            handleOptionSelect(groupIndex, optionIndex);
+                          }
+                        }}
                       >
                         <span className={styles.optionName}>{option.name}</span>
                         <span className={styles.optionPrice}>

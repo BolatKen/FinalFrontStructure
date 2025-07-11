@@ -5,7 +5,6 @@ import { Color } from "@/types/color";
 import { Material } from "@/types/product";
 import { sendTelegramMessage } from "@/lib/telegram";
 
-
 interface ConfiguratorModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -26,76 +25,72 @@ export default function ConfiguratorModal({
   partsInfo,
 }: ConfiguratorModalProps) {
   const [phone, setPhone] = useState("");
-const [error, setError] = useState("");
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [comment, setComment] = useState("");
 
-const [successMessage, setSuccessMessage] = useState("");
-
-function handlePhoneChange(e: React.ChangeEvent<HTMLInputElement>) {
-  setPhone(e.target.value);
-  setError("");
-}
-
-async function handleSubmit() {
-  const digits = phone.replace(/\D/g, "");
-  if (digits.length < 10) {
-    setError("Введите корректный номер телефона");
-    return;
+  function handlePhoneChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setPhone(e.target.value);
+    setError("");
   }
 
-  const messageLines = partsInfo.map(({ partId, partName, materials }) => {
-    const selectedMaterialId = selectedMaterials[partId];
-    const material = materials.find((m) => m.id === selectedMaterialId);
-    const color = selectedColors[partId];
-    return `🔹 <b>${partName}</b>: ${material?.name ?? "—"} / <i>${color?.name ?? "—"}</i>`;
-  });
+  async function handleSubmit() {
+    const digits = phone.replace(/\D/g, "");
+    if (digits.length < 10) {
+      setError("Введите корректный номер телефона");
+      return;
+    }
 
-  const message = [
-  `📥 <b>Новый заказ с сайта</b>`,
-  ``,
-  `📞 <b>Телефон:</b> ${phone}`,
-  `🛠️ <b>Выбранные параметры:</b>`,
-  ...messageLines,
-  ``,
-  `🕒 <i>Время: ${new Date().toLocaleString("ru-RU")}</i>`,
-].join("\n");
+    const messageLines = partsInfo.map(({ partId, partName, materials }) => {
+      const selectedMaterialId = selectedMaterials[partId];
+      const material = materials.find((m) => m.id === selectedMaterialId);
+      const color = selectedColors[partId];
+      return `🔹 <b>${partName}</b>: ${material?.name ?? "—"} / <i>${
+        color?.name ?? "—"
+      }</i>`;
+    });
 
-  try {
-    await sendTelegramMessage(message);
-    setSuccessMessage("Ваш заказ успешно отправлен! Мы свяжемся с вами в ближайшее время.");
-    setPhone("");
-  } catch {
-    setError("Не удалось отправить сообщение. Попробуйте позже.");
+    const message = [
+      `📥 <b>Новый заказ с сайта</b>`,
+      ``,
+      `📞 <b>Телефон:</b> ${phone}`,
+      comment ? `💬 <b>Комментарий:</b> ${comment}` : "",
+      `🛠️ <b>Выбранные параметры:</b>`,
+      ...messageLines,
+      ``,
+      `🕒 <i>Время: ${new Date().toLocaleString("ru-RU")}</i>`,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    try {
+      await sendTelegramMessage(message);
+      setSuccessMessage(
+        "Ваш заказ успешно отправлен! Мы свяжемся с вами в ближайшее время."
+      );
+      setPhone("");
+      setComment("");
+    } catch {
+      setError("Не удалось отправить сообщение. Попробуйте позже.");
+    }
   }
-}
-
-
-
-
-
-
-
-
 
   if (!isOpen) return null;
 
-
-
-  
   return (
-
-    
     <div className={styles.overlay}>
       <div className={styles.modal}>
         <h2>Ваш заказ</h2>
 
-
         {successMessage && (
-  <div className={styles.successAnimated}>
-    <div className={styles.checkIcon}>✔</div>
-    <h3>{successMessage}</h3>
-    <p className={styles.thankYou}>Мы свяжемся с вами в ближайшее время!</p>
-  </div>
-)}
+          <div className={styles.successAnimated}>
+            <div className={styles.checkIcon}>✔</div>
+            <h3>{successMessage}</h3>
+            <p className={styles.thankYou}>
+              Мы свяжемся с вами в ближайшее время!
+            </p>
+          </div>
+        )}
 
         <ul className={styles.summary}>
           {partsInfo.map(({ partId, partName, materials }) => {
@@ -124,25 +119,34 @@ async function handleSubmit() {
         </ul>
 
         <div className={styles.inputBlock}>
-  <label htmlFor="phone">Ваш номер телефона:</label>
-  <input
-    id="phone"
-    type="tel"
-    value={phone}
-    onChange={handlePhoneChange}
-    placeholder="+7 (___) ___-__-__"
-    className={`${styles.input} ${error ? styles.inputError : ""}`}
-  />
-  {error && <div className={styles.error}>{error}</div>}
-</div>
+          <label htmlFor="phone">Ваш номер телефона:</label>
+          <input
+            id="phone"
+            type="tel"
+            value={phone}
+            onChange={handlePhoneChange}
+            placeholder="+7 (___) ___-__-__"
+            className={`${styles.input} ${error ? styles.inputError : ""}`}
+          />
+          {error && <div className={styles.error}>{error}</div>}
+        </div>
 
+        <div className={styles.inputBlock}>
+          <label htmlFor="comment">Комментарий к заказу:</label>
+          <textarea
+            id="comment"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            placeholder="Ваш комментарий (необязательно)"
+            className={styles.input}
+            rows={3}
+            style={{ resize: "vertical" }}
+          />
+        </div>
 
         <div className={styles.actions}>
           <button onClick={onClose}>Отмена</button>
-          <button onClick={handleSubmit}>
-  Отправить
-</button>
-
+          <button onClick={handleSubmit}>Отправить</button>
         </div>
       </div>
     </div>

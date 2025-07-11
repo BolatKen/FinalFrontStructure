@@ -155,6 +155,7 @@
     align-items: flex-end;
     gap: 16px;
     flex-shrink: 0;
+    padding: 44px 0;
 }
 
 .configure__price {
@@ -198,6 +199,11 @@
     /* overflow-x: auto; */
     padding-bottom: 8px;
     width: 100%;
+
+
+    display: flex;
+  flex-wrap: wrap;      /* разрешаем перенос */
+  gap: 16px;  
 }
 
 .optionGroup {
@@ -386,3 +392,7 @@
 }
 
 /* Остальные стили оставлены без изменений */
+
+ .configurator__title {
+    padding: 44px 0;
+  }

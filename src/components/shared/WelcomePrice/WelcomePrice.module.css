@@ -91,9 +91,9 @@
 
 .optionGroupButton:hover,
 .optionGroupButton:focus {
-  border-color: var(--accent-color);
+  border-color: #4b7d6e;
   background: #292a30;
-  color: var(--accent-color);
+  color: #4b7d6e;
   outline: none;
 }
 
@@ -129,12 +129,12 @@
 
 .optionItem:hover {
   background: #23242a;
-  color: var(--accent-color);
+  color: #4b7d6e;
 }
 
 .optionItemSelected {
   background: #2d2e36;
-  color: var(--accent-color);
+  color: #4b7d6e;
   font-weight: 600;
 }
 

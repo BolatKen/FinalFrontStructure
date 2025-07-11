@@ -63,7 +63,7 @@ export default function WelcomePrice({
     // Сохраняем выбранные опции в localStorage
     localStorage.setItem("selectedOptions", JSON.stringify(newSelectedOptions));
 
-    setExpandedGroup(null);
+    // setExpandedGroup(null);
 
     if (option.type === "base_cost") {
       setBasePrice(parseFloat(option.price));

@@ -105,7 +105,7 @@ export default function WelcomePrice({
           const optionIdx = selectedOptions[groupIdx];
           if (optionIdx !== undefined) {
             return {
-              // group: group.title,
+              group: group.title,
               value: group.options[optionIdx]?.name,
             };
           }

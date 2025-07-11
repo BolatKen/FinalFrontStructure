@@ -372,7 +372,7 @@ export default function CartPage() {
                         <span key={idx}>
                           {opt.group ? `${opt.group}: ` : ""}
                           {opt.value}
-                          {idx < (item.config?.length ?? 0) - 1 ? ", " : ""}
+                          {idx < (item.config?.length ?? 0) - 1 ? ", " : ""}<br />
                         </span>
                       ))}
                     </div>

@@ -31,6 +31,8 @@
   display: flex;
   transition: transform 0.5s ease;
   gap: 48px;
+  align-items: center; /* Center items vertically */
+  height: 450px; /* Match the card height */
 }
 
 @media (max-width: 640px) {
@@ -44,6 +46,7 @@
     flex-wrap: nowrap;
     gap: 24px;
     transition: none;
+    height: 380px; /* Match the mobile card height */
   }
 
   .best-offers__main {

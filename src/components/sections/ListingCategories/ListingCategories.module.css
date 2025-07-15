@@ -6,39 +6,33 @@
 .listing__title {
   color: #131111;
 }
+
 .listing__items {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 32px; /* заменяет margin-left и margin-top */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
   margin-top: 40px;
   padding: 0 16px;
   justify-content: center;
 }
 
 .listing__items > * {
-  flex: 1 1 calc(33.333% - 32px);
-  max-width: calc(33.333% - 32px);
-  box-sizing: border-box;
+  justify-self: center; /* Center cards horizontally */
 }
 
 /* планшеты */
 @media (max-width: 1024px) {
-  .listing__items > * {
-    flex: 1 1 calc(50% - 32px);
-    max-width: calc(50% - 32px);
+  .listing__items {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 /* мобильные */
 @media (max-width: 600px) {
   .listing__items {
+    grid-template-columns: 1fr;
     gap: 20px;
     padding: 0 10px;
-  }
-
-  .listing__items > * {
-    flex: 1 1 100%;
-    max-width: 100%;
   }
 }
 

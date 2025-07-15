@@ -15,6 +15,8 @@ import OtherCatalog from "../../shared/OtherCatalog/OtherCatalog";
 import { getWelcomeCategories } from "@/services/category.service";
 import { useRouter } from "next/navigation";
 
+import Link from "next/link";
+
 import Image from "next/image";
 
 export default function MainWelcome() {
@@ -34,11 +36,11 @@ export default function MainWelcome() {
   }, []);
 
   // Слайдшоу
- const intervalRef = useRef(null);
+  const intervalRef = useRef(null);
 
   const startTimer = () => {
     intervalRef.current = setInterval(() => {
-      setCurrentIndex(prev => (prev + 1) % products.length);
+      setCurrentIndex((prev) => (prev + 1) % products.length);
     }, 7000);
   };
 
@@ -104,30 +106,23 @@ export default function MainWelcome() {
     resetTimer(); // сброс таймера при свайпе
   }
 
-
-
-
-
   const handlePrev = () => {
-  setCurrentIndex((prevIndex) =>
-    prevIndex === 0 ? products.length - 1 : prevIndex - 1
-  );
-  resetTimer(); // сброс таймера при переходе назад
-};
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? products.length - 1 : prevIndex - 1
+    );
+    resetTimer(); // сброс таймера при переходе назад
+  };
 
-const handleNext = () => {
-  setCurrentIndex((prevIndex) =>
-    prevIndex === products.length - 1 ? 0 : prevIndex + 1
-  );
-  resetTimer(); // сброс таймера при переходе вперед  
-};
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === products.length - 1 ? 0 : prevIndex + 1
+    );
+    resetTimer(); // сброс таймера при переходе вперед
+  };
 
-// useEffect(() => {
-//   setCurrentProduct(products[currentIndex]);
-// }, [currentIndex, products]);
-
-
-
+  // useEffect(() => {
+  //   setCurrentProduct(products[currentIndex]);
+  // }, [currentIndex, products]);
 
   return (
     <>
@@ -172,27 +167,26 @@ const handleNext = () => {
                     )}
                 </div> */}
         <Header isBlur={false} />
-<div className={styles.welcome__inner}>
-<div className={styles.welcome__img}>
-  <div className={styles.imageWrapper}>
-    {currentProduct?.image && (
-      <Image
-        src={currentProduct.image}
-        alt="Фото"
-        layout="responsive"
-        width={100}
-        height={100}
-        objectFit="contain"
-        priority
-      />
-    )}
-  </div>
-</div>
+        <div className={styles.welcome__inner}>
+          <div className={styles.welcome__img}>
+            <div className={styles.imageWrapper}>
+              {currentProduct?.image && (
+                <Image
+                  src={currentProduct.image}
+                  alt="Фото"
+                  layout="responsive"
+                  width={100}
+                  height={100}
+                  objectFit="contain"
+                  priority
+                  placeholder="blur"
+                   blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZjVmNWY1Ii8+Cjwvc3ZnPgo="
+/>
+              )}
+            </div>
+          </div>
 
-
-
-  <div className={[styles.welcome__description, styles.desc].join(" ")}>
-
+          <div className={[styles.welcome__description, styles.desc].join(" ")}>
             <div
               className={["_container-bigger", styles.desc__inner].join(" ")}
             >
@@ -223,11 +217,12 @@ const handleNext = () => {
 
                 <div className={styles.desc__price}>
                   <div className={styles.price__value}>
-{typeof currentProduct?.variants?.[0]?.final_price === "number"
-  ? `${new Intl.NumberFormat("ru-RU").format(currentProduct.variants[0].final_price)} ${currentProduct?.currency || ""}`
-  : "Нет в наличии"}
-
-
+                    {typeof currentProduct?.variants?.[0]?.final_price ===
+                    "number"
+                      ? `${new Intl.NumberFormat("ru-RU").format(
+                          currentProduct.variants[0].final_price
+                        )} ${currentProduct?.currency || ""}`
+                      : "Нет в наличии"}
                   </div>
                   {currentProduct?.bonus !== 0.0 ? (
                     <BonusValue bonusVal={currentProduct?.bonus} />
@@ -236,14 +231,16 @@ const handleNext = () => {
                   )}
                 </div>
 
-                <ButtonPrimary
-                  isWhite={true}
-                  children={"Перейти"}
-                  onClick={() => {
-                    if (!currentProduct?.slug) return;
-                    router.push(`/catalog/products/${currentProduct.slug}`);
-                  }}
-                />
+                                <Link 
+                  href={`/catalog/products/${currentProduct?.slug}`}
+                  prefetch={true}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <ButtonPrimary
+                    isWhite={true}
+                    children={"Перейти"}
+                  />
+                </Link>
               </div>
               <div className={styles["welcome__items-wrapper"]}>
                 <ul className={[styles.welcome__items, styles.items].join(" ")}>
@@ -263,10 +260,13 @@ const handleNext = () => {
         </div>
 
         <div className={styles.navigation}>
-          
-  <button onClick={handlePrev} className={styles.arrowLeft}>‹</button>
-  <button onClick={handleNext} className={styles.arrowRight}>›</button>
-</div>
+          <button onClick={handlePrev} className={styles.arrowLeft}>
+            ‹
+          </button>
+          <button onClick={handleNext} className={styles.arrowRight}>
+            ›
+          </button>
+        </div>
       </section>
       <GeneralInfo contentRight={rightContent} />
       <InfoList />

@@ -1,4 +1,5 @@
 import styles from './InfoCard.module.css';
+import Image from 'next/image';
 
 export default function InfoCard({ title, desc, url, alt }) {
     return (
@@ -7,7 +8,7 @@ export default function InfoCard({ title, desc, url, alt }) {
     <div className={styles.card__header}>
       <div className={[styles.card__icon, '_img'].join(' ')}>
         <div className={[styles.card__img, '_img'].join(' ')}>
-          <img src={url} alt={alt} />
+          <Image src={url} alt={alt} width={32} height={32}/>
         </div>
       </div>
       <div className={styles.desc__title}>

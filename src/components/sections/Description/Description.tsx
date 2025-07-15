@@ -1,7 +1,7 @@
 import styles from "./Description.module.css";
 import { SpecsList } from "../../shared/SpecsList/SpecsList";
 import { DescriptionDownload } from "../../shared/DescriptionDownload/DescriptionDownload";
-// import Image from "next/image";
+import Image from "next/image";
 import { Product } from "@/types/product";
 import { useRef, useState } from "react";
 
@@ -111,12 +111,18 @@ const specsDB = Object.entries(groupedOptions).map(([type, values]) => {
                 {/* Первое изображение с размерами */}
 
                 <div className={styles.figure}>
-                  <div className={[styles.specs__img,].join(' ')}>
-                    <img src={
+                    <div className={styles.specs__img}>
+                    <Image
+                      src={
                       product.images?.find((img) => img.type === "FRONT")
                         ?.image || "/core/1.png"
-                    } alt="Вид спереди" />
-                  </div>
+                      }
+                      alt="Вид спереди"
+                      width={400}
+                      height={400}
+                      style={{ width: "100%", height: "auto", objectFit: "contain" }}
+                    />
+                    </div>
                   {/* <div className={styles.figure__caption}>
                     79 см × 52 см
                   </div> */}
@@ -124,10 +130,13 @@ const specsDB = Object.entries(groupedOptions).map(([type, values]) => {
 
                 <div className={styles.figure}>
                   <div className={[styles.specs__img,].join(' ')}>
-                    <img src={
+                    <Image src={
                       product.images?.find((img) => img.type === "SIDE")
                         ?.image || ""
-                    } alt="Вид сбоку" />
+                    } alt="Вид сбоку" 
+                      width={400}
+                      height={400}
+                      style={{ width: "100%", height: "auto", objectFit: "contain" }}/>
                   </div>
                   {/* <div className={styles.figure__caption}>
                     79 см × 52 см

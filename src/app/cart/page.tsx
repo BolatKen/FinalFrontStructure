@@ -12,6 +12,8 @@ import { sendTelegramMessage } from "@/lib/sendTelegramMessage";
 import Toggle from "@/components/ui/Toggle/Toggle";
 import Header from "@/components/layout/Header/Header";
 
+import Image from "next/image";
+
 interface CartConfigOption {
   group: string;
   value: string;
@@ -281,10 +283,12 @@ export default function CartPage() {
       <div className={styles.cart}>
         <Header />
         <div className={styles.emptyCart}>
-          <img
+          <Image
             src="/icons/korzina.png"
             alt="Empty Cart"
             className={styles.emptyIcon}
+            width={64}
+            height={64}
           />
           <h2 className={styles.emptyCartTitle}>Ваша корзина пуста</h2>
           <p className={styles.emptyCartText}>
@@ -352,10 +356,12 @@ export default function CartPage() {
                     }
                   }}
                 />
-                <img
+                <Image
                   src={item.image}
                   alt={item.name}
                   className={styles.itemImage}
+                  width={80}
+                  height={80}
                 />
                 <div className={styles.itemInfo}>
                   <div className={styles.itemTitle}>{item.name}</div>
@@ -391,7 +397,7 @@ export default function CartPage() {
                   className={styles.removeBtn}
                   onClick={() => removeItem(item.id)}
                 >
-                  <img src="/icons/trash.svg" alt="Удалить" />
+                  <Image src="/icons/trash.svg" alt="Удалить" width ={15} height={17}/>
                 </button>
               </div>
             ))}
@@ -518,7 +524,7 @@ export default function CartPage() {
                     />
                     {/* <span className={styles.radioCustom}></span> */}
                   </div>
-                  <img src="/icons/inquiry.svg" alt="icon" />
+                  <Image src="/icons/inquiry.svg" alt="icon" width={32} height={32}/>
                   <div>
                     <div className={styles.paymentTitle}>Счёт на оплату</div>
                     <div className={styles.paymentDesc}>
@@ -539,7 +545,7 @@ export default function CartPage() {
                     value="freedompay"
                     onChange={(e) => setPaymentMethod(e.target.value)}
                   />
-                  <img src="/icons/freedom.svg" alt="" />
+                  <Image src="/icons/freedom.svg" alt="" width={32} height={32}/>
                   <div>
                     <div className={styles.paymentTitle}>Freedom Pay</div>
                     <div className={styles.paymentDesc}>
@@ -559,7 +565,7 @@ export default function CartPage() {
                     value="kaspi"
                     onChange={(e) => setPaymentMethod(e.target.value)}
                   />
-                  <img src="/icons/kaspi.svg" alt="" />
+                  <Image src="/icons/kaspi.svg" alt="" width={32} height={32}/>
                   <div>
                     <div className={styles.paymentTitle}>Kaspi</div>
                     <div className={styles.paymentDesc}>

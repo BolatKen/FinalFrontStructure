@@ -170,6 +170,7 @@
 
 .desc__price {
     display: flex;
+    margin-bottom:24px;
 
 }
 

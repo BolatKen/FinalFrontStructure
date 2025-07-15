@@ -155,7 +155,7 @@ export default function Header({ isBlur = false }) {
         className={styles.burgerToggle}
         onClick={() => toggleSection(parent.name)}
       >
-        <Link href={`/catalog/categories/${parent.slug}`}>{parent.name}</Link>
+        <Link href={`/catalog/categories/${parent.slug}`} prefetch={true}>{parent.name}</Link>
         <span
           className={
             openSection === parent.name
@@ -170,7 +170,7 @@ export default function Header({ isBlur = false }) {
           <ul className={styles.subMenu}>
             {childCategories(parent.id).map((child) => (
               <li key={child.id}>
-                <Link href={`/catalog/categories/${child.slug}`}>
+                <Link href={`/catalog/categories/${child.slug}`} prefetch={true}>
                   {child.name}
                 </Link>
               </li>

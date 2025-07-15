@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import "./ProductCard.module.css";
 import styles from "./ProductCard.module.css";
 import BonusValue from "@/components/ui/BonusValue/BonusValue";
-import ColorProductList from "@/components/ui/ColorProductList/ColorProductList";
+// import ColorProductList from "@/components/ui/ColorProductList/ColorProductList";
 import { ProductShort } from "@/types/product";
 import { ColorItemType as ColorItem } from "@/types/color";
 import Link from "next/link";
@@ -17,7 +17,8 @@ const ProductCard: React.FC<ProductShort> = ({
   images,
   material_colors,
 }) => {
-  const [colors, setColors] = useState<ColorItem[]>([]);
+  const [colors,
+     setColors] = useState<ColorItem[]>([]);
   const [selectedColor, setSelectedColor] = useState<ColorItem | undefined>(
     undefined
   ); 
@@ -90,15 +91,18 @@ const ProductCard: React.FC<ProductShort> = ({
             width={400} // фиксированная ширина карточки.
             height={500} // или другую подходящую высоту.
             loading="lazy"
+            placeholder="blur"
+   blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjZjVmNWY1Ii8+Cjwvc3ZnPgo="
+
           />
         </div>
         <div className={styles["product-card__inner"]}>
-          <div className={styles["product-cart__colors"]}>
+          {/* <div className={styles["product-cart__colors"]}>
             <ColorProductList
               colorData={colors}
               onColorSelect={handleColorSelect}
             />
-          </div>
+          </div> */}
 
           <div className={styles["product-card__info"]}>
             <div className={styles["product-card__more"]}>

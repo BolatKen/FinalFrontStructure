@@ -5,6 +5,7 @@ import Arrow from "@/components/ui/Arrow/Arrow";
 import { useEffect, useState } from "react";
 import { Category } from "@/types/category";
 import { getCategories } from "@/services/category.service";
+import Image from "next/image";
 
 export default function Footer() {
   // const footerHeaderList = [
@@ -149,7 +150,7 @@ export default function Footer() {
                     <div
                       className={[styles["whatsapp__icon"], "_img"].join(" ")}
                     >
-                      <img src="/icons/whatsapp-line.png" alt="WhatsApp" />
+                      <Image src="/icons/whatsapp-line.png" alt="WhatsApp" width={24} height={24}/>
                     </div>
                     <div className={styles["whatsapp__text"]}>
                       <div className={styles["whatsapp__title"]}>

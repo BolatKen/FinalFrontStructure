@@ -2,3 +2,14 @@
 @import url('./fonts.css');
 @import url('./globals.css');
 @import url('./shared.css');
+
+/* NProgress Customization */
+#nprogress .bar {
+  background: #1D1C1B !important; /* A dark color that fits your theme */
+  height: 3px !important;
+  transition: all 400ms ease-in-out !important; /* Makes the animation smoother */
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #1D1C1B, 0 0 5px #1D1C1B !important;
+}

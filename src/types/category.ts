@@ -21,6 +21,7 @@ export interface SubCatergory {
 export interface CategoryWelcome {
     id: number;
     name: string;
+    slug?: string;
     subcategories: Category[];
     products: ProductShort[];
     material_colors: Color[];

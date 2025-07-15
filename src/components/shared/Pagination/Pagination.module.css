@@ -1,28 +1,34 @@
 /* pagination */
+.pagination {
+    margin-top: 48px;
+    margin-bottom: 48px;
+}
+
 .pagination__inner {
-    margin-top: 64px;
-    display: flex;
-    align-items: center;
-    padding: 0px 42px 48px 42px;
-}
-
-.pagination__inner>*:not(:first-child) {
-    margin-left: 14px;
-}
-
-.pagination__arrow {
-    width: 24px;
-    height: 24px;
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 16px;
 }
 
 .pagination__items {
     display: flex;
-
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.pagination__items>*:not(:first-child) {
-    margin-left: 14px;
+.pagination__arrow {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.pagination__arrow_disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
 }

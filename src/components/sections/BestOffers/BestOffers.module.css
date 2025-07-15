@@ -31,22 +31,29 @@
   display: flex;
   transition: transform 0.5s ease;
   gap: 48px;
-  align-items: center; /* Center items vertically */
-  height: 450px; /* Match the card height */
+  align-items: stretch; 
+  height: 465px; 
 }
 
 @media (max-width: 640px) {
   .best-offers__viewport {
-    width: 405px;
+    width: 100%;
     overflow-x: auto;
     margin: 0 auto;
+    box-sizing: border-box;
   }
 
   .best-offers__list {
     flex-wrap: nowrap;
-    gap: 24px;
+    gap: 16px;
     transition: none;
-    height: 380px; /* Match the mobile card height */
+    height: auto;
+    padding: 0 16px 10px 16px; /* Added horizontal padding here */
+  }
+
+  .best-offers__list > * {
+    width: 280px;
+    flex-shrink: 0;
   }
 
   .best-offers__main {
@@ -58,3 +65,4 @@
     display: none !important; /* убираем стрелки полностью */
   }
 }
+

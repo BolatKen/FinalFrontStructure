@@ -17,6 +17,7 @@ export default function Pagination({
   const pathname = usePathname();
 
   const handlePageClick = (page: number) => {
+    if (page < 1 || page > totalPages) return;
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", page.toString());
 
@@ -27,20 +28,30 @@ export default function Pagination({
   return (
     <div className={[styles.pagination, "_container"].join(" ")}>
       <div className={styles.pagination__inner}>
-        <div className={styles.pagination__arrow}>
+        <div
+          className={`${styles.pagination__arrow} ${
+            currentPage === 1 ? styles.pagination__arrow_disabled : ""
+          }`}
+          onClick={() => handlePageClick(currentPage - 1)}
+        >
           <img src="/icons/left.svg" alt="Левая стрелка" />
         </div>
         <ul className={styles.pagination__items}>
           {pages.map((pageNumber) => (
-            <div key={pageNumber} onClick={() => handlePageClick(pageNumber)}>
+            <li key={pageNumber} onClick={() => handlePageClick(pageNumber)}>
               <PageNumberItem
                 pageNumber={pageNumber}
                 isSelected={pageNumber === currentPage}
               />
-            </div>
+            </li>
           ))}
         </ul>
-        <div className={styles.pagination__arrow}>
+        <div
+          className={`${styles.pagination__arrow} ${
+            currentPage === totalPages ? styles.pagination__arrow_disabled : ""
+          }`}
+          onClick={() => handlePageClick(currentPage + 1)}
+        >
           <img src="/icons/right.svg" alt="Правая стрелка" />
         </div>
       </div>

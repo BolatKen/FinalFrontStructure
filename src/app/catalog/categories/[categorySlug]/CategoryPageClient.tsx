@@ -62,14 +62,32 @@ export default function CategoryPageClient({
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<ProductShort[]>(products || []);
   const [filters, setFilters] = useState<FilteredData>(initialFilters || {} as FilteredData);
+  const [isLoading, setIsLoading] = useState(false);
 
+  // Оптимизированная загрузка с кешированием
   useEffect(() => {
     const fetchFilteredProducts = async () => {
-      const filtered = await applyFilters(filters, categorySlug, currentPage);
-      setFilteredProducts((filtered && Array.isArray(filtered.products)) ? filtered.products : []);
+      // Показываем результаты немедленно, если данные уже есть
+      if (products && products.length > 0) {
+        setFilteredProducts(products);
+        return;
+      }
+
+      setIsLoading(true);
+      try {
+        const filtered = await applyFilters(filters, categorySlug, currentPage);
+        setFilteredProducts((filtered && Array.isArray(filtered.products)) ? filtered.products : []);
+      } catch (error) {
+        console.error('Ошибка загрузки товаров:', error);
+      } finally {
+        setIsLoading(false);
+      }
     };
-    fetchFilteredProducts();
-  }, [filters, categorySlug, currentPage]);
+
+    // Дебаунс для предотвращения множественных запросов
+    const timeoutId = setTimeout(fetchFilteredProducts, 200);
+    return () => clearTimeout(timeoutId);
+  }, [filters, categorySlug, currentPage, products]);
 
   const handleApplyFilters = (newFilters: FilteredData) => {
     const queryString = buildFilterQueryString(newFilters);
@@ -77,37 +95,56 @@ export default function CategoryPageClient({
       ? `/catalog/categories/${categorySlug}?filtered=${queryString}&page=1`
       : `/catalog/categories/${categorySlug}?page=1`;
 
-    router.push(url);
-
+    // Используем replace вместо push для быстрой навигации
+    router.replace(url);
     setFilters(newFilters);
   };
 
   const handleSubcategoryClick = (subcategoryId: number) => {
-    setSelectedSubcategory((prev) => (prev === subcategoryId ? null : subcategoryId));
+    const newSubcategory = selectedSubcategory === subcategoryId ? null : subcategoryId;
+    setSelectedSubcategory(newSubcategory);
+    
+    // Быстрый переход без перезагрузки страницы
+    const url = newSubcategory 
+      ? `/catalog/categories/${categorySlug}?subcategory=${newSubcategory}&page=1`
+      : `/catalog/categories/${categorySlug}?page=1`;
+    router.replace(url);
   };
 
   const handleTagClick = (tagId: number) => {
-    setSelectedTags((prev) =>
-      prev.includes(tagId) ? prev.filter(id => id !== tagId) : [...prev, tagId]
-    );
+    const newSelectedTags = selectedTags.includes(tagId) 
+      ? selectedTags.filter(id => id !== tagId) 
+      : [...selectedTags, tagId];
+    
+    setSelectedTags(newSelectedTags);
+    
+    // Оптимизированный переход
+    const tagQuery = newSelectedTags.length > 0 ? `&tags=${newSelectedTags.join(',')}` : '';
+    const url = `/catalog/categories/${categorySlug}?page=1${tagQuery}`;
+    router.replace(url);
   }
 
+  // Оптимизированная фильтрация с debounce
   useEffect(() => {
-    let filtered = products;
+    const timeoutId = setTimeout(() => {
+      let filtered = products;
 
-    if (selectedSubcategory !== null) {
-      filtered = filtered.filter(product =>
-        product.sub_categories.includes(selectedSubcategory)
-      );
-    }
+      if (selectedSubcategory !== null) {
+        filtered = filtered.filter(product =>
+          product.sub_categories.includes(selectedSubcategory)
+        );
+      }
 
-    if (selectedTags.length > 0) {
-      filtered = filtered.filter(product =>
-        selectedTags.every(tagId => product.tags.includes(tagId))
-      );
-    }
+      if (selectedTags.length > 0) {
+        filtered = filtered.filter(product =>
+          selectedTags.every(tagId => product.tags.includes(tagId))
+        );
+      }
 
-    setFilteredProducts(filtered);
+      setFilteredProducts(filtered);
+    }, 100); // Debounce для плавности
+
+    return () => clearTimeout(timeoutId);
   }, [selectedSubcategory, selectedTags, products]);
 
   const resetFilters = () => {
@@ -115,7 +152,7 @@ export default function CategoryPageClient({
     setSelectedTags([]);
     setFilteredProducts(products);
     const url = `/catalog/categories/${categorySlug}?page=1`;
-    router.push(url);
+    router.replace(url); // replace вместо push
   };
 
   return (
@@ -184,7 +221,13 @@ export default function CategoryPageClient({
       </div >
       <BestOffers products={category.best_offers} isListing={true} />
       <div ref={listRef} className={styles["scroll-target"]}>
-        <ListingCategories products={filteredProducts} />
+        {isLoading ? (
+          <div className={styles.loading}>
+            <div className={styles.loadingSpinner}>Загрузка...</div>
+          </div>
+        ) : (
+          <ListingCategories products={filteredProducts} />
+        )}
       </div>
 
       <Pagination

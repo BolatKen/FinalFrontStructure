@@ -11,16 +11,41 @@ import axios from 'axios';
 
 const API_URL = process.env.NEXT_PUBLIC_API_DOMAIN
 
+// Кеш для категорий
+let categoriesCache: Category[] | null = null;
+let cacheTimestamp: number | null = null;
+const CACHE_DURATION = 5 * 60 * 1000; // 5 минут
+
 export async function getCategories(): Promise<Category[]> {
   try {
+    // Проверяем кеш
+    const now = Date.now();
+    if (categoriesCache && cacheTimestamp && (now - cacheTimestamp) < CACHE_DURATION) {
+      return categoriesCache;
+    }
 
     const response = await axios.get<Category[]>(
-      `${API_URL}/catalog/categories/`
-    )
-    return response.data
+      `${API_URL}/catalog/categories/`,
+      {
+        // Добавляем кеширование на уровне HTTP
+        headers: {
+          'Cache-Control': 'max-age=300' // 5 минут
+        }
+      }
+    );
+    
+    // Обновляем кеш
+    categoriesCache = response.data;
+    cacheTimestamp = now;
+    
+    return response.data;
   } catch (error) {
-    console.error('Ошибка при загрузке категорий:', error)
-    throw new Error('Не удалось получить список категорий')
+    // Возвращаем кешированные данные при ошибке, если они есть
+    if (categoriesCache) {
+      return categoriesCache;
+    }
+    console.error('Ошибка при загрузке категорий:', error);
+    throw new Error('Не удалось получить список категорий');
   }
 }
 

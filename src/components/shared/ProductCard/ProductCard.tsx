@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import "./ProductCard.module.css";
 import styles from "./ProductCard.module.css";
 import BonusValue from "@/components/ui/BonusValue/BonusValue";
-// import ColorProductList from "@/components/ui/ColorProductList/ColorProductList";
+import ColorProductList from "@/components/ui/ColorProductList/ColorProductList";
 import { ProductShort } from "@/types/product";
 import { ColorItemType as ColorItem } from "@/types/color";
 import Link from "next/link";
@@ -97,12 +97,12 @@ const ProductCard: React.FC<ProductShort> = ({
           />
         </div>
         <div className={styles["product-card__inner"]}>
-          {/* <div className={styles["product-cart__colors"]}>
+          <div className={styles["product-cart__colors"]} style={{ display: "none" }}>
             <ColorProductList
               colorData={colors}
               onColorSelect={handleColorSelect}
             />
-          </div> */}
+          </div>
 
           <div className={styles["product-card__info"]}>
             <div className={styles["product-card__more"]}>

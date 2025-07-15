@@ -50,7 +50,24 @@ export default function MainWelcome({ products = [], categories = [] }: MainWelc
             key={`catalog-${item.slug || item.id || key}`}
             title={item.name}
             slug={item.slug || ''}
-            tags={item.subcategories as any}
+            tags={
+              (item.subcategories || []).map((cat: {
+                id: number | string;
+                name: string;
+                group?: string;
+                priority?: number;
+                icon?: string;
+                is_toggle?: boolean;
+                // [key: string]: any;
+              }) => ({
+                id: typeof cat.id === 'number' ? cat.id : Number(cat.id),
+                name: cat.name,
+                group: cat.group || '',
+                priority: cat.priority || 0,
+                icon: cat.icon || '',
+                is_toggle: cat.is_toggle ?? false,
+              }))
+            }
             products={item.products}
           />
         ) : (

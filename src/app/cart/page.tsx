@@ -146,7 +146,7 @@ export default function CartPage() {
     if (!isLoading) {
       saveCartItems(cartItems);
     }
-  }, [cartItems]);
+  }, [cartItems, isLoading]);
 
   const totalPrice = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,

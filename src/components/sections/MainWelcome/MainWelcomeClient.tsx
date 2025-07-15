@@ -180,8 +180,9 @@ export default function MainWelcomeClient({
               <ButtonPrimary
                 isWhite={true}
                 onClick={() => {}}
-                children={"Перейти"}
-              />
+              >
+                Перейти
+              </ButtonPrimary>
             </Link>
           </div>
           <div className={styles["welcome__items-wrapper"]}>

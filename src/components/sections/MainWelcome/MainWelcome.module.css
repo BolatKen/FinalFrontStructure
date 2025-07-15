@@ -556,3 +556,18 @@
 }
  
 }
+
+/* Оптимизация для ссылок на продукты */
+.productLink {
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.productLink:hover {
+  transform: translateY(-2px);
+}
+
+.productLink:active {
+  transform: translateY(0);
+}

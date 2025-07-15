@@ -7,6 +7,7 @@ import styles from "./Header.module.css";
 import { Category } from "@/types/category";
 import { getCategories } from "@/services/category.service";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Header({ isBlur = false }) {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -15,6 +16,14 @@ export default function Header({ isBlur = false }) {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openSection, setOpenSection] = useState<string | null>(null);
+
+  const toggleMenu = useCallback(() => {
+    setIsMenuOpen((prev) => !prev);
+  }, []);
+
+  const closeMenu = useCallback(() => {
+    setIsMenuOpen(false);
+  }, []);
 
   const toggleSection = useCallback((section: string) => {
     setOpenSection((prev) => (prev === section ? null : section));
@@ -79,18 +88,21 @@ export default function Header({ isBlur = false }) {
     };
   }, []);
 
-  const handleCartClick = () => {
+  const handleCartClick = useCallback(() => {
     router.push("/cart");
-  };
+  }, [router]);
 
-  const spanStyle = {
-    height: "3px",
-    backgroundColor: isBlur ? "#ffffff" : "#000000",
-    margin: "5px 0",
-    borderRadius: "2px",
-    transition: "0.3s",
-    display: "block",
-  };
+  const spanStyle = useMemo(
+    () => ({
+      height: "3px",
+      backgroundColor: isBlur ? "#ffffff" : "#000000",
+      margin: "5px 0",
+      borderRadius: "2px",
+      transition: "0.3s",
+      display: "block" as const,
+    }),
+    [isBlur]
+  );
 
   return (
     <header
@@ -98,19 +110,28 @@ export default function Header({ isBlur = false }) {
     >
       <div className={`${styles.header__inner} _container-bigger`}>
         <div className={[styles.header__logo, styles.logo].join(" ")}>
-          <div
-            className={styles.burger}
-            onClick={() => setIsMenuOpen((prev) => !prev)}
-          >
+          <div className={styles.burger} onClick={toggleMenu}>
             <span style={spanStyle} />
             <span style={spanStyle} />
           </div>
-          <Link href="/" className={styles.logo__link}>
+          <Link href="/" className={styles.logo__link} prefetch={true}>
             <div className={[styles.logo__item, "_img"].join(" ")}>
               {isBlur ? (
-                <img src="/logo/LB_light.svg" alt="Логотип Leka Beauty" />
+                <Image
+                  src="/logo/LB_light.svg"
+                  alt="Логотип Leka Beauty"
+                  width={40}
+                  height={40}
+                  priority
+                />
               ) : (
-                <img src="/logo/LB.svg" alt="Логотип Leka Beauty" />
+                <Image
+                  src="/logo/LB.svg"
+                  alt="Логотип Leka Beauty"
+                  width={40}
+                  height={40}
+                  priority
+                />
               )}
             </div>
             <div className={styles.logo__text}>Leka Beauty</div>
@@ -125,11 +146,6 @@ export default function Header({ isBlur = false }) {
               childrenCategories={childCategories(parent.id)}
             />
           ))}
-          {/* <li className={styles.header__item}>
-            <Link href={`/order-status/`}>
-              Статус заказа
-            </Link>
-          </li> */}
         </ul>
 
         <div
@@ -145,16 +161,22 @@ export default function Header({ isBlur = false }) {
               ].join(" ")}
             ></div>
             {!isBlur ? (
-              <img
+              <Image
                 className={styles.cart__svg}
                 src="/icons/cart-icon.png"
                 alt="shopping-cart-line"
+                width={24}
+                height={24}
+                priority
               />
             ) : (
-              <img
+              <Image
                 className={styles.cart__svg}
                 src="/icons/cart-icon-white.png"
                 alt="shopping-cart-line"
+                width={24}
+                height={24}
+                priority
               />
             )}
           </div>
@@ -166,14 +188,11 @@ export default function Header({ isBlur = false }) {
 
       {isMenuOpen && (
         <>
-          <div
-            className={styles.burgerOverlay}
-            onClick={() => setIsMenuOpen(false)}
-          />
+          <div className={styles.burgerOverlay} onClick={closeMenu} />
           <nav className={styles.burgerMenu}>
             <button
               className={styles.burgerMenuClose}
-              onClick={() => setIsMenuOpen(false)}
+              onClick={closeMenu}
               aria-label="Закрыть меню"
             >
               ×
@@ -221,22 +240,17 @@ export default function Header({ isBlur = false }) {
 
               {/* Статичные пункты — как динамичные */}
               <li>
-                <Link href="/addresses">
+                <Link href="/addresses" prefetch={true}>
                   <span className={styles.burgerToggle}>Контакты</span>
                 </Link>
               </li>
               <li>
-                <Link href="/warranty">
+                <Link href="/warranty" prefetch={true}>
                   <span className={styles.burgerToggle}>Гарантия</span>
                 </Link>
               </li>
-              {/* <li>
-    <Link href="/order-status">
-      <span className={styles.burgerToggle}>Доставка и оплата</span>
-    </Link>
-  </li> */}
               <li>
-                <Link href="/info">
+                <Link href="/info" prefetch={true}>
                   <span className={styles.burgerToggle}>О компании</span>
                 </Link>
               </li>
